@@ -75,7 +75,13 @@ canvas{display:block;width:100%;height:auto;image-rendering:pixelated;image-rend
 
 .gloss{position:absolute;left:12px;right:12px;top:10px;line-height:1.45;background:var(--amber-soft);color:var(--amber-ink);border-radius:6px;padding:8px 11px;font-size:.9rem;z-index:2;box-shadow:0 4px 0 rgba(0,0,0,.25)}
 .gloss b{font-family:var(--display);font-weight:400;font-size:1.05rem;margin-right:6px}
-.gloss .en{font-family:var(--mono);font-size:.72rem;opacity:.75;display:block;margin-top:2px}
+.gloss{display:flex;flex-direction:column;gap:5px;padding-right:44px}
+.gloss .gr{line-height:1.45}
+.gloss .en{font-family:var(--mono);font-size:.72rem;opacity:.75;display:block;margin-top:1px}
+.gloss .q{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;border:2px solid var(--amber-ink);background:transparent;color:var(--amber-ink);font-family:var(--mono);font-weight:500;cursor:pointer;line-height:1}
+.txt .w{cursor:pointer;border-radius:3px}
+.txt .w:active{background:rgba(232,166,74,.25)}
+.card .enb{width:26px;height:26px;padding:0;border-radius:50%;text-align:center}
 .toast{position:absolute;left:50%;top:34px;transform:translateX(-50%);line-height:1.3;background:var(--amber);color:var(--amber-ink);font-family:var(--body);font-weight:600;font-size:.95rem;padding:6px 14px;border-radius:5px;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis;z-index:3;box-shadow:0 3px 0 #9A5E14}
 
 .pad{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:6px;touch-action:none}
@@ -198,6 +204,10 @@ canvas{display:block;width:100%;height:auto;image-rendering:pixelated;image-rend
 </div>
 
 <script>
+/* Tap-a-word dictionary: word as written → dictionary forms, and learner definitions (lexicon/). */
+window.LEX={"map":{},"defs":{}};
+</script>
+<script>
 /* Chapters register themselves here; each keeps its own save. */
 const CHAPTERS=[];
 </script>
@@ -307,7 +317,7 @@ const Q={ // NPC questions, kept here so review can reuse them
   {w:'화상',who:'핸드리 (생각)',ask:'살이 타는 것 같아요. 끓는 약에 ___을 입었어요.',opts:[['화상',1],['화장',0,'화장은 얼굴에 예쁘게 하는 거예요. 뜨거운 것에 다치면 "화상".']]},
  ],
  chogger:[
-  {w:'무시하다',who:'핸드리 (생각)',ask:'다들 저를 못 본 척해요. 저를 ___.',opts:[['무시해요',1],['무서워해요',0,'무서워하면 도망가요. 그냥 안 보는 건 "무시해요".'],['미워해요',0,'미워하는 게 아니에요. 정말 저를 못 느껴요. 안 보는 건 "무시해요".']]},
+  {w:'무시하다',who:'핸드리 (생각)',ask:'다들 저를 못 본 것처럼 지나가요. 저를 ___.',opts:[['무시해요',1],['무서워해요',0,'무서워하면 도망가요. 그냥 안 보는 건 "무시해요".'],['미워해요',0,'미워하는 게 아니에요. 정말 저를 못 느껴요. 안 보는 건 "무시해요".']]},
   {w:'무시하다',who:'핸드리 (생각)',ask:'또 ___ 아무 말도 못 했어요.',opts:[['무시당할까 봐',1],['무시할까 봐',0,'무시하는 사람은 초거예요. 나는 당해요 → "무시당할까 봐".']]},
  ],
  baker:[
@@ -415,7 +425,7 @@ function stallArt(X0,Y0,fest){
  if(fest){[4,9,14].forEach(c=>{r(X0+c,Y0+7,4,2,'#E8D2A0');r(X0+c,Y0+7,4,1,'#F4E6C0');r(X0+c+1,Y0+8,2,1,'#C9A86A')});
   [20,23,26].forEach((c,i)=>{r(X0+c,Y0+3,1,6,'#C9A86A');r(X0+c-1,Y0+4+i%2,3,2,'#D98AA0');r(X0+c-1,Y0+6,3,1,'#B86A80')})}
 }
-const RING=[...Array(24)].map((_,i)=>{const a=i/24*Math.PI*2;return [192+Math.round(Math.cos(a)*72)-3,160+Math.round(Math.sin(a)*40)-2]});
+const RING=[...Array(10)].map((_,i)=>{const a=(i+.5)/10*Math.PI*2;return [192+Math.round(Math.cos(a)*70)-3,160+Math.round(Math.sin(a)*38)-2]}); // Terfel stumps to sit on (Aro has no stone ring)
 function bedArt(X,Y,blanket,head){r(X+2,Y,12,16,'#6e5233');r(X+3,Y,10,16,'#C9A86A');if(head){r(X+2,Y,12,2,'#5a4229');r(X+4,Y+3,8,5,'#E8DCC0');r(X+4,Y+7,8,1,'#C9B898');r(X+3,Y+10,10,6,blanket)}else{r(X+3,Y,10,14,blanket);r(X+3,Y+4,10,1,'rgba(0,0,0,.18)');r(X+2,Y+14,12,2,'#5a4229')}r(X+2,Y,1,16,DK);r(X+13,Y,1,16,DK)}
 function inNight(X,Y){if(NIGHT())r(X,Y,16,16,'rgba(12,8,32,.32)')}
 
@@ -427,7 +437,7 @@ const TILES={
  shade:(X,Y,x,y,t)=>{shadeG(X,Y,x,y,t);nt(X,Y)},
  earth:(X,Y,x,y)=>{earth(X,Y,x,y);nt(X,Y)},
  gather:(X,Y,x,y,t)=>{r(X,Y,16,16,'#A88C62');const h=hash(x,y);r(X+(h%13)+1,Y+(h%11)+2,1,1,'#B89C70');r(X+((h*7)%13)+1,Y+((h*3)%12)+2,1,1,'#98805A');
-  RING.forEach(([sx,sy])=>{const dx=sx-x*16,dy=sy-y*16;if(dx>-6&&dx<16&&dy>-5&&dy<16){r(X+dx,Y+dy+3,6,1,'rgba(0,0,0,.25)');r(X+dx,Y+dy,6,4,'#8d8a80');r(X+dx+1,Y+dy,4,1,'#c4c1b6');r(X+dx,Y+dy+1,1,2,'#a8a59a');r(X+dx+5,Y+dy+1,1,3,'#6E6B62');r(X+dx,Y+dy+3,6,1,'#5E5B52')}});
+  RING.forEach(([sx,sy])=>{const dx=sx-x*16,dy=sy-y*16;if(dx>-6&&dx<16&&dy>-5&&dy<16){r(X+dx,Y+dy+5,7,1,'rgba(0,0,0,.25)');r(X+dx,Y+dy+1,7,4,'#6e5233');r(X+dx,Y+dy,7,2,'#a07c50');r(X+dx+2,Y+dy,3,1,'#C9A86A');r(X+dx+3,Y+dy+1,1,1,'#8a6a44');r(X+dx+5,Y+dy+2,1,3,'#5a4229');r(X+dx,Y+dy+4,7,1,DK)}});
   if(E13()&&y===7){r(X,Y+2,16,1,'#5a4229');for(let i=0;i<16;i+=4){r(X+i+1,Y+3,3,1,['#7e3f8f','#e8c25a','#B5524A'][(x+i/4)%3]);r(X+i+2,Y+4,1,1,['#7e3f8f','#e8c25a','#B5524A'][(x+i/4)%3])}}
   nt(X,Y)},
  house:(X,Y,x,y,t)=>{cg(X,Y,x,y,t);const c=at(x,y),hut=c==='U',[a,d]=hut?blk(x,y,'U',2,2):[blk(x,y,c,2,1)[0],c==='H'?0:1];clip(X,Y,()=>houseArt(X-a*16,Y-d*16,hut?3:0,t,x-a+y*7));nt(X,Y)},
@@ -546,6 +556,7 @@ const LIV13=hum({hair:'#7A4A2A',skin:'#D9A882',shirt:'#C9853A',pants:'#5A4A3A',s
 const CHOG=hum({hair:'#2A2A2A',skin:'#A87654',shirt:'#7E6A3A',pants:'#3E3A30',style:'spiky'}),CHOG16=hum({hair:'#2A2A2A',skin:'#A87654',shirt:'#6A5A30',pants:'#3E3A30',belt:'#5a4229',style:'spiky'});
 const BROSA=hum({hair:'#E0DCD4',skin:'#C49870',shirt:'#4E6A5A',pants:'#3E4A40',style:'bun',coat:1,lashes:1,lips:'#A0605A'},(rows,d)=>{if(d==='down'){px(rows,4,6,'X');px(rows,4,9,'X');px(rows,3,8,'X')}},p=>{p.X='#A87A5A'});
 const BAKER=hum({hair:'#4A3426',skin:'#C48E66',shirt:'#D8CBB0',pants:'#5A4632',belt:'#8a6a44',beard:'#4A3426'});
+const CROWD1=hum({hair:'#4A3426',skin:'#B98462',shirt:'#5E6A44',pants:'#4A3A2E',style:'bun',lashes:1,lips:'#A0605A'}),CROWD2=hum({hair:'#2A2A2A',skin:'#C48E66',shirt:'#7A5A44',pants:'#3E3A30',beard:'#2A2A2A'});
 const STORY=hum({hair:'#CFCAC0',skin:'#B07A56',shirt:'#5E4A6E',pants:'#3E3448',style:'long',coat:1,lashes:1,lips:'#9A5A5A'});
 const WORKER=hum({hair:'#3A2A1E',skin:'#B98462',shirt:'#8A7A4A',pants:'#4A3A2E',style:'bun',lashes:1,lips:'#A0605A'});
 const HERDER=hum({hair:'#5A4636',skin:'#A87654',shirt:'#6A5A44',pants:'#3E3A30',cap:'#8a6a44'});
@@ -593,7 +604,7 @@ const ZONES={
 "w,,,,,,,,,,YYYY,,,,,,,,,,w",
 "w,KK,,,,,,,yyyy,,,,,,,HH,w",
 "w,kk,,,,T,,,,,,,,,,,,,AA,w",
-"w,,f,,,,,,,,,,,,,,,,,,,,,w",
+"w,,,,,,,,,,f,,,,,,,,,,,,,w",
 "w,,,,,ss,,,,,,,,,,ss,,,,,w",
 "w.hh...gggggggggg....HH..w",
 "w.aD...gggggggggg....AA..w",
@@ -621,7 +632,7 @@ const ZONES={
    '6,13':'{테르펠|테르펠} 장작이 쌓여 있어요.','15,16':'{테르펠|테르펠} 장작. 겨울 준비예요.','20,16':'통 모양의 집. {테르펠|테르펠} 나무로 지었어요. 지붕 꼭대기에 술이 달렸어요.',
    get '9,13'(){return NIGHT()?'모닥불이 거의 꺼졌어요.':'모닥불. 할머니들이 옛날이야기를 해요.'},
    get '22,9'(){return NIGHT()?'등불이 켜져 있어요. 나무 그늘 때문에 별이 안 보여요.':'등불 기둥. 밤이 되면 켜요.'}},
-  npcs:['elhern','sethr','corto','pot','mel13','kalton','livvi','chogger13','baker','story','brosa','kid','elector','melTree']},
+  npcs:['elhern','sethr','corto','pot','crowd1','crowd2','mel13','kalton','livvi','chogger13','baker','story','brosa','kid','elector','melTree']},
  fields:{name:'아로 · 언덕 밭',reg:'ARO · HILL FIELDS',outdoor:1,
   legend:{'X':{tile:'wild'},'u':{tile:'crop',walk:1},'v':{tile:'weed',walk:1},'-':{tile:'terrace'},':':{tile:'steps',walk:1},'.':{tile:'earth',walk:1},'<':{tile:'path',walk:1},
    'W':{tile:'trough'},'o':{tile:'stones'},'R':{tile:'berry'},'Q':{tile:'root'},'U':{tile:'house'},'E':{tile:'gap',walk:1},'p':{tile:'plant',walk:1}},
@@ -685,16 +696,17 @@ const NPC={
     {say:'…핸드리? 다쳤구나. 조금만 참아.'},
     {say:'먼저 이 일을 끝내야 해. 아로 모두가 보고 있어.'},
     {who:'엘헌의 유령',say:'판결 확인. 단절. 지금 실행.'},
-    {who:tale,say:'사람들이 식은 {단절약|단절약}을 세서에게 발랐어요.',set:()=>{f().daubed=1}},
+    {who:tale,say:'엘헌이 식은 {단절약|단절약}을 세서에게 발랐어요.',set:()=>{f().daubed=1}},
     {who:tale,say:'차갑고 검붉은 약이었어요. 끓일 때만 뜨거워요.'},
     {who:'세서',say:'싫어! 싫어!'},
-    {say:'이제 아니야. 가.'},
+    {say:'이제 너는 우리가 아니야.'},
+    {who:think,say:'이상해요. 저한테는 세서가 똑같아 보여요.'},
     {who:tale,say:'세서는 혼자 숲으로 걸어갔어요. 아무도 따라가지 않았어요.'},
-    {say:'핸드리, 코르토한테 가서 상처를 보여 줘. 큰 나무 아래에 있어.',set:()=>{f().severed=1}}];
-   if(b('이웃')&&!f().severed&&!f().burned)return [{say:'코르토가 화덕에서 {단절약|단절약}을 끓이고 있어. 가 봐.'}];
+    {say:'핸드리, 코르토한테 가서 상처를 보여 줘. 자기 집 앞에 있어.',set:()=>{f().severed=1}}];
+   if(b('이웃')&&!f().severed&&!f().burned)return [{say:'코르토가 큰 나무 아래에서 {단절약|단절약}을 끓이고 있어. 가 봐.'}];
    return null},
   talk:()=>[
-   {say:'왔니, 핸드리? 오늘은 축제야. 그리고 슬픈 날이야.'},
+   {say:'왔니, 핸드리? 오늘은 축제야. 그래도 중요한 날이야.'},
    {say:'세서는 일을 안 했어. 남의 물건을 훔쳤어.'},
    {say:'그리고 브로에드의 팔을 부러뜨렸어.'},
    Q.elhern[0],
@@ -702,13 +714,13 @@ const NPC={
    {say:'(엘헌의 빈 눈에서 하얀 빛이 깜박여요.)'},
    {who:'엘헌의 유령',say:'{판결|판결} 확인. 단절. 오늘 실행.'},
    Q.elhern[1],
-   {say:'코르토가 화덕에서 {단절약|단절약}을 끓이고 있어. 식으면 바를 거야.',award:['이웃']}]},
+   {say:'코르토가 큰 나무 아래에서 {단절약|단절약}을 끓이고 있어. 식으면 바를 거야.',award:['이웃']}]},
  sethr:{name:'세서',zone:'circle',x:13,y:9,dir:'down',pos:()=>[13,9],
   get look(){return f().daubed?SETHR_RED:SETHR},
   hide:()=>!E13()||!!f().severed,
   talk:()=>[{say:'뭘 봐? 구경났어?'},{say:'내 잘못 아니야. 다들 나만 미워해.'},{say:'…숲에 혼자 가면 어떻게 될까?'}]},
- corto:{name:'의사 코르토',zone:'circle',x:4,y:5,dir:'left',look:CORTO,badge:['가마솥','끓이다','상처'],
-  pos:()=>E13()?(f().cortoGone?[9,3]:[4,5]):[4,4],
+ corto:{name:'의사 코르토',zone:'circle',x:11,y:5,dir:'left',look:CORTO,badge:['가마솥','끓이다','상처'],
+  pos:()=>E13()?(f().cortoGone?[4,5]:[11,5]):[4,4],
   hide:()=>!E13()&&(!!f().gourd||NIGHT()),
   status:()=>{if(!E13())return null;if(!b('가마솥'))return 'todo';if(f().severed&&!b('상처'))return 'todo';if(!b('상처'))return null},
   after:'세라는 어디 갔지…? 아, 그래. 오래전에 갔지.',
@@ -720,7 +732,7 @@ const NPC={
    if(!b('상처'))return [
     {say:'아이고, 핸드리. 이리 와 봐라.'},
     {say:'(코르토의 손이 떨려요. 빈 눈에서 빛이 깜박깜박해요.)'},
-    {who:'코르토의 유령',say:'{진찰|진찰} 시작. 오류. 오류.'},
+    {who:'코르토의 유령',say:'이차 단절 시작… 오류. 오류.'},
     {say:'다리, 옆구리, 뺨, 이마… 상처가 깊구나.'},
     Q.corto2[0],
     {w:'데다',build:['핸드리가','가마솥을','뛰어넘다가','데었어요']},
@@ -734,14 +746,14 @@ const NPC={
    return null},
   talk:()=>[
    {say:'어? 핸드리구나. 가까이 오지 마라. 뜨거워.'},
-   {say:'이건 {단절약|단절약}이야. 이 큰 솥에서만 만들어.'},
+   {say:'이건 {단절약|단절약}이야. 의사만 만들 수 있어.'},
    Q.corto[0],
    {say:'불을 꺼뜨리면 안 돼. 계속 끓여야 돼.'},
    Q.corto[1],
    {say:'(코르토의 빈 눈에서 빛이 깜박… 꺼졌어요.)'},
    {say:'…어디 가려고 했지? 아, 그래. 저기…'},
-   {who:tale,say:'코르토는 가마솥을 두고 큰 나무 쪽으로 걸어갔어요.',award:['가마솥','끓이다'],set:()=>{f().cortoGone=1}}]},
- pot:{name:'가마솥',zone:'circle',x:3,y:5,dir:'down',look:POT,pos:()=>[3,5],
+   {who:tale,say:'코르토는 가마솥을 두고 어디론가 걸어갔어요.',award:['가마솥','끓이다'],set:()=>{f().cortoGone=1}}]},
+ pot:{name:'가마솥',zone:'circle',x:10,y:5,dir:'down',look:POT,pos:()=>[10,5],
   hide:()=>!E13(),
   status:()=>f().chase&&!f().burned?'todo':null,
   script:()=>{
@@ -749,8 +761,9 @@ const NPC={
    if(!f().chase)return f().cortoGone?[{say:'코르토 할아버지가 없어요. 가마솥만 혼자 끓어요.'}]:[{say:'가마솥에서 검붉은 약이 부글부글 끓어요.'},{say:'김이 얼굴까지 올라와요. 뜨거워요.'}];
    return [
     {who:'핸드리',say:'리비! 거기 서!'},
-    {who:tale,say:'저는 가마솥 위로 뛰었어요.'},
-    {who:tale,say:'발이 가마솥 가장자리에 걸렸어요.'},
+    {who:tale,say:'사람들 사이로 빈틈이 보였어요. 저는 그쪽으로 뛰었어요.'},
+    {who:tale,say:'가마솥이 보였을 때는 너무 늦었어요.'},
+    {who:tale,say:'발뒤꿈치가 가마솥 가장자리에 걸렸어요.'},
     {who:tale,say:'끓는 단절약이 확 튀었어요.',set:()=>{f().burned=1}},
     {who:'핸드리',say:'아아아악!'},
     {who:tale,say:'다리, 옆구리, 뺨, 이마. 살이 불처럼 뜨거웠어요.'},
@@ -776,23 +789,26 @@ const NPC={
   hide:()=>NIGHT(),
   status:()=>E13()&&b('화상')&&!f().chase?'todo':null,
   script:()=>{
-   if(!E13())return [{say:'…저리 가.'},{who:think,say:'칼턴은 제 눈을 피해요.'}];
-   if(f().burned)return [{say:'…핸드리, 미안해. 내가 뛰자고 했어.'}];
-   if(f().chase)return [{say:'빨리! 리비가 화덕 뒤에 있어!'}];
+   if(!E13())return [{who:think,say:'칼턴은 아무 말도 안 해요. 제 눈을 피해요.'}];
+   if(f().burned)return [{say:'핸드리! 괜찮아? 어른들 불러올게!'}];
+   if(f().chase)return [{say:'빨리! 리비가 큰 나무 쪽으로 갔어!'}];
    if(!b('화상'))return [{say:'멜로리가 너 찾았어. 모임 터에 있어.'}];
    return [
     {say:'핸드리! 리비 잡기 하자! 리비는 진짜 빨라.'},
     {who:'리비',say:'못 잡지롱! 메롱!'},
-    {say:'리비가 코르토 화덕 쪽으로 갔어! 돌아가면 늦어.'},
-    {say:'가마솥 위로 뛰어넘자! 빨리!',set:()=>{f().chase=1}}]},
+    {say:'리비가 코르토 할아버지 쪽으로 갔어! 빨리!',set:()=>{f().chase=1}}]},
   talk:()=>[]},
  livvi:{name:'리비',zone:'circle',x:15,y:6,dir:'down',
   get look(){return E13()?LIV13:LIV16},
-  pos:()=>E13()?(f().chase?[1,5]:[15,6]):[20,14],
+  pos:()=>E13()?(f().chase?[9,6]:[15,6]):[20,14],
   hide:()=>NIGHT()||(E13()&&!!f().burned),
   script:()=>!E13()?[{say:'엄마가 너랑 말하지 말래.'},{who:think,say:'리비는 돌아서서 가 버렸어요.'}]
-   :f().chase?[{say:'여기까지 와 봐! 가마솥 넘어서!'}]:[{say:'칼턴이 술래야. 너도 놀래?'},{say:'미클 케이크 먹었어? 오늘만 먹을 수 있어!'}],
+   :f().chase?[{say:'못 잡지롱! 여기까지 와 봐!'}]:[{say:'칼턴이 술래야. 너도 놀래?'},{say:'미클 케이크 먹었어? 오늘만 먹을 수 있어!'}],
   talk:()=>[]},
+ crowd1:{name:'구경꾼',zone:'circle',x:9,y:4,dir:'right',look:CROWD1,hide:()=>!E13(),
+  talk:()=>[{say:'세서가 오늘 떠난대.'},{say:'약이 언제 식을까? 빨리 끝났으면 좋겠어.'}]},
+ crowd2:{name:'구경꾼',zone:'circle',x:12,y:6,dir:'up',look:CROWD2,hide:()=>!E13(),
+  talk:()=>[{say:'가까이 가지 마라. 의사만 저 약을 만질 수 있어.'}]},
  chogger13:{name:'초거',zone:'circle',x:18,y:8,dir:'down',look:CHOG,
   hide:()=>!E13(),
   talk:()=>[{say:'{슈거웜 꼬치|슈거웜 꼬치} 먹었어? 진짜 달아!'},{say:'세서는 오늘 쫓겨난대. 무섭다.'}]},
@@ -851,12 +867,12 @@ const NPC={
   talk:()=>[
    {say:'핸드리, 저 큰 벌 봐. 일렉터야.'},
    {say:'무서워? 나도 조금 무서워.'},
-   {who:tale,say:'일렉터가 멜로리 쪽으로 날아왔어요. 그리고 쏘았어요.'},
-   {say:'아야!'},
+   {who:tale,say:'다음 날, 저는 밭에서 일하고 있었어요.'},
+   {who:tale,say:'그때 사람들이 갑자기 저를 봤어요. 삼 년 만에 처음이었어요.'},
+   {who:tale,say:'멜로리였어요. 일렉터가 멜로리의 어깨를 쐈어요.'},
    Q.melTree[0],
    Q.melTree[1],
-   {say:'핸드리… 머리가 너무 뜨거워.'},
-   {who:tale,say:'멜로리가 쓰러졌어요. 사람들이 멜로리를 집으로 옮겼어요.',award:['쏘다'],set:()=>{f().stung=1}}]},
+   {who:tale,say:'사람들이 멜로리를 집으로 옮겼어요.',award:['쏘다'],set:()=>{f().stung=1}}]},
  /* ===== the hill fields ===== */
  chogger:{name:'초거',zone:'fields',x:5,y:5,dir:'right',look:CHOG16,badge:['무시하다'],
   hide:()=>E13()||NIGHT(),
@@ -896,11 +912,12 @@ const NPC={
    if(f().done)return [{say:'숲은 캄캄해요.'}];
    if(!f().fled)return [{who:think,say:'숲 저쪽은 야생이에요.'},{who:think,say:'엄마는 {아라클리드|아라클리드}를 사냥하다가 죽었어요. 우리가 일곱 살 때였어요.'}];
    return [
-    {who:think,say:'뒤에서 아로의 등불이 작게 흔들려요.'},
+    {who:think,say:'뒤에서 아로의 등불이 하나둘 켜져요.'},
     {who:'핸드리',say:'멜로리… 미안해.'},
     {w:'도망치다',build:['핸드리는','밤에','숲으로','도망쳤어요']},
     {who:tale,say:'그 밤, 저는 아로를 떠났어요.'},
-    {who:tale,say:'숲은 캄캄했어요. 아무도 따라오지 않았어요.'},
+    {who:tale,say:'마을 쪽에서 화난 목소리가 점점 커졌어요.'},
+    {who:tale,say:'숲은 캄캄했어요. 사람들이 따라왔는지는 몰라요. 머릿속에서는 다 쫓아왔어요.'},
     {who:tale,say:'멜로리는 이제 유령의 것이라고 생각했어요.'},
     {who:tale,say:'그때는 몰랐어요. 그게 끝이 아니었어요.',set:()=>{f().done=1},finale:1}]},
   talk:()=>[]},
@@ -917,12 +934,13 @@ const NPC={
     {who:'핸드리',say:'멜로리. 아니, 의사 선생님. 저를 봐 주세요.'},
     {say:'핸드리… 손 줘 봐.'},
     {who:think,say:'멜로리가 제 손바닥을 만졌어요. 따끔했어요.'},
+    {who:'멜로리의 유령',say:'부분 단절 감지. 분석 중.'},
     {who:'멜로리의 유령',say:'진단 연결 완료. 진단 시작.'},
     Q.melNight[0],
     {who:'멜로리의 유령',say:'결과: {단절|단절}. 손상 회복 불가.'},
     {who:'멜로리의 유령',say:'권고: {추방|추방}. 판관에게 보고합니다.'},
     {say:'안 돼… 말하지 마! 내 입으로 말하지 마!'},
-    {who:tale,say:'멜로리의 빈 눈과 입에서 피가 흘렀어요.'},
+    {who:tale,say:'멜로리의 남은 눈과 입가에서 피가 흘렀어요.'},
     {say:'유령이 판관한테 말할까 봐… 오래 못 막아.'},
     Q.melNight[1],
     {say:'핸드리, 도망쳐! 지금! 숲으로!',award:['진단하다','도망치다'],set:()=>{f().fled=1}}];
@@ -937,7 +955,7 @@ const NPC={
     {say:'…핸드리? 나야. 아직 나야.'},
     {who:think,say:'빈 눈 속에서 하얀 빛이 깜박여요.'},
     {who:tale,say:'그날부터 멜로리는 아로의 의사가 됐어요.'},
-    {who:tale,say:'한 달 동안 저는 기다렸어요. 멜로리가 저를 고쳐 줄 거예요.'},
+    {who:tale,say:'한 달 동안 저는 못 물어봤어요. 유령이 "안 돼"라고 할까 봐 무서웠어요.'},
     {who:tale,say:'서른한 번째 밤. 집에는 우리 둘뿐이었어요.',award:['열이 나다'],set:()=>{f().woke=1;f().night=1}}];
    if(!b('두드러기'))return null;
    return [{say:'다녀왔어?'}]},
@@ -957,7 +975,7 @@ const INTRO=[
  {say:'제 이름은 핸드리예요. 이건 제 이야기예요.'},
  {say:'우리 마을 아로는 큰 나무 아래에 있어요.'},
  {say:'나무 가운데 {벌집|벌집}에서 작은 벌들이 나와요.'},
- {say:'벌한테 쏘여야 우리는 이 세계에서 살 수 있어요.'},
+ {say:'벌한테 쏘이는 건 자연스러운 일이에요. 다 이유가 있어요.'},
  {say:'어떤 사람 머리에는 {유령|유령}이 살아요. {판관|판관}, 의사, {설계자|설계자}예요.'},
  {say:'열세 살 때였어요. 그날은 축제였어요.'},
  {say:'도둑 세서가 판결을 받았어요. 오늘 세서는 마을에서 쫓겨나요.'},
@@ -969,12 +987,12 @@ function questText(){
  if(F.done)return '1장 끝 · 일지에서 복습해요';
  if(E13()){
   if(!b('이웃'))return '모임 터 · 판관 엘헌의 말을 들어요';
-  if(!b('가마솥'))return '코르토의 화덕 · 가마솥을 봐요';
+  if(!b('가마솥'))return '큰 나무 아래 · 가마솥을 봐요';
   if(!b('화상'))return '모임 터 · 멜로리를 찾아요';
   if(!F.chase)return '큰 나무 아래 · 칼턴하고 놀아요';
-  if(!F.burned)return '코르토의 화덕 · 리비를 잡아요';
+  if(!F.burned)return '큰 나무 아래 · 리비를 잡아요';
   if(!F.severed)return '모임 터 · 세서의 추방';
-  return '큰 나무 아래 · 코르토한테 상처를 보여요';
+  return '코르토의 집 앞 · 상처를 보여 줘요';
  }
  if(F.fled)return '숲 가장자리 · 도망쳐요';
  if(F.night)return '쌍둥이 집 · 멜로리한테 물어봐요';
@@ -1035,7 +1053,7 @@ const DICT={
  '추방자':{k:'마을에서 쫓겨난 사람.',e:'outcast, exile'},
  '행렬':{k:'여러 사람이 줄지어 같이 가는 것.',e:'procession'},
  '새 피':{k:'다른 마을에 선물로 보내는 젊은 남자. 큰 영광이에요.',e:'"fresh blood"'},
- '법관':{k:'마을의 재판관. 머릿속의 유령이 법을 알려 줘요.',e:'Lawgiver'},
+ '판관':{k:'유령을 가진 사람. 마을의 규칙을 지키고 판결해요.',e:'Lawgiver'},
  '파수꾼':{k:'밤에 마을을 지키는 사람.',e:'watchman'},
  '우리':{k:'짐승을 가두어 키우는 곳.',e:'(animal) pen'},
  '오스클로':{k:'덫으로 잡는 숲 짐승.',e:'Ossclaw'},
@@ -1098,11 +1116,11 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  woman:[
   {w:'꽃잎',ask:'꽃에서 색깔이 있는 얇은 부분은 ___이에요.',opts:[['꽃잎',1],['나뭇잎',0,'나뭇잎은 나무에 달린 잎이에요. 꽃의 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 부분은 "꽃잎".']]},
-  {w:'꽃잎',ask:'이 꽃은 크로에만 있기 ___ 아주 귀해요.',opts:[['때문에',1],['전에',0,'"-기 전에"는 시간 순서예요. 이유니까 → "있기 때문에".'],['때문이에요',0,'문장이 계속되니까 "때문에"예요.']]},
+  {w:'꽃잎',ask:'이 꽃은 아로에 없기 ___ 아주 신기해요.',opts:[['때문에',1],['전에',0,'"-기 전에"는 시간 순서예요. 이유니까 → "있기 때문에".'],['때문이에요',0,'문장이 계속되니까 "때문에"예요.']]},
  ],
  guard:[
   {w:'훔치다',ask:'누가 밤에 몰래 빵을 ___ 갔어요.',opts:[['훔쳐',1],['빌려',0,'빌리면 나중에 돌려줘요. 몰래 가져가면 → "훔쳐 갔어요".'],['흔들어',0,'흔들다는 이리저리 움직이는 거예요. 몰래 가져가면 → "훔쳐 갔어요".']]},
-  {w:'도둑',ask:'남의 물건을 훔치는 사람은 ___이에요.',opts:[['도둑',1],['도장',0,'도장은 가라테 하는 곳이에요! 훔치는 사람은 "도둑".'],['두부',0,'두부는 음식이에요! 훔치는 사람은 "도둑".']]},
+  {w:'도둑',ask:'남의 물건을 훔치는 사람은 ___이에요.',opts:[['도둑',1],['도장',0,'도장은 이름을 찍는 거예요! 훔치는 사람은 "도둑".'],['두부',0,'두부는 음식이에요! 훔치는 사람은 "도둑".']]},
  ],
  hunter:[
   {w:'사냥꾼',ask:'숲에서 짐승을 잡는 사람은 ___이에요.',opts:[['사냥꾼',1],['사냥개',0,'사냥개는 사냥을 돕는 개예요. 사람은 "사냥꾼".'],['나무꾼',0,'나무꾼은 나무를 하는 사람이에요. 짐승을 잡으면 "사냥꾼".']]},
@@ -1114,7 +1132,7 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  cafe:[ // old words from 성실호 and 1장, no badges
   {ask:'물을 ___ 차를 만들어요.',opts:[['끓여서',1],['굶어서',0,'굶다는 밥을 안 먹는 거예요! 물은 "끓여서".']]},
-  {ask:'뜨거운 냄비에 손을 ___.',opts:[['데었어요',1],['대었어요',0,'"대다"는 닿게 하는 거예요. 뜨거워서 다쳤으면 → "데었어요".']]},
+  {ask:'뜨거운 냄비에 손을 ___.',opts:[['데었어요',1],['되었어요',0,'"되다"는 무엇이 바뀌는 거예요. 뜨거워서 다쳤으면 → "데었어요".']]},
   {ask:'모기한테 물려서 다리가 너무 ___.',opts:[['가려워요',1],['가려요',0,'"가리다"는 안 보이게 막는 거예요. 모기 → "가려워요".']]},
   {ask:'벌이 아이 팔을 ___.',opts:[['쐈어요',1],['쌌어요',0,'싸다는 가방을 싸거나 값이 낮은 거예요. 벌은 "쐈어요".']]},
   {ask:'빵을 너무 오래 구워서 까맣게 ___.',opts:[['탔어요',1],['땄어요',0,'따다는 꽃이나 과일을 손으로 떼는 거예요. 까맣게 → "탔어요".']]},
@@ -1126,7 +1144,7 @@ const Q={ // NPC questions, kept here so review can reuse them
 
 const ITEMS={'나뭇잎 이불':'큰 나뭇잎을 엮어서 만든 이불. 조금 따뜻해요. 그런데 가려워요.','막대기':'숲에서 주운 단단한 막대기.',
  '마른 빵 껍질':'아로 사람들이 버린 빵 껍질. 딱딱하지만 먹을 수 있어요.','크로 빵':'까맣게 탄 크로 빵. 핸드리가 먹을 수 있는 빵이에요.',
- '옷':'빨랫줄에서 가져온 크로 옷.','신발':'크로 사람의 신발. 조금 커요.','크로 꽃':'주황색 크로 꽃. 꽃잎에 초록 줄이 있어요.'};
+ '옷':'빨랫줄에서 가져온 크로 옷.','신발':'크로 사람의 신발. 조금 커요.','크로 꽃':'주황색 크로 꽃. 꽃잎에 초록 줄이 있어요. 하룻밤은 이 꽃을 먹을 수 있어요.'};
 
 const f=()=>state.f;
 const hasItem=i=>state.items.includes(i);
@@ -1520,7 +1538,7 @@ const ZONES={
    'g':()=>f().left?'아로 사람들이 밟은 땅이에요. 발자국이 많아요.':'불빛이 밝아요. 저기 나가면 들켜요.',
    'm':()=>f().left?'풀이 눌린 자국만 남았어요.':'가죽 이불이에요. 누가 자고 있어요.',
    'F':()=>f().left?'불이 꺼졌어요. 재만 남았어요.':'모닥불이 탁탁 소리를 내요. 따뜻해 보여요.',
-   'B':()=>f().left?'상자가 있던 자리예요. 땅이 깊이 눌렸어요.':'무거운 상자예요. 네 사람이 들어요. 크로에 주는 선물일까요?',
+   'B':()=>f().left?'상자가 있던 자리예요. 땅이 깊이 눌렸어요.':'무거운 상자예요. 두 사람이 같이 들어요. 크로에 주는 선물일까요?',
    'T':['큰 나무 뒤는 숨기 좋아요.','나무껍질에 비늘이 있어요.'],'C':['잎이 하늘을 덮었어요.']}),
   npcs:['escort','kaltonR','drummer','piper','carrier','ashes']},
  cro:{name:'크로',reg:'CRO · FARMLAND',outdoor:1,
@@ -1533,7 +1551,7 @@ const ZONES={
    'o':['사람 키만 한 돌이에요. 돌이 둥글게 서 있어요. 아로에는 이런 게 없어요.','오래된 돌이에요. 이끼가 조금 있어요.','돌 뒤에 숨으면 아무도 저를 못 봐요.'],
    'y':['크로의 큰 나무예요. 가운데에 벌집이 부풀어 있어요.','작은 벌들이 날아다녀요. 그런데 저한테는 안 와요.'],
    'Y':['크로의 큰 나무예요. 아로 나무처럼 기울지 않았어요.'],
-   'R':['지붕이에요. 아로 집보다 넓어요.'],'W':['집이 아로보다 멀리 떨어져 있어요. 크로는 아로보다 두 배쯤 커요.'],
+   'R':['지붕 꼭대기에 술이 있어요. 아로 집하고 똑같아요.'],'W':['집이 아로보다 멀리 떨어져 있어요. 크로는 아로보다 두 배쯤 커요.'],
    'D':()=>f().night&&!f().hunt?'문 옆에 등불이 켜져 있어요. 안에서 숨소리가 들려요.':'나무 문이에요.',
    'f':['주황색 꽃이에요. 꽃잎에 초록 줄이 있어요. 덩굴이 천천히 움직여요.','손바닥만 한 꽃잎이 빙글빙글 덩굴을 따라 피었어요.'],
    'O':()=>f().hunt?'화덕이 식었어요.':'흙으로 만든 화덕이에요. 빵 굽는 냄새가 나요.',
@@ -1554,6 +1572,7 @@ const EAT={
   {who:'핸드리',say:'바닥에서 단단한 막대기를 주웠어요.',give:'막대기'},
   {who:'…',say:'퍽. 퍽. 퍽. 지빗이 조용해졌어요.'},
   {who:'핸드리',say:'불이 없어요. 날것으로 먹었어요. 회색이고 질겨요.'},
+  {who:'…',say:'조금 {토했어요|토하다}. 그래도 나머지를 다 먹었어요.'},
   {who:'핸드리',say:'그래도 먹어야 돼요.',set:()=>{f().ate='jibbit';f().jibbit=1}}]};
 function eatSteps(k){
  const F=f();
@@ -1580,7 +1599,7 @@ const lowPoint=()=>[
  {who:'핸드리',say:'한참 동안 누워 있었어요.'},
  {w:'외롭다',build:['외로워도','저는','계속','걸어가요']},
  {who:'핸드리',say:'일어났어요. 여기 있으면 죽어요. 떠나야 돼요.',set:()=>{f().resolve=1}},
- {who:'…',say:'그때 멀리서 북소리가 들려요. 둥. 둥. 둥.'},
+ {who:'…',say:'다음 날, 멀리서 북소리가 들렸어요. 둥. 둥. 둥.'},
  {who:'핸드리',say:'숲길 쪽이에요. 사람들 소리예요.',award:['외롭다']}];
 
 /* ---------------- Cro: night falls after the welcome; morning after the last theft ---------------- */
@@ -1588,7 +1607,7 @@ const nightFall=()=>[{who:'…',say:'잔치는 닷새 동안 계속됐어요.'},
  {who:'…',say:'저는 숲에 숨어서 살았어요. 배가 고팠어요.'},{who:'…',say:'그리고 사흘에 한 번, 밤에 크로에 들어갔어요.',set:()=>{f().night=1}}];
 const LOOT=['크로 빵','옷','크로 꽃'];
 const morning=got=>LOOT.filter(i=>i!==got).every(hasItem)?[{who:'…',say:'해가 뜨기 전에 숲으로 돌아왔어요.',set:()=>goZone('cro',2,2,'down')},
- {who:'…',say:'아침에 크로 사람들이 소리쳐요. "도둑이 또 왔어요!"'},{who:'…',say:'{법관|법관}이 명령했어요. 사냥꾼들이 도둑을 찾으러 와요.',set:()=>{f().hunt=1}}]:[];
+ {who:'…',say:'아침에 크로 사람들이 소리쳐요. "도둑이 또 왔어요!"'},{who:'…',say:'{판관|판관}이 명령한 것 같아요. 사냥꾼들이 도둑을 찾으러 와요.',set:()=>{f().hunt=1}}]:[];
 const theftGate=()=>{const F=f();if(F.hunt)return [{who:'핸드리',say:'이제 마을에 못 가요. 사냥꾼들이 저를 찾아요.'}];if(!F.night)return [{who:'핸드리',say:'낮에는 사람이 많아요. 들키면 안 돼요.'}];return null};
 
 const AROMAN={hair:'#4A3426',skin:'#C99470',shirt:'#7A5A3A',pants:'#4A3E30',beard:'#4A3426'};
@@ -1607,11 +1626,12 @@ const NPC={
   talk:()=>[]},
  arraclid:{name:'아라클리드',zone:'forest',x:6,y:5,dir:'left',look:ARRACLID,pos:()=>[6,5],badge:['어둠','캄캄하다'],hide:()=>!!f().arraclid,
   talk:()=>[
-   {who:'…',say:'깍. 깍. 깍.'},
-   {who:'핸드리',say:'어둠 속에서 무엇이 와요.'},
+   {who:'핸드리',say:'울다가 잠이 들었어요.'},
+   {who:'핸드리',say:'눈을 떴어요. 무엇이 제 위에 서 있어요.'},
    {who:'…',say:'긴 다리가 나뭇가지처럼 흔들려요. 다리가 여섯 개예요.'},
    Q.arr[0],
-   {who:'핸드리',say:'{아라클리드|아라클리드}예요. 엄마를 죽인 짐승이에요.'},
+   {who:'…',say:'깍. 깍. 깍.'},
+   {who:'핸드리',say:'{아라클리드|아라클리드}예요. 엄마도 아라클리드를 사냥하다가 죽었어요.'},
    {who:'…',say:'눈이 네 개. 입은 손가락이 여덟 개인 손 같아요.'},
    Q.arr[1],
    Q.arr[2],
@@ -1619,7 +1639,7 @@ const NPC={
    {who:'…',say:'짐승이 피를 맛봐요. 그리고… 뒤로 물러나요.'},
    {who:'핸드리',say:'제 피 맛이 싫은 것 같아요. 짐승들은 저를 피해요.'},
    {who:'…',say:'깍… 깍… 소리가 멀어져요.',set:()=>{f().arraclid=1;f().day=1}},
-   {who:'핸드리',say:'해가 뜰 때까지 눈을 못 감았어요.',award:['어둠','캄캄하다']}]},
+   {who:'…',say:'짐승은 나무를 타고 위로 사라졌어요.',award:['어둠','캄캄하다']}]},
  berry:{name:'열매 덤불',zone:'forest',x:12,y:6,dir:'down',look:BERRY,pos:()=>[12,6],badge:['숲','배고프다'],status:foodStatus('berry'),
   after:'빨간 열매, 파란 열매, 노란 열매. 이건 먹어도 돼요.',
   script:()=>{if(!f().arraclid)return eatSteps('berry');if(!b('숲'))return withAward([
@@ -1672,9 +1692,9 @@ const NPC={
   talk:()=>[
    {who:'핸드리',say:'덤불 뒤에 숨었어요. 아로 사람들이 불 옆에 있어요.'},
    {who:'…',say:'스무 명쯤이에요. 북, 피리, 그리고 무거운 상자.'},
-   {who:'아로 사람',say:'칼턴, 왜 그렇게 얼굴이 어두워요?'},
-   {who:'아로 사람',say:'크로에 가면 대접받을 거예요. {새 피|새 피}잖아요.'},
-   {who:'아로 사람',say:'운이 좋아요! 저도 가고 싶어요. 하하.'},
+   {who:'아로 사람',say:'칼턴, 왜 그렇게 얼굴이 어두워?'},
+   {who:'아로 사람',say:'크로에 가면 대접받을 거야. {새 피|새 피}잖아.'},
+   {who:'아로 사람',say:'운이 좋아! 나도 가고 싶다. 하하.'},
    Q.escort[0],
    {who:'핸드리',say:'칼턴은 어릴 때 친구예요. 지금은 저를 안 봐요.'},
    Q.escort[1],
@@ -1696,18 +1716,21 @@ const NPC={
    {who:'핸드리',say:'불은 꺼졌어요. 재가 아직 따뜻해요.'},
    {who:'핸드리',say:'발자국, 재, 버린 빵 껍질… 사람들이 머문 자리예요.'},
    Q.ashes[0],
-   {who:'핸드리',say:'빵 껍질이에요. 바삭하게 구워졌어요. 저도 먹을 수 있어요!',give:'마른 빵 껍질'},
+   {who:'핸드리',say:'빵 껍질이에요. 오래돼서 돌처럼 딱딱해요.'},
+   {who:'핸드리',say:'잇몸에서 피가 날 때까지 씹었어요. 세상에서 제일 운이 좋은 것 같았어요.',give:'마른 빵 껍질'},
    Q.ashes[1],
    {who:'핸드리',say:'행렬의 흔적을 따라가면 크로예요.',award:['흔적'],set:()=>{f().crust=1}}]},
  /* ---- Cro, day: Kalton's welcome ---- */
  crodoc:{name:'크로 의사',zone:'cro',x:5,y:7,dir:'down',look:CRODOC,hide:()=>!!f().night,
   status:()=>f().sawDoc?null:'todo',
-  script:()=>{if(f().sawDoc)return [{who:'크로 의사',say:'건강한 아이예요. 크로에 잘 왔어요.'}];return [
+  script:()=>{if(f().sawDoc)return [{who:'크로 의사',say:'건강한 아이야. 크로에 잘 왔어.'}];return [
    {who:'핸드리',say:'크로예요. 아로보다 두 배쯤 커요. 돌 뒤에 숨어서 봐요.'},
    {who:'…',say:'크로 사람들이 북을 치면서 칼턴을 맞이해요.'},
-   {who:'크로 의사',say:'이리 와 봐요. 팔 좀 봐요.'},
+   {who:'크로 의사',say:'이리 와 봐. 팔 좀 보자.'},
    {who:'…',say:'늙은 의사가 칼턴의 팔과 배를 세게 눌러요.'},
-   {who:'크로 의사',say:'아파요? 안 아파요? 건강하네요.'},
+   {who:'칼턴',say:'아야!'},
+   {who:'핸드리',say:'…조금 고소했어요.'},
+   {who:'크로 의사',say:'아프니? 안 아파? 건강하네.'},
    {who:'칼턴',say:'…네.'},
    {who:'핸드리',say:'칼턴은 쫓겨난 게 아니에요. 귀한 선물이에요.',set:()=>{f().sawDoc=1}},
    ...(f().sawHome?nightFall():[])]},
@@ -1742,7 +1765,7 @@ const NPC={
   after:'이상하네요. 아무도 없어요.',
   talk:()=>[
    {who:'핸드리',say:'벽 뒤에 숨었어요. 빵집 앞에 {파수꾼|파수꾼}이 있어요.'},
-   {who:'크로 파수꾼',say:'요즘 밤마다 빵이 없어져요.'},
+   {who:'크로 파수꾼',say:'요즘 자꾸 빵이 없어져요.'},
    {who:'크로 파수꾼',say:'누가 빵을 훔쳐 가요. 신발도, 옷도요.'},
    Q.guard[0],
    {who:'크로 파수꾼',say:'오늘은 꼭 잡을 거예요. 여기서 지켜요.'},
@@ -1770,14 +1793,14 @@ const NPC={
  flowerN:{name:'크로 꽃',zone:'cro',x:20,y:12,dir:'down',look:FLOWER,pos:()=>[20,12],
   status:()=>f().night&&!f().hunt&&b('도둑')&&!hasItem('크로 꽃')?'todo':null,
   script:()=>{const g0=theftGate();if(g0)return g0;if(hasItem('크로 꽃'))return [{who:'…',say:'꽃이 천천히 움직여요.'}];
-   return [{who:'…',say:'문 앞에 주황색 꽃이 있어요. 덩굴이 천천히 움직여요.'},{who:'…',say:'한 송이를 꺾었어요. 꽃잎이 손바닥만 해요.',give:'크로 꽃'},...morning('크로 꽃')]},
+   return [{who:'…',say:'문 앞에 주황색 꽃이 있어요. 덩굴이 천천히 움직여요.'},{who:'…',say:'한 송이를 꺾었어요. 꽃잎이 손바닥만 해요.',give:'크로 꽃'},{who:'핸드리',say:'오늘 밤은 이걸 먹을 수 있어요. 내일은 아마 못 먹어요.'},...morning('크로 꽃')]},
   talk:()=>[]},
  /* ---- Cro, the hunt ---- */
  hunter:{name:'크로 사냥꾼',zone:'cro',x:9,y:3,dir:'down',look:{hair:'#4A3020',skin:'#B9825A',shirt:'#5A6A3A',pants:'#3E4A2E',belt:'#2A2420',style:'short'},badge:['사냥꾼','덫'],
   hide:()=>!f().hunt||!!f().hunters,status:()=>'todo',
   talk:()=>[
    {who:'핸드리',say:'숲 덤불 속에 숨었어요. 숨도 작게 쉬어요.'},
-   {who:'크로 사냥꾼',say:'법관님이 명령했어요. 도둑을 꼭 잡으래요.'},
+   {who:'크로 사냥꾼',say:'{판관|판관}님이 명령했어요. 도둑을 꼭 잡으래요.'},
    Q.hunter[0],
    {who:'크로 사냥꾼 (2)',say:'{오스클로|오스클로} 덫도 가져왔어요. 놓을까요?'},
    {who:'크로 사냥꾼',say:'아니요. 덫은 짐승용이에요. 도둑은 우리가 찾아요.'},
@@ -1796,15 +1819,16 @@ const NPC={
    {who:'…',say:'무릎이 이상하게 꺾였어요. 일어나지 못해요.'},
    {who:'사냥꾼 여자',say:'…당신이 도둑이에요?'},
    {who:'핸드리',say:'제 손에 막대기가 있어요. 여자는 혼자예요.'},
-   {w:'사냥꾼',ask:'핸드리는 어떻게 해요?',opts:[['막대기를 내려놓아요',1],['막대기를 휘둘러요',0,'핸드리는 사람을 못 때려요. 손이 떨려요.']]},
+   {w:'사냥꾼',ask:'핸드리는 어떻게 해요?',opts:[['막대기를 내려놓아요',1],['막대기를 휘둘러요',0,'여자는 벌써 너무 무서워해요. 핸드리는 때리고 싶은 마음이 사라졌어요.']]},
    {who:'…',say:'막대기를 내려놓았어요.',take:['막대기']},
    {who:'핸드리',say:'못 하겠어요… 눈물이 났어요.'},
    {who:'사냥꾼 여자',say:'…뭘 원해요?'},
-   {who:'핸드리',say:'갈 곳이요. 저를 받아 줄 마을이요.'},
+   {who:'핸드리',say:'미안해요… 너무 배고파요. 너무 힘들어요.'},
+   {who:'핸드리',say:'떠날게요. 갈 마을만 알려 주세요.'},
    {who:'사냥꾼 여자',say:'동쪽으로 가요. 해가 뜨는 쪽이요.'},
    Q.huntress[0],
    {who:'사냥꾼 여자',say:'{하펫 꽃|하펫 꽃}이 자라는 쪽으로 가면 {디보|디보}가 있어요.'},
-   {who:'사냥꾼 여자',say:'디보는 큰 마을이에요. 거기서 살아요.'},
+   {who:'사냥꾼 여자',say:'디보는 크로보다 커요. 먹을 것도 더 많아요.'},
    Q.huntress[1],
    {w:'해가 뜨다',build:['해가','뜨는','쪽으로','걸어가요']},
    {who:'핸드리',say:'고마워요.',set:()=>{f().done=1}},
@@ -2182,9 +2206,27 @@ function prepListen(s){
  const out={...s,ask:'잘 들어 보세요. 무슨 단어예요?',w,opts:[[w,1],...pool.map(p=>[p,0,`"${w}"였어요. 다시 들어 보세요.`])],listenOnly:1};
  dlg.cur=out;return out;
 }
+/* Every Korean word in a line is tappable: marked glosses ({shown|key}) open the chapter DICT entry,
+   all other words open the game's dictionary (LEX, built from the dialogue by lexicon/extract.py). */
 function glossHTML(t){
  const esc=x=>x.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
- return esc(t).replace(/\{([^|}]+)\|([^}]+)\}/g,(m,a,k)=>`<span class="gl" data-k="${k}">${a}</span>`);
+ const words=x=>esc(x).replace(/[가-힣]+/g,w=>`<span class="w">${w}</span>`);
+ let out='',last=0;const re=/\{([^|}]+)\|([^}]+)\}/g;let m;
+ while((m=re.exec(t))){out+=words(t.slice(last,m.index))+`<span class="gl" data-k="${esc(m[2])}">${esc(m[1])}</span>`;last=re.lastIndex}
+ return out+words(t.slice(last));
+}
+function lexLookup(w){ // word as written → [[lemma,{k,e}],…]; falls back to the longest known prefix (우주선이 → 우주선)
+ const L=window.LEX||{map:{},defs:{}},hit=l=>C.DICT[l]?[l,C.DICT[l]]:L.defs[l]?[l,L.defs[l]]:null;
+ let ls=L.map[w];
+ if(!ls)for(let n=w.length;n>0&&!ls;n--){const pre=w.slice(0,n);if(L.map[pre])ls=L.map[pre];else if(hit(pre))ls=[pre]}
+ return (ls||[]).map(hit).filter(Boolean);
+}
+function popGloss(rows){ // rows: [[headword,{k,e}],…] — Korean first; English only behind the ? button
+ if(!rows.length){toast('사전에 없는 말이에요.');return}
+ const el=$('gloss');
+ el.innerHTML=rows.map(([h,d])=>`<div class="gr"><b>${h}</b>${d.k}<span class="en" hidden>${d.e||''}</span></div>`).join('')+'<button class="q" type="button" aria-label="영어로 보기">?</button>';
+ el.hidden=false;el.querySelector('.q').addEventListener('click',e=>{e.stopPropagation();el.querySelectorAll('.en').forEach(x=>x.hidden=!x.hidden);clearTimeout(popGloss.t);popGloss.t=setTimeout(hideGloss,8000)});
+ clearTimeout(popGloss.t);popGloss.t=setTimeout(hideGloss,6000);
 }
 function typeText(text,done){
  clearInterval(typing?.id);const el=$('txt');const p=plain(text);el.textContent='';let i=0;
@@ -2195,11 +2237,8 @@ function typeText(text,done){
  if(reduce)return fin();
  typing.id=setInterval(()=>{i++;el.textContent=p.slice(0,i);if(i>=p.length)fin()},26);
 }
-function showGloss(k){
- const d=C.DICT[k];if(!d)return;
- const el=$('gloss');el.innerHTML=`<b>${k}</b>${d.k}<span class="en">${d.e}</span>`;el.hidden=false;
- clearTimeout(showGloss.t);showGloss.t=setTimeout(hideGloss,4000);
-}
+function showGloss(k){const d=C.DICT[k];if(d)popGloss([[k,d]])}
+function showWord(w){popGloss(lexLookup(w))}
 function hideGloss(){$('gloss').hidden=true}
 
 const choiceBtns=()=>[...document.querySelectorAll('#choices .choice')];
@@ -2372,7 +2411,7 @@ function openPanel(){
   $('card').innerHTML=`<div class="top"><span class="big">${logSel}</span><button class="spk${canSpeak()?'':' '}" id="cardSpk" aria-label="듣기" ${canSpeak()?'':'hidden'}>${$('spk').innerHTML}</button></div>
    <span class="def">${d.k}</span><span class="ex">예: ${d.ex}</span>${d.hj?`<span class="hj">${d.hj}</span>`:''}
    <span class="hj">기억 레벨 ${L.b}/5 · ${isDue(logSel)?'지금 복습할 수 있어요':'다음 복습: '+fmtWait(L.due-now())+' 후'}</span>
-   ${showEn?`<span class="en">${d.e}</span>`:'<button class="enb" id="enBtn">영어 보기</button>'}`;
+   ${showEn?`<span class="en">${d.e}</span>`:'<button class="enb" id="enBtn" aria-label="영어로 보기">?</button>'}`;
   $('cardSpk')?.addEventListener('click',()=>speak(logSel+'. '+d.ex));
   $('enBtn')?.addEventListener('click',()=>{showEn=true;openPanel()});
  }else $('card').innerHTML='<span class="def">아직 단어가 없어요.</span><span class="ex">사람들한테 말을 걸면 일지에 단어가 생겨요.</span>';
@@ -2403,9 +2442,9 @@ document.querySelectorAll('.dpad button').forEach(b=>{
 });
 $('btnA').addEventListener('pointerdown',e=>{e.preventDefault();interact()});
 $('btnB').addEventListener('pointerdown',e=>{e.preventDefault();cancel()});
-$('dlg').addEventListener('click',e=>{const gl=e.target.closest('.gl');if(gl){e.stopPropagation();showGloss(gl.dataset.k);return}if(e.target.closest('#spk'))return;advance()});
+$('dlg').addEventListener('click',e=>{const gl=e.target.closest('.gl');if(gl){e.stopPropagation();showGloss(gl.dataset.k);return}const w=e.target.closest('.txt .w');if(w){e.stopPropagation();showWord(w.textContent);return}if(e.target.closest('#spk'))return;advance()});
 $('spk').addEventListener('click',e=>{e.stopPropagation();if(dlg)speak(dlg.cur.listen||dlg.cur.say||dlg.cur.ask||'')});
-$('gloss').addEventListener('click',hideGloss);
+$('gloss').addEventListener('click',e=>{if(!e.target.closest('.q'))hideGloss()});
 $('choices').addEventListener('pointerdown',e=>{const b=e.target.closest('.choice');if(b){sel=choiceBtns().indexOf(b);markSel()}});
 $('logBtn').addEventListener('click',()=>{showEn=false;openPanel()});
 $('sndBtn').addEventListener('click',()=>{soundOn=!soundOn;store.set('esb-sound',soundOn?'1':'0');updateSound();sfx('ok')});
