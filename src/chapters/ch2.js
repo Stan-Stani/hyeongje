@@ -154,7 +154,7 @@ const tuned=(L,fn,extra)=>{let A=null;const o={...L};Object.defineProperty(o,'ar
 const setc=(rows,y,x,c)=>{if(rows[y]&&x<rows[y].length)rows[y]=rows[y].slice(0,x)+c+rows[y].slice(x+1)};
 
 /* Handry: Ma's straight dark hair, narrow eyes, the dark-red Severance streak on brow, cheek and leg. Aro wrappings, later stolen Cro clothes. */
-const streak=(rows,view)=>{if(view==='down'){setc(rows,4,5,'R');setc(rows,5,4,'R');setc(rows,6,4,'R');setc(rows,6,5,'R');setc(rows,14,4,'R')}
+const streak=(rows,view)=>{if(view==='down'){setc(rows,4,10,'R');setc(rows,5,11,'R');setc(rows,6,11,'R');setc(rows,6,10,'R');setc(rows,14,11,'R')}
  else if(view==='left'){setc(rows,4,4,'R');setc(rows,6,4,'R');setc(rows,6,5,'R');setc(rows,14,5,'R')}return rows};
 const RED={R:'#9A2424'};
 const HAND_ARO=tuned({hair:'#2A2220',skin:'#D9A47E',shirt:'#6B6150',pants:'#57503F',shoes:'#A97E60'},streak,RED);
