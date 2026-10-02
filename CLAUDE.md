@@ -18,3 +18,7 @@ never re-teach those as badges (validator enforces), use them freely in dialogue
 - `python3 build.py && node tests/validate.mjs`; `node tests/play.mjs chN` must end `ERRORS: none`; `python3 tests/sheet.py chN` and LOOK at every sheet.
 - One playtest at a time (shared lock with 성실호); never more than 2 agents playtesting in parallel — the 7 GB machine froze once.
 - Publish only audited chapters: `python3 build.py --chapters ch1,…`.
+
+## Public mirror
+After every publish run `tools/sync_public.sh`: it force-pushes this repo to the public twin (see tools/public-remote) with `notes/`
+filtered out of all history (book summaries stay private). GitHub Pages serves `index.html` from the public twin.
