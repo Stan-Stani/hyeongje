@@ -51,5 +51,6 @@
  {check:()=>state.f.done,msg:'chapter done'},
  {clock:26*3600e3},
  {inspect:['circle',8,4],shot:'25-stone-review'},
+ {talklog:1,shot:'26a-talk-log'},
  {panel:1,shot:'26-log'},
 ]
