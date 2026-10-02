@@ -2,7 +2,7 @@
 [
  {intro:1,shot:'01-intro'},
  {bump:['circle','>']},
- {talk:'elhern',wrong:true,shotBefore:'02-festival',shotChoice:'03-elhern-question'},
+ {shotTap:'02b-tap-word',talk:'elhern',wrong:true,shotBefore:'02-festival',shotChoice:'03-elhern-question'},
  {talk:'sethr'},
  {talk:'chogger13'},
  {talk:'corto',wrong:true,shotBefore:'04-cauldron'},

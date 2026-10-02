@@ -594,7 +594,7 @@ const NPC={
  crowd1:{name:'구경꾼',zone:'circle',x:9,y:4,dir:'right',look:CROWD1,hide:()=>!E13(),
   talk:()=>[{say:'세서가 오늘 떠난대.'},{say:'약이 언제 식을까? 빨리 끝났으면 좋겠어.'}]},
  crowd2:{name:'구경꾼',zone:'circle',x:12,y:6,dir:'up',look:CROWD2,hide:()=>!E13(),
-  talk:()=>[{say:'가까이 가지 마라. 의사만 저 약을 만질 수 있어.'}]},
+  talk:()=>[{say:'가까이 가지 마라. 저 약은 한 방울도 몸에 묻으면 안 돼.'}]},
  chogger13:{name:'초거',zone:'circle',x:18,y:8,dir:'down',look:CHOG,
   hide:()=>!E13(),
   talk:()=>[{say:'{슈거웜 꼬치|슈거웜 꼬치} 먹었어? 진짜 달아!'},{say:'세서는 오늘 쫓겨난대. 무섭다.'}]},
