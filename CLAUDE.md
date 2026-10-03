@@ -16,6 +16,7 @@ never re-teach those as badges (validator enforces), use them freely in dialogue
 
 ## Checks before publishing
 - `python3 build.py && node tests/validate.mjs`; `node tests/play.mjs chN` must end `ERRORS: none`; `python3 tests/sheet.py chN` and LOOK at every sheet.
+- `node tests/coverage.mjs chN`: every object tile should say something when inspected (zone `things:{char:line}` for a tile kind, `spots` for one tile); keep it at 100%. Inspect lines are lore claims too — they go through the audit.
 - One playtest at a time (shared lock with 성실호); never more than 2 agents playtesting in parallel — the 7 GB machine froze once.
 - Publish only audited chapters: `python3 build.py --chapters ch1,…`.
 

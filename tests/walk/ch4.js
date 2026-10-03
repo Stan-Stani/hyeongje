@@ -62,5 +62,6 @@
  {check:()=>state.badges.length===C.WORDS.length,msg:'all words collected'},
  {clock:26*3600e3},
  {inspect:['entry',2,5],shot:'31-stone-glow'},
+ {look:true,shot:'90-look'},
  {panel:1,shot:'32-log'},
 ]
