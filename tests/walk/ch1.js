@@ -53,5 +53,6 @@
  {inspect:['circle',8,4],shot:'25-stone-review'},
  {look:true,shot:'12-look'},
  {talklog:1,shot:'26a-talk-log'},
+ {taps:1,shot:'26c-taps'},
  {panel:1,shot:'26-log'},
 ]
