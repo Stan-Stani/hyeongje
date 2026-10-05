@@ -672,7 +672,7 @@ const NPC={
    {who:'이블리스',say:'일해라. 그러면 먹는다.'},
    Q.ib[1],
    Q.ib[2],
-   {who:'…',say:'이블리스는 바로 돌아서 나가요. 빠르고, 시끄럽고, 쉬지 않아요.',award:['노동']},
+   {who:'…',say:'이블리스는 바로 돌아서 나가요. 빠르고, 시끄럽고, 쉬지 않아요.',award:['노동'],walk:{npc:'sharskinFire',from:[11,10]}},
    {who:'핸드리',say:'다른 추방자들은 아무것도 안 물어봐요. 저는 궁금해요.'}]},
  sharskinFire:{name:'샤스킨',zone:'orovo',x:16,y:8,dir:'right',look:SHARSKIN,badge:['인구','이사하다'],
   hide:()=>{const F=f();return !b('노동')||F.left||(F.budding&&!F.warDone)},
