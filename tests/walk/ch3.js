@@ -18,6 +18,7 @@
  {inspect:['orovo',7,8],shot:'08-memory-stone'},
  {inspect:['orovo',9,6]},
  {talk:'iblis',wrong:true,shotBefore:'09-iblis-speech'},
+ {check:()=>ghosts.length===1,msg:'이블리스 walks off'},
  {check:()=>!!C.NPC.sharskinFire.walk,msg:'샤스킨 walks over to the fire'},
  {pause:0,shot:'09a-sharskin-walks'},
  {pause:3500},

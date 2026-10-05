@@ -627,7 +627,7 @@ const NPC={
    {who:'…',say:'손 같은 입이 제 다리 상처를 만져요. 피가 나요.'},
    {who:'…',say:'짐승이 피를 맛봐요. 그리고… 뒤로 물러나요.'},
    {who:'핸드리',say:'제 피 맛이 싫은 것 같아요. 짐승들은 저를 피해요.'},
-   {who:'…',say:'깍… 깍… 소리가 멀어져요.',set:()=>{f().arraclid=1;f().day=1}},
+   {who:'…',say:'깍… 깍… 소리가 멀어져요.',set:()=>{f().arraclid=1;f().day=1},leave:{npc:'arraclid',to:[3,2]}},
    {who:'…',say:'짐승은 나무를 타고 위로 사라졌어요.',award:['어둠','캄캄하다']}]},
  berry:{name:'열매 덤불',zone:'forest',x:12,y:6,dir:'down',look:BERRY,pos:()=>[12,6],badge:['숲','배고프다'],status:foodStatus('berry'),
   after:'빨간 열매, 파란 열매, 노란 열매. 이건 먹어도 돼요.',
