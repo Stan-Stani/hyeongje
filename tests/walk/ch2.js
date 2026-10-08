@@ -32,7 +32,7 @@
  {talk:'escort',wrong:true,shotBefore:'13-escort'},
  {check:()=>state.f.left,msg:'the procession left'},
  {talk:'ashes',wrong:true,shotBefore:'14-morning-ashes'},
- {check:()=>state.items.includes('마른 빵 껍질'),msg:'crusts'},
+ {check:()=>state.f.crust&&!state.items.includes('마른 빵 껍질'),msg:'crusts found and eaten'},
  {talk:'crodoc',shotBefore:'15-cro-welcome'},
  {talk:'kaltonC'},
  {talk:'toddler'},
