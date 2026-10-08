@@ -44,10 +44,10 @@
  {talk:'melHome',wrong:true,shotBefore:'19-fever'},
  {check:()=>state.f.night&&state.f.woke,msg:'day 31, night'},
  {talk:'melHome',wrong:true,shotBefore:'20-melory-doctor',shotSay:{text:'피가',name:'21-ghost'}},
- {check:()=>state.badges.length===C.WORDS.length,msg:'all words collected'},
  {walkTo:['circle',20,10],then:'22-night-circle'},
  {walkTo:['fields',12,12],then:'23-night-fields'},
  {talk:'edge',shotBuild:'24-flee-build'},
+ {check:()=>state.badges.length===C.WORDS.length,msg:'all words collected'},  // the last word (도망치다) lands after the escape
  {check:()=>state.f.done,msg:'chapter done'},
  {clock:26*3600e3},
  {inspect:['circle',8,4],shot:'25-stone-review'},
