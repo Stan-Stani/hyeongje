@@ -1,4 +1,4 @@
-/* GENERATED from walk-engine/engine.js (1f53cb4) — do not edit here; edit walk-engine and run its sync.sh. */
+/* GENERATED from walk-engine/engine.js (373951d) — do not edit here; edit walk-engine and run its sync.sh. */
 /* =====================================================================
    Engine: tiles, movement, zones, dialogue, spaced review, speech, saving.
    ===================================================================== */
