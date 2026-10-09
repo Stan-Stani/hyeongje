@@ -70,4 +70,8 @@
  {inspect:['orovo',7,8],shot:'31-stone-glow'},
  {look:true,shot:'90-look'},
  {panel:1,shot:'32-log'},
+ // in-character review: with every word due, earlier chapters too, everyone who has a line asks it in their own voice, and it grades
+ {reviewTour:Object.keys(C.ZONES),carry:1},
+ // …and with nothing due, people with a line you haven't heard say it as plain talk (the word filled in, ungraded)
+ {hearTour:Object.keys(C.ZONES)},
 ]

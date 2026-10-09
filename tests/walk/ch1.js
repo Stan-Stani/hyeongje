@@ -56,4 +56,8 @@
  {start:1,shot:'26b-start'},
  {taps:1,shot:'26c-taps'},
  {panel:1,shot:'26-log'},
+ // in-character review: with every word due, everyone who has a line asks it in their own voice, and it grades
+ {reviewTour:Object.keys(C.ZONES)},
+ // …and with nothing due, people with a line you haven't heard say it as plain talk (the word filled in, ungraded)
+ {hearTour:Object.keys(C.ZONES)},
 ]
