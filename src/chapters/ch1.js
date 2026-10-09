@@ -190,7 +190,7 @@ const REVIEW=[ // people use a learned word again in their own voice and moment,
  {w:'데다',by:'hand1',ask:'점심 국이 너무 뜨거워서 혀를 ___.',opts:[['데었어',1],['탔어',0,'타는 건 빵이나 나무야. 혀는 "데었어".']]},
  {w:'가마솥',by:'hand2',when:()=>!f().gourd,ask:'오늘 저녁은 큰 ___에 국을 끓인대.',opts:[['가마솥',1],['가방',0,'가방에 국을 끓여? 큰 솥은 "가마솥".']]},
  {w:'가렵다',by:'hand2',ask:'벼룩한테 물렸나 봐. 등이 ___.',opts:[['가려워',1],['가벼워',0,'가볍다는 무게가 안 나가는 거야. 긁고 싶으면 "가려워".'],['그리워',0,'그립다는 보고 싶은 거야. 긁고 싶으면 "가려워".']]},
- {w:'상처',by:'worker',ask:'괭이에 발을 찍었어. ___가 꽤 깊네.',opts:[['상처',1],['상태',0,'상태는 건강이나 기분이야. 다친 곳은 "상처".']]},
+ {w:'상처',by:'worker',ask:'괭이에 발을 찍혔어. ___가 꽤 깊네.',opts:[['상처',1],['상태',0,'상태는 건강이나 기분이야. 다친 곳은 "상처".']]},
  {w:'두드러기',by:'worker',ask:'애가 밤새 긁었어. ___가 났나 봐.',opts:[['두드러기',1],['두부',0,'두부는 먹는 거야! 피부에 빨갛게 올라온 건 "두드러기".']]},
  {w:'도망치다',by:'worker',ask:'헬리버그는 손만 대면 ___. 잡기 힘들어.',opts:[['도망쳐',1],['도와줘',0,'도와주다는 힘을 보태는 거야. 달아나면 "도망쳐".']]},
  {w:'무시하다',by:'herder',ask:'에르티비스트 울음소리를 ___ 안 돼. 뭔가 있는 거야.',opts:[['무시하면',1],['무사하면',0,'무사하다는 다친 데 없이 괜찮은 거야. 신경 안 쓰는 건 "무시하면".']]},
@@ -655,7 +655,7 @@ const NPC={
   hide:()=>!E13(),
   status:()=>f().chase&&!f().burned?'todo':null,
   script:()=>{
-   if(f().burned)return [{say:'가마솥이 아직도 끓어요. 보기만 해도 아파요.'}];
+   if(f().burned)return [{say:'아까 그 가마솥… 보기만 해도 아파요.'}];  // not 아직도 끓어요: the Severance had cooled by the Severing (§I)
    if(!f().chase)return f().cortoGone?[{say:'코르토 할아버지가 없어요. 가마솥만 혼자 끓어요.'}]:[{say:'가마솥에서 검붉은 약이 부글부글 끓어요.'},{say:'김이 얼굴까지 올라와요. 뜨거워요.'}];
    return [
     {who:'핸드리',say:'리비! 거기 서!'},
@@ -736,7 +736,7 @@ const NPC={
  brosa:{name:'설계자 브로사',zone:'circle',x:11,y:5,dir:'down',look:BROSA,badge:['공동체'],
   hide:()=>E13()||NIGHT(),
   status:()=>{if(!b('공동체'))return f().gourd?'todo':null;return f().waiting?undefined:null},
-  after:'일렉터가 새 의사를 고를 거예요. 기다려요.',
+  get after(){return f().stung?'멜로리가 새 의사예요. 깨어날 때까지 기다려요.':'일렉터가 새 의사를 고를 거예요. 기다려요.'},  // stale once Melory is stung (audit)
   script:()=>!f().gourd?[{say:'코르토는 이제 아무것도 못 해요. 의사가 없는 거랑 같아요.'},{say:'…내가 무슨 말을 하고 있었죠?'}]:null,
   talk:()=>[
    {who:think,say:'브로사 앞에 사람들이 모여 있어요.'},
