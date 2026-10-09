@@ -31,7 +31,8 @@ CHAPTERS.push({id:'ch4',n:'4장',title:'조상의 집',place:'조상의 집 · �
          Iblis never appears. The House's "ancestors" are NOT ancestors' souls: older, vaster, broken systems, of a piece with the ghosts.
    Invented (inv., non-decisive): 고참 형제 (veteran), 젊은 형제, 늙은 형제 (review), two named-less brothers, the echo game, which
        alcove the waking servant came from, where in the House each scene stands, the root-cutting/sack-packing details.
-       Whose knife Handry used is left unsaid.
+       Whose knife Handry used is left unsaid (he cut roots with a metal knife, §VII, and Sharskin handed out knives for the
+       expedition, §VIII; at Vernen "I had the knife", §IX).
    Lore source: notes/canon.md + notes/chapters-outline.md (4장). Audit against the full book before publishing (see CLAUDE.md).
    Terms: 판관 · 의사 · 설계자 · 유령 · 단절약 · 일렉터 · 추방자 · 형제 (Sharskin's followers) · 집 (the House's voice).
    ===================================================================== */
@@ -110,11 +111,10 @@ const BANK=[
 const Q={ // NPC questions, kept here so review can reuse them
  shar:[
   {who:'…',w:'조상',ask:'아주 옛날 사람들. 할아버지의 할아버지의… 우리 ___.',opts:[['조상',1],['조사',0,'조사는 무엇을 자세히 알아보는 거예요. 옛날 집안 사람들은 "조상".'],['좌석',0,'좌석은 앉는 자리예요. 옛날 집안 사람들은 "조상".']]},
-  {who:'…',w:'조상',gram:1,ask:'샤스킨은 우리에게 조상의 집을 ___ 해요.',opts:[['보여 주려고',1],['보여 줄 뻔',0,'"-(으)ㄹ 뻔하다"는 거의 일어났는데 안 일어난 일이에요. 하고 싶은 일 → "보여 주려고 해요".'],['보여 줘서',0,'"-아서"는 이유예요. 하고 싶은 일 → "보여 주려고 해요".']]},
+  {who:'…',w:'조상',gram:1,ask:'몸에 카인의 표식이 ___ 조상의 집에 들어갈 수 있어요.',opts:[['있으니까',1],['있어도',0,'"-어도"는 "그래도"예요. 들어갈 수 있는 이유니까 → "있으니까".'],['있기 전에',0,'"-기 전에"는 시간 순서예요. 들어갈 수 있는 이유니까 → "있으니까".']]},
  ],
  ostel:[
   {who:'핸드리',w:'금속',ask:'이 문은 나무도 돌도 아니에요. ___이에요.',opts:[['금속',1],['근육',0,'근육은 팔이나 다리에서 힘을 내는 살이에요. 차갑고 단단한 문은 "금속".'],['금방',0,'금방은 "곧, 조금 전"이에요. 문의 재료는 "금속".']]},
-  {who:'핸드리',w:'금속',ask:'샤스킨의 지팡이도 ___이에요. 은색으로 빛나요.',opts:[['금속',1],['근육',0,'근육은 팔이나 다리에서 힘을 내는 살이에요. 은색으로 빛나는 재료는 "금속".']]},
  ],
  yerke:[
   {who:'…',w:'메아리',ask:'"어이—" 하면 "…어이…" 하고 돌아와요. ___예요.',opts:[['메아리',1],['매미',0,'매미는 여름에 우는 곤충이에요. 돌아오는 소리는 "메아리".'],['머리',0,'머리는 몸의 맨 위예요. 돌아오는 소리는 "메아리".']]},
@@ -122,7 +122,6 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  holo:[
   {who:'…',w:'하늘',ask:'샤스킨은 이 집이 밤___에서 왔다고 해요.',opts:[['하늘',1],['하나',0,'하나는 숫자 1이에요. 별이 있는 곳은 "하늘".'],['바늘',0,'바늘은 바느질할 때 써요. 별이 있는 곳은 "하늘".']]},
-  {who:'…',w:'하늘',ask:'밤___에 별이 많아요.',opts:[['하늘',1],['바닥',0,'바닥은 발 밑이에요. 별은 위에 → "밤하늘".']]},
  ],
  house:[
   {who:'…',w:'목소리',ask:'집은 샤스킨과 똑같은 ___로 말해요.',opts:[['목소리',1],['목걸이',0,'목걸이는 목에 거는 장신구예요. 말하는 소리는 "목소리".'],['모서리',0,'모서리는 물건의 뾰족한 끝이에요. 말하는 소리는 "목소리".']]},
@@ -131,14 +130,14 @@ const Q={ // NPC questions, kept here so review can reuse them
  house2:[
   {who:'핸드리',w:'메아리',ask:'집의 목소리는 꼭 제 목소리의 ___ 같아요.',opts:[['메아리',1],['머리',0,'머리는 몸의 맨 위예요. 돌아오는 소리는 "메아리".']]},
  ],
- root:[
-  {who:'…',w:'금속',gram:1,ask:'뿌리가 또 금속 벽을 뚫고 ___ 해요.',opts:[['들어오려고',1],['들어올 뻔',0,'"-(으)ㄹ 뻔하다"는 거의 일어났는데 안 일어난 일이에요. 지금 하고 있는 일 → "들어오려고 해요".']]},
+ root:[ // a grammar line, no word (금속 and -려고 were asked too often)
+  {who:'…',gram:1,ask:'뿌리를 ___ 손에 물집이 생겼어요.',opts:[['자르다가',1],['자르려고',0,'"-려고"는 하고 싶은 일이에요. 하는 중에 생긴 일 → "자르다가".'],['자르기 전에',0,'"-기 전에"는 아직 안 했을 때예요. 하는 중에 생긴 일 → "자르다가".']]},
  ],
  crack:[
   {who:'…',w:'묶다',ask:'흙을 담고, 자루 입구를 끈으로 ___.',opts:[['묶었어요',1],['먹었어요',0,'먹다는 음식을 먹는 거예요. 끈으로 → "묶었어요".']]},
  ],
  vet:[
-  {who:'…',w:'금지',ask:'여기서 남자와 여자가 같이 자는 건 ___된 일이에요.',opts:[['금지',1],['금속',0,'금속은 쇠 같은 단단한 거예요. 하면 안 되는 건 "금지".'],['근처',0,'근처는 가까운 곳이에요. 하면 안 되는 건 "금지".']]},
+  {who:'…',w:'금지',ask:'아기도 엄마도 더 죽으면 안 돼요. 그래서 샤스킨이 ___ 규칙을 만들었어요.',opts:[['금지',1],['금속',0,'금속은 쇠 같은 단단한 거예요. 하면 안 된다고 정한 건 "금지".'],['근처',0,'근처는 가까운 곳이에요. 하면 안 된다고 정한 건 "금지".']]},
   {who:'…',gram:1,w:'금지',ask:'규칙을 ___ 샤스킨이 때려요.',opts:[['어기면',1],['지키면',0,'규칙을 지키면 괜찮아요. 하면 안 되는 걸 하면 → "어기면".'],['어길 뻔하면',0,'"-(으)ㄹ 뻔하다"는 "어길 뻔했어요"처럼 지난 일에 써요. 조건은 → "어기면".']]},
  ],
  sermon:[
@@ -148,7 +147,6 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  young:[
   {who:'…',w:'영혼',ask:'젊은 형제는 이 집에 조상들의 ___이 산다고 믿어요.',opts:[['영혼',1],['얼굴',0,'얼굴은 몸에 있어요. 죽은 뒤에도 남는 마음은 "영혼".'],['영양',0,'영양은 음식에서 얻는 몸의 힘이에요. 죽은 뒤에도 남는 마음은 "영혼".']]},
-  {who:'…',w:'영혼',ask:'사람이 죽으면 ___은 어디로 갈까요?',opts:[['영혼',1],['얼굴',0,'얼굴은 몸에 있어요. 몸이 아닌 마음과 생명은 "영혼".']]},
  ],
  mel:[
   {who:'…',w:'유령',gram:1,ask:'샤스킨은 멜로리의 유령한테서 단절약 만드는 법을 ___ 해요.',opts:[['알아내려고',1],['알아낼 뻔',0,'"-(으)ㄹ 뻔하다"는 거의 일어났는데 안 일어난 일이에요. 하고 싶은 일 → "알아내려고 해요".'],['알아내서',0,'"-아서"는 이유나 순서예요. 하고 싶은 일 → "알아내려고 해요".']]},
@@ -157,18 +155,17 @@ const Q={ // NPC questions, kept here so review can reuse them
   {who:'핸드리',w:'찌르다',ask:'저는 칼로 버넌을 세 번 ___.',opts:[['찔렀어요',1],['찔렸어요',0,'"찔리다"는 당하는 거예요. 제가 했으니까 → "찔렀어요".'],['질렀어요',0,'"지르다"는 소리를 크게 내는 거예요. 칼로 → "찔렀어요".']]},
   {who:'…',w:'칼',ask:'___로 밧줄을 잘라요.',opts:[['칼',1],['탈',0,'탈은 얼굴에 쓰는 가면이에요. 자르는 도구는 "칼".'],['발',0,'발은 걸을 때 써요. 자르는 도구는 "칼".']]},
  ],
- melB:[
-  {who:'…',w:'묶다',ask:'멜로리 목에 밧줄이 ___ 있어요.',opts:[['묶여',1],['묶어',0,'밧줄에 당한 상태예요 → "묶여 있어요". 사람이 하면 → "묶어요".'],['묻어',0,'"묻어"는 땅에 넣는 거예요(묻다). 밧줄은 → "묶여 있어요".']]},
-  {who:'…',w:'묶다',ask:'샤스킨이 멜로리를 땅속 방에 ___.',opts:[['묶어 두었어요',1],['묶여 두었어요',0,'샤스킨이 한 일이에요 → "묶어 두었어요". 멜로리가 당하면 → "묶여 있어요".']]},
+ melB:[ // asked right after "밧줄이 목에 꽉 묶여 있어요": the active form, so the line before doesn't give it away
+  {who:'…',w:'묶다',ask:'샤스킨이 멜로리를 땅속 방에 ___.',opts:[['묶어 두었어요',1],['묶여 두었어요',0,'샤스킨이 한 일이에요 → "묶어 두었어요". 멜로리가 당하면 → "묶여 있어요".'],['묻어 두었어요',0,'"묻다"는 땅에 넣는 거예요. 밧줄로 → "묶어 두었어요".']]},
  ],
- clim:[
+ clim:[ // [0] is asked after the House grants the access ([1]), never before it exists
   {who:'…',w:'권한',gram:1,ask:'권한을 받기 전에 멜로리는 샤스킨의 지팡이에 ___.',opts:[['죽을 뻔했어요',1],['죽으려고 했어요',0,'"-려고 하다"는 하고 싶은 거예요. 거의 죽었는데 살았어요 → "죽을 뻔했어요".'],['죽었어요',0,'멜로리는 안 죽었어요. 거의 죽었는데 살았어요 → "죽을 뻔했어요".']]},
   {who:'…',w:'권한',ask:'집이 멜로리에게 명령 ___을 줬어요.',opts:[['권한',1],['관심',0,'관심은 궁금해하는 마음이에요. 명령할 수 있는 힘 → "권한".'],['공간',0,'공간은 비어 있는 곳이에요. 명령할 수 있는 힘 → "권한".']]},
  ],
  offer:[
   {who:'…',w:'치료하다',ask:'멜로리는 의사예요. 핸드리를 ___ 해요.',opts:[['치료하려고',1],['치료할 뻔',0,'"-(으)ㄹ 뻔하다"는 거의 일어났는데 안 일어난 일이에요. 하고 싶은 일 → "치료하려고 해요".'],['치워 주려고',0,'치우다는 물건을 정리하는 거예요. 몸을 낫게 하면 → "치료하려고 해요".']]},
-  {who:'…',w:'혈관',ask:'멜로리의 피를 핸드리의 ___에 넣어요.',opts:[['혈관',1],['현관',0,'현관은 집에 들어가는 문 앞이에요. 피가 흐르는 길은 "혈관".'],['혈액형',0,'혈액형은 A형, B형 같은 거예요. 피가 흐르는 길은 "혈관".']]},
-  {who:'…',w:'거절하다',ask:'핸드리는 멜로리의 치료를 ___.',opts:[['거절했어요',1],['거짓말했어요',0,'거짓말은 진실이 아닌 말이에요. "아니, 안 할래" → "거절했어요".'],['걱정했어요',0,'걱정은 마음이 불안한 거예요. "아니, 안 할래" → "거절했어요".']]},
+  {who:'…',w:'혈관',ask:'피가 흐르는 길, ___. 거기에 멜로리의 피가 들어간대요.',opts:[['혈관',1],['현관',0,'현관은 집에 들어가는 문 앞이에요. 피가 흐르는 길은 "혈관".'],['혈액형',0,'혈액형은 A형, B형 같은 거예요. 피가 흐르는 길은 "혈관".']]},
+  {who:'멜로리',w:'거절하다',ask:'내 치료를 ___ 거야? …정말?',opts:[['거절하는',1],['받는',0,'받으면 "안 할래" 안 하지. "아니, 안 할래" 하면 → "거절하는" 거야.'],['좋아하는',0,'좋아하면 "안 할래" 안 하지. "아니, 안 할래" 하면 → "거절하는" 거야.']]},
  ],
  cafe:[ // the old brother: words from 성실호, 1장 and 2장, no badges
   {ask:'숲이 너무 ___ 아무것도 안 보였어.',opts:[['캄캄해서',1],['캄캄해도',0,'"-아도"는 "그래도"야. 안 보인 이유니까 → "캄캄해서".']]},
@@ -203,7 +200,8 @@ const CLASS={
      · 샤스킨 (sharB) between the sermon and the initiation (his usual line points to the medical room) · 젊은 형제 영혼 → night (day only)
      · 오스텔 in the buried chambers (ostelB) interro → Vernen, by day · the House only once Handry commands it (ownVoice) · 멜로리 (melBr)
      after the last talk (done). Vernen's and the two brothers' lines wait for the Console Room, so their first talk is usually their own.
-   Invented (inv., non-decisive): Ostel thinking northerners would marvel at the House, finding the ration sweeter than Orovo's stew and
+   Invented (inv., non-decisive): Ostel thinking even the northern metal-makers couldn't build anything this big, saying he belongs here
+     (§IX "how we're meant for this") and missing Yerke, finding the ration sweeter than Orovo's stew and
      feeling less lonely here; Vernen counting his rations, sulking that Sharskin keeps Handry close, asking where Handry hid from work;
      the veteran wanting the rule kept after Sharskin, saying he'd refuse to leave, wondering whether villages would treat them as
      neighbours, and knives for cutting roots; Yerke's jokes (snoring isn't forbidden, imitating the House), his itchy back from the
@@ -218,9 +216,9 @@ const CLASS={
 /* in-character review: people use a learned word again in their own voice, while they're around (engine: linesFor / reviewPick) */
 const REVIEW=[
  /* Ostel (entry hall): a newcomer like Handry; from the sermon on he believes every word */
- {w:'금속',by:'ostel',ask:'벽도 문도 다 ___이야. 북쪽 사람들이 보면 놀라겠다.',opts:[['금속',1],['근육',0,'근육은 팔다리에서 힘을 내는 살이야. 차갑고 단단한 벽은 "금속".'],['금방',0,'금방은 "곧, 조금 전"이야. 벽하고 문의 재료는 "금속".']]},
+ {w:'금속',by:'ostel',ask:'벽도 문도 다 ___이야. 북쪽 사람들도 이렇게 큰 건 못 만들 거야.',opts:[['금속',1],['근육',0,'근육은 팔다리에서 힘을 내는 살이야. 차갑고 단단한 벽은 "금속".'],['금방',0,'금방은 "곧, 조금 전"이야. 벽하고 문의 재료는 "금속".']]},
  {w:'하늘',by:'ostel',ask:'이 집, 정말 밤___에서 왔나 봐. 그 그림 봤잖아.',opts:[['하늘',1],['하나',0,'하나는 숫자 1이야. 별이 있는 곳은 "하늘".'],['바늘',0,'바늘은 바느질할 때 써. 별이 있는 곳은 "하늘".']]},
- {w:'메아리',by:'ostel',when:()=>!f().trace,ask:'여크가 또 소리쳤어. ___가 "어이… 어이…" 돌아와.',opts:[['메아리',1],['매미',0,'매미는 여름에 우는 벌레야. 소리가 돌아오는 건 "메아리".'],['머리',0,'머리는 몸 맨 위야. 소리가 돌아오는 건 "메아리".']]},
+ {w:'메아리',by:'ostel',when:()=>!f().trace,ask:'여기서 "어이!" 하면 ___가 "어이… 어이…" 돌아와.',opts:[['메아리',1],['매미',0,'매미는 여름에 우는 벌레야. 소리가 돌아오는 건 "메아리".'],['머리',0,'머리는 몸 맨 위야. 소리가 돌아오는 건 "메아리".']]},
  {w:'설교하다',by:'ostel',ask:'샤스킨이 ___ 거 들으면, 다 맞는 것 같아.',opts:[['설교하는',1],['설거지하는',0,'설거지는 그릇을 씻는 거야. 믿음을 가르치는 말은 "설교하는" 거.'],['실수하는',0,'실수는 잘못하는 거야. 형제들 앞에서 믿음을 가르치면 "설교하는" 거.']]},
  {w:'불을 피우다',by:'ostel',ask:'둘째 야영지에서 내가 ___. 메닉은 손만 녹였지.',opts:[['불을 피웠어',1],['불을 껐어',0,'끄면 불이 없어지잖아. 불을 붙여서 타게 하면 "불을 피웠어".'],['풀을 뽑았어',0,'풀을 뽑아서는 손을 못 녹여. 불을 붙여서 타게 하면 "불을 피웠어".']]},
  {w:'폐허',by:'ostel',ask:'길에서 본 ___하고 달라. 여기는 사람이 살아.',opts:[['폐허',1],['폐지',0,'폐지는 버린 종이야. 무너지고 버려진 마을은 "폐허".'],['허리',0,'허리는 몸 가운데야. 무너지고 버려진 마을은 "폐허".']]},
@@ -257,8 +255,8 @@ const REVIEW=[
  {w:'가렵다',by:'yerke',ask:'이끼 위에서 잤더니 등이 ___. 긁어 줄래?',opts:[['가려워',1],['가벼워',0,'가볍다는 무게가 적은 거야. 긁고 싶으면 "가려워".'],['그리워',0,'그립다는 보고 싶은 거야. 긁고 싶으면 "가려워".']]},
  /* the woman brother (bro1) and the brother in the light (bro2), entry hall, until the night of the escape */
  {w:'금지',by:'bro1',when:()=>!!f().saw,ask:'남자와 여자가 같이 자는 건 ___야. 그래서 마음이 편해.',opts:[['금지',1],['근처',0,'근처는 가까운 곳이야. 하면 안 되는 건 "금지".'],['기회',0,'기회는 좋은 때야. 하면 안 되는 건 "금지".']]},
- {w:'설교하다',by:'bro1',ask:'샤스킨이 ___ 때가 제일 좋아. 마음이 따뜻해져.',opts:[['설교할',1],['설거지할',0,'설거지는 그릇을 씻는 거야. 믿음을 가르치는 말은 "설교할".'],['실수할',0,'실수는 잘못하는 거야. 믿음을 가르치는 말은 "설교할".']]},
- {w:'영혼',by:'bro1',when:()=>!!f().yerke,ask:'여크 ___은 지금 조상들 곁에 있을 거야.',opts:[['영혼',1],['얼굴',0,'얼굴은 몸에 있어. 죽은 뒤에도 남는 건 "영혼".'],['얼음',0,'얼음은 차갑게 언 물이야. 죽은 뒤에도 남는 건 "영혼".']]},
+ {w:'설교하다',by:'bro1',when:()=>!f().sharDead,ask:'샤스킨이 ___ 때가 제일 좋아. 마음이 따뜻해져.',opts:[['설교할',1],['설거지할',0,'설거지는 그릇을 씻는 거야. 믿음을 가르치는 말은 "설교할".'],['실수할',0,'실수는 잘못하는 거야. 믿음을 가르치는 말은 "설교할".']]},
+ {w:'영혼',by:'bro1',when:()=>f().yerke&&!f().sharDead,ask:'여크 ___은 지금 조상들 곁에 있을 거야.',opts:[['영혼',1],['얼굴',0,'얼굴은 몸에 있어. 죽은 뒤에도 남는 건 "영혼".'],['얼음',0,'얼음은 차갑게 언 물이야. 죽은 뒤에도 남는 건 "영혼".']]},
  {w:'이웃',by:'bro1',when:()=>!!f().saw,ask:'마을에서는 ___들이 나를 못 본 척했어.',opts:[['이웃',1],['이불',0,'이불은 덮는 거야. 같은 마을 사람은 "이웃".'],['이사',0,'이사는 집을 옮기는 거야. 같은 마을 사람은 "이웃".']]},
  {w:'공동체',by:'bro1',when:()=>!!f().saw,ask:'여기도 작은 ___야. 같이 먹고 같이 일해.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거야. 같이 사는 사람들 모임은 "공동체".'],['동창',0,'동창은 같은 학교 친구야. 같이 사는 사람들 모임은 "공동체".']]},
  {w:'상처',by:'bro1',when:()=>f().saw&&!f().trace,ask:'뿌리 자르다가 손에 ___가 났어. 별거 아니야.',opts:[['상처',1],['상태',0,'상태는 몸이나 마음이 어떤지야. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이야. 다쳐서 생긴 곳은 "상처".']]},
@@ -289,7 +287,7 @@ const REVIEW=[
  {w:'유령',by:'young',when:()=>!f().night,ask:'마을 사람들은 ___ 말만 듣지. 우리는 달라.',opts:[['유령',1],['요령',0,'요령은 일을 쉽게 하는 방법이야. 판관 머릿속 목소리는 "유령".'],['영화',0,'영화는 보는 거야. 판관 머릿속 목소리는 "유령".']]},
  {w:'이사하다',by:'young',when:()=>!f().night,ask:'쫓겨난 게 아니야. 여기로 ___ 거야.',opts:[['이사한',1],['인사한',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮긴 건 "이사한".'],['이상한',0,'이상하다는 보통과 다른 거야. 사는 곳을 옮긴 건 "이사한".']]},
  {w:'둥지',by:'young',when:()=>!f().night,ask:'여기는 우리 ___야. 아무도 우리를 안 쫓아내.',opts:[['둥지',1],['동지',0,'동지는 밤이 제일 긴 날이야. 새가 사는 집 같은 곳은 "둥지".']]},
- {w:'사냥꾼',by:'young',when:()=>f().interro&&!f().night,ask:'___ 형제들이 잡아 온 사람, 네 누이라며?',opts:[['사냥꾼',1],['나무꾼',0,'나무꾼은 나무를 하는 사람이야. 잡으러 다니는 건 "사냥꾼".'],['사냥개',0,'사냥개는 개야. 형제들이니까 "사냥꾼".']]},
+ {w:'사냥꾼',by:'young',when:()=>f().interro&&!f().night,ask:'___ 형제들이 잡아 온 사람, 네 누나라며?',opts:[['사냥꾼',1],['나무꾼',0,'나무꾼은 나무를 하는 사람이야. 잡으러 다니는 건 "사냥꾼".'],['사냥개',0,'사냥개는 개야. 형제들이니까 "사냥꾼".']]},
  /* Ostel guarding Melory in the buried chambers, by day (before the night of Vernen) */
  {w:'유령',by:'ostelB',when:()=>!f().night,ask:'저 여자 머릿속에는 ___이 살아. 조심해.',opts:[['유령',1],['요령',0,'요령은 일을 쉽게 하는 방법이야. 머릿속에 사는 건 "유령".'],['영양',0,'영양은 음식에서 얻는 힘이야. 머릿속에 사는 건 "유령".']]},
  {w:'도망치다',by:'ostelB',when:()=>!f().night,ask:'샤스킨이 지키래. 저 여자가 ___ 못하게.',opts:[['도망치지',1],['도와주지',0,'도와주는 건 나쁜 게 아니잖아. 몰래 달아나는 건 "도망치지".']]},
@@ -518,17 +516,18 @@ const wallR=(X,Y,x,y,t)=>{const fr=wallBase(X,Y,x,y,t);const g0=Math.round(Math.
  r(X+7,Y+6,6+g0,3,'#6A5642');r(X+7,Y+6,6+g0,1,'#8A7458');r(X+12+g0,Y+7,2,1,'#4A3A2E');if(fr){r(X+1,Y+13,9,3,'#4A3A2E');r(X+2,Y+13,7,1,'#6A5642')}};
 /* the hill outside: vines and moss over the hull; worn fins in a row */
 const vine=(X,Y,x,y,t)=>{const h=hash(x,y),sw=Math.round(Math.sin(t/1400+x*.7+y));r(X,Y,16,16,'#34462C');
- if(h%3===0){r(X+(h%8)+2,Y+(h%6)+3,5,4,'#5A4B3C');r(X+(h%8)+2,Y+(h%6)+3,5,1,'#6B5A48');r(X+(h%8)+3,Y+(h%6)+4,2,1,'#C9CED3')}
+ if(h%3===0){const a=X+(h%8)+2,c=Y+(h%6)+3;r(a,c,5,3,'#5E5A52');r(a+1,c+3,3,1,'#5E5A52');r(a,c,5,1,'#77736A');r(a+1,c+1,2,1,'#C9CED3')}  // hull metal through the vines: grey patina, a silver scrape
  for(let i=0;i<4;i++){const vx=(h*(i+3)+i*4)%15;for(let j=0;j<16;j+=2)r(X+vx+((j>>2)+i)%2*sw,Y+j,1,2,i%2?'#2A3A22':'#4F6B3A')}
  [[2,3],[10,9],[6,13]].forEach(([a,c],i)=>{if((h+i)%2){r(X+a+sw,Y+c,3,2,i%2?'#5B2A6E':'#5F7E44');r(X+a+sw,Y+c,1,1,'#9A5AAE')}})};
-const fin=(X,Y,x,y,t)=>{vine(X,Y,x,y,t);r(X+4,Y+3,8,12,OL);r(X+5,Y+4,6,11,'#6B5A48');r(X+6,Y+2,4,2,OL);r(X+7,Y+3,2,2,'#857260');r(X+5,Y+4,2,10,'#857260');r(X+9,Y+6,2,8,'#4D4237');r(X+5,Y+12,6,3,'#4F6B3A')};
+const fin=(X,Y,x,y,t)=>{vine(X,Y,x,y,t);r(X+6,Y+1,4,1,OL);r(X+5,Y+2,6,1,OL);r(X+4,Y+3,8,12,OL);
+ r(X+6,Y+2,4,1,'#8E8A80');r(X+5,Y+3,6,11,'#6E665A');r(X+5,Y+3,2,11,'#8E8A80');r(X+6,Y+2,1,9,'#C9CED3');r(X+9,Y+5,2,9,'#4E4A44');r(X+5,Y+11,6,3,'#4F6B3A');r(X+6,Y+10,2,1,'#5F7E44')};  // a worn metal fin
 const ground=(X,Y,x,y,t)=>{const h=hash(x,y);r(X,Y,16,16,'#3E4A30');r(X+(h%12)+1,Y+(h*7%12)+2,2,1,'#4E5E3A');r(X+(h*3%12)+2,Y+(h*5%11)+3,1,2,'#4E5E3A');
  if(h%4===0){r(X+(h%11)+3,Y+(h%9)+4,1,2,'#5B2A6E');r(X+(h%11)+4,Y+(h%9)+3,1,2,'#7E3F8F')}if(h%9===1)r(X+(h*7%12)+2,Y+(h%10)+3,1,1,'#C9E89A')};
 const tree=(X,Y,x,y,t)=>{ground(X,Y,x,y,t);const sw=Math.round(Math.sin(t/1600+x));oval(X+8,Y+14,6,2,'rgba(0,0,0,.3)');r(X+7,Y+9,2,6,'#4A362A');r(X+7,Y+9,1,6,'#6A5040');
  oval(X+8+sw,Y+6,7,5,OL);oval(X+8+sw,Y+6,6,4,dy=>dy<-2?'#9A5AAE':dy<1?'#7E3F8F':'#5B2A6E');r(X+4+sw,Y+4,2,1,'#B07ACB');r(X+10+sw,Y+7,2,2,'#2F5A3A')};
 /* the low square door with rounded corners; plants cut back sharply around it */
-const odoor=(X,Y,x,y,t)=>{vine(X,Y,x,y,t);r(X+1,Y,14,16,'#2A3A22');r(X+1,Y,1,16,'#6A5642');r(X+14,Y,1,16,'#6A5642');for(let j=1;j<16;j+=3){r(X,Y+j,2,1,'#8A7458');r(X+14,Y+j,2,1,'#8A7458')}
- r(X+2,Y+1,12,15,'#6B5A48');r(X+3,Y+2,10,14,'#16120F');r(X+3,Y+2,1,1,'#6B5A48');r(X+12,Y+2,1,1,'#6B5A48');r(X+2,Y+1,12,1,'#857260');r(X+4,Y+12,8,4,'#3A3129');r(X+5,Y+13,6,1,'#4D4237')};
+const odoor=(X,Y,x,y,t)=>{vine(X,Y,x,y,t);r(X+1,Y,14,16,'#2A3A22');for(let j=1;j<16;j+=3){r(X,Y+j,2,1,'#5F7E44');r(X+14,Y+j,2,1,'#5F7E44')}
+ r(X+2,Y+1,12,15,'#6E665A');r(X+2,Y+1,1,15,'#8E8A80');r(X+3,Y+2,10,14,'#16120F');r(X+3,Y+2,1,1,'#6E665A');r(X+12,Y+2,1,1,'#6E665A');r(X+2,Y+1,12,1,'#9A958A');r(X+4,Y+12,8,4,'#3A3129');r(X+5,Y+13,6,1,'#4D4237')};  // metal frame, rounded inner corners
 const deck=(X,Y,x,y,t)=>{const h=hash(x,y),dk=BUR();r(X,Y,16,16,dk?'#4A4036':'#5C4E40');r(X,Y,16,1,dk?'#3A3129':'#4A3E33');r(X,Y,1,16,dk?'#3A3129':'#4A3E33');r(X+1,Y+1,14,1,dk?'#52463A':'#66584A');
  if(h%7===0){r(X+2,Y+2,1,1,'#857260');r(X+13,Y+13,1,1,'#857260')}
  if(h%5===0){r(X+(h%9)+2,Y+(h%7)+5,4,2,'#4F6B3A');r(X+(h%9)+3,Y+(h%7)+4,2,1,'#5F7E44')}
@@ -538,8 +537,9 @@ const deck=(X,Y,x,y,t)=>{const h=hash(x,y),dk=BUR();r(X,Y,16,16,dk?'#4A4036':'#5
  if(!dk&&isW(x,y-1))r(X,Y,16,3,'rgba(0,0,0,.22)')};
 const shaft=(X,Y,x,y,t)=>{deck(X,Y,x,y,t);if(f().night&&!f().sharDead)return;g.fillStyle='rgba(255,232,170,.32)';g.beginPath();g.ellipse(X+8,Y+9,7,5,0,0,7);g.fill();
  g.fillStyle='rgba(255,240,200,.24)';g.fillRect(X+5,Y,6,9);g.fillStyle='rgba(255,250,230,.35)';g.fillRect(X+6,Y+7,4,3);for(let i=0;i<3;i++){const k=(Math.floor(t/140)+i*7+x*3)%16;r(X+5+((i*5+x)%6),Y+15-k,1,1,'rgba(255,245,220,.8)')}};
-const airlock=(X,Y,x,y,t)=>{deck(X,Y,x,y,t);for(let i=2;i<15;i+=3)r(X+i,Y+3,1,10,'#4A3E33');r(X+1,Y+3,14,1,'#4A3E33');r(X+1,Y+12,14,1,'#4A3E33');
- if(y===8){r(X,Y+7,16,2,'#8A6A3A');for(let i=0;i<16;i+=4)r(X+i,Y+7,2,2,'#2E2720')}};
+const airlock=(X,Y,x,y,t)=>{deck(X,Y,x,y,t);const h=hash(x,y);r(X+1,Y+1,14,14,'#4D4237');r(X+2,Y+2,12,12,'#5E574C');r(X+2,Y+2,12,1,'#6E665A');
+ [[2,2],[13,2],[2,13],[13,13]].forEach(([a,c])=>r(X+a,Y+c,1,1,'#9A958A'));if(h%3===0)r(X+4+(h%5),Y+6+(h%4),4,1,'#C9CED3');
+ if(y===8){r(X,Y+7,16,2,'#77736A');r(X,Y+7,16,1,'#9A958A');for(let i=1;i<16;i+=5)r(X+i,Y+8,1,1,'#3A3530')}};  // riveted floor plates; the doors' grey track
 const rdoorDraw=(X,Y)=>{r(X,Y,7,16,'#7A4A2A');r(X,Y,7,1,'#9A6A3A');r(X+6,Y,1,16,OL);r(X+1,Y+3,4,1,'#5A3418');r(X+1,Y+9,4,1,'#5A3418');r(X+2,Y+5,1,1,'#C9A86A');r(X+3,Y+12,2,2,'#4F6B3A');r(X,Y+14,7,2,'#4A2E1A')};
 const idoor=(X,Y,x,y,t)=>{deck(X,Y,x,y,t);rdoorDraw(X,Y)};
 const blocks=(X,Y,x,y,t)=>{deck(X,Y,x,y,t);const h=hash(x,y);r(X+1,Y+3,14,12,OL);r(X+2,Y+4,12,4,'#857260');r(X+2,Y+8,12,6,'#6B5A48');r(X+2,Y+4,12,1,'#9A8670');
@@ -596,9 +596,11 @@ function post(X,Y,t,x,y){
  if(ZID==='entry'){if(F.night&&!F.sharDead&&x>=6)r(X,Y,16,16,'rgba(6,8,22,.58)')}
  else if(ZID==='bridge'){medGlow(X,Y,x,y);
   const eve=(F.work&&!F.sermon)||(F.ownVoice&&F.fed&&!F.done)?.3:.08;g.fillStyle=`rgba(232,166,74,${eve})`;g.fillRect(X,Y,16,16);
-  if(F.night&&!F.sharDead)r(X,Y,16,16,'rgba(6,8,22,.45)')}
+  if(F.night&&!F.sharDead){const k=F.free?Math.min(1,Math.max(.3,(Math.hypot(x-1,y-3)-.5)/2)):1;r(X,Y,16,16,`rgba(6,8,22,${.45*k})`)}}  // her ghostlight where she hides lifts the dark around her
  else if(ZID==='buried'){const px=player.x*16+8-CAM.x,py=player.y*16+8-CAM.y,cx=X+8,cy=Y+8,d=Math.hypot(cx-px,cy-py);
-  const a=Math.min(F.night&&!F.sharDead?.82:.66,Math.max(0,(d-26)/70));if(a>0){g.fillStyle=`rgba(8,6,4,${a})`;g.fillRect(X,Y,16,16)}}
+  let a=Math.min(F.night&&!F.sharDead?.82:.66,Math.max(0,(d-26)/70));
+  if(F.interro&&!F.free){const dm=Math.hypot(cx-(17*16+8-CAM.x),cy-(4*16+8-CAM.y));a=Math.min(a,Math.max(0,(dm-18)/56)*.8)}  // Melory's ghostlight: her small room glows, seen from the stairs
+  if(a>0){g.fillStyle=`rgba(8,6,4,${a})`;g.fillRect(X,Y,16,16)}}
 }
 const RAW={wall,wallW,wallR,vine,fin,ground,tree,odoor,deck,shaft,airlock,idoor,blocks,nook,passage,hatch,terminal:memStone,
  alcT,alcB,cons,consK,proj,wallG,bed,door2,exitDoor,dirt,mound,sacks,rootsT,ring,rdoor,hatchUp,bwall:wall};
@@ -612,20 +614,20 @@ function autoSpots(map,kinds,extra){const o={};map.forEach((row,y)=>[...row].for
 /* ---------------- zones ---------------- */
 const ENTRY_MAP=[
 "TTTTTv^vvv^vvvv^vvvv^vvv",
-"T,,,,vWWWWWWwWWW>WWwWWWv",
-"T,,T,vWWWW.bb......bb.Wv",
-"T,,,,vWWWW..L....L....rv",
-"T,,,,vWWWW............Wv",
-"T,S,,vWWWW............rv",
+"T,,,,vvvvWWWwWWW>WWwWWWv",
+"T,,T,vvvvW.bb......bb.Wv",
+"T,,,,vvvvW..L....L....rv",
+"T,,,,vvvvW............Wv",
+"T,S,,vvvvW............rv",
 "T,,,,vaaaW............Wv",
 "T,,,,vaaaW............Wv",
 ",,,,,DaaaI............Wv",
 "T,,,,vaaaW............Wv",
 "T,,,,vaaaW............Wv",
-"T,,T,vWWWW............Wv",
-"T,,,,vWWWW............Wv",
-"T,,,,vWWWWnn.nn....nn.Wv",
-"TT,,,vWWWWWWwWWW<WWWWWWv",
+"T,,T,vvvvW............Wv",
+"T,,,,vvvvW............Wv",
+"T,,,,vvvvWnn.nn....nn.Wv",
+"TT,,,vvvvWWWwWWW<WWWWWWv",
 "TTTTTvvvvvvvvvvvvvvvvvvv"];
 const BRIDGE_MAP=[
 "WWWWWWWWWWWWWWWWWWWWWWWW",
@@ -648,7 +650,7 @@ const BURIED_MAP=[
 "WWWWWhWWWWWWUWWWWWWWWWWW",
 "WXXs....d.......XXrXXXXW",
 "WXs..d....d.....XXXXXXXW",
-"Wr.........d...WWWWoWWWW",
+"Wr.........d...WWoWWWWWW",
 "WX.............W.......W",
 "h....d.........W.......W",
 "WX...ss........W.......W",
@@ -721,16 +723,17 @@ const M=(say)=>({who:'멜로리',say});
 const NPC={
  /* ======== entry: outside the door ======== */
  sharE:{name:'샤스킨',zone:'entry',x:5,y:8,dir:'left',look:SHARSKIN,badge:['조상'],
-  pos:()=>f().arrived?[3,7]:[5,8],hide:()=>{const F=f();return !(!F.arrived||(F.trace&&!F.raid))},
-  status:()=>{const F=f();if(!F.arrived)return b('금속')?'todo':'wait';if(F.trace&&!F.raid)return F.yerke?'todo':null;return undefined},
+  /* outside again only for the expedition (after Yerke's death): until then Sharskin is still in the medical room with the House */
+  pos:()=>f().arrived?[3,7]:[5,8],hide:()=>{const F=f();return !(!F.arrived||(F.yerke&&!F.raid))},
+  status:()=>{const F=f();if(!F.arrived)return b('금속')?'todo':'wait';if(F.yerke&&!F.raid)return 'todo';return undefined},
   after:'조상들이 이 집을 만들었다.',
   script:()=>{const F=f();
    if(!F.arrived&&!b('금속'))return [S('오스텔, 뭘 그렇게 보느냐?')];
-   if(F.trace&&!F.raid){
-    if(!F.yerke)return [S('핸드리, 여크한테 가 봐라. 다리가 안 좋다.')];
+   if(F.yerke&&!F.raid){
     return [
      N('집이 또 이상한 말을 했어요. "{응답 신호|응답 신호} 활성."'),
      S('핸드리, 따라와라. 형제들도 다 간다.'),
+     N('샤스킨이 모두에게 칼과 금속 막대기를 나눠 줬어요.'),
      N('서른 명쯤이 무기를 들고 떠났어요.'),
      N('사흘을 걸었어요. 언덕 두 개 사이에 작은 마을이 있었어요.'),
      N('그 마을의 {판관|판관}이 나왔어요. 남자였어요.'),
@@ -738,7 +741,7 @@ const NPC={
      N('마을 사람들이 물건을 가지고 나왔어요.'),
      N('우리는 조금 가졌어요. 나머지는 다 불태웠어요.'),
      N('저도 한 남자를 때렸어요. 그 사람의 조각한 막대기를 불에 태웠어요.'),
-     N('돌아오는 길에 사냥꾼 한 명이 우리를 따라왔어요. 여자였어요.'),
+     N('돌아오는 길에 그 마을 사냥꾼 한 명이 우리를 따라왔어요. 여자였어요.'),
      N('샤스킨이 그 여자를 때려서 죽였어요. 다들 환호했어요.'),
      H('저도 같이 환호했어요. 지금은 그날의 제가 부끄러워요.'),
      N('집에 돌아왔어요. 집이 샤스킨 목소리로 말했어요.'),
@@ -747,27 +750,30 @@ const NPC={
      N('그때 저는 그 말을 다 믿었어요.'),{who:'…',say:'이틀 뒤, 사냥꾼 형제들이 누구를 끌고 콘솔 방으로 왔어요.',set:()=>{f().raid=1}}]}
    return null},
   talk:()=>[
-   S('다 왔다. 여기가 조상들의 집이다.'),
+   S('다 왔다. 여기가 {조상|조상}들의 집이다.'),
    N('언덕에 낮은 문이 있어요. 네모난데 모서리가 둥글어요.'),
    N('문 주위 풀은 아주 짧게 잘려 있어요.'),
-   S('{조상의 집|조상의 집}. 우리 조상들이 이 집을 만들었다.'),
    Q.shar[0],
+   S('{조상의 집|조상의 집}. 우리 조상들이 이 집을 만들었다.'),
    S('조상들은 벌도, 유령도 없이 살았다. 우리처럼.'),
    S('우리는 {본래 상태|본래 상태}로 돌아온 거다.'),
-   Q.shar[1],
+   S('너희 몸의 빨간 자국, 조상들은 그걸 {카인의 표식|카인의 표식}이라고 불렀다.'),  // §V "this is the Mark of Cain. That's what our ancestors called it"
+   Q.shar[1],  // §VII "You bear the Mark. You have earned admittance."
    {who:'샤스킨',say:'들어가자. 형제들이 기다린다.',award:['조상'],set:()=>{f().arrived=1}}]},
  ostel:{name:'오스텔',zone:'entry',x:4,y:7,dir:'right',look:OSTEL,badge:['금속'],
   pos:()=>b('금속')?[18,10]:[4,7],hide:()=>!!f().interro,
-  after:'금속은 차갑고 단단해. 뿌리만 그걸 찢어.',
+  get after(){const F=f();  // his usual line follows the story (one line said every talk wore thin)
+   if(F.yerke)return '여크가 없으니까 홀이 너무 조용해.';
+   if(F.sermon)return '여기 좋지? 우리는 여기 있어야 하는 사람들이야.';  // §IX "can't you see how it's good here, how we're meant for this?"
+   return '금속은 차갑고 단단해. 뿌리만 그걸 찢어.'},
   script:()=>{const F=f();if(b('금속')&&F.saw&&!F.sermon)return [{who:'오스텔',say:'콘솔 방 그림 봤어? 나는 잠이 안 와.'},{who:'오스텔',say:'샤스킨 말이 다 맞는 것 같아.'}];return null},
   talk:()=>[
    {who:'오스텔',say:'핸드리, 이 문 좀 봐. 나무도 돌도 아니야.'},
    N('만지면 차갑고 단단해요. 긁힌 곳은 은색으로 빛나요.'),
    S('이건 {금속|금속}이다. 조상들은 금속을 좋아했다.'),
    N('샤스킨이 목에 건 칼을 꺼냈어요. 지팡이처럼 은색이에요.'),
-   Q.ostel[0],
    {who:'오스텔',say:'북쪽 높은 땅에서 이런 걸 만들어. 땅에서 파서 불에 넣어. 그 일을 하는 유령도 있대.'},
-   Q.ostel[1],
+   Q.ostel[0],
    S('…핸드리, 너는 금속을 처음 듣지?'),
    {who:'핸드리',say:'네. 처음 들어요.',award:['금속']}]},
  /* ======== entry: the arched hall ======== */
@@ -786,15 +792,15 @@ const NPC={
     N('껍질 안은 부드럽고 달아요. 하나 더 받아서 주머니에 넣었어요.',),
     {who:'고참 형제',say:'{조상의 음식|조상의 음식}이야. 이 집이 줘. 우리도 먹을 수 있어.',give:'조상의 음식'},
     {who:'핸드리',say:'배가 안 아파요. 토하지도 않아요.',set:()=>{f().ate=1}}];
-   if(!b('금지')){if(!(F.saw&&b('목소리')))return [{who:'고참 형제',say:'샤스킨이 콘솔 방에서 기다려. 가 봐.'}];
+   if(!b('금지')){if(!(F.saw&&b('목소리')))return [{who:'고참 형제',say:b('메아리')?'샤스킨이 콘솔 방에서 기다려. 가 봐.':'저기 잘 웃는 형제가 여크야. 인사해.'}];  // the goal names Yerke first
     return [
      {who:'고참 형제',say:'규칙을 하나 알려 줄게.'},
      {who:'고참 형제',say:'여기서 남자와 여자는 같이 자면 안 돼. {금지|금지}야.'},
-     Q.vet[0],
      H('왜요?'),
      {who:'고참 형제',say:'예전에 아기가 생긴 적이 몇 번 있어. 그런데 아기가 배 속에서 죽었어.'},
      {who:'고참 형제',say:'엄마들도 죽었어. 우리 몸으로는 아기를 못 낳아.'},
-     {who:'고참 형제',say:'규칙을 어긴 둘이 있었어. 샤스킨이 둘 다 때렸어.'},
+     Q.vet[0],
+     {who:'고참 형제',say:'몰래 같이 잔 둘이 있었어. 샤스킨이 둘 다 때렸어.'},
      Q.vet[1],
      {who:'고참 형제',say:'자, 일하자. 뿌리는 매일 또 자라.',award:['금지'],set:()=>{checkWork()}}]}
    if(F.offer&&!F.fed)return [
@@ -806,13 +812,16 @@ const NPC={
   talk:()=>[]},
  yerke:{name:'여크',zone:'entry',x:16,y:11,dir:'down',look:YERKE,badge:['메아리'],hide:()=>!!f().yerke,
   status:()=>{const F=f();if(!b('메아리'))return F.ate?'todo':null;if(F.trace&&!F.yerke)return 'todo';return undefined},
-  after:'하하! 밤에는 메아리 때문에 코 고는 소리가 두 배야.',
+  get after(){const L=['어이, 새 형제! 오늘도 잘 먹었어?','하하! 여기서는 뿌리하고 싸우는 게 일이야. 뿌리가 자꾸 이겨!','여기 천장은 높아서 웃음소리도 커. 하하!'];
+   return L[beats()%L.length]},  // a different hello as the story moves on (his teaching line, the snoring echo, isn't repeated every talk)
   script:()=>{const F=f();if(!b('메아리'))return null;
    if(F.trace&&!F.yerke)return [
     N('그날부터 샤스킨은 저를 늘 옆에 두었어요.'),
-    N('습격 나간 형제들이 돌아왔어요. 가벨은 없었어요.'),
+    N('가벨이라는 형제가 있었어요. 여자였어요.'),
+    N('가벨은 형제 몇 명하고 어느 마을에 몰래 갔어요.'),
+    N('형제들은 돌아왔어요. 가벨은 없었어요.'),
     {who:'여크',say:'가벨은 {돌팔매|돌팔매} 돌에 맞아서 죽었어.'},
-    {who:'여크',say:'나는 가시에 찔렸어. 별거 아니야. 하하.'},
+    {who:'여크',say:'나는 가시에 {찔렸어|찌르다}. 별거 아니야. 하하.'},
     N('여크는 다리를 절어요. 상처 주위가 검붉어요.'),
     N('물을 떠다 주고 상처를 닦아 줬어요.'),
     N('며칠 뒤, 상처가 까맣게 변했어요.'),
@@ -833,8 +842,13 @@ const NPC={
  vernenE:{name:'버넌',zone:'entry',x:20,y:6,dir:'left',look:VERNEN,hide:()=>!!f().interro,
   talk:()=>[N('버넌은 어깨가 넓어요. 머리부터 발끝까지 빨개요.'),{who:'버넌',say:'새 형제? 흥. 아직 마을 냄새가 나네.'},N('{코맹맹이|코맹맹이} 목소리예요. 듣기 싫어요.')]},
  old:{name:'늙은 형제',zone:'entry',x:12,y:12,dir:'down',look:OLD,hide:()=>{const F=f();return F.sharDead&&!F.offer},
-  script:()=>{if(f().night&&!f().sharDead)return [N('늙은 형제가 자고 있어요.')];const q=Q.cafe[Math.random()*Q.cafe.length|0];
-   return [{who:'늙은 형제',say:'젊은이, 이리 앉아. 옛날 말 문제 하나 낼게.'},{...q,who:'늙은 형제',old:1},{who:'늙은 형제',say:'잘했어. 말은 잊으면 안 돼.'}]},
+  /* one old-word question per story beat (as 방과 후's quizLine): asked again before the story moves on, he only talks. The question
+     is picked, and the beat noted (F.oldQ), when its step is reached; never the one he asked last (F.oldAsk). */
+  script:()=>{const F=f();if(F.night&&!F.sharDead)return [N('늙은 형제가 자고 있어요.')];
+   if(F.oldQ!=null&&F.oldQ===beats())return [{who:'늙은 형제',say:'문제는 하나면 충분해. 다음에 또 와.'}];
+   return [{who:'늙은 형제',say:'젊은이, 이리 앉아. 옛날 말 문제 하나 낼게.'},
+    {expand:()=>{const F=f(),pool=Q.cafe.filter(q=>q.ask!==F.oldAsk),q=pool[Math.random()*pool.length|0];F.oldQ=beats();F.oldAsk=q.ask;save();return [{...q,who:'늙은 형제',old:1}]}},
+    {who:'늙은 형제',say:'잘했어. 말은 잊으면 안 돼.'}]},
   talk:()=>[]},
  bunk:{name:'내 잠자리',zone:'entry',x:18,y:13,dir:'down',look:BUNK,pos:()=>[18,13],
   status:()=>{const F=f();return F.interro&&!F.night?'todo':null},
@@ -844,7 +858,7 @@ const NPC={
     N('며칠이 지났어요. 저는 아무것도 안 했어요.'),
     N('밤마다 누워서 {이블리스|이블리스}를 생각했어요.'),
     N('{오로보|오로보} 사람을 다 머릿속에 기억하던 설계자.'),
-    N('그리고 코르토 할아버지. 마지막까지 세라를 찾던 의사.'),
+    N('그리고 코르토 할아버지. 늙어서도 죽은 아내 세라를 찾던 의사.'),
     N('유령이 있어도, 그 사람들은 사람이었어요.'),
     {who:'…',say:'그날 밤, 저는 일어났어요.',set:()=>{f().night=1}}];
    if(F.night&&!F.sharDead)return [N('지금은 잘 수 없어요.')];
@@ -854,7 +868,7 @@ const NPC={
   status:()=>{const F=f();return F.saw&&b('목소리')&&!F.root?'todo':null},
   script:()=>{const F=f();if(F.root)return [N('잘린 뿌리에서 하얀 즙이 나와요. 내일이면 또 자라요.')];
    if(!(F.saw&&b('목소리')))return [N('뿌리가 벽을 뚫고 들어왔어요. 금속이 찢어졌어요.')];
-   return [N('첫째 날. 뿌리가 벽을 뚫고 들어왔어요.'),Q.root[0],N('형제들하고 하루 종일 뿌리를 잘랐어요.'),{expand:()=>classTime(CLASS,['root'])},{who:'…',say:'손에 물집이 생겼어요.',set:()=>{f().root=1;checkWork()}}]},
+   return [N('첫째 날. 뿌리가 벽을 뚫고 들어왔어요.'),N('아침부터 형제들하고 칼로 뿌리를 잘랐어요.'),{expand:()=>classTime(CLASS,['root'])},N('오후에도 계속 잘랐어요.'),Q.root[0],{who:'…',say:'저녁이에요. 벽 안으로 들어온 뿌리는 다 잘랐어요.',set:()=>{f().root=1;checkWork()}}]},
   talk:()=>[]},
  bro1:{name:'형제 (여자)',zone:'entry',x:13,y:4,dir:'down',look:BRO1,hide:()=>{const F=f();return F.sharDead&&!F.fed},
   script:()=>{const F=f();if(F.night&&!F.sharDead)return [N('형제가 벽에 기대어 자요.')];if(F.fed)return [{who:'형제 (여자)',say:'돌아왔어. 갈 데가 없어서.'},{who:'형제 (여자)',say:'샤스킨이 없으니까 조용하네.'}];return null},
@@ -865,21 +879,21 @@ const NPC={
  /* ======== bridge ======== */
  holo:{name:'빛 그림',zone:'bridge',x:8,y:7,dir:'down',look:HOLO,pos:()=>[8,7],badge:['하늘'],
   status:()=>f().saw?undefined:'todo',
-  after:'그림이 깜박이며 계속 돌아가요. 파란색과 초록색이 섞인 공, 은색 화살, 초록색 공, 그리고 숲.',
+  after:{who:'…',say:'그림이 깜박이며 계속 돌아가요. 파란색과 초록색이 섞인 공, 은색 화살, 초록색 공, 그리고 숲.'},  // narration, not the picture speaking
   talk:()=>[
    S('보아라. 조상들이 남긴 그림이다.'),
    N('방 가운데에 희미한 빛이 떠올라요. 깜박깜박해요.'),
    N('파란색과 초록색이 섞인 공이에요.'),
    N('은색 화살 같은 것이 날아가요. 아주 멀리.'),
+   H('저 은색 화살… 이 집이에요.'),
+   S('그렇다. 잘 봤다, 핸드리. 이 집은 밤{하늘|하늘}에서 왔다.'),  // §VII "'It's the House,' I got out… 'Yes,' he breathed. 'Good, boy. The House, and the distant home of our ancestors that it left'"
    N('초록색 공. 그리고 보라색, 초록색 숲.'),
    H('숲에… 마을이 하나도 없어요.'),
    Q.holo[0],
-   S('이 집은 밤{하늘|하늘}에서 왔다.'),
-   Q.holo[1],
    {who:'…',say:'모두 말없이 그림을 봤어요.',award:['하늘'],set:()=>{f().saw=1}}]},
  house:{name:'집의 목소리',zone:'bridge',x:8,y:11,dir:'down',look:HOUSE,pos:()=>[8,11],badge:['목소리'],
   status:()=>{const F=f();if(!b('목소리'))return F.saw?'todo':null;if(F.offer&&!F.ownVoice)return 'todo';return undefined},
-  after:'집은 명령하는 사람의 목소리로 말해요.',
+  after:{who:'…',say:'집은 명령하는 사람의 목소리로 말해요.'},  // narration: under [집의 목소리] it read as the House describing itself
   script:()=>{const F=f();
    if(!F.saw)return [N('작은 구멍이 많은 판이에요. 희미한 빛이 깜박여요.')];
    if(F.offer&&!F.ownVoice)return [
@@ -889,7 +903,7 @@ const NPC={
     M('이건 조상들의 영혼이 아니야.'),
     M('유령하고 같은 거야. 더 오래되고, 더 크고, 고장 났어.'),
     Q.house2[0],
-    H('집아, 벌은 왜 사람을 쏘아?'),
+    H('집아, 벌은 왜 사람을 쏴?'),
     HOUSEV('벌, 벼룩, 머릿니가 사람 몸을 바꿉니다. 이 세계에서 살 수 있게.'),
     N('조상들이 일부러 만들었어요. 아이들이 여기서 살 수 있게요.'),
     N('유령도 원래는 주인이 아니었어요. 돕는 도구였어요.'),
@@ -898,17 +912,19 @@ const NPC={
   talk:()=>[
    S('집아. 확인.'),
    HOUSEV('확인. 작업 중.'),
-   H('집이 말해요! 그런데… 샤스킨 목소리예요.'),
-   S('집은 명령하는 사람의 {목소리|목소리}로 말한다.'),
-   Q.house[0],
+   H('집이 말해요! 그런데… 샤스킨 {목소리|목소리}예요.'),
+   N('벽에서 나는 소리예요. 입은 어디에도 없어요.'),  // §VII "this uncanny voice had spoken from the walls, from nothing"
    S('나는 이 집과 말하는 법을 배웠다. 조상들의 말로.'),
+   Q.house[0],
+   S('집은 명령하는 사람의 목소리를 흉내 낸다.'),  // §VII "a voice like a copy of his own… a dead thing mimicking his tone"
    Q.house[1],
    {who:'샤스킨',say:'내일부터 일해라. 집이 더 무너지지 않게.',award:['목소리']}]},
  sharB:{name:'샤스킨',zone:'bridge',x:8,y:9,dir:'down',look:SHARSKIN,badge:['설교하다','유령'],
-  pos:()=>{const F=f();if(F.free)return [3,3];if(F.sermon&&!F.trace)return [22,6];if(F.raid&&!F.interro)return [6,6];if(F.interro)return [12,8];return [8,9]},
-  hide:()=>{const F=f();if(F.free)return !F.sharIn||!!F.sharDead;return !F.arrived||(F.trace&&!F.raid)},
+  /* in the medical room from the sermon until Yerke's death (§VII: after the initiation he stays there talking to the House) */
+  pos:()=>{const F=f();if(F.free)return [3,3];if(F.sermon&&!F.yerke)return [22,6];if(F.raid&&!F.interro)return [6,6];if(F.interro)return [12,8];return [8,9]},
+  hide:()=>{const F=f();if(F.free)return !F.sharIn||!!F.sharDead;return !F.arrived||(F.yerke&&!F.raid)},
   status:()=>{const F=f();if(F.free)return null;if(F.saw&&b('목소리')&&F.work&&!F.sermon)return 'todo';if(!b('설교하다'))return null;return undefined},
-  get after(){const F=f();return F.sermon&&!F.trace?'의료실로 가자. 가만히 서 있으면 된다.':'형제여, 조상들의 집에서는 일하고 먹는다.'},  // after the sermon his usual line points to the medical room, then one of his REVIEW lines
+  get after(){const F=f();return F.sermon&&!F.trace?'내일 아침 여기서 {입문식|입문식}을 한다. 가만히 서 있으면 된다.':'형제여, 조상들의 집에서는 일하고 먹는다.'},  // after the sermon he waits in the medical room (he says "here", not "let's go there"), then one of his REVIEW lines
   script:()=>{const F=f();
    if(F.free)return [S('비켜라, 핸드리.')];
    if(!F.saw)return [S('가운데 빛을 보아라.')];
@@ -916,11 +932,10 @@ const NPC={
    if(!F.work)return [S('일해라. 뿌리를 자르고, 흙으로 벽을 막아라.'),S('규칙은 고참 형제에게 들어라.')];
    if(!F.sermon)return [
     N('셋째 날 저녁이에요. 콘솔 방이 노란빛으로 물들었어요.'),
-    N('형제들이 모였어요. 샤스킨이 {설교해요|설교하다}.'),
+    N('형제들이 모였어요. {설교|설교하다} 시간이에요.'),
     S('형제들아. 마을 사람들은 우리를 버렸다.'),
     S('그리고 우리가 저주받았다고 한다.'),
     S('아니다. 이 {카인의 표식|카인의 표식}은 우리의 자랑이다. 우리는 본래 상태로 돌아왔다. 조상들처럼.'),
-    Q.sermon[0],
     S('집아, 마을의 {유령|유령}은 무엇이냐?'),
     N('이번에는 샤스킨 목소리가 아니에요. 집에 남은 옛날 목소리들이에요.'),
     N('남자, 여자, 여러 사람이에요. 멀고, 지직거리고, 군데군데 끊겨요.'),
@@ -929,9 +944,11 @@ const NPC={
     {who:'옛 목소리',say:'{공동체 생물 허브|공동체 생물 허브}.'},
     Q.sermon[1],
     S('들었느냐? 조상들은 유령을 다르게 불렀다.'),
+    Q.sermon[0],  // after the House's voices, not right after "설교해요"
     Q.sermon[2],
     {who:'…',say:'저는 그 말들을 다 믿었어요.',award:['설교하다','유령'],set:()=>{f().sermon=1}}];
    if(!F.trace)return null;  // the medical-room pointer is his `after` now, so a review line can follow it
+   if(!F.yerke)return [N('샤스킨이 혼자 집하고 이야기해요. 집이 샤스킨 목소리로 천천히 대답해요.'),S('일하러 가라, 핸드리.')];  // §VII "Go back to your work, boy… the House answered him slowly in his own voice"
    if(F.raid&&!F.interro)return [S('보아라, 핸드리. 네 의사 유령이 왔다.')];
    if(F.interro)return [N('샤스킨이 콘솔 앞에서 집하고 이야기해요. 저를 보지 않아요.')];
    return null},
@@ -945,17 +962,16 @@ const NPC={
   talk:()=>[
    {who:'젊은 형제',say:'핸드리, 그 목소리 들었지?'},
    {who:'젊은 형제',say:'나는 조상들의 {영혼|영혼}이 이 집에 산다고 생각해.'},
-   Q.young[0],
    {who:'젊은 형제',say:'죽은 조상들이 우리를 보고 있는 거야.'},
    H('…정말 그럴까?'),
-   Q.young[1],
+   Q.young[0],
    {who:'젊은 형제',say:'그러니까 우리는 착하게 살아야 해.',award:['영혼']}]},
  medbed:{name:'의료실 침대',zone:'bridge',x:20,y:6,dir:'down',look:MEDBED,pos:()=>[20,6],
   status:()=>{const F=f();return F.sermon&&!F.trace?'todo':null},
   script:()=>{const F=f();
    if(!(F.sermon&&!F.trace))return [N('휘어진 금속 침대예요. 벽에서 물속 같은 빛이 나요.')];
    return [
-    N('넷째 날 아침. 샤스킨이 저를 의료실로 데려왔어요.'),
+    N('넷째 날 아침. 샤스킨이 저를 의료실로 불렀어요.'),
     S('가만히 서 있어라. 집이 너를 볼 거다. {입문식|입문식}이다.'),
     N('부서진 금속 침대들 사이에 섰어요. 벽이 웅웅 울려요.'),
     HOUSEV('검사 완료. 본래 상태. 이 환경과 맞지 않음.'),
@@ -963,8 +979,9 @@ const NPC={
     HOUSEV('경고. {진단 장치|진단 장치} 감지.'),
     HOUSEV('{추적 신호|추적 신호} 활성.'),
     H('…무슨 말이에요?'),
-    S('…나가 봐라. 나는 집하고 할 말이 있다.'),
-    {who:'…',say:'저는 나왔어요. 샤스킨은 오랫동안 안에 있었어요.',set:()=>{f().trace=1}}]},
+    S('…일하러 가라, 핸드리.'),
+    N('나가는데 샤스킨 목소리가 들렸어요. 집이 샤스킨 목소리로 천천히 대답했어요.'),
+    {who:'…',say:'저는 아치 홀로 돌아왔어요. 샤스킨은 오랫동안 의료실에 있었어요.',set:()=>{f().trace=1},go:['entry',16,2,'down']}]},  // §VII "Go back to your work, boy." Handry leaves; Sharskin stays (sharB, until Yerke's death)
   talk:()=>[]},
  frozen:{name:'멈춘 하인',zone:'bridge',x:3,y:9,dir:'down',look:SERVANT_FROZEN,pos:()=>[3,9],
   talk:()=>[N('{금속 하인|금속 하인}이에요. 한 발을 든 채로 멈춰 있어요.'),N('머리가 둥글고 목이 없어요. 얼굴은 휜 거울 같아요.'),N('가슴 왼쪽에 뾰족한 글자 세 개가 있어요.'),N('벽 안에 일곱, 여기 하나. 모두 여덟이에요.')]},
@@ -976,11 +993,12 @@ const NPC={
    N('얼굴 왼쪽이 부었어요. 빈 눈에서 하얀 빛이 깜박여요.'),
    H('…멜로리?'),
    N('멜로리예요. 사냥꾼 형제들한테 잡혔어요.'),
-   H('뭐 하는 거예요? 제 누이예요!'),
-   S('아니다. 이제 네 누이가 아니다. 유령이 사는 껍데기다.'),
+   H('뭐 하는 거예요? 제 누나예요!'),
+   S('아니다. 이제 네 누나가 아니다. 유령이 사는 껍데기다.'),
    M('핸드리! 너를 구하러 왔어!'),
    HOUSEV('새 장치: {의료 전문가 시스템|의료 전문가 시스템}.'),
    S('역시. 이 아이의 유령이 너를 따라왔다, 핸드리.'),
+   N('기억났어요. 아로에서 멜로리가 제 손바닥을 눌렀어요. 가시처럼 따끔했어요.'),  // §III "Her thumb moved to press against my palm… as though she had driven a thorn into me"
    S('네 손바닥에 {진단 가시|진단 가시}가 있다. 유령은 그걸로 너를 찾았다.'),
    S('의사 유령은 {단절약|단절약} 만드는 법을 안다.'),
    S('그걸로 온 세상 사람들에게 표식을 남길 거다.'),
@@ -999,8 +1017,7 @@ const NPC={
   after:'우리가 가르치고, 또 배우자.',
   script:()=>{const F=f();
    if(!F.sharDead)return [
-    {who:'…',say:'우리는 콘솔 방으로 도망쳤어요.',set:()=>{const F=f();F.sharIn=0;F.svOut=0}},
-    H('콘솔 방에 숨자. 샤스킨은 여기를 생각도 못 할 거야.'),
+    {who:'…',say:'콘솔 사이에 멜로리를 숨겼어요. 제 옷으로 멜로리 얼굴의 빛을 가렸어요.',set:()=>{const F=f();F.sharIn=0;F.svOut=0}},  // §IX "I tucked her between two of the bulky projections… holding my robe up to block out the flickering radiance"
     HOUSEV('업데이트 진행 중…'),
     N('발소리가 들려요. 샤스킨이에요.'),
     S('집아! 그 여자는 어디 있느냐?'),
@@ -1009,20 +1026,21 @@ const NPC={
     {who:'…',say:'샤스킨이 들어왔어요. 은색 지팡이를 들고요.',set:()=>{f().sharIn=1}},
     N('저는 샤스킨한테 달려들었어요. 샤스킨이 제 턱을 쳤어요. 다리에 힘이 빠졌어요.'),
     N('형제들이 멜로리를 바닥에 엎드리게 했어요. 샤스킨이 지팡이 끝으로 멜로리 등을 짓눌렀어요.'),
-    Q.clim[0],
     HOUSEV('업데이트 완료.'),
     HOUSEV('명령 {권한|권한} 승인.'),
-    Q.clim[1],
     S('집아! {프린터 기능|프린터 기능}! 단절약을 만들어라!'),
     HOUSEV('거부합니다. 권한이 없습니다.'),
-    N('멜로리 목소리였어요.'),
+    N('그런데 샤스킨 목소리가 아니었어요. 제가 평생 들어 온 목소리였어요.'),  // §IX "imitating another voice, one I had known all my life" (the tiles say whose)
     {who:'…',w:'목소리',build:['집이','멜로리 목소리로','대답했어요'],alts:[['멜로리 목소리로','집이','대답했어요']]},
     {who:'…',say:'벽 쪽에서 금속 소리가 났어요. 하인 하나가 걸어 나왔어요.',set:()=>{f().svOut=1}},
     N('하인의 혹에서 하얀 빛이 뛰어요. 멜로리 심장처럼요.'),
     S('멈춰라! 꺼져라! 잠들어라!'),
     N('하인이 샤스킨을 붙잡았어요. 갈비뼈가 부서지는 소리가 났어요.'),
     N('샤스킨 입에서 피가 흘렀어요. 샤스킨이 죽었어요.'),
-    {who:'…',say:'형제들은 도망치거나 숨었어요.',award:['권한'],set:()=>{f().sharDead=1}}];
+    N('형제들은 도망치거나 숨었어요.'),
+    Q.clim[1],
+    Q.clim[0],  // "권한을 받기 전에…": only once the access exists
+    {who:'…',say:'방에는 멜로리와 저만 남았어요.',award:['권한'],set:()=>{f().sharDead=1}}];  // §IX "We were alone then"
    if(!F.offer)return [
     M('핸드리… 나, 판관한테 말 안 했어. 유령의 보고를 내가 막았어.'),
     M('그런데 유령이 계속 네가 아프다고 알려 줬어.'),
@@ -1031,13 +1049,13 @@ const NPC={
     N('며칠이 지났어요.'),
     M('핸드리, 이제 너를 {치료할|치료하다} 수 있어.'),
     M('내 피를 네 {혈관|혈관}에 넣는 거야. 그러면 단절이 풀릴 거야.'),
+    H('…다시 마을 사람이 될 수 있다고?'),
     Q.offer[0],
     Q.offer[1],
-    H('…다시 마을 사람이 될 수 있다고?'),
     N('오래 생각했어요.'),
     H('고마워, 멜로리. 그래도 안 할래.'),
-    H('나는 이대로 있을게.'),
     Q.offer[2],
+    H('응. 나는 이대로 있을게.'),
     {who:'…',w:'거절하다',build:['핸드리는','치료를','거절했어요']},
     M('…알았어. 그럼 집의 권한을 너하고 나눌게.'),
     {who:'…',say:'이제 집은 저한테도 대답해요.',award:['치료하다','혈관','거절하다'],set:()=>{f().offer=1}}];
@@ -1055,30 +1073,35 @@ const NPC={
  sharBody:{name:'샤스킨',zone:'bridge',x:3,y:3,dir:'down',look:SHAR_DEAD,pos:()=>[3,3],hide:()=>{const F=f();return !(F.sharDead&&!F.offer)},
   talk:()=>[N('샤스킨이 쓰러져 있어요. 움직이지 않아요.'),N('은색 지팡이가 옆에 떨어져 있어요.')]},
  /* ======== buried chambers ======== */
- crack:{name:'흙이 새는 틈',zone:'buried',x:2,y:4,dir:'down',look:CRACK,pos:()=>[2,4],
+ crack:{name:'흙이 새는 틈',zone:'buried',x:8,y:1,dir:'down',look:CRACK,pos:()=>[8,1],  // by the north wall, in view from the stairs (it was in the far dark corner)
   status:()=>{const F=f();return F.saw&&b('목소리')&&!F.crack?'todo':null},
   script:()=>{const F=f();if(F.crack)return [N('흙 자루가 틈을 막고 있어요.')];
    return [N('둘째 날. 땅속 방이에요. 벽에 금이 갔어요.'),N('틈으로 흙이 쏟아져 들어와요.'),N('형제들하고 자루에 흙을 담았어요.'),Q.crack[0],{expand:()=>classTime(CLASS,['crack'])},{who:'…',say:'자루를 쌓아서 틈을 막았어요.',set:()=>{f().crack=1;checkWork()}}]},
   talk:()=>[]},
- melB:{name:'멜로리',zone:'buried',x:19,y:4,dir:'down',look:MEL_CAPTIVE,pos:()=>[19,4],badge:['묶다'],hide:()=>{const F=f();return !(F.interro&&!F.free)},
+ melB:{name:'멜로리',zone:'buried',x:17,y:4,dir:'down',look:MEL_CAPTIVE,pos:()=>[17,4],badge:['묶다','칼'],hide:()=>{const F=f();return !(F.interro&&!F.free)},
   status:()=>{const F=f();if(F.vernen&&!F.free)return 'todo';return F.night?null:'wait'},
   script:()=>{const F=f();
    if(!F.night)return [N('멜로리가 벽에 기대어 눈을 감고 있어요. 목에 밧줄이 있어요.'),N('저는 말을 걸지 못했어요.')];
    if(!F.vernen)return [N('버넌이 앞을 막고 있어요.')];
    return null},
+  /* §IX order: the leash is cut, then Melory kicks Ostel out; they flee up, and Handry chooses the Console Room to hide in */
   talk:()=>[
    M('…핸드리.'),
    H('멜로리, 가만히 있어. 밧줄을 풀게.'),
    N('밧줄이 목에 꽉 {묶여|묶다} 있어요. 매듭이 안 풀려요.'),
    Q.melB[0],
-   {who:'…',say:'칼로 밧줄을 잘랐어요.',give:'밧줄 조각'},
+   Q.vern[1],  // the knife only once the knot won't come undone
+   {who:'…',say:'밧줄이 툭 끊어졌어요.',give:'밧줄 조각'},
+   N('멜로리가 일어나서 발꿈치로 오스텔 머리를 찼어요. 오스텔이 정신을 잃었어요.'),
+   N('멜로리 얼굴에서 하얀 빛이 번쩍였어요. 유령이 어디를 찰지 알려 준 것 같아요.'),
+   N('위로 도망쳤어요. 그런데 바깥문 앞에 형제들이 있었어요.'),  // §IX the overnight work crew at the doorway
+   N('멜로리가 벽에 기대어 주저앉았어요.'),
    M('들려… 집이 말하고 있어. 내 머릿속에서.'),
    M('방이 아주 많아. 다 부서졌어. 같은 말만 계속 해.'),
-   Q.melB[1],
-   H('어디로 가?'),
-   {who:'멜로리',say:'위로. 콘솔 방으로.',award:['묶다'],set:()=>{f().free=1}}]},
- vernenB:{name:'버넌',zone:'buried',x:18,y:5,dir:'right',badge:['칼','찌르다'],
-  get look(){return f().vernen?VERNEN_DEAD:VERNEN},pos:()=>[18,5],hide:()=>{const F=f();return !F.night||!!F.sharDead},
+   H('콘솔 방에 숨자. 샤스킨은 거기는 생각도 못 할 거야.'),  // §IX "where Sharskin would surely never think to look for us"
+   {who:'…',say:'멜로리는 잘 걷지 못했어요. 반은 안고 반은 끌고 콘솔 방으로 갔어요.',award:['묶다','칼'],set:()=>{f().free=1},go:['bridge',2,3,'left']}]},  // §IX "I half carried, half dragged her"; you arrive beside her
+ vernenB:{name:'버넌',zone:'buried',x:16,y:5,dir:'right',badge:['찌르다'],
+  get look(){return f().vernen?VERNEN_DEAD:VERNEN},pos:()=>[16,5],hide:()=>{const F=f();return !F.night||!!F.sharDead},
   status:()=>{const F=f();if(F.night&&!F.vernen)return 'todo';return F.vernen?null:undefined},
   script:()=>f().vernen?[N('버넌이 움직이지 않아요.')]:null,
   talk:()=>[
@@ -1091,17 +1114,14 @@ const NPC={
    N('저는 버넌을 뒤로 끌어서 넘어뜨렸어요.'),
    N('버넌이 일어나서 저를 벽에 밀어붙였어요. 버넌이 훨씬 세요.'),
    N('저한테는 {칼|칼}이 있었어요.'),
-   {who:'…',say:'칼로 버넌을 찔렀어요. 한 번, 두 번, 세 번.'},
-   Q.vern[0],
+   Q.vern[0],  // the stabbing is the question itself ("칼로 버넌을 찔렀어요" just before gave it away)
+   N('버넌의 소리가 뚝 끊겼어요.'),
    N('버넌이 움직이지 않아요. 죽었어요.'),
    {who:'오스텔',say:'배신자… 핸드리, 그 여자는 네 쌍둥이가 아니야. 다 버리지 마.'},
    N('제가 다가가자 오스텔이 뒤로 물러났어요.'),
-   N('오스텔이 멜로리 옆을 지날 때, 멜로리가 발을 걸었어요. 오스텔이 넘어졌어요.'),
-   N('멜로리가 발꿈치로 오스텔을 찼어요. 오스텔이 정신을 잃었어요.'),
-   Q.vern[1],
-   {who:'…',say:'멜로리의 빈 눈과 얼굴 구멍에서 하얀 빛이 번쩍였어요. 유령이 어디를 찰지 알려 준 것 같아요.',award:['칼','찌르다'],set:()=>{f().vernen=1}}]},
- ostelB:{name:'오스텔',zone:'buried',x:20,y:5,dir:'left',get look(){return f().vernen?OSTEL_DOWN:OSTEL},pos:()=>[20,5],hide:()=>{const F=f();return !F.interro||!!F.sharDead},
-  script:()=>f().vernen?[N('오스텔이 정신을 잃고 쓰러져 있어요.')]:null,
+   {who:'…',say:'오스텔이 멜로리 옆을 지날 때, 멜로리가 발을 걸었어요. 오스텔이 넘어졌어요.',award:['찌르다'],set:()=>{f().vernen=1}}]},  // the kick comes after the leash is cut (melB)
+ ostelB:{name:'오스텔',zone:'buried',x:18,y:5,dir:'left',get look(){return f().vernen?OSTEL_DOWN:OSTEL},pos:()=>[18,5],hide:()=>{const F=f();return !F.interro||!!F.sharDead},
+  script:()=>{const F=f();return F.free?[N('오스텔이 정신을 잃고 쓰러져 있어요.')]:F.vernen?[N('오스텔이 바닥에 누워서 숨을 헐떡여요.')]:null},  // tripped (§IX "lay gasping for breath"), then kicked out once the leash is cut
   talk:()=>[{who:'오스텔',say:'핸드리, 가까이 오지 마.'},{who:'오스텔',say:'그 여자는 이제 네 쌍둥이가 아니야. 유령이야.'}]},
 };
 const FOLLOW=null;
