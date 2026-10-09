@@ -137,24 +137,25 @@ const Q={ // NPC questions, kept here so review can reuse them
    leaves, so only the forest words; the 모닥불 자리 from 흔적 on; Cro by day until the feast night; the 파수꾼 by night until the hunt;
    the second hunter until the first one speaks; the huntress only after the chapter's end. Things and animals can't speak: their
    lines are Handry's own thoughts there (who:'핸드리'). The escort and the first hunter leave the moment they teach, so their
-   lines are never asked (kept so each teacher who speaks has one).
+   lines are never asked (kept so each teacher who speaks has one). Likewise the 크로 여자 teaches 꽃잎 as the day ends and the
+   feast night follows in the same talk: her lines and Kalton's 꽃잎 line are never asked.
    Invented (inv., small, non-decisive): at the camp, the drummer's cold hands and a pot of boiling water for Kalton; the carrier
    burns his hand on it and has a strap sore on his shoulder; the piper feels Kalton's forehead warm; Kalton knowing no one in Cro
    and missing Aro's neighbours; something calling in the dark. In Cro by day, feast soup in a big pot and children warned off it,
    neighbours helping, a mother stopping the toddler eating a petal, the toddler pointing at a wasp, Kalton saying no one here
-   ignores him. By night, the watchman noticing only burnt loaves go and no footprints, wanting more lamps. The hunters looking for
+   ignores him. By night, the watchman noticing even burnt loaves go and no footprints, wanting more lamps. The hunters looking for
    footprints and crumbs and meaning to block the slope. The huntress's "walk toward the sunrise each morning" and "not Cro".
-   Handry's thoughts: the leaf blanket still itching, the leg wound not yet healed, Cro hunters/traps maybe in the woods (hedged),
-   leaving at sunrise. Class time (the five-day feast): Cro drumming and singing each night, a Cro person urging Kalton to eat,
-   Handry watching from the edge of the woods. */
+   Handry's thoughts: the leaf blanket still itching, the leg wound not yet healed (both only until the thieving nights),
+   Cro hunters/traps maybe in the woods (hedged), leaving at sunrise. Class time (the five-day feast): Cro drumming and singing
+   each night, a Cro person urging Kalton to eat, Handry watching from the edge of the woods. */
 const REVIEW=[
  /* ---- the forest (Handry's thoughts by the Raikers, once the Arraclid has gone) ---- */
  {w:'어둠',by:'raikerB',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'밤이 오면 숲에는 ___만 있어요.',opts:[['어둠',1],['아침',0,'아침은 밝아요. 밤에 빛이 없으면 "어둠".'],['얼음',0,'얼음은 차가운 물이에요. 밤에 빛이 없으면 "어둠".']]},
  {w:'외롭다',by:'raikerB',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'레이커들은 붙어서 자요. 저만 혼자라서 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로워요".'],['가려워요',0,'가렵다는 긁고 싶은 거예요. 혼자라서 쓸쓸하면 "외로워요".']]},
  {w:'쏘다',by:'raikerC',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'벌도 저를 안 ___. 짐승들도 저를 피해요.',opts:[['쏴요',1],['싸요',0,'싸다는 짐을 싸는 거예요. 벌은 침으로 "쏴요".'],['써요',0,'쓰다는 글씨를 쓰는 거예요. 벌은 침으로 "쏴요".']]},
- {w:'캄캄하다',by:'raikerC',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'___ 밤에는 레이커 소리만 들려요.',opts:[['캄캄한',1],['깨끗한',0,'깨끗하다는 더럽지 않은 거예요. 소리만 들리는 밤은 "캄캄한" 밤.'],['밝은',0,'밝은 밤이면 다 보여요. 소리만 들리면 "캄캄한" 밤.']]},
+ {w:'캄캄하다',by:'raikerC',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'___ 밤에는 레이커가 안 보여요. 소리만 들려요.',opts:[['캄캄한',1],['깨끗한',0,'깨끗하다는 더럽지 않은 거예요. 소리만 들리는 밤은 "캄캄한" 밤.'],['밝은',0,'밝은 밤이면 다 보여요. 소리만 들리면 "캄캄한" 밤.']]},
  {w:'얼다',by:'raikerA',who:'핸드리',pre:['후우— 후우—'],ask:'바람이 차요. 밤에는 손가락이 ___ 것 같아요.',opts:[['얼',1],['열',0,'열은 아플 때 몸이 뜨거운 거예요. 추우면 손가락이 "얼" 것 같아요.'],['울',0,'울다는 눈물이 나는 거예요. 추우면 손가락이 "얼" 것 같아요.']]},
- {w:'가렵다',by:'raikerA',who:'핸드리',pre:['후우— 후우—'],ask:'나뭇잎 이불 때문에 팔이 아직 ___.',opts:[['가려워요',1],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 긁고 싶으면 "가려워요".'],['그리워요',0,'그립다는 보고 싶은 거예요. 긁고 싶으면 "가려워요".']]},
+ {w:'가렵다',by:'raikerA',who:'핸드리',when:()=>!f().night,pre:['후우— 후우—'],ask:'나뭇잎 이불 때문에 팔이 아직 ___.',opts:[['가려워요',1],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 긁고 싶으면 "가려워요".'],['그리워요',0,'그립다는 보고 싶은 거예요. 긁고 싶으면 "가려워요".']]},
  /* ---- the forest things, after the resolve (and after the chapter's end) ---- */
  {w:'외롭다',by:'nest',who:'핸드리',ask:'숲에서는 말할 사람이 없어요. 그래서 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로워요".'],['가려워요',0,'가렵다는 긁고 싶은 거예요. 혼자라서 쓸쓸하면 "외로워요".']]},
  {w:'두드러기',by:'nest',who:'핸드리',ask:'나뭇잎 이불을 덮으면 ___가 나요.',opts:[['두드러기',1],['두부',0,'두부는 먹는 거예요! 피부에 빨갛게 올라오는 건 "두드러기".'],['주름',0,'주름은 늙으면 생겨요. 빨갛게 올라오는 건 "두드러기".']]},
@@ -163,7 +164,7 @@ const REVIEW=[
  {w:'덫',by:'berry',who:'핸드리',ask:'숲에 사냥꾼들 ___이 있을지도 몰라요.',opts:[['덫',1],['떡',0,'떡이면 좋겠어요! 짐승을 잡는 건 "덫".'],['돛',0,'돛은 배에 다는 천이에요. 짐승을 잡는 건 "덫".']]},
  {w:'도둑',by:'berry',who:'핸드리',when:()=>!!f().hunt,ask:'저는 이제 ___이에요. 그래도 살아야 돼요.',opts:[['도둑',1],['도끼',0,'도끼는 나무를 찍는 거예요. 훔치는 사람은 "도둑".'],['도움',0,'도움은 남을 돕는 거예요. 훔치는 사람은 "도둑".']]},
  {w:'굶다',by:'bark',who:'핸드리',ask:'벌레라도 먹어요. ___ 것보다 나아요.',opts:[['굶는',1],['끓는',0,'끓다는 물이 뜨거워지는 거예요. 아무것도 못 먹는 건 "굶는" 것.'],['긁는',0,'긁다는 가려운 데를 손톱으로 하는 거예요. 아무것도 못 먹는 건 "굶는" 것.']]},
- {w:'상처',by:'bark',who:'핸드리',ask:'다리 ___가 아직 다 안 나았어요.',opts:[['상처',1],['상자',0,'상자는 물건을 넣는 거예요. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이에요. 다쳐서 생긴 곳은 "상처".']]},
+ {w:'상처',by:'bark',who:'핸드리',when:()=>!f().night,ask:'다리 ___가 아직 다 안 나았어요.',opts:[['상처',1],['상자',0,'상자는 물건을 넣는 거예요. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이에요. 다쳐서 생긴 곳은 "상처".']]},
  {w:'해가 뜨다',by:'bark',who:'핸드리',ask:'내일 아침 해가 ___ 바로 떠나요.',opts:[['뜨면',1],['지면',0,'해가 지면 밤이에요. 아침에 떠나니까 "뜨면".'],['타면',0,'해는 안 타요. 아침에 하늘에 나오면 "뜨면".']]},
  {w:'꽃잎',by:'bark',who:'핸드리',when:()=>!!f().hunt,ask:'주황색 ___도 하룻밤만 먹을 수 있었어요.',opts:[['꽃잎',1],['꽃집',0,'꽃집은 꽃을 파는 가게예요. 꽃의 얇은 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 얇은 부분은 "꽃잎".']]},
  /* ---- the road camp, overheard from the brush (until the procession leaves: only the forest words) ---- */
@@ -172,9 +173,9 @@ const REVIEW=[
  {w:'이웃',by:'kaltonR',ask:'아로 ___들이 벌써 보고 싶어요.',opts:[['이웃',1],['이사',0,'이사는 집을 옮기는 거예요. 같은 마을 사람은 "이웃".'],['이불',0,'이불은 잘 때 덮는 거예요. 같은 마을 사람은 "이웃".']]},
  {w:'얼다',by:'drummer',ask:'바람이 차요. 북 치는 손이 ___ 것 같아요.',opts:[['얼',1],['열',0,'열은 아플 때 몸이 뜨거운 거예요. 추우면 손이 "얼" 것 같아요.'],['울',0,'울다는 눈물이 나는 거예요. 추우면 손이 "얼" 것 같아요.']]},
  {w:'캄캄하다',by:'drummer',ask:'불 밖은 너무 ___. 하나도 안 보여요.',opts:[['캄캄해요',1],['깨끗해요',0,'깨끗하다는 더럽지 않은 거예요. 하나도 안 보이면 "캄캄해요".'],['따뜻해요',0,'불 밖은 추워요! 하나도 안 보이면 "캄캄해요".']]},
- {w:'끓이다',by:'drummer',ask:'칼턴, 물 ___ 줄게요. 따뜻하게 마셔요.',opts:[['끓여',1],['끓어',0,'"끓어"는 물이 혼자 하는 거예요. 제가 하면 "끓여 줄게요".'],['꿇어',0,'꿇다는 무릎을 꿇는 거예요. 물은 "끓여".']]},
+ {w:'끓이다',by:'drummer',ask:'칼턴, 물 ___ 줄게. 따뜻하게 마셔.',opts:[['끓여',1],['끓어',0,'"끓어"는 물이 혼자 하는 거예요. 제가 하면 "끓여 줄게".'],['꿇어',0,'꿇다는 무릎을 꿇는 거예요. 물은 "끓여".']]},
  {w:'숲',by:'piper',ask:'밤 ___은 노래해요. 들려요? 삐걱삐걱.',opts:[['숲',1],['술',0,'하하, 술은 노래 안 해요. 나무가 많은 곳은 "숲".'],['숯',0,'숯은 나무를 태운 검은 거예요. 나무가 많은 곳은 "숲".']]},
- {w:'열이 나다',by:'piper',ask:'칼턴, 이마가 뜨거워요. 혹시 ___?',opts:[['열이 나요',1],['얼어요',0,'얼면 몸이 차가워요. 이마가 뜨거우면 "열이 나요".'],['열어요',0,'열다는 문을 여는 거예요. 이마가 뜨거우면 "열이 나요".']]},
+ {w:'열이 나다',by:'piper',ask:'칼턴, 이마가 뜨거워. 혹시 ___?',opts:[['열이 나',1],['얼어',0,'얼면 몸이 차가워요. 이마가 뜨거우면 "열이 나?"'],['열어',0,'열다는 문을 여는 거예요. 이마가 뜨거우면 "열이 나?"']]},
  {w:'배고프다',by:'carrier',ask:'아이고, ___. 크로 잔치는 아직이에요?',opts:[['배고파요',1],['배불러요',0,'배부르면 잔치를 안 기다리죠. 먹고 싶으면 "배고파요".'],['배워요',0,'배우다는 공부하는 거예요. 먹고 싶으면 "배고파요".']]},
  {w:'굶다',by:'carrier',ask:'크로에 가면 아무도 안 ___. 잔치니까요!',opts:[['굶어요',1],['끓어요',0,'끓다는 물이 뜨거워지는 거예요. 밥을 못 먹는 건 "굶어요".'],['긁어요',0,'긁다는 손톱으로 하는 거예요. 밥을 못 먹는 건 "굶어요".']]},
  {w:'데다',by:'carrier',ask:'앗, 뜨거워요! 냄비에 손을 ___.',opts:[['데었어요',1],['탔어요',0,'손이 까맣게 탄 건 아니에요. 사람 피부는 "데었어요".'],['되었어요',0,'되다는 무엇이 바뀌는 거예요. 뜨거운 것에 다치면 "데었어요".']]},
@@ -185,10 +186,10 @@ const REVIEW=[
  {w:'흔적',by:'ashes',who:'핸드리',ask:'아로 사람들은 다 갔어요. ___만 남았어요.',opts:[['흔적',1],['흉터',0,'흉터는 다친 데 남는 거예요. 사람들이 지나간 뒤에 남은 건 "흔적".'],['약속',0,'약속은 미리 정하는 거예요. 지나간 뒤에 남은 건 "흔적".']]},
  {w:'숨다',by:'ashes',who:'핸드리',ask:'그날 밤 저는 저 덤불 뒤에 ___ 있었어요.',opts:[['숨어',1],['쉬어',0,'쉬는 게 아니었어요. 안 보이게 → "숨어 있었어요".'],['숨 쉬어',0,'숨 쉬다는 공기를 마시는 거예요. 안 보이게 → "숨어 있었어요".']]},
  {w:'굶다',by:'ashes',who:'핸드리',ask:'빵 껍질 덕분에 그날은 안 ___.',opts:[['굶었어요',1],['끓었어요',0,'끓다는 물이 뜨거워지는 거예요. 밥을 못 먹는 건 "굶다".'],['긁었어요',0,'긁다는 손톱으로 하는 거예요. 밥을 못 먹는 건 "굶다".']]},
- {w:'사냥꾼',by:'ashes',who:'핸드리',ask:'크로 ___들은 여기까지 안 와요. 아마도요.',opts:[['사냥꾼',1],['사냥감',0,'사냥감은 잡히는 짐승이에요. 짐승을 잡는 사람은 "사냥꾼".'],['나무꾼',0,'나무꾼은 나무를 하는 사람이에요. 짐승을 잡는 사람은 "사냥꾼".']]},
+ {w:'사냥꾼',by:'ashes',who:'핸드리',ask:'저를 쫓는 크로 ___들은 여기까지 안 와요. 아마도요.',opts:[['사냥꾼',1],['사냥감',0,'사냥감은 잡히는 짐승이에요. 짐승을 잡는 사람은 "사냥꾼".'],['나무꾼',0,'나무꾼은 나무를 하는 사람이에요. 저를 쫓는 사람들은 "사냥꾼".']]},
  /* ---- Cro by day: Kalton's welcome, until the feast night ---- */
  {w:'꽃잎',by:'kaltonC',ask:'아로에는 이런 꽃이 없어요. ___도 움직여요!',opts:[['꽃잎',1],['꽃씨',0,'꽃씨는 땅에 심는 거예요. 꽃의 얇은 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 얇은 부분은 "꽃잎".']]},
- {w:'무시하다',by:'kaltonC',ask:'여기 사람들은 아무도 저를 ___ 않아요.',opts:[['무시하지',1],['무사하지',0,'무사하다는 다친 데가 없는 거예요. 못 본 척하는 건 "무시하다".'],['무시당하지',0,'무시당하는 건 제가 당하는 거예요. 사람들이 하면 "무시하지".']]},
+ {w:'무시하다',by:'kaltonC',ask:'다들 저만 봐요. 아무도 저를 ___ 않아요.',opts:[['무시하지',1],['무사하지',0,'무사하다는 다친 데가 없는 거예요. 못 본 척하는 건 "무시하다".'],['무시당하지',0,'무시당하는 건 제가 당하는 거예요. 사람들이 하면 "무시하지".']]},
  {w:'진단하다',by:'kaltonC',when:()=>!!f().sawDoc,ask:'의사 선생님이 저를 건강하다고 ___.',opts:[['진단했어요',1],['진정했어요',0,'진정하다는 마음을 가라앉히는 거예요. 의사가 살펴보고 알아내면 "진단했어요".'],['무시했어요',0,'무시하면 안 봐요. 의사 선생님은 저를 살펴봤어요. "진단했어요".']]},
  {w:'꽃잎',by:'womanA',ask:'아가, 꽃에서 뗀 ___은 먹지 마요!',opts:[['꽃잎',1],['꽃병',0,'꽃병은 꽃에서 떼는 게 아니에요. 꽃의 얇은 부분은 "꽃잎".'],['나뭇잎',0,'나뭇잎은 나무에서 떼요. 꽃에서 떼면 "꽃잎".']]},
  {w:'공동체',by:'womanA',ask:'칼턴은 이제 우리 ___ 사람이에요.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거예요. 같이 사는 사람들은 "공동체".'],['공기',0,'공기는 숨 쉬는 거예요. 같이 사는 사람들은 "공동체".']]},
@@ -199,7 +200,7 @@ const REVIEW=[
  /* ---- Cro by night: the watchman at the bakery, until the hunt ---- */
  {w:'도둑',by:'guard',ask:'___은 꼭 밤에 와요. 낮에는 안 와요.',opts:[['도둑',1],['도끼',0,'도끼는 나무를 찍는 거예요. 몰래 훔치는 사람은 "도둑".'],['도움',0,'도움은 남을 돕는 거예요. 몰래 훔치는 사람은 "도둑".']]},
  {w:'훔치다',by:'guard',ask:'빵, 신발, 옷… 다음엔 뭘 ___ 갈까요?',opts:[['훔쳐',1],['빌려',0,'빌리면 돌려줘요. 몰래 가져가면 "훔쳐 갈까요".'],['흔들어',0,'흔들다는 이리저리 움직이는 거예요. 몰래 가져가면 "훔쳐 갈까요".']]},
- {w:'타다',by:'guard',ask:'이상해요. 까맣게 ___ 빵만 없어져요.',opts:[['탄',1],['단',0,'달다는 맛이에요. 까만 빵은 "탄" 빵.'],['덴',0,'데다는 사람이 뜨거운 것에 다치는 거예요. 빵은 "탄".']]},
+ {w:'타다',by:'guard',ask:'이상해요. 까맣게 ___ 빵도 없어져요.',opts:[['탄',1],['단',0,'달다는 맛이에요. 까만 빵은 "탄" 빵.'],['덴',0,'데다는 사람이 뜨거운 것에 다치는 거예요. 빵은 "탄".']]},
  {w:'캄캄하다',by:'guard',ask:'오늘 밤은 정말 ___. 등불이 더 있어야 돼요.',opts:[['캄캄해요',1],['깨끗해요',0,'깨끗하다는 더럽지 않은 거예요. 안 보이면 "캄캄해요".'],['따뜻해요',0,'따뜻하면 등불이 왜 필요해요? 안 보이면 "캄캄해요".']]},
  {w:'흔적',by:'guard',ask:'도둑은 ___도 안 남겨요. 발자국 하나 없어요.',opts:[['흔적',1],['흉터',0,'흉터는 다친 데 남는 거예요. 지나간 뒤에 남는 건 "흔적".'],['약속',0,'약속은 미리 정하는 거예요. 지나간 뒤에 남는 건 "흔적".']]},
  /* ---- the hunt: the second hunter in the woods, until the first one gives his orders ---- */
@@ -213,7 +214,7 @@ const REVIEW=[
  {w:'덫',by:'hunter',ask:'___은 내일 놓아요. 오늘은 도둑부터 찾아요.',opts:[['덫',1],['떡',0,'떡은 먹는 거예요! 짐승을 잡는 건 "덫".'],['둑',0,'둑은 물을 막으려고 쌓은 거예요. 짐승을 잡는 건 "덫".']]},
  /* ---- the huntress on the slope, after the chapter's end ---- */
  {w:'동쪽',by:'huntress',ask:'왜 아직 여기 있어요? 어서 ___으로 가요.',opts:[['동쪽',1],['서쪽',0,'서쪽은 해가 지는 쪽이에요. 디보는 "동쪽"에 있어요.'],['동네',0,'동네는 사람이 사는 곳이에요. 방향은 "동쪽".']]},
- {w:'해가 뜨다',by:'huntress',ask:'아침마다 해가 ___ 쪽을 보고 걸어요.',opts:[['뜨는',1],['지는',0,'해가 지는 건 저녁이에요. 아침에는 해가 "뜨는" 쪽.'],['타는',0,'해는 타지 않아요. 아침에 하늘에 나오면 "뜨는".']]},
+ {w:'해가 뜨다',by:'huntress',ask:'아침마다 해가 ___ 쪽을 보고 걸어요.',opts:[['뜨는',1],['지는',0,'해가 지는 쪽은 서쪽이에요. 디보는 해가 "뜨는" 쪽.'],['타는',0,'해는 타지 않아요. 아침에 하늘에 나오면 "뜨는".']]},
  {w:'사냥꾼',by:'huntress',ask:'다른 ___들은 다 흩어졌어요. 저만 여기 있어요.',opts:[['사냥꾼',1],['사냥감',0,'사냥감은 잡히는 짐승이에요. 같이 온 사람들은 "사냥꾼".'],['나무꾼',0,'나무꾼은 나무를 하는 사람이에요. 짐승을 잡는 사람들은 "사냥꾼".']]},
  {w:'덫',by:'huntress',ask:'___에 걸린 짐승처럼 못 움직여요.',opts:[['덫',1],['떡',0,'떡은 먹는 거예요. 짐승이 걸리는 건 "덫".'],['둑',0,'둑은 물을 막으려고 쌓은 거예요. 짐승이 걸리는 건 "덫".']]},
  {w:'훔치다',by:'huntress',ask:'배고파서 ___ 거예요? 그래도 크로는 안 돼요.',opts:[['훔친',1],['빌린',0,'빌리면 돌려줘요. 몰래 가져갔으면 "훔친".'],['흘린',0,'흘리다는 떨어뜨리는 거예요. 몰래 가져갔으면 "훔친".']]},
@@ -901,7 +902,7 @@ const NPC={
  hunter2:{name:'크로 사냥꾼 (2)',zone:'cro',x:10,y:3,dir:'down',look:{hair:'#2A2420',skin:'#D7A77E',shirt:'#5E5A36',pants:'#3E3A2A',beard:'#2A2420'},
   hide:()=>!f().hunt||!!f().hunters,talk:()=>[{who:'크로 사냥꾼 (2)',say:'이 숲 어딘가에 있어요. 냄새가 이상해요.'}]},
  huntress:{name:'사냥꾼 여자',zone:'cro',x:17,y:4,dir:'left',look:HUNTRESS,pos:()=>[17,4],badge:['동쪽','해가 뜨다'],hide:()=>!f().hunters,
-  status:()=>f().done?null:'todo',
+  status:()=>f().done?undefined:'todo',  // after the end: the usual review ? like everyone else (null hid it)
   after:['동쪽이에요. 해가 뜨는 쪽.',{who:'…',say:'여자는 무릎을 잡고 앉아 있어요.'}],  // after the end she says this (it was a script, which kept her REVIEW lines from ever being asked)
   talk:()=>[
    {who:'…',say:'비탈에 누가 쓰러져 있어요. 크로 사냥꾼이에요.'},
