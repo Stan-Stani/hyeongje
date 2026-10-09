@@ -209,11 +209,12 @@ const CLASS={
      neighbours, and knives for cutting roots; Yerke's jokes (snoring isn't forbidden, imitating the House), his itchy back from the
      moss; the woman brother's cut from root-cutting and her comfort in the rule; the other brother sitting in the light because the walls are cold; the room
      filling at sermons; the young brother greeting the ancestors' souls at bedtime and having heard that the captive is Handry's sister;
-     Ostel saying Sharskin told him to guard her (book: he guards her); Melory packing for Orovo, offering the cure "any time", having
-     felt his brow when he had fevers; the House saying a sting puts something "in the blood vessels" (book: wasps, fleas and lice
-     inject changes); class time: Yerke and other brothers working beside Handry both days, and their chatter.
+     Ostel saying Sharskin told him to guard her (book §IX: Sharskin "set a guard"; Ostel "had been left to watch over" her); Melory
+     packing for Orovo, offering the cure "any time", having felt his brow when he had fevers; the House voicing the transfusion and
+     "part of a system" (book §X: Melory says the House can provide the means; her ghost counsels against it);
+     class time: Yerke and other brothers working beside Handry both days, and their chatter.
    Memories used as memories: Ostel lit the fire at the second camp and threw stones at the Sevner (3장); Yerke's thorn (§VIII);
-     Melory's burnt bread and the scald (§I–II); the hologram's forest with no villages (§VII); Orovo's stacked houses (3장). */
+     Melory's burnt bread and the scald (§I–II), her "run away!" (§III); the hologram's forest with no villages (§VII); Orovo's stacked houses (3장). */
 /* in-character review: people use a learned word again in their own voice, while they're around (engine: linesFor / reviewPick) */
 const REVIEW=[
  /* Ostel (entry hall): a newcomer like Handry; from the sermon on he believes every word */
@@ -242,7 +243,7 @@ const REVIEW=[
  {w:'묶다',by:'vet',when:()=>!!f().fed,ask:'땅속 방 쇠고리에 아직 밧줄이 ___ 있어.',opts:[['묶여',1],['묶어',0,'밧줄이 혼자 묶는 게 아니야. 묶인 채로 있으면 "묶여 있어".'],['묻어',0,'묻다는 땅에 넣는 거야. 고리에 감긴 채로 있으면 "묶여 있어".']]},
  {w:'영혼',by:'vet',when:()=>!!f().fed,ask:'조상들 ___이 아니었대. 그래도 음식은 주잖아.',opts:[['영혼',1],['얼굴',0,'얼굴은 몸에 있어. 죽은 뒤에도 남는 마음은 "영혼".'],['얼음',0,'얼음은 차갑게 언 물이야. 죽은 뒤에도 남는 마음은 "영혼".']]},
  {w:'칼',by:'vet',when:()=>!!f().fed,ask:'뿌리 자를 때 ___ 조심해. 손 베여.',opts:[['칼',1],['탈',0,'탈은 얼굴에 쓰는 가면이야. 자르는 도구는 "칼".']]},
- {w:'찌르다',by:'vet',when:()=>!!f().fed,ask:'작은 가시 하나가 여크 다리를 ___. 그게 시작이었어.',opts:[['찔렀어',1],['찔렸어',0,'"찔리다"는 당하는 거야. 가시가 한 거니까 "찔렀어".'],['질렀어',0,'지르다는 소리를 크게 내는 거야. 가시가 다리를 → "찔렀어".']]},
+ {w:'찌르다',by:'vet',when:()=>!!f().fed,ask:'작은 가시 하나가 여크 발을 ___. 그게 시작이었어.',opts:[['찔렀어',1],['찔렸어',0,'"찔리다"는 당하는 거야. 가시가 한 거니까 "찔렀어".'],['질렀어',0,'지르다는 소리를 크게 내는 거야. 가시가 발을 → "찔렀어".']]},
  {w:'줄을 서다',by:'vet',when:()=>!!f().fed,ask:'음식 받을 때는 다들 ___. 싸우지 않아.',opts:[['줄을 서',1],['줄을 써',0,'쓰다는 글을 쓰는 거야. 차례대로 서면 "줄을 서".']]},
  {w:'배고프다',by:'vet',when:()=>!!f().fed,ask:'음식이 끝나면 다들 또 ___ 거야.',opts:[['배고플',1],['배울',0,'배우다는 공부하는 거야. 먹을 게 없으면 "배고플".']]},
  {w:'이웃',by:'vet',when:()=>!!f().fed,ask:'마을 사람들이 우리를 ___처럼 대해 줄까?',opts:[['이웃',1],['이불',0,'이불은 덮는 거야. 가까이 사는 사람은 "이웃".'],['이사',0,'이사는 집을 옮기는 거야. 가까이 사는 사람은 "이웃".']]},
@@ -260,7 +261,7 @@ const REVIEW=[
  {w:'영혼',by:'bro1',when:()=>!!f().yerke,ask:'여크 ___은 지금 조상들 곁에 있을 거야.',opts:[['영혼',1],['얼굴',0,'얼굴은 몸에 있어. 죽은 뒤에도 남는 건 "영혼".'],['얼음',0,'얼음은 차갑게 언 물이야. 죽은 뒤에도 남는 건 "영혼".']]},
  {w:'이웃',by:'bro1',when:()=>!!f().saw,ask:'마을에서는 ___들이 나를 못 본 척했어.',opts:[['이웃',1],['이불',0,'이불은 덮는 거야. 같은 마을 사람은 "이웃".'],['이사',0,'이사는 집을 옮기는 거야. 같은 마을 사람은 "이웃".']]},
  {w:'공동체',by:'bro1',when:()=>!!f().saw,ask:'여기도 작은 ___야. 같이 먹고 같이 일해.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거야. 같이 사는 사람들 모임은 "공동체".'],['동창',0,'동창은 같은 학교 친구야. 같이 사는 사람들 모임은 "공동체".']]},
- {w:'상처',by:'bro1',when:()=>!!f().saw,ask:'뿌리 자르다가 손에 ___가 났어. 별거 아니야.',opts:[['상처',1],['상태',0,'상태는 몸이나 마음이 어떤지야. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이야. 다쳐서 생긴 곳은 "상처".']]},
+ {w:'상처',by:'bro1',when:()=>f().saw&&!f().trace,ask:'뿌리 자르다가 손에 ___가 났어. 별거 아니야.',opts:[['상처',1],['상태',0,'상태는 몸이나 마음이 어떤지야. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이야. 다쳐서 생긴 곳은 "상처".']]},
  {w:'하늘',by:'bro2',ask:'밤에는 저 구멍으로 ___을 봐. 별이 많아.',opts:[['하늘',1],['바닥',0,'바닥은 아래에 있어. 별은 위에 있지. "하늘".'],['바늘',0,'바늘은 바느질할 때 써. 별이 있는 곳은 "하늘".']]},
  {w:'조상',by:'bro2',when:()=>!!f().saw,ask:'___들은 이 큰 집을 어떻게 지었을까?',opts:[['조상',1],['조사',0,'조사는 자세히 알아보는 거야. 이 집을 만든 옛날 사람들은 "조상".'],['좌석',0,'좌석은 앉는 자리야. 이 집을 만든 옛날 사람들은 "조상".']]},
  {w:'금속',by:'bro2',when:()=>!!f().saw,ask:'___ 벽은 낮에도 차가워. 그래서 빛에 앉아.',opts:[['금속',1],['금방',0,'금방은 "곧"이라는 말이야. 차갑고 단단한 벽은 "금속".'],['근육',0,'근육은 몸에 있는 살이야. 차갑고 단단한 벽은 "금속".']]},
@@ -288,7 +289,7 @@ const REVIEW=[
  {w:'유령',by:'young',when:()=>!f().night,ask:'마을 사람들은 ___ 말만 듣지. 우리는 달라.',opts:[['유령',1],['요령',0,'요령은 일을 쉽게 하는 방법이야. 판관 머릿속 목소리는 "유령".'],['영화',0,'영화는 보는 거야. 판관 머릿속 목소리는 "유령".']]},
  {w:'이사하다',by:'young',when:()=>!f().night,ask:'쫓겨난 게 아니야. 여기로 ___ 거야.',opts:[['이사한',1],['인사한',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮긴 건 "이사한".'],['이상한',0,'이상하다는 보통과 다른 거야. 사는 곳을 옮긴 건 "이사한".']]},
  {w:'둥지',by:'young',when:()=>!f().night,ask:'여기는 우리 ___야. 아무도 우리를 안 쫓아내.',opts:[['둥지',1],['동지',0,'동지는 밤이 제일 긴 날이야. 새가 사는 집 같은 곳은 "둥지".']]},
- {w:'사냥꾼',by:'young',when:()=>f().raid&&!f().night,ask:'___ 형제들이 잡아 온 사람, 네 누이라며?',opts:[['사냥꾼',1],['나무꾼',0,'나무꾼은 나무를 하는 사람이야. 잡으러 다니는 건 "사냥꾼".'],['사냥개',0,'사냥개는 개야. 형제들이니까 "사냥꾼".']]},
+ {w:'사냥꾼',by:'young',when:()=>f().interro&&!f().night,ask:'___ 형제들이 잡아 온 사람, 네 누이라며?',opts:[['사냥꾼',1],['나무꾼',0,'나무꾼은 나무를 하는 사람이야. 잡으러 다니는 건 "사냥꾼".'],['사냥개',0,'사냥개는 개야. 형제들이니까 "사냥꾼".']]},
  /* Ostel guarding Melory in the buried chambers, by day (before the night of Vernen) */
  {w:'유령',by:'ostelB',when:()=>!f().night,ask:'저 여자 머릿속에는 ___이 살아. 조심해.',opts:[['유령',1],['요령',0,'요령은 일을 쉽게 하는 방법이야. 머릿속에 사는 건 "유령".'],['영양',0,'영양은 음식에서 얻는 힘이야. 머릿속에 사는 건 "유령".']]},
  {w:'도망치다',by:'ostelB',when:()=>!f().night,ask:'샤스킨이 지키래. 저 여자가 ___ 못하게.',opts:[['도망치지',1],['도와주지',0,'도와주는 건 나쁜 게 아니잖아. 몰래 달아나는 건 "도망치지".']]},
@@ -296,10 +297,10 @@ const REVIEW=[
  /* the House, once Handry can command it (§X): it answers in his voice, in its own flat words */
  {w:'목소리',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'___ 확인. 핸드리. 명령을 기다립니다.',opts:[['목소리',1],['목걸이',0,'목걸이: 목에 거는 장신구. 말하는 소리: "목소리".'],['모서리',0,'모서리: 물건의 뾰족한 끝. 말하는 소리: "목소리".']]},
  {w:'권한',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'명령 ___: 멜로리, 핸드리. 둘 다 승인.',opts:[['권한',1],['관심',0,'관심: 궁금해하는 마음. 명령할 수 있는 힘: "권한".'],['공간',0,'공간: 비어 있는 곳. 명령할 수 있는 힘: "권한".']]},
- {w:'혈관',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'벌의 침은 ___ 속에 무언가를 넣습니다.',opts:[['혈관',1],['현관',0,'현관: 집에 들어가는 문 앞. 피가 흐르는 길: "혈관".'],['혈액형',0,'혈액형: A형, B형. 피가 흐르는 길: "혈관".']]},
+ {w:'혈관',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'멜로리의 피를 핸드리의 ___에 넣을 수 있습니다.',opts:[['혈관',1],['현관',0,'현관: 집에 들어가는 문 앞. 피가 흐르는 길: "혈관".'],['혈액형',0,'혈액형: A형, B형. 피가 흐르는 길: "혈관".']]},
  {w:'찌르다',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'벼룩과 머릿니도 피부를 ___ 무언가를 넣습니다.',opts:[['찔러서',1],['찔려서',0,'찔리다: 당하는 것. 벼룩이 하는 것: "찔러서".'],['질러서',0,'지르다: 소리를 크게 내는 것. 피부에 뾰족하게 들어가는 것: "찔러서".']]},
- {w:'치료하다',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'의료 전문가 시스템은 단절을 ___ 수 있습니다.',opts:[['치료할',1],['설교할',0,'설교: 믿음을 가르치는 말. 몸을 낫게 하는 것: "치료할".'],['묶을',0,'묶다: 끈으로 감는 것. 몸을 낫게 하는 것: "치료할".']]},
- {w:'벌',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'___, 벼룩, 머릿니는 벌집이 보냅니다.',opts:[['벌',1],['별',0,'별: 밤하늘에서 빛나는 것. 벌집에서 나오는 것: "벌".'],['발',0,'발: 걸을 때 쓰는 몸. 벌집에서 나오는 것: "벌".']]},
+ {w:'치료하다',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'단절은 ___ 수 있습니다. 결정: 핸드리.',opts:[['치료할',1],['설교할',0,'설교: 믿음을 가르치는 말. 몸을 낫게 하는 것: "치료할".'],['묶을',0,'묶다: 끈으로 감는 것. 몸을 낫게 하는 것: "치료할".']]},
+ {w:'벌',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'___, 벼룩, 머릿니는 한 시스템의 일부입니다.',opts:[['벌',1],['별',0,'별: 밤하늘에서 빛나는 것. 벌집에서 나오는 것: "벌".'],['발',0,'발: 걸을 때 쓰는 몸. 벌집에서 나오는 것: "벌".']]},
  {w:'공동체',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'___ 생물 허브는 마을마다 하나입니다.',opts:[['공동체',1],['공부',0,'공부: 책으로 배우는 것. 함께 사는 사람들: "공동체".'],['동창',0,'동창: 같은 학교를 다닌 사람. 함께 사는 사람들: "공동체".']]},
  {w:'진단하다',by:'house',who:'집',when:()=>!!f().ownVoice,ask:'핸드리를 ___ 결과: 본래 상태입니다.',opts:[['진단한',1],['진정한',0,'진정하다: 마음을 가라앉히는 것. 병을 알아내는 것: "진단한".'],['도망친',0,'도망치다: 달아나는 것. 병을 알아내는 것: "진단한".']]},
  /* Melory, after the last talk (done): she will go to Orovo first; they speak as equals, by name */
@@ -313,7 +314,7 @@ const REVIEW=[
  {w:'타다',by:'melBr',ask:'기억나? 아로에서 까맣게 ___ 빵만 먹었잖아.',opts:[['탄',1],['덴',0,'데다는 사람 피부가 뜨거운 데 다치는 거야. 빵이 까매지면 "탄".']]},
  {w:'화상',by:'melBr',ask:'끓는 약에 덴 ___ 자국, 이제 안 아파?',opts:[['화상',1],['화장',0,'화장은 얼굴을 꾸미는 거야. 뜨거운 데 다친 건 "화상".'],['화살',0,'화살은 활로 쏘는 거야. 뜨거운 데 다친 건 "화상".']]},
  {w:'열이 나다',by:'melBr',ask:'아로에서 너 ___ 때마다 내가 이마를 만져 봤잖아.',opts:[['열이 날',1],['화가 날',0,'화가 나면 이마를 왜 만져? 몸이 뜨거우면 "열이 날".'],['배고플',0,'배고플 땐 빵을 줬지. 이마가 뜨거우면 "열이 날".']]},
- {w:'도망치다',by:'melBr',ask:'이제는 ___ 안 돼. 우리 할 일이 많아.',opts:[['도망치면',1],['도와주면',0,'도와주면 좋지! 달아나면 안 된다는 거야. "도망치면".']]},
+ {w:'도망치다',by:'melBr',ask:'그날 밤 아로에서 내가 "___!" 했지. 그래서 너는 숲으로 갔어.',opts:[['도망쳐',1],['도와줘',0,'도와 달라고 했으면 네가 남았겠지. 달아나라고 했어. "도망쳐".'],['돌아와',0,'돌아오라고 했으면 숲으로 안 갔겠지. 달아나라고 했어. "도망쳐".']]},
  {w:'인구',by:'melBr',ask:'오로보는 ___가 그렇게 많아? 집 위에 집이 있다며?',opts:[['인구',1],['입구',0,'입구는 들어가는 곳이야. 사는 사람의 수는 "인구".'],['인사',0,'인사는 "안녕" 하는 거야. 사는 사람의 수는 "인구".']]},
 ];
 
