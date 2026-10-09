@@ -143,7 +143,8 @@ const Q={ // NPC questions, kept here so review can reuse them
    burns his hand on it and has a strap sore on his shoulder; the piper feels Kalton's forehead warm; Kalton knowing no one in Cro
    and missing Aro's neighbours; something calling in the dark. In Cro by day, feast soup in a big pot and children warned off it,
    neighbours helping, a mother stopping the toddler eating a petal, the toddler pointing at a wasp, Kalton saying no one here
-   ignores him. By night, the watchman noticing even burnt loaves go and no footprints, wanting more lamps. The hunters looking for
+   ignores him. By night, the watchman noticing even burnt loaves go and no footprints, wanting more lamps, and (once Handry has
+   picked a door flower that night) the flower gone, guessing the thief eats the petals. The hunters looking for
    footprints and crumbs and meaning to block the slope. The huntress's "walk toward the sunrise each morning" and "not Cro".
    Handry's thoughts: the leaf blanket still itching, the leg wound not yet healed (both only until the thieving nights),
    Cro hunters/traps maybe in the woods (hedged), leaving at sunrise. Class time (the five-day feast): Cro drumming and singing
@@ -203,6 +204,7 @@ const REVIEW=[
  {w:'타다',by:'guard',ask:'이상해요. 까맣게 ___ 빵도 없어져요.',opts:[['탄',1],['단',0,'달다는 맛이에요. 까만 빵은 "탄" 빵.'],['덴',0,'데다는 사람이 뜨거운 것에 다치는 거예요. 빵은 "탄".']]},
  {w:'캄캄하다',by:'guard',ask:'오늘 밤은 정말 ___. 등불이 더 있어야 돼요.',opts:[['캄캄해요',1],['깨끗해요',0,'깨끗하다는 더럽지 않은 거예요. 안 보이면 "캄캄해요".'],['따뜻해요',0,'따뜻하면 등불이 왜 필요해요? 안 보이면 "캄캄해요".']]},
  {w:'흔적',by:'guard',ask:'도둑은 ___도 안 남겨요. 발자국 하나 없어요.',opts:[['흔적',1],['흉터',0,'흉터는 다친 데 남는 거예요. 지나간 뒤에 남는 건 "흔적".'],['약속',0,'약속은 미리 정하는 거예요. 지나간 뒤에 남는 건 "흔적".']]},
+ {w:'꽃잎',by:'guard',when:()=>hasItem('크로 꽃'),ask:'도둑이 문 앞 꽃까지 꺾어 갔어요. ___을 먹나 봐요.',opts:[['꽃잎',1],['꽃집',0,'꽃집은 꽃을 파는 가게예요. 꽃의 얇은 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 얇은 부분은 "꽃잎".']]},
  /* ---- the hunt: the second hunter in the woods, until the first one gives his orders ---- */
  {w:'숨다',by:'hunter2',ask:'도둑은 덤불 속에 ___ 있을 거예요.',opts:[['숨어',1],['쉬어',0,'쉬는 게 아니에요. 안 보이게 있으면 "숨어 있을 거예요".'],['숨 쉬어',0,'숨 쉬다는 공기를 마시는 거예요. 안 보이게 → "숨어".']]},
  {w:'흔적',by:'hunter2',ask:'발자국, 빵 부스러기… 도둑의 ___을 찾아요.',opts:[['흔적',1],['흉터',0,'흉터는 다친 데 남는 거예요. 지나간 뒤에 남은 건 "흔적".'],['약속',0,'약속은 미리 정하는 거예요. 지나간 뒤에 남은 건 "흔적".']]},
