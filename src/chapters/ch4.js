@@ -1,5 +1,10 @@
 CHAPTERS.push({id:'ch4',n:'4장',title:'조상의 집',place:'조상의 집 · 콘솔 방 · 땅속 방',words:16,save:'esb-ch4',color:'#6B5A48',
  start:{zone:'entry',x:2,y:8,dir:'right'},introWho:'핸드리',
+ migrate:s=>{ /* saves from before 2026-10-09, when the light picture taught 하늘: 희미하다 takes its place in the badges, at memory
+    level 0 and due now (so it comes up for review), and 하늘 leaves the save */
+  const i=(s.badges||[]).indexOf('하늘');if(i<0)return;
+  s.lv=s.lv||{};delete s.lv['하늘'];
+  if(s.badges.includes('희미하다'))s.badges.splice(i,1);else{s.badges[i]='희미하다';s.lv['희미하다']={b:0,due:Date.now()}}},
  make:()=>{
 /* =====================================================================
    4장 · 조상의 집 — content. Book pin: §VII–X (the House of our Ancestors).
@@ -36,11 +41,11 @@ CHAPTERS.push({id:'ch4',n:'4장',title:'조상의 집',place:'조상의 집 · �
    Lore source: notes/canon.md + notes/chapters-outline.md (4장). Audit against the full book before publishing (see CLAUDE.md).
    Terms: 판관 · 의사 · 설계자 · 유령 · 단절약 · 일렉터 · 추방자 · 형제 (Sharskin's followers) · 집 (the House's voice).
    ===================================================================== */
-const WORDS=['조상','금속','하늘','설교하다','금지','치료하다','혈관','묶다','칼','찌르다','권한','목소리','메아리','유령','영혼','거절하다'];
+const WORDS=['조상','금속','희미하다','설교하다','금지','치료하다','혈관','묶다','칼','찌르다','권한','목소리','메아리','유령','영혼','거절하다'];
 const DICT={
  '조상':{k:'아주 옛날에 살았던 우리 집안 사람들. 할아버지의 할아버지의…',e:'ancestor(s)',ex:'조상들이 이 집을 만들었어요.',hj:'祖上 · 祖 = 할아버지 · 上 = 위 · 이상(以上)의 상'},
  '금속':{k:'쇠나 은처럼 단단하고 차가운 것.',e:'metal',ex:'샤스킨의 지팡이는 금속이에요.',hj:'金屬 · 金 = 쇠, 금 · 금요일의 금'},
- '하늘':{k:'머리 위의 넓은 곳. 해와 별, 구름이 있어요.',e:'sky; heaven',ex:'밤하늘에 별이 많아요.'},
+ '희미하다':{k:'빛이나 소리가 약해서 잘 안 보이거나 잘 안 들려요. 기억에도 써요. (희미해요, 희미한 빛)',e:'faint, dim (light, sound, memory)',ex:'빛 그림이 희미해서 눈을 가늘게 떴어요.',hj:'稀微 · 稀 = 드물다 · 희귀(稀貴)의 희 · 微 = 아주 작다 · 미세먼지의 미'},
  '설교하다':{k:'믿음에 대해 사람들 앞에서 가르치는 말을 해요. (설교해요)',e:'to preach, give a sermon',ex:'샤스킨은 저녁마다 설교해요.',hj:'說敎 · 說 = 말하다 · 설명(說明)의 설 · 敎 = 가르치다 · 교실의 교'},
  '금지':{k:'하면 안 된다고 정한 것.',e:'prohibition; forbidden',ex:'여기서 수영은 금지예요.',hj:'禁止 · 止 = 멈추다 · 정지(停止)의 지'},
  '치료하다':{k:'병이나 상처를 낫게 해요. (치료해요)',e:'to treat, cure, heal',ex:'의사가 상처를 치료했어요.',hj:'治療 · 療 = 병을 고치다'},
@@ -80,7 +85,7 @@ const DICT={
  '조상의 음식':{k:'집이 주는 작은 덩어리. 껍질을 벗기면 부드럽고 달아요.',e:'ration slab ("the ancestors’ food")'},
  '입문식':{k:'새 사람이 무리에 들어올 때 하는 의식.',e:'initiation'},
 };
-const CONFUSE={'조상':['조사','좌석'],'금속':['금지','금방'],'하늘':['하나','바늘'],'설교하다':['설명하다','설거지하다'],'금지':['금속','근처'],
+const CONFUSE={'조상':['조사','좌석'],'금속':['금지','금방'],'희미하다':['의미하다','희망하다'],'설교하다':['설명하다','설거지하다'],'금지':['금속','근처'],
  '치료하다':['치우다','처리하다'],'혈관':['현관','혈액'],'묶다':['묻다','먹다'],'칼':['탈','갈'],'찌르다':['지르다','찔리다'],'권한':['권리','관한'],
  '목소리':['목걸이','모서리'],'메아리':['매미','머리'],'유령':['유행','요령'],'영혼':['영화','연휴'],'거절하다':['거짓말하다','걱정하다']};
 
@@ -88,8 +93,8 @@ const CONFUSE={'조상':['조사','좌석'],'금속':['금지','금방'],'하늘
 const BANK=[
  {w:'조상',ask:'할머니의 할머니, 그 할머니의 할머니도 다 우리 ___들이에요.',opts:[['조상',1],['조사',0,'조사는 무엇을 자세히 알아보는 거예요. 아주 옛날 집안 어른들은 "조상".']]},
  {w:'금속',ask:'북쪽 산 마을 사람들은 땅에서 ___을 캐서 칼을 만든대요.',opts:[['금속',1],['가죽',0,'가죽은 짐승의 껍질이에요. 땅에서 캐는 단단하고 차가운 것은 "금속".']]},
- {w:'하늘',ask:'오늘 밤은 구름이 없어서 ___에 별이 많아요.',opts:[['하늘',1],['바늘',0,'바늘은 바느질할 때 써요. 별과 구름이 있는 머리 위는 "하늘".']]},
- {w:'하늘',gram:1,ask:'하늘이 어두워요. 곧 비가 ___ 해요.',opts:[['오려고',1],['올 뻔',0,'"-(으)ㄹ 뻔하다"는 거의 일어났는데 안 일어난 일이에요. 곧 일어날 일 → "오려고 해요".']]},
+ {w:'희미하다',ask:'아주 어릴 때 일이라서 기억이 ___.',opts:[['희미해요',1],['의미해요',0,'"의미하다"는 어떤 뜻을 나타내는 거예요. 기억이 약해서 잘 안 떠오르면 → "희미해요".']]},
+ {w:'희미하다',gram:1,ask:'해가 지면서 빛이 점점 ___.',opts:[['희미해져요',1],['희미해요',0,'"점점"은 조금씩 바뀌는 거예요. 바뀌는 건 "-아/어지다" → "희미해져요".']]},
  {w:'설교하다',ask:'할아버지가 또 아이들 앞에서 길게 ___. "옛날에는 말이야…"',opts:[['설교해요',1],['설거지해요',0,'설거지는 그릇을 씻는 거예요. 사람들 앞에서 길게 가르치는 말을 하면 → "설교해요".']]},
  {w:'금지',ask:'"아이 혼자 숲에 가는 건 ___!" 어른들이 늘 하는 말이에요.',opts:[['금지',1],['금방',0,'금방은 "곧, 조금 전"이에요. 하면 안 된다고 정한 건 "금지".']]},
  {w:'금지',gram:1,ask:'금지된 곳에 ___ 뻔했어요. 친구가 잡아 줬어요.',opts:[['들어갈',1],['들어가',0,'"-(으)ㄹ 뻔했다" 앞에는 "-(으)ㄹ"이 와요 → "들어갈 뻔했어요".'],['들어간',0,'"-(으)ㄴ"이 아니에요. → "들어갈 뻔했어요".']]},
@@ -121,7 +126,7 @@ const Q={ // NPC questions, kept here so review can reuse them
   {who:'…',w:'메아리',gram:1,ask:'천장이 ___ 메아리가 크게 울려요.',opts:[['높아서',1],['높아도',0,'"-아도"는 "그래도"예요. 이유니까 → "높아서".'],['높기 전에',0,'"-기 전에"는 시간 순서예요. 이유니까 → "높아서".']]},
  ],
  holo:[
-  {who:'…',w:'하늘',ask:'샤스킨은 이 집이 밤___에서 왔다고 해요.',opts:[['하늘',1],['하나',0,'하나는 숫자 1이에요. 별이 있는 곳은 "하늘".'],['바늘',0,'바늘은 바느질할 때 써요. 별이 있는 곳은 "하늘".']]},
+  {who:'…',w:'희미하다',ask:'빛 그림이 아주 ___. 눈을 가늘게 떠야 보여요.',opts:[['희미해요',1],['의미해요',0,'"의미하다"는 어떤 뜻을 나타내는 거예요. 빛이 약해서 잘 안 보이면 → "희미해요".'],['희망해요',0,'"희망하다"는 무엇을 바라는 거예요. 빛이 약해서 잘 안 보이면 → "희미해요".']]},
  ],
  house:[
   {who:'…',w:'목소리',ask:'집은 샤스킨과 똑같은 ___로 말해요.',opts:[['목소리',1],['목걸이',0,'목걸이는 목에 거는 장신구예요. 말하는 소리는 "목소리".'],['모서리',0,'모서리는 물건의 뾰족한 끝이에요. 말하는 소리는 "목소리".']]},
@@ -188,7 +193,7 @@ const CLASS={
   {w:'메아리',who:'여크',ask:'"어이!" 하면 ___도 "어이!" 해. 하하!',opts:[['메아리',1],['매미',0,'매미는 여름에 우는 벌레야. 내 소리를 따라 하는 건 "메아리".'],['머리',0,'하하, 머리가 말을 해? 내 소리를 따라 하는 건 "메아리".']]},
   {w:'목소리',who:'형제',ask:'집이 샤스킨 ___로 "수고했다" 하면 좋겠다.',opts:[['목소리',1],['목걸이',0,'목걸이는 목에 거는 거야. 말하는 소리는 "목소리".'],['모서리',0,'모서리는 뾰족한 끝이야. 말하는 소리는 "목소리".']]}]},
  crack:{say:'저녁까지 흙 자루를 날랐어요. 다들 땀투성이예요.',lines:[
-  {w:'하늘',who:'형제',ask:'땅속은 어두워. 빨리 올라가서 ___ 보고 싶어.',opts:[['하늘',1],['바늘',0,'바늘은 바느질할 때 써. 머리 위에 있는 건 "하늘".'],['바닥',0,'바닥은 여기도 있잖아. 머리 위에 있는 건 "하늘".']]},
+  {w:'희미하다',who:'형제',ask:'땅속은 빛이 너무 ___. 흙 자루도 잘 안 보여.',opts:[['희미해',1],['밝아',0,'밝으면 자루가 잘 보이지. 빛이 약하면 "희미해".'],['의미해',0,'의미하다는 어떤 뜻을 나타내는 거야. 빛이 약하면 "희미해".']]},
   {w:'금속',who:'형제',ask:'흙은 무겁고, ___ 벽은 차갑고. 아이고.',opts:[['금속',1],['근육',0,'근육은 몸에 있는 살이야. 차가운 벽은 "금속".'],['금방',0,'금방은 "곧"이야. 차가운 벽은 "금속".']]},
   {w:'조상',who:'형제',ask:'___들도 이렇게 흙을 날랐을까?',opts:[['조상',1],['조사',0,'조사는 자세히 알아보는 거야. 이 집의 옛날 사람들은 "조상".'],['좌석',0,'좌석은 앉는 자리야. 이 집의 옛날 사람들은 "조상".']]},
   {w:'메아리',who:'여크',ask:'여기는 ___가 없네. 흙이 소리를 먹어.',opts:[['메아리',1],['매미',0,'매미는 여름 벌레야. 돌아오는 소리는 "메아리".'],['머리',0,'머리는 있지! 돌아오는 소리가 없다는 거야. "메아리".']]}]},
@@ -204,9 +209,11 @@ const CLASS={
      (§IX "how we're meant for this") and missing Yerke, finding the ration sweeter than Orovo's stew and
      feeling less lonely here; Vernen counting his rations, sulking that Sharskin keeps Handry close, asking where Handry hid from work;
      the veteran wanting the rule kept after Sharskin, saying he'd refuse to leave, wondering whether villages would treat them as
-     neighbours, and knives for cutting roots; Yerke's jokes (snoring isn't forbidden, imitating the House), his itchy back from the
-     moss; the woman brother's cut from root-cutting and her comfort in the rule; the other brother sitting in the light because the walls are cold; the room
-     filling at sermons; the young brother greeting the ancestors' souls at bedtime and having heard that the captive is Handry's sister;
+     neighbours, and knives for cutting roots; Yerke's jokes (snoring isn't forbidden, imitating the House, rubbing his eyes at the
+     faint light picture the first time: §VII "The others had seen this before"), his itchy back from the
+     moss; the woman brother's cut from root-cutting and her comfort in the rule; the other brother sitting in the light because the walls are cold
+     (the hall's light is faint but under the holes: §VII "the dimness all around was pierced by shafts of daylight"); the room
+     filling at sermons (Sharskin has the House make a faint amber light: §VII "parts of it gave out a dim amber radiance"); the young brother greeting the ancestors' souls at bedtime and having heard that the captive is Handry's sister;
      Ostel saying Sharskin told him to guard her (book §IX: Sharskin "set a guard"; Ostel "had been left to watch over" her); Melory
      packing for Orovo, offering the cure "any time", having felt his brow when he had fevers; the House voicing the transfusion and
      "part of a system" (book §X: Melory says the House can provide the means; her ghost counsels against it);
@@ -217,7 +224,7 @@ const CLASS={
 const REVIEW=[
  /* Ostel (entry hall): a newcomer like Handry; from the sermon on he believes every word */
  {w:'금속',by:'ostel',ask:'벽도 문도 다 ___이야. 북쪽 사람들도 이렇게 큰 건 못 만들 거야.',opts:[['금속',1],['근육',0,'근육은 팔다리에서 힘을 내는 살이야. 차갑고 단단한 벽은 "금속".'],['금방',0,'금방은 "곧, 조금 전"이야. 벽하고 문의 재료는 "금속".']]},
- {w:'하늘',by:'ostel',ask:'이 집, 정말 밤___에서 왔나 봐. 그 그림 봤잖아.',opts:[['하늘',1],['하나',0,'하나는 숫자 1이야. 별이 있는 곳은 "하늘".'],['바늘',0,'바늘은 바느질할 때 써. 별이 있는 곳은 "하늘".']]},
+ {w:'희미하다',by:'ostel',ask:'그 빛 그림은 ___ 잘 안 보였어. 그래도 샤스킨 말이 맞아.',opts:[['희미해서',1],['의미해서',0,'의미하다는 어떤 뜻을 나타내는 거야. 빛이 약해서 잘 안 보이면 "희미해서".'],['희망해서',0,'희망하다는 무엇을 바라는 거야. 빛이 약해서 잘 안 보이면 "희미해서".']]},
  {w:'메아리',by:'ostel',when:()=>!f().trace,ask:'여기서 "어이!" 하면 ___가 "어이… 어이…" 돌아와.',opts:[['메아리',1],['매미',0,'매미는 여름에 우는 벌레야. 소리가 돌아오는 건 "메아리".'],['머리',0,'머리는 몸 맨 위야. 소리가 돌아오는 건 "메아리".']]},
  {w:'설교하다',by:'ostel',ask:'샤스킨이 ___ 거 들으면, 다 맞는 것 같아.',opts:[['설교하는',1],['설거지하는',0,'설거지는 그릇을 씻는 거야. 믿음을 가르치는 말은 "설교하는" 거.'],['실수하는',0,'실수는 잘못하는 거야. 형제들 앞에서 믿음을 가르치면 "설교하는" 거.']]},
  {w:'불을 피우다',by:'ostel',ask:'둘째 야영지에서 내가 ___. 메닉은 손만 녹였지.',opts:[['불을 피웠어',1],['불을 껐어',0,'끄면 불이 없어지잖아. 불을 붙여서 타게 하면 "불을 피웠어".'],['풀을 뽑았어',0,'풀을 뽑아서는 손을 못 녹여. 불을 붙여서 타게 하면 "불을 피웠어".']]},
@@ -248,7 +255,7 @@ const REVIEW=[
  /* Yerke: jolly, until the thorn (his lines end at the initiation) */
  {w:'메아리',by:'yerke',ask:'혼자 있어도 괜찮아. ___가 대답해 주거든! 하하.',opts:[['메아리',1],['매미',0,'매미는 여름에 우는 벌레야. 내 말을 따라 하는 건 "메아리".'],['머리',0,'하하, 내 머리는 대답 안 해. 내 말을 따라 하는 건 "메아리".']]},
  {w:'금지',by:'yerke',ask:'코 고는 건 ___ 아니지? 하하, 다행이다!',opts:[['금지',1],['금속',0,'하하, 코 고는 게 쇠야? 하면 안 되는 건 "금지".'],['근처',0,'근처는 가까운 곳이야. 하면 안 되는 건 "금지".']]},
- {w:'하늘',by:'yerke',ask:'밤___에서 온 집이래! 그럼 우리는 별에 사는 거야?',opts:[['하늘',1],['하나',0,'하나는 숫자 1이야. 별이 있는 곳은 "하늘".'],['바늘',0,'하하, 바늘에서 집이 와? 별이 있는 곳은 "하늘".']]},
+ {w:'희미하다',by:'yerke',ask:'나도 처음엔 빛 그림이 너무 ___ 눈만 비볐어. 하하!',opts:[['희미해서',1],['의미해서',0,'하하, 의미하다는 어떤 뜻을 나타내는 거야. 잘 안 보이면 "희미해서".'],['희망해서',0,'희망하다는 바라는 거야. 빛이 약해서 잘 안 보이면 "희미해서".']]},
  {w:'목소리',by:'yerke',ask:'집이 샤스킨 ___로 말한대. 나도 따라 할 수 있어!',opts:[['목소리',1],['목걸이',0,'목걸이는 목에 거는 거야. 말하는 소리는 "목소리".'],['모서리',0,'모서리는 뾰족한 끝이야. 말하는 소리는 "목소리".']]},
  {w:'게으르다',by:'yerke',ask:'나? 나는 안 ___. 웃으면서 일할 뿐이야.',opts:[['게을러',1],['귀여워',0,'하하, 귀엽긴 하지. 그런데 일하기 싫은 건 "게을러".'],['가벼워',0,'가볍다는 무게가 적은 거야. 일하기 싫은 건 "게을러".']]},
  {w:'쏘다',by:'yerke',ask:'어릴 때는 벌한테 자주 ___. 이제는 벌이 나를 피해.',opts:[['쏘였어',1],['쐈어',0,'내가 벌을 쏜 게 아니야. 벌한테 당했으면 "쏘였어".'],['싸웠어',0,'하하, 벌이랑 싸웠으면 졌겠지. 벌한테 당했으면 "쏘였어".']]},
@@ -260,7 +267,7 @@ const REVIEW=[
  {w:'이웃',by:'bro1',when:()=>!!f().saw,ask:'마을에서는 ___들이 나를 못 본 척했어.',opts:[['이웃',1],['이불',0,'이불은 덮는 거야. 같은 마을 사람은 "이웃".'],['이사',0,'이사는 집을 옮기는 거야. 같은 마을 사람은 "이웃".']]},
  {w:'공동체',by:'bro1',when:()=>!!f().saw,ask:'여기도 작은 ___야. 같이 먹고 같이 일해.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거야. 같이 사는 사람들 모임은 "공동체".'],['동창',0,'동창은 같은 학교 친구야. 같이 사는 사람들 모임은 "공동체".']]},
  {w:'상처',by:'bro1',when:()=>f().saw&&!f().trace,ask:'뿌리 자르다가 손에 ___가 났어. 별거 아니야.',opts:[['상처',1],['상태',0,'상태는 몸이나 마음이 어떤지야. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이야. 다쳐서 생긴 곳은 "상처".']]},
- {w:'하늘',by:'bro2',ask:'밤에는 저 구멍으로 ___을 봐. 별이 많아.',opts:[['하늘',1],['바닥',0,'바닥은 아래에 있어. 별은 위에 있지. "하늘".'],['바늘',0,'바늘은 바느질할 때 써. 별이 있는 곳은 "하늘".']]},
+ {w:'희미하다',by:'bro2',ask:'이 홀은 빛이 ___. 저 구멍 밑만 밝아.',opts:[['희미해',1],['밝아',0,'홀이 밝으면 "구멍 밑만 밝아"라고 안 하지. 빛이 약하면 "희미해".'],['의미해',0,'의미하다는 어떤 뜻을 나타내는 거야. 빛이 약하면 "희미해".']]},
  {w:'조상',by:'bro2',when:()=>!!f().saw,ask:'___들은 이 큰 집을 어떻게 지었을까?',opts:[['조상',1],['조사',0,'조사는 자세히 알아보는 거야. 이 집을 만든 옛날 사람들은 "조상".'],['좌석',0,'좌석은 앉는 자리야. 이 집을 만든 옛날 사람들은 "조상".']]},
  {w:'금속',by:'bro2',when:()=>!!f().saw,ask:'___ 벽은 낮에도 차가워. 그래서 빛에 앉아.',opts:[['금속',1],['금방',0,'금방은 "곧"이라는 말이야. 차갑고 단단한 벽은 "금속".'],['근육',0,'근육은 몸에 있는 살이야. 차갑고 단단한 벽은 "금속".']]},
  {w:'해가 뜨다',by:'bro2',when:()=>!!f().saw,ask:'아침에 ___ 저 구멍으로 빛이 들어와.',opts:[['해가 뜨면',1],['해가 지면',0,'해가 지면 깜깜해지잖아. 아침에 해가 나오면 "해가 뜨면".']]},
@@ -270,7 +277,7 @@ const REVIEW=[
  {w:'조상',by:'listen1',ask:'곧 샤스킨이 와. 오늘도 옛날 ___ 이야기를 해 줄 거야.',opts:[['조상',1],['좌석',0,'좌석은 앉는 자리야. 옛날 사람들 이야기는 "조상" 이야기.'],['조사',0,'조사는 자세히 알아보는 거야. 옛날 사람들 이야기는 "조상" 이야기.']]},
  {w:'목소리',by:'listen1',ask:'집이 샤스킨 ___로 대답하는 거 봤어?',opts:[['목소리',1],['목걸이',0,'목걸이는 목에 거는 거야. 말하는 소리는 "목소리".'],['모서리',0,'모서리는 뾰족한 끝이야. 말하는 소리는 "목소리".']]},
  {w:'붐비다',by:'listen1',ask:'설교 때는 이 방이 ___. 일찍 와서 앉아.',opts:[['붐벼',1],['비어',0,'비면 사람이 없잖아. 사람이 많으면 "붐벼".'],['비벼',0,'비비다는 손을 문지르는 거야. 사람이 많으면 "붐벼".']]},
- {w:'하늘',by:'listen2',ask:'조상들은 밤___을 건너서 왔대. 아주 멀리서.',opts:[['하늘',1],['바늘',0,'바늘은 바느질할 때 써. 별이 있는 곳은 "하늘".'],['바닥',0,'바닥은 아래에 있어. 별이 있는 곳은 "하늘".']]},
+ {w:'희미하다',by:'listen2',ask:'저녁마다 샤스킨이 말하면 집이 ___ 노란빛을 내.',opts:[['희미한',1],['희망한',0,'희망하다는 무엇을 바라는 거야. 약한 빛은 "희미한" 빛.'],['의미한',0,'의미하다는 어떤 뜻을 나타내는 거야. 약한 빛은 "희미한" 빛.']]},
  {w:'숲',by:'listen2',ask:'그 그림 속 보라색 ___에는 마을이 없었어.',opts:[['숲',1],['숯',0,'숯은 나무를 태운 검은 거야. 나무가 많은 곳은 "숲".'],['술',0,'술은 마시는 거야. 나무가 많은 곳은 "숲".']]},
  /* Sharskin, in the medical room between the sermon and the initiation (his only quiet moment) */
  {w:'설교하다',by:'sharB',ask:'나는 저녁마다 ___. 조상들의 말을 전한다.',opts:[['설교한다',1],['설거지한다',0,'설거지는 그릇을 씻는 일이다. 믿음을 가르치는 말은 "설교한다".'],['실수한다',0,'실수는 잘못하는 것이다. 형제들 앞에서 믿음을 전하면 "설교한다".']]},
@@ -877,20 +884,20 @@ const NPC={
   script:()=>{const F=f();if(F.night&&!F.sharDead)return [N('형제가 코를 골아요.')];if(F.fed)return [{who:'형제',say:'조상의 음식은 아직 달아. 다행이야.'}];return null},
   talk:()=>[{who:'형제',say:'빛이 구멍으로 들어오지? 낮에는 저기 앉아 있어.'},{who:'형제',say:'밤에는 구멍으로 별이 보여.'}]},
  /* ======== bridge ======== */
- holo:{name:'빛 그림',zone:'bridge',x:8,y:7,dir:'down',look:HOLO,pos:()=>[8,7],badge:['하늘'],
+ holo:{name:'빛 그림',zone:'bridge',x:8,y:7,dir:'down',look:HOLO,pos:()=>[8,7],badge:['희미하다'],
   status:()=>f().saw?undefined:'todo',
   after:{who:'…',say:'그림이 깜박이며 계속 돌아가요. 파란색과 초록색이 섞인 공, 은색 화살, 초록색 공, 그리고 숲.'},  // narration, not the picture speaking
   talk:()=>[
    S('보아라. 조상들이 남긴 그림이다.'),
-   N('방 가운데에 희미한 빛이 떠올라요. 깜박깜박해요.'),
+   N('방 가운데에 {희미한|희미하다} 빛이 떠올라요. 깜박깜박해요.'),  // §VII "They were faint, so that I had to squint to make them out… once or twice the entire vision flickered and died"
    N('파란색과 초록색이 섞인 공이에요.'),
    N('은색 화살 같은 것이 날아가요. 아주 멀리.'),
    H('저 은색 화살… 이 집이에요.'),
-   S('그렇다. 잘 봤다, 핸드리. 이 집은 밤{하늘|하늘}에서 왔다.'),  // §VII "'It's the House,' I got out… 'Yes,' he breathed. 'Good, boy. The House, and the distant home of our ancestors that it left'"
+   S('그렇다. 잘 봤다, 핸드리. 이 집은 밤하늘에서 왔다.'),  // §VII "'It's the House,' I got out… 'Yes,' he breathed. 'Good, boy. The House, and the distant home of our ancestors that it left'"
    N('초록색 공. 그리고 보라색, 초록색 숲.'),
    H('숲에… 마을이 하나도 없어요.'),
    Q.holo[0],
-   {who:'…',say:'모두 말없이 그림을 봤어요.',award:['하늘'],set:()=>{f().saw=1}}]},
+   {who:'…',say:'모두 말없이 그림을 봤어요.',award:['희미하다'],set:()=>{f().saw=1}}]},
  house:{name:'집의 목소리',zone:'bridge',x:8,y:11,dir:'down',look:HOUSE,pos:()=>[8,11],badge:['목소리'],
   status:()=>{const F=f();if(!b('목소리'))return F.saw?'todo':null;if(F.offer&&!F.ownVoice)return 'todo';return undefined},
   after:{who:'…',say:'집은 명령하는 사람의 목소리로 말해요.'},  // narration: under [집의 목소리] it read as the House describing itself
@@ -938,7 +945,7 @@ const NPC={
     S('아니다. 이 {카인의 표식|카인의 표식}은 우리의 자랑이다. 우리는 본래 상태로 돌아왔다. 조상들처럼.'),
     S('집아, 마을의 {유령|유령}은 무엇이냐?'),
     N('이번에는 샤스킨 목소리가 아니에요. 집에 남은 옛날 목소리들이에요.'),
-    N('남자, 여자, 여러 사람이에요. 멀고, 지직거리고, 군데군데 끊겨요.'),
+    N('남자, 여자, 여러 사람이에요. 희미하고 멀어요. 지직거리고, 군데군데 끊겨요.'),  // §VII "the faint voices of the House… men, women, but all scratchy and distant and incomplete"
     {who:'옛 목소리',say:'{전문가 시스템|전문가 시스템}.'},
     S('벌집은?'),
     {who:'옛 목소리',say:'{공동체 생물 허브|공동체 생물 허브}.'},
