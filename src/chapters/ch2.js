@@ -50,7 +50,7 @@ const DICT={
  '짐승 우리':{k:'짐승을 가두어 키우는 곳.',e:'(animal) pen'},
  '오스클로':{k:'사냥꾼들이 잡는 숲 짐승.',e:'Ossclaw'},
  '하펫 꽃':{k:'아침 해가 나오는 쪽으로 자라는 꽃.',e:'Haffet flower'},
- '디보':{k:'크로에서 멀지 않은 마을.',e:'Divo'},
+ '디보':{k:'언덕 사이에 있는 마을.',e:'Divo'},
 };
 const CONFUSE={'숲':['숯','술'],'어둠':['어른','얼음'],'캄캄하다':['깜짝하다','깨끗하다'],'배고프다':['배부르다','배우다'],'굶다':['끓다','긁다'],
  '얼다':['열다','울다'],'외롭다':['외우다','괴롭다'],'숨다':['쉬다','숨 쉬다'],'흔적':['흉터','흔들다'],'꽃잎':['나뭇잎','꽃집'],'훔치다':['흘리다','흔들다'],
@@ -627,7 +627,7 @@ const ZONES={
    'T':()=>forestNight()?'나무가 삐걱거려요. 자라는 소리예요.':'큰 나무예요. 껍질에 비늘이 있어요. 삐걱, 삐걱… 나무가 자라요.',
    'C':()=>forestNight()?'위를 봐도 별이 하나도 안 보여요.':'보라색, 초록색 잎이 하늘을 덮었어요.'}),
   npcs:['nest','arraclid','berry','bark','jibbit','raikerA','raikerB','raikerC']},
- road:{get name(){return f().left?'숲길':'숲길 · 행렬의 밤'},  // the night label goes with the processionreg:'FOREST TRACK · ARO → CRO',outdoor:1,
+ road:{get name(){return f().left?'숲길':'숲길 · 행렬의 밤'},reg:'FOREST TRACK · ARO → CRO',outdoor:1,  // the night label goes with the procession
   /* the firelit clearing is off limits while the procession camps there; once it has gone you can walk it (fire pit aside) */
   legend:{'C':{tile:'canopy'},'T':{tile:'trunk'},'v':{tile:'brush',walk:1},'g':{tile:'lit',get walk(){return !!f().left}},'n':{tile:'lit',walk:1},
    'm':{tile:'bedroll',get walk(){return !!f().left}},'F':{tile:'fire'},'B':{tile:'box',get walk(){return !!f().left}},
@@ -655,7 +655,7 @@ const ZONES={
    'Y':['크로의 큰 나무예요. 아로 나무처럼 기울지 않았어요.'],
    'R':['지붕 꼭대기에 장식이 달려 있어요. 아로 집하고 똑같아요.'],'W':['집이 아로보다 멀리 떨어져 있어요. 크로는 아로보다 두 배쯤 커요.'],
    'D':()=>f().night&&!f().hunt?'문 옆에 등불이 켜져 있어요. 안에서 숨소리가 들려요.':'나무 문이에요.',
-   'f':['주황색 꽃이에요. 초록 줄무늬가 있어요. 덩굴이 천천히 움직여요.','손바닥만 한 주황색 꽃이 빙글빙글 덩굴을 따라 피었어요.'],
+   'f':['주황색 꽃이에요. 초록 줄무늬가 있어요. 덩굴이 천천히 움직여요.','커다란 주황색 꽃이 빙글빙글 덩굴을 따라 피었어요.'],
    'O':()=>f().hunt?'화덕이 식었어요.':'흙으로 만든 화덕이에요. 빵 굽는 냄새가 나요.',
    'w':['돌을 쌓은 낮은 담이에요.'],'P':['짐승 {우리|짐승 우리}예요. 나무 울타리가 있어요.'],'p':['다리가 여섯 개인 짐승들이 있어요.'],
    'F':['넓고 평평한 밭이에요. 아로 밭보다 훨씬 넓어요.','밭이 끝없이 이어져요. 크로는 땅이 평평해요.'],
@@ -753,7 +753,7 @@ const NPC={
  berry:{name:'열매 덤불',zone:'forest',x:12,y:6,dir:'down',look:BERRY,pos:()=>[12,6],badge:['숲','배고프다'],status:foodStatus('berry'),
   after:{who:'핸드리',say:'빨간 열매, 파란 열매, 노란 열매. 이건 먹어도 돼요.'},
   script:()=>{if(!f().arraclid)return eatSteps('berry');if(!b('숲'))return withAward([
-   {who:'핸드리',say:'아침이에요. 나뭇잎이 보라색, 초록색이에요.'},
+   {who:'핸드리',say:'나뭇잎이 보라색, 초록색이에요.'},  // no "아침이에요": a first visit can come at dusk on day 1, after the Raikers
    Q.berry[0],
    Q.berry[1],
    {who:'핸드리',say:'빨간 열매, 파란 열매, 노란 열매… 먹을 수 있을까요?'},
@@ -920,7 +920,7 @@ const NPC={
    {who:'크로 남자',say:'흩어져요! 비탈 쪽으로!',set:()=>{f().hunters=1}},
    {who:'…',say:'사냥꾼들이 흩어져요. 발소리가 멀어져요.',award:['사냥꾼','덫']}]},
  hunter2:{name:'크로 남자 (2)',zone:'cro',x:10,y:3,dir:'down',look:{hair:'#2A2420',skin:'#D7A77E',shirt:'#5E5A36',pants:'#3E3A2A',beard:'#2A2420'},
-  hide:()=>!f().hunt||!!f().hunters,talk:()=>[{who:'크로 사냥꾼 (2)',say:'이 숲 어딘가에 있어요. 냄새가 이상해요.'}]},
+  hide:()=>!f().hunt||!!f().hunters,talk:()=>[{who:'크로 남자 (2)',say:'이 숲 어딘가에 있어요. 냄새가 이상해요.'}]},
  huntress:{name:'사냥꾼 여자',zone:'cro',x:17,y:4,dir:'left',look:HUNTRESS,pos:()=>[17,4],badge:['동쪽','해가 뜨다'],hide:()=>!f().hunters,
   status:()=>f().done?undefined:'todo',  // after the end: the usual review ? like everyone else (null hid it)
   after:['동쪽이에요. 해가 뜨는 쪽.',{who:'…',say:'여자는 무릎을 잡고 앉아 있어요.'}],  // after the end she says this (it was a script, which kept her REVIEW lines from ever being asked)
