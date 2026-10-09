@@ -261,7 +261,7 @@ const REVIEW=[
  {w:'사냥꾼',by:'hunter',when:()=>!WAR(),ask:'나는 ___이지만, 저 나무엔 안 올라가.',opts:[['사냥꾼',1],['사냥개',0,'사냥개는 사냥을 돕는 개야. 나는 사람이야, "사냥꾼".'],['사냥감',0,'사냥감은 잡히는 짐승이야. 나는 잡는 사람, "사냥꾼".']]},
  {w:'덫',by:'hunter',when:()=>!WAR(),ask:'오로보 근처엔 ___ 놓을 데도 없어. 숲이 텅 비었거든.',opts:[['덫',1],['돛',0,'돛은 배에 다는 천이야. 짐승 잡는 건 "덫".'],['떡',0,'떡은 먹는 거지. 짐승 잡는 건 "덫".']]},
  /* 샤스킨 at the tree while you climb to the nest (his after line comes first; from the nest on, his script) */
- {w:'던지다',by:'sharskinTree',ask:'높이 ___. 둥지를 노려.',opts:[['던져',1],['떨어져',0,'떨어지는 게 아니야. 손으로 멀리 보내, "던져".'],['만져',0,'만지지 말고 멀리 보내. "던져".']]},
+ {w:'던지다',by:'sharskinTree',ask:'높이 ___. 하분을 노려.',opts:[['던져',1],['떨어져',0,'떨어지는 게 아니야. 손으로 멀리 보내, "던져".'],['만져',0,'만지지 말고 멀리 보내. "던져".']]},
  /* 오스텔 on the road: rp 0 the first day, 1 the first camp (his bush hint first), 2 the morning, 3 the second camp,
     4 after Menic, done at the door */
  {w:'붐비다',by:'ostelR',when:()=>ROAD()&&rp()<3,ask:'오로보는 너무 ___. 여기는 조용해서 좋아.',opts:[['붐볐어',1],['비었어',0,'비다는 아무도 없는 거야. 사람이 많았으면 "붐볐어".'],['비볐어',0,'비비다는 손을 문지르는 거야. 사람이 많았으면 "붐볐어".']]},
@@ -283,7 +283,7 @@ const REVIEW=[
  {w:'불을 피우다',by:'sharskinR',ask:'이 네모만 있으면 언제든 ___ 수 있어.',opts:[['불을 피울',1],['불을 끌',0,'끄는 건 쉬워. 불이 타게 하는 건 "불을 피울".'],['풀을 뽑을',0,'풀이 아니야. 불이 타게 하는 건 "불을 피울".']]},
  {w:'폐허',by:'sharskinR',when:()=>!f().done,ask:'___를 잘 봐. 마을도 죽는다.',opts:[['폐허',1],['폐지',0,'폐지는 버린 종이야. 무너진 마을은 "폐허".'],['허리',0,'허리는 몸 가운데야. 무너진 마을은 "폐허".']]},
  {w:'버려지다',by:'sharskinR',when:()=>!f().done,ask:'그 마을들은 오래전에 ___. 사람이 하나도 없어.',opts:[['버려졌어',1],['벌어졌어',0,'벌어지다는 틈이 생기는 거야. 아무도 안 살게 됐으면 "버려졌어".'],['부러졌어',0,'부러지다는 막대기가 꺾이는 거야. 아무도 안 살게 됐으면 "버려졌어".']]},
- {w:'게으르다',by:'menicR',when:()=>!f().menicDead,pre:['…왜 깨워. 졸려.'],ask:'나는 원래 좀 ___. 그래도 착해.',opts:[['게을러',1],['귀여워',0,'귀엽긴 하지. 근데 일을 안 하니까 "게을러".'],['가벼워',0,'나 무거워. 일을 안 하니까 "게을러".']]},
+ {w:'게으르다',by:'menicR',when:()=>!f().menicDead,pre:['…왜 깨워. 졸려.'],ask:'나는 원래 좀 ___. 조금만 더 잘게.',opts:[['게을러',1],['귀여워',0,'귀엽긴 하지. 근데 일어나기 싫으니까 "게을러".'],['가벼워',0,'나 무거워. 일어나기 싫으니까 "게을러".']]},
 ];
 /* class time (engine: classTime) where the story skips time: the days of the war (after the nest), the first day on the
    road, the first night's fire. Invented (inv.): Ostel and the young outcast among the yard's outcasts at the tree (the book:
@@ -955,7 +955,7 @@ const NPC={
  /* ---- the road ---- */
  sharskinR:{name:'샤스킨',zone:'road',x:5,y:5,dir:'down',look:SHARSKIN,pos:()=>{const p=rp();return p<3?[5,5]:p===3?[16,7]:[27,7]},
   status:()=>{const p=rp(),F=f();if(F.done)return null;if(p===0)return 'todo';if(p===1)return hasItem('숲 음식')&&b('게으르다')?'todo':null;
-   if(p>=4)return b('폐허')&&b('버려지다')?'todo':undefined;return p===2?undefined:null},
+   if(p>=4)return b('폐허')&&b('버려지다')?'todo':b('불을 피우다')?undefined:null;return p===2&&b('불을 피우다')?undefined:null},
   badge:['불을 피우다'],
   get after(){return rp()===2?'길에 뭐가 있어. 가 보자.':'천천히 봐. 이 길에는 죽은 마을이 많아.'},  // the morning and the dead villages: his usual line, then one of his REVIEW lines
   script:()=>{const p=rp(),F=f();
@@ -976,10 +976,11 @@ const NPC={
      {who:'…',say:'샤스킨은 메닉을 오래 쳐다봤어요. 아무 말도 안 했어요.'},
      {who:'…',say:'밤이 지났어요.',award:['불을 피우다'],set:()=>{f().dawn=1}},
      {expand:()=>classTime(CLASS,['아침'])}]}
-   if(p===2)return null;
+   const idle=()=>b('불을 피우다')?null:[{who:'샤스킨',say:NPC.sharskinR.after}];  // the fire scene cut short before 밤이 지났어요 (no badge, so no `after`): he still says his line, as before
+   if(p===2)return idle();
    if(p===3)return [{who:'샤스킨',say:'오늘은 여기서 쉰다.'},{who:'핸드리',say:'메닉이 저기 누워 있어요.'}];
    if(F.done)return [{who:'샤스킨',say:'들어가자, 형제들.'}];
-   if(!(b('폐허')&&b('버려지다')))return null;
+   if(!(b('폐허')&&b('버려지다')))return idle();
    return [
     {who:'…',say:'길 끝에 언덕이 있어요. 마을보다 커요.'},
     {who:'…',say:'모양이 너무 반듯해요. 등에 지느러미 같은 돌기가 줄지어 있어요.'},
