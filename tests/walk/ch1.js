@@ -49,7 +49,10 @@
  {talk:'melHome',wrong:true,shotBefore:'20-melory-doctor',shotSay:{text:'피가',name:'21-ghost'}},
  {walkTo:['circle',20,10],then:'22-night-circle'},
  {walkTo:['fields',12,12],then:'23-night-fields'},
- {talk:'edge',shotBuild:'24-flee-build'},
+ // walking into the gap starts the escape (onStep); the dark stands one tile beyond it, so "inspect" there just reads the talk on
+ {walkTo:['fields',12,14],then:'24a-flee-walk-in'},
+ {check:()=>!!dlg&&dlg.npc===C.NPC.edge,msg:'walking into the gap starts the escape'},
+ {inspect:['fields',12,15],shotBuild:'24-flee-build'},
  {check:()=>state.badges.length===C.WORDS.length,msg:'all words collected'},  // the last word (도망치다) lands after the escape
  {check:()=>state.f.done,msg:'chapter done'},
  {clock:26*3600e3},
