@@ -26,10 +26,14 @@ CHAPTERS.push({id:'ch3',n:'3장',title:'오로보',place:'오로보 · 하분 �
    Sharskin: bald, big, steady gaze, hands scarlet to the elbows, filmy ancient robe, silver staff, a fire-lighting "bright
    square". NOT a ghost-bearer. "500 years" is never stated here (it is Sharskin's later claim, §VIII).
    Invented (inv., non-decisive): the starving outcast's lines (book: "one of the other outcasts"), the outcasts in the stew
-   line, the Orovo hunter at the tree, the Orovo villager and the riddle-playing child at the fence (review), the fallen outcast
-   under the tree, the evening timing of arrival, Menic's brow smear (where he was Marked is unstated), Iblis's hair.
-   Per audit-ch3: the bargain (Iblis swaps Harko/San/Morrey for Lumas/Leda, moves Ghortomar/Hekki to gathering; the ghost
-   only gives numeric prognoses), Handry's plea right after it at the tree, the Sevner scene and Menic's death follow §V–VI. Korean term for budding: 분봉 (bees swarming to a new hive).
+   line, the Orovo hunter at the tree, the Orovo villager with her basket and the riddle-playing child at the fence (review), the
+   fallen outcast under the tree, the evening timing of arrival, Menic's brow smear (where he was Marked is unstated), Iblis's
+   hair, the Sevner's colours (the book gives none: a living hide, not grey).
+   Per audit-ch3: the bargain (book: Iblis swaps Harko/San/Morrey for Lumas/Leda, moves Ghortomar/Hekki to gathering; the ghost
+   only gives numeric prognoses — here trimmed to Leda→Harko and Hekki, the same kind of swap), Handry's plea right after it at
+   the tree, the Sevner scene and Menic's death follow §V–VI. Korean term for budding: 분봉 (bees swarming to a new hive).
+   Book order in the yard (§V): the line first (Sharskin keeps it, Handry waits his turn), then the bowl, then Sharskin
+   tastes it and Handry eats; names after. Sharskin's "Mark of Cain" is said in plain words (표시, a name the ancestors gave).
    Lore source: notes/canon.md + notes/chapters-outline.md (3장). Audit against the full book before publishing.
    Terms: 판관 Lawgiver · 의사 Doctor · 설계자 Architect · 유령 ghost · 단절약 Severance · 추방자 outcast · 벌집 hive.
    ===================================================================== */
@@ -41,7 +45,7 @@ const DICT={
  '노동':{k:'몸을 써서 하는 힘든 일.',e:'labour, (manual) work',ex:'노동하는 대신에 밥을 받아요.',hj:'勞動 · 動 = 움직이다 · 운동(運動)의 동'},
  '인구':{k:'한 곳에 사는 사람의 수.',e:'population',ex:'오로보는 인구가 너무 많아요.',hj:'人口 · 口 = 입 · 입구(入口)의 구'},
  '붐비다':{k:'사람이 너무 많아서 복잡해요. (붐벼요, 붐볐어요)',e:'to be crowded',ex:'오로보 골목은 밤에도 붐벼요.'},
- '이사하다':{k:'사는 집이나 마을을 다른 곳으로 옮겨요.',e:'to move (house)',ex:'오로보 사람 몇 명이 새 마을로 이사하게 돼요.',hj:'移徙 · 移 = 옮기다'},
+ '이사하다':{k:'사는 집이나 마을을 다른 곳으로 옮겨요.',e:'to move (house)',ex:'오로보 사람 절반쯤이 새 마을로 이사하게 돼요.',hj:'移徙 · 移 = 옮기다'},
  '둥지':{k:'새나 짐승이 알을 낳고 사는 집.',e:'nest',ex:'하분 둥지가 나뭇가지 위에 있어요.'},
  '알':{k:'새, 벌레, 짐승이 낳는 둥근 것. 안에서 새끼가 나와요.',e:'egg',ex:'둥지 안에 알이 다섯 개 있어요.'},
  '던지다':{k:'손에 든 것을 멀리 보내요. (던져요, 던졌어요)',e:'to throw',ex:'하분한테 돌을 던졌어요.'},
@@ -82,7 +86,7 @@ const BANK=[
  {w:'냄새를 맡다',ask:'숲에서 짐승 냄새를 ___. 가까이 있는 것 같아요.',opts:[['맡았어요',1],['맞았어요',0,'맞다는 비나 돌을 맞는 거예요. 코로 느끼면 → "맡았어요".']]},
  {w:'국',ask:'감기에 걸려서 엄마가 뜨거운 ___을 끓여 줬어요.',opts:[['국',1],['굴',0,'굴은 땅을 파서 만든 구멍이에요. 숟가락으로 먹는 건 "국".']]},
  {w:'줄을 서다',ask:'의사를 만나려고 아픈 사람들이 길게 ___ 있어요.',opts:[['줄을 서',1],['줄을 써',0,'쓰다는 글을 쓰는 거예요. 차례대로 서면 → "줄을 서 있어요".']]},
- {w:'노동',ask:'하루 종일 밭에서 힘든 ___을 했어요.',opts:[['노동',1],['노래',0,'노래는 부르는 거예요. 몸으로 하는 힘든 일은 "노동".']]},
+ {w:'노동',ask:'하루 종일 밭에서 힘든 ___을 했어요.',opts:[['노동',1],['농담',0,'농담은 웃기려고 하는 말이에요. 몸으로 하는 힘든 일은 "노동".']]},
  {w:'인구',ask:'마을 ___가 많아지면 밭도 더 많이 필요해요.',opts:[['인구',1],['입구',0,'입구는 들어가는 곳이에요. 사는 사람의 수는 "인구".']]},
  {w:'붐비다',ask:'잔치 날에는 나무 아래 광장이 사람들로 ___.',opts:[['붐벼요',1],['비어요',0,'비다는 아무도 없는 거예요. 사람이 많으면 → "붐벼요".']]},
  {w:'이사하다',ask:'며칠 뒤에 새 집으로 ___.',opts:[['이사해요',1],['인사해요',0,'인사하다는 "안녕하세요" 하는 거예요. 집을 옮기면 → "이사해요".']]},
@@ -106,11 +110,11 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  doctor:[
   {who:'…',w:'국',ask:'의사가 그릇에 뜨거운 ___을 담아 줘요.',opts:[['국',1],['굴',0,'굴은 땅을 파서 만든 구멍이에요. 숟가락으로 먹는 건 "국".'],['꿈',0,'꿈은 잘 때 보는 거예요. 먹는 건 "국".']]},
-  {who:'…',w:'국',ask:'추운 날에는 뜨거운 ___ 한 그릇이 최고예요.',opts:[['국',1],['곡',0,'"곡"은 노래 한 곡, 두 곡이에요. 먹는 건 "국".']]},
+  {w:'국',ask:'이 국은 내가 끓였어. 너희가 먹을 수 있___.',opts:[['게',1],['어서',0,'"-어서"는 이유야. 너희가 먹으라고 끓였으면, 목적이니까 "있게".'],['고',0,'"-고"는 그냥 이어 말하는 거야. 너희가 먹으라고 끓였으면 "있게".']]},
  ],
  shar:[
-  {who:'…',w:'줄을 서다',ask:'국을 받으려고 다들 ___.',opts:[['줄을 서요',1],['줄을 써요',0,'쓰다는 글을 쓰는 거예요. 차례대로 서면 → "줄을 서요".'],['줄여요',0,'줄이다는 작게 만드는 거예요. 차례대로 서면 → "줄을 서요".']]},
-  {who:'핸드리',w:'줄을 서다',ask:'그날, 저는 정말 오랜만에 배부르게 먹___.',opts:[['게 됐어요',1],['을까 봐요',0,'"-을까 봐"는 걱정이에요. 결과로 그렇게 된 일 → "먹게 됐어요".'],['게 했어요',0,'"-게 하다"는 남을 시키는 거예요. → "먹게 됐어요".']]},
+  {who:'…',w:'줄을 서다',ask:'그릇을 받으려고 다들 ___.',opts:[['줄을 서요',1],['줄을 써요',0,'쓰다는 글을 쓰는 거예요. 차례대로 서면 → "줄을 서요".'],['줄여요',0,'줄이다는 작게 만드는 거예요. 차례대로 서면 → "줄을 서요".']]},
+  {who:'핸드리',w:'줄을 서다',ask:'맛있는 음식을 못 먹은 ___ 몇 년이 됐어요. 그런데 이건 맛있어요!',opts:[['지',1],['적',0,'"-은 적"은 해 본 일이에요. "먹은 적이 있어요"처럼요. 시간이 얼마나 지났는지는 → "못 먹은 지".'],['데',0,'"-은 데"는 곳이에요. 시간이 얼마나 지났는지는 → "못 먹은 지".']]},
  ],
  out:[
   {who:'…',w:'붐비다',ask:'사람이 너무 많아서 골목이 ___.',opts:[['붐벼요',1],['비벼요',0,'비비다는 손을 문지르는 거예요. 사람이 많으면 → "붐벼요".'],['비어요',0,'비다는 아무도 없는 거예요. 반대예요! → "붐벼요".']]},
@@ -118,20 +122,19 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  ib:[
   {who:'…',w:'인구',ask:'한 마을에 사는 사람의 수는 ___예요.',opts:[['인구',1],['입구',0,'입구는 들어가는 곳이에요. 사람의 수 → "인구".'],['친구',0,'친구는 같이 노는 사람이에요. 사람의 수 → "인구".']]},
-  {w:'노동',ask:'너희가 일하___ 내가 매일 국을 준다.',opts:[['는 대신에',1],['지 않으면',0,'일 안 하면 국을 줘요? 반대예요! 일하고 국을 받으면 → "일하는 대신에".']]},
+  {w:'노동',ask:'너희가 일하___ 내가 매일 국을 준다.',opts:[['는 대신에',1],['지 않으면',0,'틀렸다. 일 안 하면 국은 없다. 일하고 먹는다, "일하는 대신에".']]},
   {who:'…',w:'노동',ask:'막대기와 돌로 짐승을 쫓는 힘든 일 → ___.',opts:[['노동',1],['노래',0,'노래는 부르는 거예요. 힘든 몸 일은 "노동".'],['운동',0,'운동은 건강하려고 하는 거예요. 먹으려고 하는 힘든 일은 "노동".']]},
  ],
  fire:[
-  {w:'이사하다',ask:'오로보 사람 몇 명이 새 나무로 ___ 거야.',opts:[['이사할',1],['인사할',0,'인사하다는 "안녕" 하는 거예요. 사는 곳을 옮기면 → "이사할".'],['이상할',0,'이상하다는 보통과 다른 거예요. 사는 곳을 옮기면 → "이사할".']]},
-  {who:'…',w:'이사하다',ask:'마을이 너무 커지면 일부는 다른 곳으로 이사하게 ___.',opts:[['돼요',1],['해요',0,'"-게 하다"는 남을 시키는 거예요. 저절로 그렇게 되면 → "이사하게 돼요".']]},
+  {w:'이사하다',ask:'오로보 사람 절반쯤이 새 마을로 ___ 거야.',opts:[['이사할',1],['인사할',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮기면 "이사할".'],['이상할',0,'이상하다는 보통이랑 다른 거야. 사는 곳을 옮기면 "이사할".']]},
  ],
  hunt:[
-  {who:'…',w:'독',ask:'먹으면 죽을 수도 있는 것은 ___이에요.',opts:[['독',1],['돌',0,'돌은 땅에 있는 딱딱한 거예요. 몸을 아프게 하는 건 "독".'],['돈',0,'돈으로는 물건을 사요. 몸을 아프게 하는 건 "독".']]},
-  {w:'독',ask:'우리가 올라가___ 너희가 올라가.',opts:[['는 대신에',1],['기 때문에',0,'이유가 아니에요. 우리 말고 너희 → "올라가는 대신에".'],['는데',0,'"-는데"는 배경을 말해요. 우리 말고 너희 → "올라가는 대신에".']]},
+  {w:'독',ask:'그 가시에는 ___이 있어. 우리는 찔리면 크게 아파.',opts:[['독',1],['돌',0,'돌이 아니야. 몸을 아프게 하는 건 "독".'],['돈',0,'돈 얘기가 아니야. 몸을 아프게 하는 건 "독".']]},
+  {w:'독',ask:'그런데 너희는 찔려___ 괜찮대. 정말이야?',opts:[['도',1],['서',0,'"-서"는 이유야. 찔렸는데 그래도 괜찮으면 "찔려도".'],['야',0,'"-야"는 꼭 그래야 하는 거야. 찔렸는데 그래도 괜찮으면 "찔려도".']]},
  ],
  sharT:[
-  {w:'던지다',ask:'하분이 오면 돌을 ___.',opts:[['던져',1],['떨어져',0,'떨어지다는 혼자 아래로 가는 거예요. 손으로 멀리 보내면 → "던져".'],['만져',0,'만지다는 손을 대는 거예요. 멀리 보내면 → "던져".']]},
-  {w:'던지다',ask:'돌이 없으면 막대기라도 ___ 돼.',opts:[['던지면',1],['던지려고',0,'"-려고"는 계획이에요. 조건이니까 → "던지면 돼".']]},
+  {w:'던지다',ask:'하분이 오면 돌을 ___.',opts:[['던져',1],['만져',0,'만지기만 하면 안 돼. 멀리 보내, "던져".'],['숨겨',0,'숨기면 안 돼. 멀리 보내, "던져".']]},
+  {w:'던지다',ask:'돌이 없으면 막대기라도 ___ 돼.',opts:[['던지면',1],['던지려고',0,'"-려고"는 계획이야. 조건이니까 "던지면 돼".']]},
  ],
  harb:[
   {who:'…',w:'가시',ask:'하분이 뱉은 ___에 독이 있어요.',opts:[['가시',1],['가지',0,'가지는 나무에서 갈라져 나온 부분이에요. 뾰족한 건 "가시".'],['과자',0,'과자는 먹는 간식이에요! 뾰족한 건 "가시".']]},
@@ -145,35 +148,35 @@ const Q={ // NPC questions, kept here so review can reuse them
   {who:'…',w:'이사하다',ask:'이블리스는 누가 새 마을로 ___ 정해요.',opts:[['이사할지',1],['인사할지',0,'인사하다는 "안녕하세요" 하는 거예요. 사는 곳을 옮기면 → "이사할지".']]},
  ],
  ibr:[
-  {who:'핸드리',w:'노동',ask:'이블리스는 우리가 노동하는 ___ 국을 줘요.',opts:[['대신에',1],['때문에',0,'"때문에"는 이유예요. 일하고 국을 받았으면 → "노동하는 대신에".'],['전에',0,'"전에"는 "노동하기 전에"처럼 써요. 일하고 국을 받았으면 → "노동하는 대신에".']]},
+  {who:'핸드리',w:'노동',ask:'일이 끝나면 오로보는 우리 ___이 필요 없어요.',opts:[['노동',1],['농담',0,'농담은 웃기려고 하는 말이에요. 몸으로 하는 힘든 일은 "노동".'],['운동',0,'운동은 건강하려고 하는 거예요. 먹으려고 하는 힘든 일은 "노동".']]},
  ],
  men:[
-  {who:'핸드리',w:'게으르다',ask:'일은 안 하고 매일 누워만 있어요. 정말 ___.',opts:[['게을러요',1],['귀여워요',0,'귀엽다는 아기나 강아지를 볼 때 해요. 일을 안 하면 → "게을러요".'],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 일을 안 하면 → "게을러요".']]},
-  {who:'핸드리',w:'게으르다',ask:'메닉은 나무를 모으___ 잠만 자요.',opts:[['는 대신에',1],['기 때문에',0,'"-기 때문에"는 이유예요. 일 말고 잠 → "모으는 대신에".'],['기 전에',0,'"-기 전에"는 시간 순서예요. 일 말고 잠 → "모으는 대신에".']]},
+  {who:'핸드리',w:'게으르다',ask:'일은 안 하고 또 누워만 있어요. 정말 ___.',opts:[['게을러요',1],['귀여워요',0,'귀엽다는 아기나 강아지를 볼 때 해요. 일을 안 하면 → "게을러요".'],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 일을 안 하면 → "게을러요".']]},
+  {who:'핸드리',w:'게으르다',ask:'샤스킨이 봐도 메닉은 일어나___ 하지 않아요.',opts:[['려고',1],['게',0,'"-게 하다"는 남을 시키는 거예요. 자기가 할 마음이 없으면 → "일어나려고 하지 않아요".'],['면',0,'"-면"은 조건이에요. 자기가 할 마음이 없으면 → "일어나려고 하지 않아요".']]},
  ],
  sr:[
   {who:'…',w:'불을 피우다',ask:'추워요. 나무를 모아서 ___.',opts:[['불을 피워요',1],['불을 꺼요',0,'끄면 불이 없어져요. 불이 타게 하면 → "불을 피워요".'],['풀을 뽑아요',0,'풀을 뽑는 건 밭일이에요. 불이 타게 하면 → "불을 피워요".']]},
-  {who:'핸드리',w:'불을 피우다',ask:'샤스킨 덕분에 우리는 따뜻한 불 옆에서 자___.',opts:[['게 됐어요',1],['게 했어요',0,'"-게 하다"는 남을 시키는 거예요. 우리한테 그렇게 된 일 → "자게 됐어요".']]},
+  {who:'핸드리',w:'불을 피우다',ask:'샤스킨 덕분에 우리는 따뜻한 불 옆에서 잘 수 ___.',opts:[['있었어요',1],['없었어요',0,'반대예요! 불이 붙었으니까 따뜻하게 잤어요 → "잘 수 있었어요".']]},
  ],
  bones:[
   {who:'…',w:'폐허',ask:'집들이 무너지고, 마을은 ___가 됐어요.',opts:[['폐허',1],['폐지',0,'폐지는 버린 종이예요. 무너진 마을은 "폐허".'],['허리',0,'허리는 몸의 가운데예요. 무너진 마을은 "폐허".']]},
-  {who:'…',w:'폐허',ask:'결국 이 마을에는 아무도 안 살___.',opts:[['게 됐어요',1],['게 했어요',0,'"-게 하다"는 누가 시키는 거예요. 결과로 그렇게 된 거니까 → "살게 됐어요".']]},
+  {who:'핸드리',w:'폐허',ask:'마을이 생기는 건 봤어요. 그런데 마을이 죽을 ___ 몰랐어요.',opts:[['줄',1],['수',0,'"-ㄹ 수"는 할 수 있는지예요. 생각도 못 했으면 → "죽을 줄 몰랐어요".'],['뻔',0,'"-ㄹ 뻔하다"는 거의 그렇게 될 뻔한 거예요. 생각도 못 했으면 → "죽을 줄 몰랐어요".']]},
  ],
  str:[
   {who:'…',w:'버려지다',ask:'아무도 안 사는 ___ 곳이에요.',opts:[['버려진',1],['벌어진',0,'벌어지다는 틈이 생기는 거예요. 아무도 안 돌보면 → "버려진".'],['부러진',0,'부러지다는 막대기가 꺾이는 거예요. 아무도 안 돌보면 → "버려진".']]},
-  {who:'…',w:'버려지다',ask:'조상들이 떠나서 이곳은 버려지___.',opts:[['게 됐어요',1],['게 했어요',0,'"-게 하다"는 누가 시키는 거예요. 그렇게 된 거니까 → "버려지게 됐어요".']]},
+  {who:'…',w:'버려지다',ask:'사람들은 사라지고, 이곳은 ___.',opts:[['버려졌어요',1],['벌어졌어요',0,'벌어지다는 틈이 생기는 거예요. 아무도 안 돌보면 → "버려졌어요".'],['부러졌어요',0,'부러지다는 막대기가 꺾이는 거예요. 아무도 안 돌보면 → "버려졌어요".']]},
  ],
- cafe:[ // the Orovo child's riddles: old words from 성실호, 1장 and 2장, no badges
-  {ask:'뜨거운 국에 손가락을 ___.',opts:[['데었어요',1],['되었어요',0,'"되다"는 무엇이 바뀌는 거예요. 뜨거워서 다쳤으면 → "데었어요".']]},
-  {ask:'벌한테 ___ 팔이 부었어요.',opts:[['쏘여서',1],['쏴서',0,'내가 쏜 게 아니에요. 벌한테 당했으면 → "쏘여서".']]},
-  {ask:'너무 추워서 손이 ___ 것 같아요.',opts:[['얼',1],['열',0,'열은 몸이 뜨거운 거예요. 추우면 → "얼 것 같아요".']]},
-  {ask:'밤에 몰래 빵을 ___ 사람은 도둑이에요.',opts:[['훔친',1],['흘린',0,'흘리다는 물이나 눈물이 떨어지는 거예요. 몰래 가져가면 → "훔친".']]},
-  {ask:'친구들이 다 떠나서 너무 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 단어를 기억하는 거예요. 혼자라서 쓸쓸하면 → "외로워요".']]},
-  {ask:'다리에 큰 ___가 있어요. 피가 나요.',opts:[['상처',1],['상태',0,'상태는 지금 어떤지예요. 다쳐서 생긴 곳은 "상처".']]},
-  {ask:'친구가 인사를 안 받아요. 저를 ___.',opts:[['무시해요',1],['무사해요',0,'무사하다는 다친 데 없이 괜찮은 거예요. 못 본 것처럼 하면 → "무시해요".']]},
-  {ask:'해는 아침에 ___에서 떠요.',opts:[['동쪽',1],['서쪽',0,'서쪽은 해가 지는 쪽이에요. 아침 해는 "동쪽".']]},
-  {ask:'눈 위에 짐승이 지나간 ___이 있어요.',opts:[['흔적',1],['흉터',0,'흉터는 상처가 나은 뒤에 피부에 남는 거예요. 지나간 뒤에 남은 건 "흔적".']]},
-  {ask:'맷돌이 ___ 나서 못 돌려요.',opts:[['고장',1],['공장',0,'공장은 물건을 만드는 곳이에요. 망가져서 안 움직이면 → "고장 나다".']]},
+ cafe:[ // the Orovo child's riddle game (반말, as the child speaks): old words from 성실호, 1장 and 2장, no badges
+  {ask:'빨갛고 아파. 불에 데면 생겨. 뭐게? ___!',opts:[['화상',1],['화장',0,'땡! 화장은 얼굴 꾸미는 거잖아. 불에 데면 생기는 건 "화상"!']]},
+  {ask:'윙윙 날다가 침으로 콕! 누구게? ___!',opts:[['벌',1],['별',0,'땡! 별은 밤하늘에서 반짝이지. 침으로 콕 하는 건 "벌"!']]},
+  {ask:'추우면 물이 딱딱해져. 물이 어떻게 됐게? ___!',opts:[['얼었어',1],['열었어',0,'땡! 문을 연 게 아니야. 추워서 딱딱해지면 "얼었어"!']]},
+  {ask:'밤에 몰래 남의 빵을 가져가는 사람은? ___!',opts:[['도둑',1],['도장',0,'땡! 도장은 이름 찍는 거야. 몰래 가져가면 "도둑"!']]},
+  {ask:'혼자 놀면 심심해. 친구가 보고 싶어. 그럼 마음이 어때? ___!',opts:[['외로워',1],['외워',0,'땡! 외우는 건 공부잖아. 혼자라서 쓸쓸하면 "외로워"!']]},
+  {ask:'넘어져서 무릎에 피가 나! 거기 생긴 건? ___!',opts:[['상처',1],['상자',0,'땡! 상자는 물건 넣는 거야. 다쳐서 생긴 건 "상처"!']]},
+  {ask:'인사했는데 형이 못 본 척해. 형이 나를? ___!',opts:[['무시해',1],['무사해',0,'땡! 무사한 건 안 다친 거야. 못 본 척하면 "무시해"!']]},
+  {ask:'아침에 해가 나오는 쪽은 어디게? ___!',opts:[['동쪽',1],['서쪽',0,'땡! 서쪽은 해가 들어가는 쪽이야. 아침엔 "동쪽"!']]},
+  {ask:'눈 위에 발자국! 짐승이 지나가고 남은 건? ___!',opts:[['흔적',1],['흉터',0,'땡! 흉터는 다친 데 남는 거야. 지나가고 남은 건 "흔적"!']]},
+  {ask:'맷돌이 안 돌아가! 망가졌어. 뭐가 났게? ___!',opts:[['고장',1],['공장',0,'땡! 공장은 물건 만드는 데야. 망가지면 "고장"!']]},
  ],
 };
 
@@ -192,8 +195,12 @@ const Q={ // NPC questions, kept here so review can reuse them
    anything), and wanting someone to queue for him; the villager wondering if her house will move, and hearing her
    neighbours through the walls; the hunters having nowhere to set traps near Orovo (the woods hunted empty is canon); the old
    outcast's two lines; Ostel's warning about flowers he doesn't know; cold hands at the second camp (book §VI: Menic warms
-   his hands at Ostel's fire); Ostel uneasy about breaking eggs. */
+   his hands at Ostel's fire); Ostel uneasy about breaking eggs; the hunter's warning about claw marks on the trunk (book §V:
+   the middle claws cut bark).
+   The end round (engine wrapUp) quotes only lines whose `when` holds from someone still here: every yard line below also holds
+   only while you are in Orovo (YARD, added after the list), so nobody's soup-line talk is quoted at the ancestors' house. */
 const WAR=()=>!!f().warDone,BUD=()=>!!f().budding,ROAD=()=>!(rp()===1&&!hasItem('숲 음식'));
+const YARD=()=>!f().left;  // in Orovo still (the yard people, the villager, Iblis): see the end of REVIEW
 const REVIEW=[
  /* 오로보 의사 · the stew yard, the first evening to the festival night (his after line comes first) */
  {w:'냄새를 맡다',by:'doctor',ask:'다들 이 냄새를 ___ 와. 너도 그랬지?',opts:[['맡고',1],['맞고',0,'맞다는 비나 매를 맞는 거야. 코로 느끼면 "맡고".'],['만나고',0,'만나다는 사람을 보는 거야. 코로 느끼면 "맡고".']]},
@@ -229,22 +236,22 @@ const REVIEW=[
  {w:'숲',by:'outcast',ask:'오로보 ___은 텅 비었어. 사냥꾼들이 다 잡았대.',opts:[['숲',1],['숯',0,'숯은 나무를 태운 검은 거야. 나무가 많은 곳은 "숲".'],['술',0,'술은 어른들이 마시는 거야. 나무가 많은 곳은 "숲".']]},
  {w:'훔치다',by:'outcast',when:()=>!WAR(),ask:'여기선 안 ___도 돼. 국이 나오니까.',opts:[['훔쳐',1],['흘려',0,'흘리다는 물이 떨어지는 거야. 몰래 가져가는 건 "훔쳐".'],['흔들어',0,'흔들다는 이리저리 움직이는 거야. 몰래 가져가는 건 "훔쳐".']]},
  {w:'화상',by:'outcast',ask:'얼굴 그 자국은 ___ 같네. 많이 아팠지?',opts:[['화상',1],['화장',0,'화장은 얼굴을 예쁘게 하는 거야. 데어서 생긴 건 "화상".'],['화살',0,'화살은 활로 쏘는 거야. 데어서 생긴 건 "화상".']]},
- {w:'둥지',by:'outcast',when:WAR,ask:'하분 ___ 부수는 일은 끝났어. 이제 어디로 가지?',opts:[['둥지',1],['동지',0,'동지는 밤이 제일 긴 날이야. 하분 집은 "둥지".'],['상자',0,'상자는 물건 넣는 거야. 하분이 지은 집은 "둥지".']]},
+ {w:'둥지',by:'outcast',when:WAR,ask:'하분 ___ 부수는 일은 끝났어. 이제 어디로 가지?',opts:[['둥지',1],['그릇',0,'그릇 말고. 하분이 막대기로 지은 집, "둥지".'],['굴',0,'굴은 땅을 판 구멍이야. 나무 위 막대기 집은 "둥지".']]},
  {w:'독',by:'outcast',when:WAR,ask:'가시에 ___이 있어도 우린 괜찮았어. 떨어지는 게 무서웠지.',opts:[['독',1],['돌',0,'돌은 딱딱한 거야. 몸을 아프게 하는 건 "독".'],['돈',0,'가시에 돈이 있으면 좋게? 몸을 아프게 하는 건 "독".']]},
  {w:'공동체',by:'outcast',when:WAR,ask:'내일이면 또 혼자야. 우릴 받아 줄 ___는 없어.',opts:[['공동체',1],['공기',0,'공기는 숨 쉬는 거야. 같이 사는 사람들은 "공동체".'],['공부',0,'공부는 책으로 배우는 거야. 같이 사는 사람들은 "공동체".']]},
  /* 오스텔 in the yard, from the morning after the fire talk */
  {w:'외롭다',by:'ostel',when:BUD,ask:'사람은 이렇게 많은데… 왜 더 ___?',opts:[['외로울까',1],['외울까',0,'외우다는 기억하는 거야. 혼자라서 쓸쓸하면 "외로울까".'],['새로울까',0,'새롭다는 처음 보는 거야. 혼자라서 쓸쓸하면 "외로울까".']]},
- {w:'이사하다',by:'ostel',when:BUD,ask:'새 나무로 ___ 사람들은 좋겠다. 집이 생기잖아.',opts:[['이사하는',1],['인사하는',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮기면 "이사하는".'],['이상한',0,'이상하다는 보통이랑 다른 거야. 사는 곳을 옮기면 "이사하는".']]},
- {w:'알',by:'ostel',when:WAR,ask:'___을 깰 때… 기분이 이상했어. 너는?',opts:[['알',1],['안',0,'안은 속이야. 하분이 낳은 건 "알".'],['앞',0,'앞은 뒤의 반대야. 하분이 낳은 건 "알".']]},
+ {w:'이사하다',by:'ostel',when:BUD,ask:'새 마을로 ___ 사람들은 좋겠다. 집이 생기잖아.',opts:[['이사하는',1],['인사하는',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮기면 "이사하는".'],['이상한',0,'이상하다는 보통이랑 다른 거야. 사는 곳을 옮기면 "이사하는".']]},
+ {w:'알',by:'ostel',when:WAR,ask:'___을 깰 때… 기분이 이상했어. 너는?',opts:[['알',1],['돌',0,'돌 깨는 건 괜찮지. 하분이 낳은 건 "알".'],['병',0,'병이 아니야. 하분이 낳은 건 "알".']]},
  /* 메닉 in the yard, from the morning after the fire talk */
  {w:'줄을 서다',by:'menic',when:BUD,ask:'___ 귀찮아. 누가 내 국 좀 받아 줘.',opts:[['줄을 서기',1],['줄을 쓰기',0,'쓰긴 뭘 써. 차례대로 서는 거, "줄을 서기".'],['줄이기',0,'줄이긴 뭘 줄여. 차례대로 서는 거, "줄을 서기".']]},
- {w:'노동',by:'menic',when:BUD,ask:'설계자가 시키는 ___은 싫어. 국만 먹고 싶어.',opts:[['노동',1],['노래',0,'노래는 좋아. 싫은 건 힘든 일, "노동".'],['운동',0,'운동도 싫지만… 지금은 힘든 일, "노동".']]},
+ {w:'노동',by:'menic',when:BUD,ask:'설계자가 시키는 ___은 싫어. 국만 먹고 싶어.',opts:[['노동',1],['농담',0,'농담은 좋아. 싫은 건 힘든 일, "노동".'],['운동',0,'운동도 싫지만… 지금은 힘든 일, "노동".']]},
  {w:'해가 뜨다',by:'menic',when:BUD,ask:'___ 전에는 깨우지 마.',opts:[['해가 뜨기',1],['해가 뜬',0,'"전에" 앞에는 "-기"가 와. "해가 뜨기" 전에.'],['해가 타기',0,'해는 안 타. 아침에 나오는 건 "해가 뜨기".']]},
  {w:'가렵다',by:'menic',when:BUD,ask:'쫓겨난 뒤로 몸이 자꾸 ___. 등 좀 긁어 줘.',opts:[['가려워',1],['가벼워',0,'가볍다는 무게 얘기야. 긁고 싶으면 "가려워".'],['그리워',0,'그립다는 보고 싶은 거야. 긁고 싶으면 "가려워".']]},
  {w:'어둠',by:'menic',when:WAR,ask:'___ 속에서도 맷돌 소리가 나. 못 자겠어.',opts:[['어둠',1],['얼음',0,'얼음은 차가운 물이야. 빛이 없는 건 "어둠".'],['어른',0,'어른은 다 큰 사람이야. 빛이 없는 건 "어둠".']]},
- /* 오로보 사람 (inv.) mutters to herself as she passes (she never sees you), from the morning after the fire talk on */
+ /* 오로보 사람 (inv.) mutters to herself, basket in hand, by the ditch (she never sees you), from the morning after the fire talk on */
  {w:'붐비다',by:'villager',when:BUD,ask:'아이고, 오늘도 골목이 ___. 지나갈 수가 없네.',opts:[['붐비네',1],['비네',0,'비긴 뭐가 비어. 사람이 많아서 못 지나가면 "붐비네".'],['비비네',0,'비비다는 손을 문지르는 거지. 사람이 많으면 "붐비네".']]},
- {w:'이사하다',by:'villager',when:BUD,ask:'우리 집도 새 나무로 ___ 될까?',opts:[['이사하게',1],['인사하게',0,'인사는 "안녕" 하는 거지. 사는 곳을 옮기면 "이사하게".'],['이상하게',0,'이상하다는 보통이랑 다른 거지. 사는 곳을 옮기면 "이사하게".']]},
+ {w:'이사하다',by:'villager',when:BUD,ask:'우리 집도 새 마을로 ___ 될까?',opts:[['이사하게',1],['인사하게',0,'인사는 "안녕" 하는 거지. 사는 곳을 옮기면 "이사하게".'],['이상하게',0,'이상하다는 보통이랑 다른 거지. 사는 곳을 옮기면 "이사하게".']]},
  {w:'이웃',by:'villager',when:BUD,ask:'___ 집이 너무 가까워. 말소리가 다 들려.',opts:[['이웃',1],['이불',0,'이불은 덮는 거지. 옆집 사람은 "이웃".'],['이유',0,'이유는 "왜"의 대답이지. 옆집 사람은 "이웃".']]},
  /* † 이블리스 and 샤스킨 at the fire always talk through their scripts */
  {w:'노동',by:'이블리스',ask:'일해라. ___한 만큼 먹인다.',opts:[['노동',1],['노래',0,'노래로는 안 먹인다. 몸으로 하는 힘든 일, "노동".'],['운동',0,'운동이 아니다. 먹으려고 하는 힘든 일, "노동".']]},
@@ -253,15 +260,15 @@ const REVIEW=[
  /* 오로보 사냥꾼 at the edge of the clearing, during the war (his after line comes first) */
  {w:'독',by:'hunter',when:()=>!WAR(),ask:'___ 가시는 너희가 맞아. 우리는 여기서 지켜.',opts:[['독',1],['돌',0,'돌 가시는 없어. 몸을 아프게 하는 건 "독".'],['돈',0,'돈 가시? 그런 건 없어. 몸을 아프게 하는 건 "독".']]},
  {w:'가시',by:'hunter',when:()=>!WAR(),ask:'하분 ___에 맞았는데 정말 안 아파?',opts:[['가시',1],['가지',0,'가지는 나무에서 갈라진 부분이야. 하분이 뱉는 건 "가시".'],['과자',0,'과자는 먹는 거지. 하분이 뱉는 건 "가시".']]},
- {w:'둥지',by:'hunter',when:()=>!WAR(),ask:'위에 ___가 아직 있어. 하나도 남기지 마.',opts:[['둥지',1],['동지',0,'동지는 밤이 제일 긴 날이야. 하분이 사는 집은 "둥지".'],['상자',0,'상자는 물건 넣는 거야. 하분이 지은 집은 "둥지".']]},
- {w:'알',by:'hunter',when:()=>!WAR(),ask:'___을 남기면 하분이 또 생겨. 다 부숴.',opts:[['알',1],['안',0,'안은 속이야. 하분이 낳는 건 "알".'],['앞',0,'앞은 뒤의 반대야. 하분이 낳는 건 "알".']]},
- {w:'던지다',by:'hunter',when:()=>!WAR(),ask:'돌은 멀리서 ___. 하분 발톱 조심해.',opts:[['던져',1],['떨어져',0,'떨어지다는 혼자 아래로 가는 거야. 손으로 멀리 보내면 "던져".'],['만져',0,'만지면 발톱에 다쳐. 멀리 보내면 "던져".']]},
+ {w:'둥지',by:'hunter',when:()=>!WAR(),ask:'위에 ___가 아직 있어. 하나도 남기지 마.',opts:[['둥지',1],['가지',0,'가지는 남겨도 돼. 하분이 지은 집, "둥지".'],['동지',0,'동지는 밤이 제일 긴 날이야. 하분이 사는 집은 "둥지".']]},
+ {w:'알',by:'hunter',when:()=>!WAR(),ask:'___을 남기면 하분이 또 생겨. 다 부숴.',opts:[['알',1],['말',0,'말은 하는 거야. 하분이 낳는 건 "알".'],['앞',0,'앞은 뒤의 반대야. 하분이 낳는 건 "알".']]},
+ {w:'던지다',by:'hunter',when:()=>!WAR(),ask:'돌은 멀리서 ___. 하분 발톱 조심해.',opts:[['던져',1],['주워',0,'줍는 건 땅에서 하는 거야. 멀리 보내면 "던져".'],['골라',0,'고르기만 하면 안 맞아. 멀리 보내면 "던져".']]},
  {w:'이사하다',by:'hunter',when:()=>!WAR(),ask:'일이 끝나면 오로보 사람들이 여기로 ___.',opts:[['이사해',1],['인사해',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮기면 "이사해".'],['이상해',0,'이상하다는 보통이랑 다른 거야. 사는 곳을 옮기면 "이사해".']]},
  {w:'냄새를 맡다',by:'hunter',when:()=>!WAR(),ask:'짐승들은 너희 냄새만 ___도 싫어해.',opts:[['맡아',1],['맞아',0,'맞다는 비나 매를 맞는 거야. 코로 느끼면 "맡아".'],['만나',0,'만나다는 사람을 보는 거야. 코로 느끼면 "맡아".']]},
- {w:'사냥꾼',by:'hunter',when:()=>!WAR(),ask:'나는 ___이지만, 저 나무엔 안 올라가.',opts:[['사냥꾼',1],['사냥개',0,'사냥개는 사냥을 돕는 개야. 나는 사람이야, "사냥꾼".'],['사냥감',0,'사냥감은 잡히는 짐승이야. 나는 잡는 사람, "사냥꾼".']]},
+ {w:'흔적',by:'hunter',when:()=>!WAR(),ask:'줄기에 하분 발톱 ___이 가득해. 조심해.',opts:[['흔적',1],['약속',0,'약속은 미리 정하는 거야. 발톱이 남긴 건 "흔적".'],['음식',0,'음식은 먹는 거야. 발톱이 남긴 건 "흔적".']]},
  {w:'덫',by:'hunter',when:()=>!WAR(),ask:'오로보 근처엔 ___ 놓을 데도 없어. 숲이 텅 비었거든.',opts:[['덫',1],['돛',0,'돛은 배에 다는 천이야. 짐승 잡는 건 "덫".'],['떡',0,'떡은 먹는 거지. 짐승 잡는 건 "덫".']]},
  /* 샤스킨 at the tree while you climb to the nest (his after line comes first; from the nest on, his script) */
- {w:'던지다',by:'sharskinTree',ask:'높이 ___. 하분을 노려.',opts:[['던져',1],['떨어져',0,'떨어지는 게 아니야. 손으로 멀리 보내, "던져".'],['만져',0,'만지지 말고 멀리 보내. "던져".']]},
+ {w:'던지다',by:'sharskinTree',when:()=>!WAR(),ask:'높이 ___. 하분을 노려.',opts:[['던져',1],['흔들어',0,'흔들기만 하면 안 맞아. 멀리 보내, "던져".'],['쌓아',0,'쌓는 게 아니야. 멀리 보내, "던져".']]},
  /* 오스텔 on the road: rp 0 the first day, 1 the first camp (his bush hint first), 2 the morning, 3 the second camp,
     4 after Menic, done at the door */
  {w:'붐비다',by:'ostelR',when:()=>ROAD()&&rp()<3,ask:'오로보는 너무 ___. 여기는 조용해서 좋아.',opts:[['붐볐어',1],['비었어',0,'비다는 아무도 없는 거야. 사람이 많았으면 "붐볐어".'],['비볐어',0,'비비다는 손을 문지르는 거야. 사람이 많았으면 "붐볐어".']]},
@@ -271,9 +278,9 @@ const REVIEW=[
  {w:'동쪽',by:'ostelR',when:()=>rp()===2,ask:'___ 하늘이 밝아. 벌써 아침이야.',opts:[['동쪽',1],['서쪽',0,'서쪽은 해가 지는 쪽이야. 아침에 밝은 건 "동쪽".'],['동네',0,'동네는 사람 사는 데야. 방향은 "동쪽".']]},
  {w:'불을 피우다',by:'ostelR',when:()=>rp()===3,ask:'오늘은 내가 ___. 따뜻하지?',opts:[['불을 피웠어',1],['불을 껐어',0,'껐으면 추웠겠지. 불이 타게 했으면 "불을 피웠어".'],['풀을 뽑았어',0,'풀 뽑은 게 아니야. 불이 타게 했으면 "불을 피웠어".']]},
  {w:'얼다',by:'ostelR',when:()=>rp()===3,ask:'불 가까이 와. 손이 ___ 것 같아.',opts:[['얼',1],['열',0,'열은 몸이 뜨거운 거야. 추우면 "얼" 것 같아.'],['울',0,'울다는 눈물 나는 거야. 추우면 "얼" 것 같아.']]},
- {w:'흔적',by:'ostelR',when:()=>rp()===3,ask:'세브너가 지나간 ___이 아직 있어. 엄청 커.',opts:[['흔적',1],['흉터',0,'흉터는 상처가 나은 자국이야. 지나간 뒤에 남은 건 "흔적".'],['약속',0,'약속은 미리 정하는 거야. 지나간 뒤에 남은 건 "흔적".']]},
+ {w:'흔적',by:'ostelR',when:()=>rp()===3,ask:'세브너가 지나간 ___이 아직 있어. 엄청 커.',opts:[['흔적',1],['소식',0,'소식은 새로 들은 이야기야. 지나간 뒤에 남은 건 "흔적".'],['약속',0,'약속은 미리 정하는 거야. 지나간 뒤에 남은 건 "흔적".']]},
  {w:'냄새를 맡다',by:'ostelR',when:()=>rp()>=3,ask:'세브너는 우리 냄새를 ___ 화를 냈어.',opts:[['맡고',1],['맞고',0,'맞다는 비나 매를 맞는 거야. 코로 느끼면 "맡고".'],['만나고',0,'만나다는 사람을 보는 거야. 코로 느끼면 "맡고".']]},
- {w:'던지다',by:'ostelR',when:()=>rp()>=3,ask:'우리가 세브너 눈에 돌을 ___. 봤지?',opts:[['던졌어',1],['떨어졌어',0,'떨어지다는 혼자 아래로 가는 거야. 손으로 보냈으면 "던졌어".'],['만졌어',0,'세브너 눈을 만져? 무서워! 손으로 보냈으면 "던졌어".']]},
+ {w:'던지다',by:'ostelR',when:()=>rp()>=3,ask:'우리가 세브너 눈에 돌을 ___. 봤지?',opts:[['던졌어',1],['숨겼어',0,'숨겼으면 세브너가 안 도망갔지. 손으로 멀리 보냈으면 "던졌어".'],['만졌어',0,'세브너 눈을 만져? 무서워! 손으로 보냈으면 "던졌어".']]},
  {w:'게으르다',by:'ostelR',when:()=>!!f().menicDead,ask:'샤스킨 앞에서는 절대 ___ 안 돼.',opts:[['게으르면',1],['귀여우면',0,'귀여운 게 문제가 아니야. 일을 안 하면, "게으르면".'],['가벼우면',0,'무게 얘기가 아니야. 일을 안 하면, "게으르면".']]},
  {w:'폐허',by:'ostelR',ask:'오는 길에 ___가 너무 많았어. 무서워.',opts:[['폐허',1],['폐지',0,'폐지는 버린 종이야. 무너진 마을은 "폐허".'],['허리',0,'허리는 몸 가운데야. 무너진 마을은 "폐허".']]},
  {w:'버려지다',by:'ostelR',ask:'___ 곳은 싫어. 빨리 가자.',opts:[['버려진',1],['벌어진',0,'벌어지다는 틈이 생기는 거야. 아무도 안 사는 곳은 "버려진".'],['부러진',0,'부러지다는 막대기가 꺾이는 거야. 아무도 안 사는 곳은 "버려진".']]},
@@ -285,25 +292,27 @@ const REVIEW=[
  {w:'버려지다',by:'sharskinR',when:()=>!f().done,ask:'그 마을들은 오래전에 ___. 사람이 하나도 없어.',opts:[['버려졌어',1],['벌어졌어',0,'벌어지다는 틈이 생기는 거야. 아무도 안 살게 됐으면 "버려졌어".'],['부러졌어',0,'부러지다는 막대기가 꺾이는 거야. 아무도 안 살게 됐으면 "버려졌어".']]},
  {w:'게으르다',by:'menicR',when:()=>!f().menicDead,pre:['…왜 깨워. 졸려.'],ask:'나는 원래 좀 ___. 조금만 더 잘게.',opts:[['게을러',1],['귀여워',0,'귀엽긴 하지. 근데 일어나기 싫으니까 "게을러".'],['가벼워',0,'나 무거워. 일어나기 싫으니까 "게을러".']]},
 ];
+/* lines that only fit Orovo (the stew line, the yard, the lanes, Iblis's evening speech) hold only until you leave it */
+{const inOrovo=new Set(['doctor','lineA','lineB','lineC','sharskin','outcast','ostel','menic','villager','이블리스','sharskinFire']);
+ REVIEW.forEach(r=>{if(!inOrovo.has(r.by))return;const w0=r.when;r.when=w0?()=>w0()&&YARD():YARD})}
 /* class time (engine: classTime) where the story skips time: the days of the war (after the nest), the first day on the
-   road, the first night's fire. Invented (inv.): Ostel and the young outcast among the yard's outcasts at the tree (the book:
-   the outcasts fought), Ostel uneasy about the eggs, Sharskin saying in the morning there'll be a fire again tonight (the
+   road, the first night's fire. Invented (inv.): the young outcast among the yard's outcasts at the tree (the book: the
+   outcasts fought), uneasy about the eggs (not Ostel: a player who skips him in the yard meets him on the festival night,
+   where he is introduced), Sharskin saying in the morning there'll be a fire again tonight (the
    book §VI: that evening he has Ostel build it, so it is not assigned here). */
 const CLASS={
  '나무 위':{say:'날마다 나무에 올라갔어요. 위에서 하분들이 날카롭게 울었어요.',lines:[
-  {w:'던지다',who:'샤스킨',ask:'머리를 노려. 세게 ___.',opts:[['던져',1],['떨어져',0,'떨어지는 게 아니야. 손으로 멀리 보내, "던져".'],['만져',0,'만지면 발톱에 다쳐. 멀리 보내, "던져".']]},
+  {w:'던지다',who:'샤스킨',ask:'머리를 노려. 세게 ___.',opts:[['던져',1],['떨어져',0,'떨어지면 너만 다쳐! 손으로 멀리 보내, "던져".'],['넣어',0,'넣는 게 아니야. 멀리 보내, "던져".']]},
   {w:'가시',who:'샤스킨',ask:'___는 뽑고 계속 올라가.',opts:[['가시',1],['가지',0,'가지는 나무에서 갈라진 부분이야. 팔에 박힌 건 "가시".'],['과자',0,'과자는 먹는 거야. 팔에 박힌 건 "가시".']]},
   {w:'독',who:'오로보 사냥꾼',ask:'우리였으면 가시 ___ 때문에 벌써 쓰러졌어.',opts:[['독',1],['돌',0,'돌 때문이 아니야. 가시가 무서운 건 "독" 때문이야.'],['돈',0,'돈 때문에 쓰러져? 가시가 무서운 건 "독" 때문이야.']]},
-  {w:'노동',who:'젊은 추방자',ask:'하분 쫓는 ___은 힘들어. 그래도 먹을 수 있어.',opts:[['노동',1],['노래',0,'노래는 즐겁지. 몸으로 하는 힘든 일은 "노동".'],['운동',0,'운동은 건강하려고 하는 거야. 먹으려고 하는 힘든 일은 "노동".']]}]},
- '둥지':{say:'가지마다 막대기 둥지가 있었어요. 하나씩 부쉈어요.',lines:[
-  {w:'둥지',who:'샤스킨',ask:'하분 ___는 하나도 남기지 마.',opts:[['둥지',1],['동지',0,'동지는 밤이 제일 긴 날이야. 하분 집은 "둥지".'],['상자',0,'상자는 물건 넣는 거야. 하분이 지은 집은 "둥지".']]},
-  {w:'알',who:'오스텔',ask:'___이 아직 따뜻해… 꼭 깨야 해?',opts:[['알',1],['안',0,'안은 속이야. 하분이 낳은 건 "알".'],['앞',0,'앞은 뒤의 반대야. 하분이 낳은 건 "알".']]},
-  {w:'이사하다',who:'샤스킨',ask:'이 나무가 비어야 오로보 사람들이 ___ 수 있어.',opts:[['이사할',1],['인사할',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮기면 "이사할".'],['이상할',0,'이상하다는 보통이랑 다른 거야. 사는 곳을 옮기면 "이사할".']]},
+  {w:'노동',who:'젊은 추방자',ask:'하분 쫓는 ___은 힘들어. 그래도 먹을 수 있어.',opts:[['노동',1],['농담',0,'농담은 재밌지. 몸으로 하는 힘든 일은 "노동".'],['운동',0,'운동은 건강하려고 하는 거야. 먹으려고 하는 힘든 일은 "노동".']]}]},
+ '둥지':{say:'가지마다 막대기 집이 있었어요. 하나씩 부쉈어요.',lines:[
+  {w:'둥지',who:'샤스킨',ask:'하분 ___는 하나도 남기지 마.',opts:[['둥지',1],['의자',0,'의자는 앉는 거야. 하분이 막대기로 지은 집은 "둥지".'],['상자',0,'상자는 물건 넣는 거야. 하분이 지은 집은 "둥지".']]},
+  {w:'알',who:'젊은 추방자',ask:'___이 아직 따뜻해… 꼭 깨야 해?',opts:[['알',1],['물',0,'물은 안 깨져. 하분이 낳은 건 "알".'],['잎',0,'잎은 깰 수 없어. 하분이 낳은 건 "알".']]},
   {w:'인구',who:'오로보 사냥꾼',ask:'오로보는 ___가 너무 많아. 이 나무가 꼭 필요해.',opts:[['인구',1],['입구',0,'입구는 들어가는 곳이야. 사는 사람 수는 "인구".'],['친구',0,'친구는 같이 노는 사람이야. 사는 사람 수는 "인구".']]}]},
  '길':{say:'샤스킨이 앞에서 걸었어요. 은빛 지팡이가 반짝였어요.',lines:[
   {w:'인구',who:'샤스킨',ask:'사람이 너무 많아. 오로보는 ___가 넘쳐.',opts:[['인구',1],['입구',0,'입구는 들어가는 곳이야. 사는 사람 수는 "인구".'],['친구',0,'친구는 같이 노는 사람이야. 사는 사람 수는 "인구".']]},
-  {w:'이사하다',who:'샤스킨',ask:'오로보 사람들은 새 나무로 ___. 우리는 우리 집으로 가.',opts:[['이사해',1],['인사해',0,'인사는 "안녕" 하는 거야. 사는 곳을 옮기면 "이사해".'],['이상해',0,'이상하다는 보통이랑 다른 거야. 사는 곳을 옮기면 "이사해".']]},
-  {w:'노동',who:'메닉',ask:'나무 치우는 ___은 이제 끝이지? …그렇지?',opts:[['노동',1],['노래',0,'노래는 끝나도 돼. 힘든 일, "노동" 말이야.'],['운동',0,'운동 안 해. 힘든 일, "노동" 말이야.']]},
+  {w:'노동',who:'메닉',ask:'나무 비우는 ___은 이제 끝이지? …그렇지?',opts:[['노동',1],['농담',0,'농담 말고. 힘든 일, "노동" 말이야.'],['운동',0,'운동 안 해. 힘든 일, "노동" 말이야.']]},
   {w:'줄을 서다',who:'오스텔',ask:'이제 국 받으려고 ___ 일도 없겠다.',opts:[['줄을 설',1],['줄을 쓸',0,'쓰는 게 아니야. 차례대로 서는 거, "줄을 설".'],['줄일',0,'줄이는 게 아니야. 차례대로 서는 거, "줄을 설".']]}]},
  '아침':{say:'불이 밤새 탔어요. 이제 작아졌어요.',lines:[
   {w:'불을 피우다',who:'샤스킨',ask:'오늘 밤에도 ___ 거야. 밤에는 추우니까.',opts:[['불을 피울',1],['불을 끌',0,'추운데 끄면 안 되지. 불이 타게 하는 건 "불을 피울".'],['풀을 뽑을',0,'풀이 아니야. 불이 타게 하는 건 "불을 피울".']]},
@@ -385,8 +394,10 @@ const OUTCAST=tuned({hair:'#6A5A4A',skin:'#B8906E',shirt:'#6A5E4E',pants:'#4A423
 const LINE_A=tuned({hair:'#2E2420',skin:'#C49270',shirt:'#5A5244',pants:'#3E3A30',style:'short'},mark({down:[[6,9],[7,8]],left:[[6,5]]}),RED);
 const LINE_B=tuned({hair:'#7A6248',skin:'#D2A684',shirt:'#6E604A',pants:'#4A4232',style:'spiky'},mark({down:[[11,12],[10,12]],left:[[11,8]]}),RED);
 const LINE_C=tuned({hair:'#3A2E28',skin:'#B07E5C',shirt:'#5E5A4A',pants:'#403A30',style:'bald'},mark({down:[[2,6],[2,7],[3,8]],left:[[2,6],[3,6]]}),RED);
-/* Orovo villager and hunter (inv.) */
-const VILLAGER=tuned({hair:'#4A3428',skin:'#D0A07C',shirt:'#B0703A',pants:'#5A4430',style:'bun',lashes:1,lips:'#B06A5E'},r=>r);
+/* Orovo villager and hunter (inv.); the villager is a woman (long hair, a long dress, as Cro's women in 2장) with a basket */
+const VILLAGER=tuned({hair:'#4A3428',skin:'#D0A07C',shirt:'#B0703A',pants:'#5A4430',style:'long',coat:1,lashes:1,lips:'#B06A5E'},r=>r);
+const PROPS={basket:(X,Y,dir)=>{if(dir==='up')return;const x=dir==='left'?X+2:dir==='right'?X+9:X+11;  // a woven basket on the arm, a few purple crops in it
+ r(x+1,Y+9,3,1,OL);r(x,Y+10,1,2,OL);r(x+4,Y+10,1,2,OL);r(x,Y+12,5,4,OL);r(x+1,Y+12,3,3,'#B08A50');r(x+1,Y+13,3,1,'#8A6A3A');r(x+1,Y+12,1,1,'#7E5A8A');r(x+3,Y+12,1,1,'#6E8A3A')}};
 const HUNTER=tuned({hair:'#2A2020',skin:'#B88460',shirt:'#5A5030',pants:'#3E3424',belt:'#2A2018',style:'short'},(rows,view)=>{
  const sx=view==='left'?12:14;for(let y=0;y<rows.length;y++)setc(rows,y,sx,y<2?'q':'Q');return rows},{Q:'#8A6A42',q:'#D9D2C0'});
 const CHILD={art:flat([
@@ -417,10 +428,10 @@ const NEST={art:flat([".....OOOOOO.....","...OOsSsSsSOO...","..OsSsSsSsSsSO..","
 const NEST_BROKEN={art:flat(["..s....S..s.....",".S.s..s.S...sS..",".OEyO...s.OEyO..","..OO..S...s.OO..","sS..s..OEO..S.s.",".s.S..OyyO.s..S.","..sS.s.OO..sS.s."],NEST_PAL)};
 
 /* the Sevner's trunk and front legs, standing on the track (its body is drawn by the 'k' tiles above) */
-const SV_PAL={O:OL,s:'#6E7680',S:'#565E68',T:'#7E8690',t:'#5E6670',P:'#C8C0A8'};
-const SV0=["OsO...OTTO...OsO","OsO...OTtO...OsO","OsO...OTTO...OsO","OsO...OtTO...OsO","OsO...OTTO...OsO","OsO...OTtO...OsO","OsO...OTTO...OsO","OsO..OTTTTO..OsO",
- "OsO..OtTTtO..OsO","OsO.OTTOOTTO.OsO","OsO.OPO..OPO.OsO","OsO.OP....PO.OsO","OsO..OP..PO..OsO","OSSO..O..O..OSSO","OSSSO......OSSSO",".OOO........OOO."];
-const SV1=SV0.slice(0,9).concat(["OsO.OTTOOTTO.OsO","OsO..OPOOPO..OsO","OsO..OP..PO..OsO","OsO...OPPO...OsO","OSSO........OSSO","OSSSO......OSSSO",".OOO........OOO."]);
+const SV_PAL={O:OL,s:'#86684F',S:'#5E4636',T:'#94735A',t:'#6E5240',P:'#D8C8A4',b:'#4A3424'};
+const SV0=["OsO...OTTO...OsO","OsO...OTtO...OsO","OSO...OTTO...OSO","OsO...OtTO...OsO","OsO...OTTO...OsO","OsO...OTtO...OsO","OSO...OTTO...OSO","OsO..OTTTTO..OsO",
+ "OsO..OtTTtO..OsO","OsO.OTTOOTTO.OsO","OSO.OPO..OPO.OSO","OsO.OP.bb.PO.OsO","OsO..OPbbPO..OsO","OSSO..ObbO..OSSO","OSSSO......OSSSO",".OOO........OOO."];
+const SV1=SV0.slice(0,9).concat(["OsO.OTTOOTTO.OsO","OSO..OPOOPO..OSO","OsO..OPbbPO..OsO","OsO...OPPO...OsO","OSSO........OSSO","OSSSO......OSSSO",".OOO........OOO."]);
 const SEVNER=frames([flat(SV0,SV_PAL),flat(SV0,SV_PAL),flat(SV1,SV_PAL)],500);
 
 /* road objects: the holed skull and bones; a fallen strut; a food bush */
@@ -544,15 +555,16 @@ const sevnerK=(X,Y,x,y,t)=>{floorR(X,Y,x,y);const [a,bb]=blk(x,y),X0=X-(x-a)*16,
  if(F.rp>=3){clipT(X,Y,()=>{for(let i=0;i<6;i++)r(X0+6+i*7,Y0+10+(i*11)%28,6,2,'#2E3A26');r(X0+18,Y0+30,12,6,'#34402C')});return}
  clipT(X,Y,()=>{const awake=true,br=Math.round(Math.sin(t/700));
   oval(X0+24,Y0+44,22,3,'rgba(0,0,0,.35)');
-  for(const [lx,ly] of [[6,30],[16,33],[30,33],[40,30]]){r(X0+lx,Y0+ly,5,14,OL);r(X0+lx+1,Y0+ly,3,13,'#6E7680');r(X0+lx+1,Y0+ly,1,13,'#8A929A')}
-  oval(X0+42,Y0+20,7,5,OL);oval(X0+42,Y0+20,6,4,'#5E6670');
-  oval(X0+24,Y0+22+br,20,14,OL);oval(X0+24,Y0+22+br,19,13,dy=>dy<-7?'#8A929A':dy<3?'#6E7680':'#565E68');
-  oval(X0+20,Y0+12+br,9,5,'#8A929A');
+  for(const [lx,ly] of [[6,30],[16,33],[30,33],[40,30]]){r(X0+lx,Y0+ly,5,14,OL);r(X0+lx+1,Y0+ly,3,13,'#86684F');r(X0+lx+1,Y0+ly,1,13,'#A0805F');for(let j=4;j<13;j+=4)r(X0+lx+1,Y0+ly+j,3,1,'#5E4636')}
+  oval(X0+42,Y0+20,7,5,OL);oval(X0+42,Y0+20,6,4,'#6E5240');
+  oval(X0+24,Y0+22+br,20,14,OL);oval(X0+24,Y0+22+br,19,13,dy=>dy<-7?'#A0805F':dy<3?'#86684F':'#5E4636');
+  oval(X0+20,Y0+12+br,9,5,'#A88A68');
+  for(const [mx,my,mr] of [[18,20,3],[29,15,2],[25,28,3],[36,24,2],[14,31,2]])oval(X0+mx,Y0+my+br,mr,Math.max(1,mr-1),'#6A503E');  // a mottled, wrinkled hide
   for(let i=0;i<3;i++){r(X0+30+i*4,Y0+20+br,1,6,OL);if(awake&&Math.floor(t/260+i)%3===0){r(X0+31+i*4,Y0+18+br-((t/80|0)%4),2,1,'rgba(230,230,220,.7)')}}
-  oval(X0+12,Y0+26+br,8,7,OL);oval(X0+12,Y0+26+br,7,6,'#7E8690');
+  oval(X0+12,Y0+26+br,8,7,OL);oval(X0+12,Y0+26+br,7,6,'#94735A');
   r(X0+11,Y0+16+br,2,5,OL);r(X0+8,Y0+13+br,2,4,OL);r(X0+14,Y0+13+br,2,4,OL);r(X0+9,Y0+14+br,1,3,'#D8D0B8');r(X0+14,Y0+14+br,1,3,'#D8D0B8');
   const eye=awake?'#E8E070':OL;r(X0+11,Y0+22+br,2,awake?2:1,eye);r(X0+11,Y0+30+br,2,awake?2:1,eye);r(X0+5,Y0+26+br,2,1,eye);r(X0+17,Y0+26+br,2,1,eye);
-  r(X0+10,Y0+33+br,5,15,OL);r(X0+11,Y0+33+br,3,15,'#7E8690')})};
+  r(X0+10,Y0+33+br,5,15,OL);r(X0+11,Y0+33+br,3,15,'#94735A');for(let j=36;j<48;j+=3)r(X0+11,Y0+j+br,3,1,'#6E5240')})};
 /* first dead village: the burned tree (2×2) with axe scars; slightly-wrong ruined houses */
 const burnedB=(X,Y,x,y,t)=>{floorR(X,Y,x,y);const [a,bb]=blk(x,y),X0=X-(x-a)*16,Y0=Y-(y-bb)*16;
  clipT(X,Y,()=>{r(X0,Y0+20,32,12,'#2A2420');oval(X0+16,Y0+28,14,3,'#1A1614');
@@ -647,7 +659,7 @@ const TREE_MAP=[
 "C..s.......vv.......s..C",
 "C......................C",
 "C......vv.......vv.....C",
-"_..........s...........C",
+"C..........s..........._",
 "C......................C",
 "CCCCC....CCCCCCC....CCCC",
 "CCCCCCCCCCCCCCCCCCCCCCCC"];
@@ -669,13 +681,13 @@ const ROAD_MAP=[
 "C".repeat(27)+H9];
 
 const ZONES={
- orovo:{name:'오로보',reg:'OROVO · OUTCAST YARD',outdoor:1,
+ orovo:{name:'오로보',reg:'OROVO',outdoor:1,
   legend:{'R':{tile:'roofT'},'W':{tile:'wallT'},'D':{tile:'doorT'},'U':{tile:'upperT'},'r':{tile:'rampT'},',':{tile:'lane',walk:1},'q':{tile:'quernT'},'L':{tile:'penT'},
    'Y':{tile:'canY'},'Z':{tile:'trunkZ'},'F':{tile:'fenceT',over:1},'G':{tile:'gapT',walk:1},'.':{tile:'dirt',walk:1},'f':{tile:'fireT'},'m':{tile:'matT'},'S':{tile:'terminal'},
    'w':{tile:'wattleT'},'c':{tile:'cropT'},'_':{tile:'bankT',walk:1},'~':{tile:'waterT'}},
   map:OROVO_MAP,
   rooms:[[6,7,19,11,'오로보 · 추방자 마당'],[0,13,25,17,'오로보 · 밭과 도랑'],[0,0,25,5,'오로보 · 골목']],
-  warps:{'0,14':{to:'tree',x:1,y:14,dir:'right',lock:()=>{const F=f();if(F.left)return '하분 나무 일은 끝났어요.';if(!F.budding)return '저쪽은 오로보 사냥꾼들 땅이에요.';if(F.warDone)return '나무 일은 끝났어요. 마당으로 가요.';return false}},
+  warps:{'0,14':{to:'tree',x:22,y:14,dir:'left',lock:()=>{const F=f();if(F.left)return '하분 나무 일은 끝났어요.';if(!F.budding)return '저쪽은 오로보 사냥꾼들 땅이에요.';if(F.warDone)return '나무 일은 끝났어요. 마당으로 가요.';return false}},
    '25,14':{to:'road',x:1,y:7,dir:'right',lock:()=>!f().left&&'어디로 가요? 갈 곳이 없어요.'}},
   spots:autoSpots(OROVO_MAP,{
    'R':['지붕 꼭대기에 술이 있어요. 아로 집하고 똑같아요.','집 사이에 또 집이 있어요. 빈 땅이 없어요.'],
@@ -688,12 +700,12 @@ const ZONES={
    'w':['낮은 담이에요. 밭과 마을을 나눠요.'],'c':['밭이에요. 끝이 안 보여요.','보라색, 초록색 작물이 자라요.'],
    '~':['{도랑|도랑}이에요. 물이 밭으로 흘러가요.','물소리가 작아요. 여기로 몰래 걸어왔어요.']}),
   npcs:['cauldron','doctor','lineA','lineB','lineC','sharskin','outcast','iblis','sharskinFire','ostel','menic','child','villager']},
- tree:{name:'새 마을 나무',reg:'THE HARBOON TREE',outdoor:1,
+ tree:{name:'새 마을 나무',reg:'THE NEW VILLAGE TREE',outdoor:1,
   legend:{'X':{tile:'leafX'},'=':{tile:'branchT',walk:1},'h':{tile:'stickT'},'|':{tile:'trunkI',walk:1},'B':{tile:'briarB'},'Z':{tile:'rootZ'},'.':{tile:'groundT',walk:1},
    's':{tile:'stumpT'},'v':{tile:'cutT',walk:1},'C':{tile:'edgeC'},'_':{tile:'pathT',walk:1}},
   map:TREE_MAP,
   rooms:[[0,0,23,5,'새 마을 나무 · 나무 위'],[1,6,22,16,'새 마을 나무 · 빈터']],
-  warps:{'0,14':{to:'orovo',x:1,y:14,dir:'left',lock:()=>!f().warDone&&'아직 일이 안 끝났어요.'}},
+  warps:{'23,14':{to:'orovo',x:1,y:14,dir:'right',lock:()=>!f().warDone&&'아직 일이 안 끝났어요.'}},  // east, back toward Orovo (you came west out of its fields)
   spots:autoSpots(TREE_MAP,{
    'X':['보라색, 초록색 잎이 두꺼워요.','잎 사이로 하분 소리가 들려요. 쉬익—'],
    'h':()=>f().warDone?'부서진 막대기만 남았어요.':'막대기로 엮은 하분 집이에요.',
@@ -719,38 +731,40 @@ const ZONES={
    'Q':['벌집이 부풀었다가 말라 죽었어요. 벌이 하나도 없어요.'],
    'H':['언덕이에요. 너무 반듯해요.','덩굴과 이끼가 덮었어요.','작은 나무도 자라요.'],'N':['언덕 등에 지느러미 같은 돌기가 줄지어 있어요.'],
    'O':()=>f().done?'문 안은 캄캄해요.':'풀이 깨끗하게 잘려 있어요. 작은 네모 문이에요. 모서리가 둥글어요.'}),
-  npcs:['sharskinR','ostelR','menicR','gbush','sevner','bones','strut']},
+  npcs:['sharskinR','ostelR','menicR','menicBody','gbush','sevner','bones','strut']},
 };
 
 /* ---------------- people and things ---------------- */
 const rp=()=>f().rp||0;
+const TO_HILL={move:{npc:'sharskinR',to:[27,7],dir:'down'}};  // the second road word learned: Sharskin walks on to the hill
 const NPC={
  /* ---- Orovo: the outcast yard ---- */
  cauldron:{name:'큰 솥',zone:'orovo',x:12,y:8,dir:'down',look:CAULDRON,pos:()=>[12,8],badge:['냄새를 맡다'],hide:()=>!!f().left,
-  after:'국 냄새가 나요. 이제 무섭지 않아요.',
+  after:{who:'…',say:'국 냄새가 나요. 이제 무섭지 않아요.'},
   talk:()=>[
    {who:'핸드리',say:'울타리 틈으로 들어왔어요. 아무도 저를 막지 않아요.'},
    {who:'…',say:'큰 솥이에요. 하얀 나무로 만들었어요.'},
-   {who:'…',say:'김이 올라와요. 코를 대고 냄새를 맡았어요.'},
+   {who:'…',say:'김이 올라와요. 저는 솥 가까이 갔어요.'},
    Q.pot[0],
    {who:'핸드리',say:'이상해요. 이 냄새는… 역겹지 않아요.'},
    {who:'핸드리',say:'마을 음식 냄새는 늘 저를 아프게 했어요.'},
    Q.pot[1],
-   {who:'…',say:'마당에 사람들이 있어요. 다들 몸에 검붉은 자국이 있어요.'},
+   {who:'…',say:'마당에 남자들이 스무 명쯤 있어요. 다들 아주 말랐어요.'},
+   {who:'…',say:'얼굴에, 팔에, 옷 밑에… 다들 붉은 {단절약|단절약} 자국이 있어요.'},
    {who:'핸드리',say:'다 저 같은 {추방자|추방자}예요.',award:['냄새를 맡다']}]},
  doctor:{name:'오로보 의사',zone:'orovo',x:13,y:8,dir:'down',look:DOCTOR,badge:['국'],hide:()=>!!f().left,
-  status:()=>b('냄새를 맡다')?undefined:null,
-  after:'한 사람에 한 그릇이야. 더는 없어.',
+  status:()=>b('줄을 서다')?undefined:null,
+  script:()=>b('줄을 서다')?null:[{who:'오로보 의사',say:'기다려. 아직 네 차례가 아니야.'}],
+  get after(){const F=f();return F.warDone?'밖은 잔치야. 너희한테는 이게 마지막 그릇이야.':F.budding?'그릇 가져와. 오늘 몫이야.':'한 사람에 한 그릇이야. 더는 없어.'},  // the first evening, the days of the war, the festival night
   talk:()=>[
-   {who:'…',say:'남자가 {국자|국자}를 들고 있어요. 머리털이 양털 같아요.'},
+   {who:'…',say:'제 차례예요. 솥 옆에 남자가 있어요. 머리털이 양털 같아요.'},
    {who:'…',say:'머리 전체가 부었어요. 울퉁불퉁하고 한쪽으로 기울었어요.'},
    {who:'핸드리',say:'{유령|유령}을 가진 사람이에요. 오로보의 의사예요.'},
    {who:'오로보 의사',say:'새 얼굴이네. 너도 먹어.'},
    Q.doctor[0],
    {who:'오로보 의사',say:'오로보에는 의사가 셋이야. 나는 그중 하나.'},
-   {who:'오로보 의사',say:'이 국은 내가 끓였어. 너희가 먹을 수 있게.'},
    Q.doctor[1],
-   {who:'…',say:'의사가 나무 그릇에 국을 담아 줬어요.',give:'국 한 그릇',award:['국']}]},
+   {who:'…',say:'의사가 나무 그릇을 줬어요. 따뜻해요.',give:'국 한 그릇',award:['국']}]},
  lineA:{name:'추방자',zone:'orovo',x:13,y:9,dir:'up',look:LINE_A,hide:()=>!!f().left,
   talk:()=>[{who:'추방자',say:'밀지 마. 나도 배고파.'}]},
  lineB:{name:'젊은 추방자',zone:'orovo',x:14,y:9,dir:'left',look:LINE_B,hide:()=>!!f().left,
@@ -758,26 +772,35 @@ const NPC={
  lineC:{name:'늙은 추방자',zone:'orovo',x:15,y:9,dir:'left',look:LINE_C,hide:()=>!!f().left,
   talk:()=>[{who:'늙은 추방자',say:'…'},{who:'핸드리',say:'아무 말도 안 해요. 그릇만 꼭 쥐고 있어요.'}]},
  sharskin:{name:'샤스킨',zone:'orovo',x:11,y:10,dir:'right',look:SHARSKIN,badge:['줄을 서다'],hide:()=>b('노동'),
-  status:()=>!b('국')?null:undefined,
-  after:'먹어. 안전해.',
-  script:()=>b('국')?null:[{who:'샤스킨',say:'먼저 그릇을 받아 와. 저기 의사한테.'}],
+  status:()=>{if(!b('냄새를 맡다'))return null;if(b('국')&&!f().ate)return 'todo';return b('줄을 서다')&&!b('국')?null:undefined},
+  after:'내 옆에 있어. 내가 돌봐 줄게.',
+  script:()=>{
+   if(!b('냄새를 맡다'))return [{who:'…',say:'키가 크고 머리털이 없는 남자예요. 추방자들을 지켜보고 있어요.'}];
+   if(!b('줄을 서다'))return null;
+   if(!b('국'))return [{who:'샤스킨',say:'네 차례야. 의사한테 그릇을 받아.'}];
+   if(f().ate)return null;
+   return [
+    {who:'…',say:'그릇을 들고 섰어요. 그런데 바로 못 먹겠어요.'},
+    {who:'핸드리',say:'왜 오로보가 추방자한테 음식을 줘요? 이상해요.'},
+    {who:'핸드리',say:'마을 음식은 저를 아프게 해요. 이것도 그럴까 봐 무서워요.'},
+    {who:'…',say:'빨간 손이 제 어깨에 올라왔어요. 그 남자예요.'},
+    {who:'샤스킨',say:'못 믿겠어? 봐.'},
+    {who:'…',say:'남자가 자기 그릇에서 한 숟가락 먹었어요.'},
+    {who:'샤스킨',say:'먹어. 안전해.'},
+    {who:'…',say:'먹었어요. 따뜻해요. 배가 안 아파요.',take:['국 한 그릇']},
+    Q.shar[1],
+    {who:'샤스킨',say:'이름은 아직 기억해?'},
+    {who:'핸드리',say:'…핸드리예요.'},
+    {who:'샤스킨',say:'나는 샤스킨이야. 여기서는 내가 질서를 지켜.'},
+    {who:'핸드리',say:'눈빛이 아주 차분해요. 흔들리지 않아요.',set:()=>{f().ate=1}}]},
   talk:()=>[
-   {who:'…',say:'추방자들이 그릇을 들고 서 있어요. 한 줄로.'},
-   {who:'…',say:'키가 크고 머리털이 없는 남자가 줄 옆에 서 있어요.'},
+   {who:'…',say:'솥 앞에서 추방자들이 그릇을 받아요.'},
+   {who:'핸드리',say:'배가 너무 고파요. 사람들을 밀고 앞으로 가고 싶어요.'},
+   {who:'…',say:'그때 키가 크고 머리털이 없는 남자가 저를 봤어요.'},
    {who:'…',say:'손이 팔꿈치까지 새빨개요. 옷은 얇고 이상하게 반짝여요.'},
-   {who:'샤스킨',say:'밀지 마. 줄을 서.'},
+   {who:'샤스킨',say:'밀지 마. 한 사람씩.'},
    Q.shar[0],
-   {who:'핸드리',say:'그릇만 봐요. 먹고 싶어요. 그런데 무서워요.'},
-   {who:'핸드리',say:'마을 음식은 저를 아프게 해요. 이것도 그럴까 봐 무서워요.'},
-   {who:'샤스킨',say:'못 믿겠어? 봐.'},
-   {who:'…',say:'남자가 자기 그릇에서 한 숟가락 먹었어요.'},
-   {who:'샤스킨',say:'먹어. 안전해.'},
-   {who:'…',say:'먹었어요. 따뜻해요. 배가 안 아파요.',take:['국 한 그릇']},
-   Q.shar[1],
-   {who:'샤스킨',say:'이름은 아직 기억해?'},
-   {who:'핸드리',say:'…핸드리예요.'},
-   {who:'샤스킨',say:'나는 샤스킨이야. 여기서는 내가 질서를 지켜.'},
-   {who:'핸드리',say:'눈빛이 아주 차분해요. 흔들리지 않아요.',award:['줄을 서다'],set:()=>{f().ate=1}}]},
+   {who:'핸드리',say:'저 남자가 무서워요. 그래서 저도 차례를 기다렸어요.',award:['줄을 서다']}]},
  outcast:{name:'굶주린 추방자',zone:'orovo',x:8,y:10,dir:'right',look:OUTCAST,badge:['붐비다'],hide:()=>!!f().left,
   status:()=>f().ate?undefined:null,
   after:'오로보는 오늘도 붐비네.',
@@ -817,10 +840,12 @@ const NPC={
    if(F.warDone&&!F.left)return [
     {who:'…',say:'울타리 너머에서 북소리, 노랫소리가 들려요.'},
     {who:'샤스킨',say:'핸드리. 오스텔, 메닉. 이리 와.'},
+    {who:'…',say:'두 남자가 왔어요. 키가 크고 아주 마른 사람이 오스텔이에요. 얼굴과 가슴에 빨간 무늬가 있어요.'},
+    {who:'…',say:'작고 어깨가 넓은 사람이 메닉이에요. 쫓겨난 지 얼마 안 됐대요.'},
     {who:'샤스킨',say:'내일이면 국이 없어. 너희는 어디로 갈 거야?'},
     {who:'샤스킨',say:'잘 들어. 너희는 저주받은 게 아니야.'},
-    {who:'샤스킨',say:'이 빨간 자국은 {카인의 표식|카인의 표식}이야.'},
-    {who:'샤스킨',say:'우리는 {본래 상태|본래 상태}로 돌아간 거야. 조상들처럼.'},
+    {who:'샤스킨',say:'이 빨간 자국은 그냥 상처가 아니야. 조상들이 이름까지 붙인 표시야.'},
+    {who:'샤스킨',say:'이 표시 덕분에 우리는 {본래 상태|본래 상태}로 돌아간 거야. 조상들처럼.'},
     {who:'샤스킨',say:'나랑 같이 가자. 우리 같은 사람들이 사는 곳이 있어. 먹을 것도, 잘 곳도 있어.'},
     {who:'핸드리',say:'저는 처음으로 제가 더럽지 않다고 느꼈어요.'},
     {who:'핸드리',say:'갈게요.'},
@@ -830,14 +855,13 @@ const NPC={
    {who:'…',say:'밤이에요. 샤스킨이 불 옆에 앉아 있어요.'},
    {who:'샤스킨',say:'앉아. 궁금한 게 있지?'},
    {who:'핸드리',say:'무슨 일이에요? 무슨 짐승이요? 왜요?'},
-   {who:'샤스킨',say:'오로보는 인구가 너무 많아. 집 위에 집을 지을 만큼.'},
+   {who:'샤스킨',say:'오로보는 사람이 너무 많아. 집 위에 집을 지을 만큼.'},
    Q.ib[0],
    {who:'샤스킨',say:'벌집을 생각해 봐. 벌이 너무 많아지면 어떻게 돼?'},
    {who:'샤스킨',say:'일부가 새 집으로 떠나. 마을도 똑같아. {분봉|분봉}이라고 해.'},
    Q.fire[0],
    {who:'샤스킨',say:'{설계자|설계자}랑 벌집이 새 나무를 골라.'},
    {who:'샤스킨',say:'특별한 벌들, 의사, {판관|판관}도 같이 가.'},
-   Q.fire[1],
    {who:'핸드리',w:'이사하다',build:['일부는','새 마을로','이사하게','돼요']},
    {who:'샤스킨',say:'우리는 그 나무를 비워 주는 거야. 짐승들은 우리 냄새를 싫어하거든.'},
    {who:'샤스킨',say:'하늘을 봐. 별들은 뭘 위해 있을까?'},
@@ -852,27 +876,27 @@ const NPC={
  menic:{name:'메닉',zone:'orovo',x:18,y:10,dir:'left',look:MENIC,hide:()=>!!f().left,
   talk:()=>[{who:'메닉',say:'…졸려. 말 시키지 마.'},
    {who:'…',say:'키는 작은데 어깨가 넓어요. 힘이 세 보여요.'},
-   {who:'핸드리',say:'얼마 전에 쫓겨났대요. 그런데 늘 누워 있어요.'}]},
+   {who:'핸드리',say:'이름은 메닉이래요. 얼마 전에 쫓겨났대요. 그런데 늘 누워 있어요.'}]},
  child:{name:'오로보 아이',zone:'orovo',x:16,y:13,dir:'down',look:CHILD,pos:()=>[16,13],
   script:()=>{const q=Q.cafe[Math.random()*Q.cafe.length|0];return [
-   {who:'…',say:'도랑 옆에서 오로보 아이가 혼자 수수께끼를 내고 혼자 맞혀요.'},
-   {who:'오로보 아이',say:'내가 문제 낼게! 맞혀 봐!'},
+   {who:'…',say:'도랑 옆에서 오로보 아이가 혼자 수수께끼 놀이를 해요. 혼자 내고 혼자 맞혀요.'},
+   {who:'오로보 아이',say:'수수께끼! 잘 들어!'},
    {who:'…',say:'저도 속으로 대답해요.'},{...q},
-   {who:'오로보 아이',say:'와! 그럼 또 낼게. 내일!'}]},
+   {who:'오로보 아이',say:'딩동댕! 역시 나는 똑똑해.'}]},
   talk:()=>[]},
  villager:{name:'오로보 사람',zone:'orovo',x:18,y:13,dir:'down',look:VILLAGER,
-  talk:()=>[{who:'…',say:'오로보 여자가 바구니를 들고 지나가요.'},{who:'…',say:'저를 한 번도 안 봐요. 제가 안 보이는 것 같아요.'}]},
+  hold:'basket',
+  talk:()=>[{who:'…',say:'오로보 여자가 바구니를 들고 도랑 옆에 서 있어요.'},{who:'…',say:'저를 한 번도 안 봐요. 제가 안 보이는 것 같아요.'}]},
 
  /* ---- the Harboon tree ---- */
- hunter:{name:'오로보 사냥꾼',zone:'tree',x:3,y:13,dir:'right',look:HUNTER,badge:['독'],
+ hunter:{name:'오로보 사냥꾼',zone:'tree',x:20,y:13,dir:'left',look:HUNTER,badge:['독'],
   after:'가시 조심해. 독이야.',
   talk:()=>[
    {who:'오로보 사냥꾼',say:'가까이 오지 마. 거기서 들어.'},
    {who:'오로보 사냥꾼',say:'저게 새 마을 나무야. {하분|하분}들이 저 위에 살아.'},
    {who:'…',say:'나무줄기에 {가시덤불|가시덤불}이 위로 감겨 올라가요.'},
-   {who:'오로보 사냥꾼',say:'하분은 가시를 뱉어. 그 가시에 독이 있어.'},
+   {who:'오로보 사냥꾼',say:'하분은 저 덤불에서 가시를 모아. 그리고 그 가시를 뱉어.'},
    Q.hunt[0],
-   {who:'오로보 사냥꾼',say:'우리는 그 가시에 맞으면 크게 아파. 너희는 괜찮대.'},
    Q.hunt[1],
    {who:'오로보 사냥꾼',say:'짐승들도 너희 냄새를 싫어해. 그래서 너희가 필요한 거야.',award:['독']}]},
  sharskinTree:{name:'샤스킨',zone:'tree',x:8,y:10,dir:'right',look:SHARSKIN,badge:['던지다'],hide:()=>!!f().warDone,
@@ -887,10 +911,10 @@ const NPC={
     {who:'…',say:'여드레째 날, 남은 하분들이 숲으로 도망쳤어요. 우리는 돌을 던지며 쫓았어요.'},
     {who:'샤스킨',say:'끝났다. 이제 이 나무는 오로보 거야.'},
     {who:'샤스킨',say:'마당으로 돌아가자.',set:()=>{f().warDone=1}}];
-   if(F.nestDone)return [{who:'샤스킨',say:'오늘은 끝. 쉬어.'},{who:'핸드리',say:'저쪽 빈터 끝에서 누가 이야기해요.'}];
+   if(F.nestDone)return [{who:'샤스킨',say:'오늘은 끝. 쉬어.'},{who:'핸드리',say:'저쪽 빈터 끝에서 누가 혼자 중얼거려요.'}];
    return null},
   talk:()=>[
-   {who:'샤스킨',say:'돌을 가져가. 위에서 하분이 오면 던져.',give:'돌'},
+   {who:'샤스킨',say:'돌을 가져가. 맨손으로는 하분을 못 이겨.',give:'돌'},
    Q.sharT[0],
    {who:'샤스킨',say:'가시는 별로 안 아파. 우리 몸은 달라.'},
    Q.sharT[1],
@@ -904,39 +928,39 @@ const NPC={
    {who:'…',say:'가운데 팔에는 갈라진 발톱이 있어요. 옆 눈이 줄기 끝에서 움직여요.'},
    {who:'하분',say:'쉬이이익!'},
    {who:'…',say:'돌을 던졌어요. 퍽!',take:['돌']},
-   {who:'…',say:'하분이 입으로 무엇을 뱉었어요. 가시예요!'},
+   {who:'…',say:'하분이 입으로 뭔가를 뱉었어요. 작고 뾰족해요!'},
    Q.harb[0],
    {who:'…',say:'팔에 가시가 박혔어요. 따끔해요. 그런데 그게 다예요.'},
    Q.harb[1],
    {who:'…',say:'하분이 숨구멍으로 비명을 지르고 위로 도망쳤어요.',award:['가시'],set:()=>{f().harbW=1},leave:{npc:'harboonW',to:[5,2]}}]},
  nest:{name:'하분 둥지',zone:'tree',x:5,y:2,dir:'down',get look(){return f().nestDone?NEST_BROKEN:NEST},pos:()=>[5,2],badge:['둥지','알'],
-  after:'부서진 둥지예요. 깨진 알 껍데기가 있어요.',
+  after:{who:'…',say:'부서진 둥지예요. 알은 하나도 없어요.'},
   talk:()=>[
-   {who:'…',say:'가지 끝에 막대기로 지은 집이 있어요. 하분 둥지예요.'},
+   {who:'…',say:'가지 끝에 막대기로 지은 집이 있어요. 하분들이 사는 집이에요.'},
    Q.nest[0],
-   {who:'…',say:'안에 알이 있어요. 동그랗고 미끈해요. 아직 따뜻해요.'},
+   {who:'…',say:'안에 동그랗고 미끈한 게 있어요. 아직 따뜻해요.'},
    Q.nest[1],
    {who:'핸드리',say:'둥지를 부숴야 해요. 그게 일이에요.'},
-   {who:'…',say:'막대기 집을 발로 찼어요. 알이 떨어져서 깨졌어요.'},
+   {who:'…',say:'막대기 집을 발로 찼어요. 둥지가 무너졌어요.'},
+   {who:'핸드리',w:'알',build:['알을','땅에','던져서','깼어요'],alts:[['땅에','알을','던져서','깼어요']]},
    {who:'…',say:'아래에서 하분들이 날카롭게 울어요.'},
-   {who:'핸드리',w:'알',build:['둥지를','부수는','대신에','국을','받아요']},
    {who:'핸드리',say:'배는 부를 거예요. 그래도 기분이 이상해요.'},
    {who:'…',say:'그렇게 며칠이 지났어요.',award:['둥지','알'],set:()=>{f().nestDone=1}},
    {expand:()=>classTime(CLASS,['나무 위','둥지'])}]},
  harboonE:{name:'하분',zone:'tree',x:19,y:3,dir:'down',look:HARBOON,pos:()=>[19,3],hide:()=>!!f().nestDone,
   talk:()=>[{who:'하분',say:'쉬익! 쉬이익!'},{who:'핸드리',say:'저 하분은 아직 자기 집을 지켜요.'}]},
- fallen:{name:'쓰러진 추방자',zone:'tree',x:15,y:11,dir:'down',look:FALLEN,pos:()=>[15,11],hide:()=>!f().nestDone,
+ fallen:{name:'쓰러진 추방자',zone:'tree',x:15,y:11,dir:'down',look:FALLEN,pos:()=>[15,11],hide:()=>!f().nestDone||!!f().warDone,
   talk:()=>[{who:'…',say:'추방자가 나무 밑에 쓰러져 있어요. 움직이지 않아요.'},{who:'…',say:'가지에서 떨어졌어요. 이름도 몰라요.'},
    {who:'핸드리',say:'저도 내일 저렇게 될 수 있어요.'}]},
- iblisTree:{name:'이블리스',zone:'tree',x:20,y:13,dir:'left',get look(){return f().ghostOn?IBLIS_G:IBLIS},pos:()=>[20,13],hide:()=>!f().nestDone||!!f().bargain,
+ iblisTree:{name:'이블리스',zone:'tree',x:3,y:13,dir:'right',get look(){return f().ghostOn?IBLIS_G:IBLIS},pos:()=>[3,13],hide:()=>!f().nestDone||!!f().bargain,
   status:()=>'todo',
   talk:()=>[
    {who:'…',say:'저녁이에요. 이블리스가 혼자 나무를 보고 있어요.'},
    {who:'핸드리',say:'저는 조용히 다가가서 들었어요.'},
-   {who:'이블리스',say:'루마스하고 레다 대신 하코, 산, 모리.'},
+   {who:'이블리스',say:'레다 대신 하코.'},
    {who:'…',say:'이블리스의 목소리가 갑자기 평평해져요. 이마와 턱에서 하얀 빛이 깜빡여요.',set:()=>{f().ghostOn=1}},
    {who:'이블리스 (유령)',say:'예측: 식량 모으기 0.02 감소.'},
-   {who:'이블리스',say:'바꾼 대로 둬. 고르토마르하고 헤키는 채집 일로 돌려.'},
+   {who:'이블리스',say:'바꾼 대로 둬. 헤키는 채집 일로 돌려.'},
    {who:'이블리스 (유령)',say:'예측: 식량 모으기 0.0004 증가. 가구와 작은 나무 물건 만들기 0.073 감소.'},
    {who:'이블리스',say:'가구가 얼마나 남았는지 계산해.',set:()=>{f().ghostOn=0}},
    Q.ibt[0],
@@ -946,14 +970,14 @@ const NPC={
    {who:'이블리스',say:'뭐냐?'},
    {who:'핸드리',say:'{설계자|설계자}님. 일이 끝나도… 계속 국을 주세요. 우리도 더 일할 수 있어요.'},
    {who:'이블리스',say:'이익이 부족하다.'},
-   {who:'이블리스',say:'공동체에 못 섞이는 게 너희 쓸모보다 크다.'},
+   {who:'이블리스',say:'너희가 공동체에 섞이지 못하는 문제가 너희 쓸모보다 크다.'},
    {who:'이블리스',say:'계산해 봤다. 안 된다.'},
    {who:'이블리스',say:'약속은 지킨다. 일하는 동안은 매일 먹인다.'},
    Q.ibr[0],
    {who:'…',say:'이블리스는 벌써 나무 쪽을 보고 있어요. 저는 거기 없는 것 같아요.',set:()=>{const F=f();F.bargain=1;F.refused=1}}]},
 
  /* ---- the road ---- */
- sharskinR:{name:'샤스킨',zone:'road',x:5,y:5,dir:'down',look:SHARSKIN,pos:()=>{const p=rp();return p<3?[5,5]:p===3?[16,7]:[27,7]},
+ sharskinR:{name:'샤스킨',zone:'road',x:5,y:5,dir:'down',look:SHARSKIN,pos:()=>{const p=rp();return p<3?[5,5]:p===3?[16,7]:f().done||(b('폐허')&&b('버려지다'))?[27,7]:[25,6]},
   status:()=>{const p=rp(),F=f();if(F.done)return null;if(p===0)return 'todo';if(p===1)return hasItem('숲 음식')&&b('게으르다')?'todo':null;
    if(p>=4)return b('폐허')&&b('버려지다')?'todo':b('불을 피우다')?undefined:null;return p===2&&b('불을 피우다')?undefined:null},
   badge:['불을 피우다'],
@@ -962,8 +986,8 @@ const NPC={
    if(p===0)return [
     {who:'…',say:'오로보를 떠나서 하루 종일 걸었어요.'},
     {expand:()=>classTime(CLASS,['길'])},
-    {who:'샤스킨',say:'여기서 쉬자. 메닉, 불을 피워.'},
-    {who:'메닉',say:'불 피우는 거 못 해요… 정말 미안해요.'},
+    {who:'샤스킨',say:'여기서 쉬자. 메닉, 너는 불 준비해.'},
+    {who:'메닉',say:'…알았어요.'},
     Q.sr[0],
     {who:'샤스킨',say:'…오스텔, 핸드리. 먹을 걸 찾아 와.',set:()=>{f().rp=1}}];
    if(p===1){if(!hasItem('숲 음식'))return [{who:'샤스킨',say:'먹을 걸 찾아 와. 오스텔이 덤불을 알아.'}];
@@ -999,11 +1023,10 @@ const NPC={
    if(p>=4&&!f().done)return [{who:'오스텔',say:'누가 이걸 지었어? 짐승이 사람처럼 집을 지었나?'},{who:'오스텔',say:'그 짐승들… 아직 여기 있을까?'}];
    if(f().done)return [{who:'오스텔',say:'조상의 집… 정말 하늘에서 왔을까?'}];
    return [{who:'오스텔',say:'다리가 아파. 오로보에서 너무 멀리 왔어.'}]}},
- menicR:{name:'메닉',zone:'road',x:2,y:6,dir:'down',get look(){return f().menicDead?MENIC_DEAD:MENIC},pos:()=>rp()<3?[2,6]:[13,6],badge:['게으르다'],
+ menicR:{name:'메닉',zone:'road',x:2,y:6,dir:'down',look:MENIC,pos:()=>rp()<3?[2,6]:[13,6],badge:['게으르다'],hide:()=>!!f().menicDead,
   status:()=>{const p=rp();if(p===1&&!b('게으르다'))return 'todo';if(p===3)return 'todo';return f().menicDead||p<1?null:undefined},
   after:'…쿨쿨.',  // asleep (p 1–2, once he has taught 게으르다): then one of his REVIEW lines, after he wakes
-  script:()=>{const p=rp(),F=f();
-   if(F.menicDead)return [{who:'…',say:'메닉이에요. 움직이지 않아요.'},{who:'…',say:'우리는 메닉을 거기 두고 떠났어요.'}];
+  script:()=>{const p=rp();
    if(p===3)return [
     {who:'…',say:'그날 저녁, 둘째 야영지예요.'},
     {who:'…',say:'오스텔이 불을 피웠어요. 메닉은 앉아서 손을 녹여요.'},
@@ -1031,6 +1054,8 @@ const NPC={
    {who:'핸드리',say:'샤스킨이 메닉을 봐요. 아무 말도 안 해요.'},
    Q.men[1],
    {who:'메닉',say:'…내일은 할게. 아마.',award:['게으르다']}]},
+ menicBody:{name:'메닉',zone:'road',x:13,y:6,dir:'down',look:MENIC_DEAD,pos:()=>[13,6],hide:()=>!f().menicDead,status:()=>null,  // from the blow on: the living Menic is gone
+  script:()=>[{who:'…',say:'메닉이에요. 움직이지 않아요.'},{who:'…',say:'우리는 메닉을 거기 두고 떠났어요.'}],talk:()=>[]},
  gbush:{name:'덤불',zone:'road',x:6,y:9,dir:'down',get look(){return rp()>=2||hasItem('숲 음식')?GBUSH_BARE:GBUSH},pos:()=>[6,9],
   status:()=>rp()===1&&!hasItem('숲 음식')?'todo':null,
   script:()=>{const p=rp();if(p<1)return [{who:'핸드리',say:'덤불이에요. 열매가 달려 있어요.'}];if(p>1||hasItem('숲 음식'))return [{who:'핸드리',say:'다 땄어요.'}];
@@ -1057,7 +1082,7 @@ const NPC={
   talk:()=>[]},
  bones:{name:'뼈',zone:'road',x:19,y:5,dir:'down',look:BONES,pos:()=>[19,5],badge:['폐허'],
   status:()=>rp()>=4?undefined:null,
-  after:'마을은 폐허예요. 아무도 없어요.',
+  after:{who:'…',say:'마을은 폐허예요. 아무도 없어요.'},
   talk:()=>[
    {who:'…',say:'마을이 하나 있어요. 그런데 아무도 없어요.'},
    {who:'…',say:'큰 나무가 까맣게 탔어요. 줄기에 도끼 자국도 있어요.'},
@@ -1066,19 +1091,19 @@ const NPC={
    {who:'…',say:'풀 속에 사람 뼈가 있어요. 머리뼈 하나는 한쪽이 구멍투성이예요.'},
    {who:'핸드리',say:'여기에도 유령의 빛이 있었을까요?'},
    Q.bones[1],
-   {who:'핸드리',say:'이 길에는 이런 마을이 또 있었어요.',award:['폐허']}]},
+   {who:'핸드리',say:'이 길에는 이런 마을이 또 있었어요.',award:['폐허'],...(b('버려지다')?TO_HILL:{})}]},
  strut:{name:'이상한 기둥',zone:'road',x:24,y:6,dir:'down',look:STRUT,pos:()=>[24,6],badge:['버려지다'],
   status:()=>rp()>=4?undefined:null,
-  after:'버려진 곳이에요. 조상들이 만들었대요.',
+  after:{who:'…',say:'버려진 곳이에요. 조상들이 살던 곳이래요.'},
   talk:()=>[
    {who:'…',say:'이상한 곳이에요. 나무도 돌도 아닌 기둥이 쓰러져 있어요.'},
    {who:'…',say:'기둥에 붉은 가루가 묻어 있어요. 만지니까 차가워요.'},
    {who:'…',say:'위에는 썩은 천 같은 지붕이 찢어져 있어요.'},
    Q.str[0],
    {who:'…',say:'옆에 나무가 하나 있어요. 벌집이 부풀었다가 말라 죽었어요.'},
-   {who:'샤스킨',say:'조상들이 만든 거야. 오래전에 버려졌어.'},
+   {who:'샤스킨',say:'조상들이 살던 곳이야. 아주 오래전에.'},
    Q.str[1],
-   {who:'핸드리',say:'조상들… 우리와 같은 사람들이었을까요?',award:['버려지다']}]},
+   {who:'핸드리',say:'조상들… 우리와 같은 사람들이었을까요?',award:['버려지다'],...(b('폐허')?TO_HILL:{})}]},
 };
 const FOLLOW=null;
 
@@ -1091,8 +1116,9 @@ function questText(){
  const F=f(),p=rp();
  if(F.done)return '3장 끝 · 일지에서 복습해요';
  if(!b('냄새를 맡다'))return '오로보 · 도랑을 따라 냄새 쪽으로';
+ if(!b('줄을 서다'))return '추방자 마당 · 차례를 기다려요';
  if(!b('국'))return '추방자 마당 · 큰 솥 옆의 의사';
- if(!F.ate)return '추방자 마당 · 줄을 서요';
+ if(!F.ate)return '추방자 마당 · 빨간 손의 남자';
  if(!b('붐비다'))return '추방자 마당 · 굶주린 추방자';
  if(!b('노동'))return '추방자 마당 · 저녁 · 설계자의 말';
  if(!F.budding)return '추방자 마당 · 밤 · 샤스킨의 모닥불';
@@ -1113,5 +1139,5 @@ function questText(){
  if(!b('버려지다'))return '길 · 이상한 기둥들';
  return '길 끝 · 언덕 앞의 샤스킨';
 }
-return {WORDS,DICT,CONFUSE,BANK,Q,REVIEW,CLASS,ITEMS,ZONES,NPC,FOLLOW,INTRO,DONE,questText,TILES,PLAYER};
+return {WORDS,DICT,CONFUSE,BANK,Q,REVIEW,CLASS,ITEMS,ZONES,NPC,FOLLOW,INTRO,DONE,questText,TILES,PLAYER,PROPS};
 }});

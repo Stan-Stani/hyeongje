@@ -15910,5 +15910,30 @@
 "쫓아다니다": {
 "e": "to follow around, chase about",
 "k": "여기저기 뒤를 따라다녀요."
-}
+},
+"딩동댕": {
+"e": "ding-dong-dang (the sound for a right answer)",
+"k": "맞혔을 때 내는 소리."
+},
+"땡": {
+"e": "bzzt! (the sound for a wrong answer)",
+"k": "틀렸을 때 내는 소리."
+},
+"몫": {
+"e": "share, portion",
+"k": "한 사람이 받는 만큼."
+},
+"배불리": {
+"e": "to one's fill",
+"k": "배가 부르게. 많이."
+},
+"심심하다": {
+"e": "to be bored",
+"k": "할 일이 없어서 재미없어요."
+},
+"콕": {
+"e": "(with) a quick poke, jab",
+"k": "뾰족한 것으로 짧게 찌르는 모양."
+},
+"면": null
 }
