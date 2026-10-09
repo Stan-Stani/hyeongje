@@ -41,6 +41,9 @@
  {talk:'elector'},
  {talk:'melTree',wrong:true},
  {check:()=>state.f.stung,msg:'Melory stung'},
+ // mid-chapter: the village is still around (the chapter ends with Handry alone), so the review lines get exercised here
+ {reviewTour:Object.keys(C.ZONES)},
+ {hearTour:Object.keys(C.ZONES)},
  {talk:'melHome',wrong:true,shotBefore:'19-fever'},
  {check:()=>state.f.night&&state.f.woke,msg:'day 31, night'},
  {talk:'melHome',wrong:true,shotBefore:'20-melory-doctor',shotSay:{text:'피가',name:'21-ghost'}},
