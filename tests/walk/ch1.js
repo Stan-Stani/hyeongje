@@ -57,7 +57,7 @@
  {taps:1,shot:'26c-taps'},
  {panel:1,shot:'26-log'},
  // in-character review: with every word due, everyone who has a line asks it in their own voice, and it grades
- {reviewTour:Object.keys(C.ZONES)},
+ {reviewTour:Object.keys(C.ZONES),none:1},  // 1장 ends with Handry alone in the woods: nobody may be left to review
  // …and with nothing due, people with a line you haven't heard say it as plain talk (the word filled in, ungraded)
- {hearTour:Object.keys(C.ZONES)},
+ {hearTour:Object.keys(C.ZONES),none:1},
 ]
