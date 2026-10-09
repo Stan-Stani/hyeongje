@@ -152,8 +152,11 @@ const Q={ // NPC questions, kept here so review can reuse them
    sweaty, itchy back by the oven; the field hands' hot lunch soup, a slightly burnt lunch loaf, a flea bite, a hoe cut on a foot,
    a child's rash, a supper of soup in a big cauldron; the herder's Ertibeest lore (heed them when they cry, they live in a herd,
    one ran off); Helibugs dart away when touched; a mourner remembering Corto treating rashes; the mourner's son's leg wound
-   swelling; Brosa forgetting for a moment that Corto is dead. CLASS (Melory's month as doctor): a leg wound, a child scalded at an
-   oven, a hand scalded in boiling water, a swollen sting, a rash, sick children who itch, Melory tired at night and brewing ahead.
+   swelling; Brosa forgetting for a moment that Corto is dead (and, once, that the Electors have chosen). CLASS (Melory's month
+   as doctor): a leg wound, a child scalded at an oven, a hand scalded in boiling water, a swollen sting, a rash, sick children who
+   itch, Melory tired at night and brewing ahead.
+   Audited against §I–III (notes/audit-review-ch1.md): Chogger at 16 talks only to the workers (§II: Livvi, Kalton, Chogger stayed
+   away); "no doctor" lines stop once the Electors choose (stung); the boiling-pot warning stops once Handry is burned.
    열이 나다 · 진단하다 · 도망치다 are learned when nobody is left to talk to (the fever ends at night, then the flight), so their
    lines are never asked in this chapter; each still says only what was true while its speaker was around. */
 const REVIEW=[ // people use a learned word again in their own voice and moment, grouped by speaker in story order
@@ -169,7 +172,7 @@ const REVIEW=[ // people use a learned word again in their own voice and moment,
  {w:'끓이다',by:'mel13',when:()=>!!f().cortoGone,ask:'코르토 할아버지가 약만 ___ 놓고 갔어. 또 깜박했나 봐.',opts:[['끓여',1],['끓어',0,'끓다는 약이 혼자 끓는 거야. 할아버지가 했으니까 "끓여".']]},
  {w:'가마솥',by:'mel13',ask:'세서 때문에 다들 ___ 옆에 모였어.',opts:[['가마솥',1],['가면',0,'가면은 얼굴에 쓰는 거야. 약을 끓이는 큰 솥은 "가마솥".']]},
  {w:'화상',by:'crowd1',when:()=>!!f().burned,ask:'아이고, 얼굴까지 ___을 입었네. 쯧쯧.',opts:[['화상',1],['화장',0,'화장은 얼굴을 꾸미는 거야. 뜨거운 것에 다치면 "화상".']]},
- {w:'데다',by:'crowd2',ask:'끓는 약이야. 가까이 가면 ___.',opts:[['덴다',1],['된다',0,'"된다"는 괜찮다는 말이야. 뜨거운 데 다치면 "덴다".']]},
+ {w:'데다',by:'crowd2',when:()=>!f().burned,ask:'끓는 약이야. 가까이 가면 ___.',opts:[['덴다',1],['된다',0,'"된다"는 괜찮다는 말이야. 뜨거운 데 다치면 "덴다".']]},
  {w:'끓이다',by:'crowd2',ask:'저 약은 ___ 식혀서 바르는 거야.',opts:[['끓였다가',1],['꿇었다가',0,'꿇다는 무릎을 꿇는 거야. 약은 "끓였다가".']]},
  {w:'데다',by:'chogger13',when:()=>!f().burned,ask:'갓 구운 축제 빵에 손을 ___. 그래도 맛있어!',opts:[['데었어',1],['탔어',0,'타다는 빵이 까매지는 거야. 손은 "데었어".']]},
  /* ----- three years later (16) ----- */
@@ -178,12 +181,12 @@ const REVIEW=[ // people use a learned word again in their own voice and moment,
  {w:'이웃',by:'baker',ask:'멜로리 부탁이니까 하는 거야. ___ 부탁이잖아.',opts:[['이웃',1],['이불',0,'이불은 덮는 거야. 가까이 사는 사람은 "이웃".']]},
  {w:'가렵다',by:'baker',ask:'화덕 앞은 더워. 땀이 나서 등이 ___.',opts:[['가려워',1],['가벼워',0,'가볍다는 무게가 안 나가는 거야. 긁고 싶으면 "가려워".']]},
  {w:'쏘다',by:'baker',when:()=>!!f().stung,ask:'멜로리가 일렉터한테 ___. 다들 그 얘기야.',opts:[['쏘였대',1],['쐈대',0,'멜로리가 쏜 게 아니야. 당했으니까 "쏘였대".']]},
- {w:'열이 나다',by:'baker',when:()=>!!f().stung&&!f().woke,ask:'멜로리가 아직도 ___. 다들 걱정이야.',opts:[['열이 난대',1],['화가 난대',0,'화가 나는 건 마음이야. 몸이 뜨거우면 "열이 난대".']]},
- {w:'무시하다',by:'chogger',ask:'작은 벌레라고 ___ 안 돼. 잎을 다 먹어.',opts:[['무시하면',1],['무사하면',0,'무사하다는 다친 데 없이 괜찮은 거야. 신경 안 쓰는 건 "무시하면".']]},
- {w:'타다',by:'chogger',ask:'점심 빵이 좀 ___. 그래도 먹자.',opts:[['탔어',1],['데었어',0,'데다는 사람 피부가 다치는 거야. 빵은 "탔어".']]},
- {w:'공동체',by:'chogger',ask:'설계자님 말처럼, 우리는 한 ___야. 같이 일하자.',opts:[['공동체',1],['공부',0,'공부는 책으로 하는 거야. 같이 사는 사람들은 "공동체".']]},
- {w:'쏘다',by:'chogger',when:()=>!!f().stung,ask:'멜로리가 ___ 사람들이 집으로 옮겼대.',opts:[['쏘여서',1],['쏴서',0,'멜로리가 쏜 게 아니야. 당했으니까 "쏘여서".']]},
- {w:'열이 나다',by:'chogger',when:()=>!!f().stung&&!f().woke,ask:'멜로리가 계속 ___. 괜찮을까?',opts:[['열이 난대',1],['열린대',0,'열리다는 문이 열리는 거야. 몸이 뜨거우면 "열이 난대".']]},
+ {w:'열이 나다',by:'baker',when:()=>!!f().stung&&!f().woke,ask:'멜로리가 아직도 ___. 다들 걱정이야.',opts:[['열이 난대',1],['열었대',0,'열다는 문을 여는 거야. 몸이 뜨거우면 "열이 난대".']]},
+ {w:'무시하다',by:'chogger',pre:[{who:'핸드리 (생각)',say:'초거는 일꾼들한테만 말해요. 저는 안 봐요.'}],ask:'작은 벌레라고 ___ 안 돼. 잎을 다 먹어.',opts:[['무시하면',1],['무사하면',0,'무사하다는 다친 데 없이 괜찮은 거야. 신경 안 쓰는 건 "무시하면".']]},
+ {w:'타다',by:'chogger',pre:[{who:'핸드리 (생각)',say:'초거는 일꾼들한테만 말해요. 저는 안 봐요.'}],ask:'점심 빵이 좀 ___. 그래도 먹자.',opts:[['탔어',1],['데었어',0,'데다는 사람 피부가 다치는 거야. 빵은 "탔어".']]},
+ {w:'공동체',by:'chogger',pre:[{who:'핸드리 (생각)',say:'초거는 일꾼들한테만 말해요. 저는 안 봐요.'}],ask:'설계자님 말처럼, 우리는 한 ___야. 같이 일하자.',opts:[['공동체',1],['공부',0,'공부는 책으로 하는 거야. 같이 사는 사람들은 "공동체".']]},
+ {w:'쏘다',by:'chogger',pre:[{who:'핸드리 (생각)',say:'초거는 일꾼들한테만 말해요. 저는 안 봐요.'}],when:()=>!!f().stung,ask:'멜로리가 ___ 사람들이 집으로 옮겼대.',opts:[['쏘여서',1],['쏴서',0,'멜로리가 쏜 게 아니야. 당했으니까 "쏘여서".']]},
+ {w:'열이 나다',by:'chogger',pre:[{who:'핸드리 (생각)',say:'초거는 일꾼들한테만 말해요. 저는 안 봐요.'}],when:()=>!!f().stung&&!f().woke,ask:'멜로리가 계속 ___. 괜찮을까?',opts:[['열이 난대',1],['열린대',0,'열리다는 문이 열리는 거야. 몸이 뜨거우면 "열이 난대".']]},
  {w:'데다',by:'hand1',ask:'점심 국이 너무 뜨거워서 혀를 ___.',opts:[['데었어',1],['탔어',0,'타는 건 빵이나 나무야. 혀는 "데었어".']]},
  {w:'가마솥',by:'hand2',when:()=>!f().gourd,ask:'오늘 저녁은 큰 ___에 국을 끓인대.',opts:[['가마솥',1],['가방',0,'가방에 국을 끓여? 큰 솥은 "가마솥".']]},
  {w:'가렵다',by:'hand2',ask:'벼룩한테 물렸나 봐. 등이 ___.',opts:[['가려워',1],['가벼워',0,'가볍다는 무게가 안 나가는 거야. 긁고 싶으면 "가려워".'],['그리워',0,'그립다는 보고 싶은 거야. 긁고 싶으면 "가려워".']]},
@@ -197,18 +200,18 @@ const REVIEW=[ // people use a learned word again in their own voice and moment,
  {w:'두드러기',by:'mourn1',ask:'코르토 할아버지는 ___도 잘 봐 줬는데…',opts:[['두드러기',1],['두부',0,'두부는 먹는 거야. 피부에 빨갛게 올라온 건 "두드러기".']]},  // mourners: the morning Corto dies
  {w:'상처',by:'mourn2',ask:'아들 다리 ___가 자꾸 부어. 어떡하지.',opts:[['상처',1],['상대',0,'상대는 같이 겨루는 사람이야. 다친 곳은 "상처".']]},
  {w:'진단하다',by:'mourn2',ask:'새 의사가 생기면 우리 아들부터 ___ 달라고 할 거야.',opts:[['진단해',1],['진정해',0,'진정하다는 마음을 가라앉히는 거야. 병을 알아내는 건 "진단해".']]},
- {w:'공동체',by:'brosa',ask:'새 의사가 생길 때까지 아픈 사람은 ___가 돌봐요.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거예요. 같이 사는 사람들은 "공동체".']]},
- {w:'끓이다',by:'brosa',pre:['코르토는 어디 있죠? …아, 그렇지.'],ask:'이제 약을 ___ 사람이 없어요.',opts:[['끓일',1],['끓을',0,'끓다는 약이 혼자 끓는 거예요. 사람이 하면 "끓일".']]},
- {w:'상처',by:'brosa',ask:'의사가 없어서 다친 사람들 ___가 안 나아요.',opts:[['상처',1],['상태',0,'상태는 건강이나 기분이에요. 다친 곳은 "상처".']]},
+ {w:'공동체',by:'brosa',when:()=>!f().stung,ask:'새 의사가 생길 때까지 아픈 사람은 ___가 돌봐요.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거예요. 같이 사는 사람들은 "공동체".']]},
+ {w:'끓이다',by:'brosa',when:()=>!f().stung,pre:['코르토는 어디 있죠? …아, 그렇지.'],ask:'이제 약을 ___ 사람이 없어요.',opts:[['끓일',1],['끓을',0,'끓다는 약이 혼자 끓는 거예요. 사람이 하면 "끓일".']]},
+ {w:'상처',by:'brosa',when:()=>!f().stung,ask:'의사가 없어서 다친 사람들 ___가 안 나아요.',opts:[['상처',1],['상대',0,'상대는 같이 겨루는 사람이에요. 다친 곳은 "상처".']]},
  {w:'벌',by:'brosa',when:()=>!f().stung,ask:'벌집이 부풀었어요. 큰 ___들이 깨어나요.',opts:[['벌',1],['별',0,'별은 밤하늘에서 빛나요. 벌집에서 나오는 건 "벌".']]},
- {w:'쏘다',by:'brosa',when:()=>!!f().stung,ask:'멜로리가 일렉터한테 ___. 열이 높대요.',opts:[['쏘였어요',1],['쐈어요',0,'멜로리가 쏜 게 아니에요. 당했으니까 "쏘였어요".']]},
+ {w:'쏘다',by:'brosa',when:()=>!!f().stung,pre:['…아, 그렇지. 벌써 골랐죠.'],ask:'멜로리가 일렉터한테 ___. 열이 높대요.',opts:[['쏘였어요',1],['쐈어요',0,'멜로리가 쏜 게 아니에요. 당했으니까 "쏘였어요".']]},
  {w:'진단하다',by:'brosa',ask:'새 의사가 생기면 다친 사람부터 ___ 거예요.',opts:[['진단할',1],['진정할',0,'진정하다는 마음을 가라앉히는 거예요. 병을 알아내는 건 "진단할".']]},
  {w:'벌',by:'kid',ask:'큰 ___이 멜로리 누나 옆에 있어! 가 봐!',opts:[['벌',1],['별',0,'별은 밤하늘에 있어! 윙윙 나는 건 "벌".'],['발',0,'발은 걸을 때 쓰는 거야! 윙윙 나는 건 "벌".']]},
 ];
 /* class time: Melory's month as Aro's doctor (§III), the time cut in her scene between waking and the 31st night */
 const CLASS={
  patients:{say:'날마다 아픈 사람들이 멜로리를 찾아왔어요.',lines:[
-  {w:'상처',who:'마을 사람',ask:'다리 ___가 안 나아요. 좀 봐 주세요.',opts:[['상처',1],['상태',0,'상태는 건강이나 기분이에요. 다친 곳은 "상처".']]},
+  {w:'상처',who:'마을 사람',ask:'다리 ___가 안 나아요. 좀 봐 주세요.',opts:[['상처',1],['상대',0,'상대는 같이 겨루는 사람이에요. 다친 곳은 "상처".']]},
   {w:'화상',who:'마을 사람',ask:'애가 화덕 불에 ___을 입었어요.',opts:[['화상',1],['화장',0,'화장은 얼굴을 꾸미는 거예요. 불에 다치면 "화상".']]},
   {w:'데다',who:'마을 사람',ask:'끓는 물에 손을 ___. 약 좀 주세요.',opts:[['데었어요',1],['탔어요',0,'타는 건 빵이나 나무예요. 사람 손은 "데었어요".']]},
   {w:'쏘다',who:'마을 사람',ask:'벌한테 ___ 데가 너무 부었어요.',opts:[['쏘인',1],['쏜',0,'제가 쏜 게 아니에요. 벌한테 당했으니까 "쏘인".']]},
