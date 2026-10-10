@@ -11,7 +11,7 @@
  {talk:'livvi'},
  {talk:'kalton'},
  {check:()=>state.f.chase,msg:'the chase is on'},
- {talk:'pot',shotBefore:'05-shortcut',shotSay:{text:'튀었어요',name:'06-scald'}},
+ {talk:'livvi',shotBefore:'05-shortcut',shotSay:{text:'튀었어요',name:'06-scald'}},  // the scald happens chasing Livvi (A on her), not at the cauldron
  {check:()=>state.f.burned,msg:'scalded'},
  {talk:'elhern',shotSay:{text:'검붉은',name:'07-severing'}},
  {check:()=>state.f.severed,msg:'Sethr turned away'},
