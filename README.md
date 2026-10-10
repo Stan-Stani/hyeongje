@@ -14,7 +14,7 @@ Sister game of [성실호](https://github.com/Stan-Stani/seongsilho) — same en
 
 - Four chapters, each with its own save; spaced review at the memory stones
 - Tap any Korean word for a simple Korean definition; English is behind the **?** button
-- Runs on the shared [walk engine](https://github.com/Stan-Stani/walk-engine) with 성실호, 방과 후 and 단어 마을
+- Runs on the shared [walk engine](https://github.com/Stan-Stani/walk-engine) with 성실호, 점심 방송 and 단어 마을
 
 A fan-made learning tool. It contains no text from the novella, and the book itself is not included.
 
