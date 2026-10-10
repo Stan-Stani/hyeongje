@@ -46,8 +46,7 @@ const DICT={
  '단절':{k:'끊어짐. 단절약을 바른 사람의 상태.',e:'Severance; being Severed'},
  '판결':{k:'잘못을 보고 벌을 정하는 것.',e:'verdict, sentence'},
  '일렉터':{k:'손가락만 한 큰 벌. 일렉터한테 쏘이면 유령이 들어올 수 있어요.',e:'Elector (wasp)'},
- '미클 케이크':{k:'축제 때 먹는 과자.',e:'mickle-cake'},
- '슈거웜 꼬치':{k:'달콤한 벌레를 꽂은 꼬치. 축제 음식.',e:'sugarworm skewer'},
+ '미클 케이크':{k:'축제 때 먹는 케이크.',e:'mickle-cake'},
  '진찰':{k:'의사가 아픈 사람을 살펴보는 것.',e:'medical examination'},
  '괭이':{k:'밭을 파는 농기구.',e:'hoe'},
  '헬리버그':{k:'밭의 잎을 먹는 해로운 벌레.',e:'Helibug (field pest)'},
@@ -64,6 +63,7 @@ const CONFUSE={'화상':['화장','화살'],'데다':['대다','되다'],'가마
 /* extra review questions (the memory stone uses these too, alongside every NPC question) */
 const BANK=[
  {w:'화상',ask:'아이가 불 옆에서 놀다가 손에 ___을 입었어요.',opts:[['화상',1],['화장',0,'화장은 얼굴을 예쁘게 하는 거예요. 불에 다친 건 "화상".']]},
+ {w:'화상',ask:'이웃 아주머니가 뜨거운 국을 쏟아서 팔에 ___을 입었어요.',opts:[['화상',1],['화살',0,'화살은 활로 쏘는 거예요. 뜨거운 것에 다친 건 "화상".']]},
  {w:'데다',ask:'끓는 물이 튀어서 아이가 팔을 ___. 얼른 젖은 천으로 감쌌어요.',opts:[['데었어요',1],['탔어요',0,'타다는 빵이나 나무가 까맣게 되는 거예요. 사람 피부는 "데다".']]},
  {w:'가마솥',ask:'큰 ___에 국을 끓여요. 백 명이 먹어요.',opts:[['가마솥',1],['가방',0,'가방에는 물건을 넣어요. 국을 끓이는 큰 솥은 "가마솥".']]},
  {w:'끓이다',ask:'할아버지는 약을 ___ 깜박 잊고 어디론가 가 버렸어요.',opts:[['끓이다가',1],['끓이려고',0,'"-려고"는 앞으로 할 계획이에요. 끓이는 중에 잊어버렸으면 → "끓이다가".']]},
@@ -71,15 +71,18 @@ const BANK=[
  {w:'이웃',ask:'우리 밭에 일이 많았어요. ___들이 와서 도와줬어요.',opts:[['이웃',1],['이사',0,'이사는 집을 옮기는 거예요. 가까이 살면서 도와주는 사람들은 "이웃".']]},
  {w:'공동체',ask:'마을 사람들이 다 같이 밭을 일궈요. 작은 ___예요.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거예요. 같이 사는 사람들의 모임은 "공동체".']]},
  {w:'무시하다',ask:'동생이 불러도 언니는 계속 ___. 화가 났나 봐요.',opts:[['무시해요',1],['무사해요',0,'무사하다는 다친 데 없이 괜찮은 거예요. 불러도 대답을 안 하면 → "무시해요".']]},
+ {w:'무시하다',ask:'숲에 혼자 가지 말라고 했는데, 아이가 엄마 말을 계속 ___.',opts:[['무시해요',1],['무사해요',0,'무사하다는 다친 데 없이 괜찮은 거예요. 들은 말을 신경 안 쓰는 건 → "무시해요".']]},
  {w:'두드러기',ask:'밭에서 이상한 풀을 ___ 두드러기가 났어요.',opts:[['뽑다가',1],['뽑으려고',0,'"-려고"는 계획이에요. 뽑는 중에 생겼어요 → "뽑다가".']]},
- {w:'가렵다',ask:'벼룩한테 물렸어요. 팔이 ___.',opts:[['가려워요',1],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 긁고 싶으면 → "가려워요".']]},
+ {w:'가렵다',ask:'벼룩한테 물리면 너무 ___.',opts:[['가려워요',1],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 긁고 싶으면 → "가려워요".']]},
+ {w:'가렵다',ask:'두드러기가 나서 밤새 다리가 ___. 잠을 못 잤어요.',opts:[['가려웠어요',1],['가벼웠어요',0,'가볍다는 무게가 안 나가는 거예요. 긁고 싶으면 → "가려웠어요".']]},
  {w:'타다',ask:'화덕 불이 너무 뜨거웠어요. 빵이 ___.',opts:[['탔어요',1],['데었어요',0,'데다는 사람이 뜨거운 것에 다치는 거예요. 빵은 → "탔어요".']]},
  {w:'벌',ask:'큰 나무 위에서 작은 ___들이 윙윙 날아다녀요.',opts:[['벌',1],['별',0,'별은 밤하늘에서 빛나요. 윙윙 날아다니는 건 "벌".']]},
  {w:'쏘다',ask:'벌한테 ___ 손이 부었어요.',opts:[['쏘여서',1],['쏴서',0,'내가 쏜 게 아니에요. 벌한테 당했어요 → "쏘여서".']]},
  {w:'열이 나다',ask:'감기에 걸려서 ___. 이마가 뜨거워요.',opts:[['열이 나요',1],['열어요',0,'열다는 문을 여는 거예요. 몸이 뜨거우면 → "열이 나요".']]},
  {w:'진단하다',ask:'의사가 아이 다리를 살펴보고 뼈가 부러졌다고 ___.',opts:[['진단했어요',1],['진정했어요',0,'진정하다는 마음을 가라앉히는 거예요. 살펴보고 무엇이 잘못됐는지 알아내는 건 "진단".']]},
- {w:'도망치다',ask:'숲에서 아라클리드를 보고 ___ 넘어졌어요.',opts:[['도망치다가',1],['도망치려고',0,'"-려고"는 계획이에요. 달아나는 중에 넘어졌어요 → "도망치다가".']]},
+ {w:'도망치다',ask:'아이가 숲 가장자리에서 이상한 소리를 듣고 ___ 넘어졌어요.',opts:[['도망치다가',1],['도망치려고',0,'"-려고"는 계획이에요. 달아나는 중에 넘어졌어요 → "도망치다가".']]},
  {w:'상처',ask:'칼에 베여서 손가락에 ___가 났어요.',opts:[['상처',1],['상태',0,'상태는 건강이나 기분이에요. 다쳐서 생긴 곳은 "상처".']]},
+ {w:'상처',ask:'아이가 돌에 걸려 넘어져서 무릎에 ___가 났어요. 피가 조금 나요.',opts:[['상처',1],['상태',0,'상태는 건강이나 기분이에요. 다쳐서 생긴 곳은 "상처".']]},
 ];
 
 const Q={ // NPC questions, kept here so review can reuse them
@@ -89,7 +92,7 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  corto:[
   {w:'가마솥',ask:'약은 이 ___에 끓여. 아주 무거워.',opts:[['가마솥',1],['가방',0,'가방에는 물건을 넣어. 약을 끓이는 건 "가마솥".'],['가면',0,'가면은 얼굴에 써. 약을 끓이는 건 "가마솥".']]},
-  {w:'끓이다',ask:'나는 아침부터 가마솥에 약을 ___ 있어.',opts:[['끓이고',1],['끓고',0,'"끓다"는 물이 혼자 끓는 거야. 내가 하면 → "끓이다" → 끓이고 있어.'],['꿇고',0,'꿇다는 무릎을 꿇는 거야. 약은 → 끓이고 있어.']]},
+  {w:'끓이다',ask:'나는 아침부터 가마솥에 약을 ___ 있어.',opts:[['끓이고',1],['끓고',0,'"끓다"는 물이 혼자 끓는 거야. 내가 하면 "끓이다". 나는 약을 끓이고 있어.'],['꿇고',0,'꿇다는 무릎을 꿇는 거야. 나는 약을 끓이고 있어.']]},
  ],
  corto2:[
   {w:'상처',ask:'뜨거운 약에 데어서 ___가 생겼구나.',opts:[['상처',1],['상태',0,'상태는 건강이나 기분이야. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이야. 다친 곳은 "상처".']]},
@@ -103,7 +106,7 @@ const Q={ // NPC questions, kept here so review can reuse them
   {w:'화상',who:'핸드리 (생각)',scene:1,ask:'살이 타는 것 같아요. 끓는 약에 ___을 입었어요.',opts:[['화상',1],['화장',0,'화장은 얼굴에 예쁘게 하는 거예요. 뜨거운 것에 다치면 "화상".']]},
  ],
  chogger:[
-  {w:'무시하다',who:'핸드리 (생각)',ask:'다들 저를 못 본 것처럼 지나가요. 저를 ___.',opts:[['무시해요',1],['무서워해요',0,'무서워하면 도망가요. 그냥 안 보는 건 "무시해요".'],['무사해요',0,'무사하다는 다친 데 없이 괜찮은 거예요. 못 본 것처럼 지나가는 건 "무시해요".']]},
+  {w:'무시하다',who:'핸드리 (생각)',ask:'다들 저를 못 본 것처럼 지나가요. 저를 ___.',opts:[['무시해요',1],['부러워해요',0,'부러워하다는 남의 것을 갖고 싶어 하는 거예요. 못 본 것처럼 지나가는 건 "무시해요".'],['무사해요',0,'무사하다는 다친 데 없이 괜찮은 거예요. 못 본 것처럼 지나가는 건 "무시해요".']]},
   {w:'무시하다',who:'핸드리 (생각)',ask:'초거한테 또 ___ 더는 아무 말도 못 했어요.',opts:[['무시당할까 봐',1],['무시할까 봐',0,'무시하는 사람은 초거예요. 나는 당해요 → "무시당할까 봐".']]},
  ],
  baker:[
@@ -126,7 +129,7 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  melFever:[
   {w:'열이 나다',who:'핸드리 (생각)',ask:'이마가 불처럼 뜨거워요. 멜로리가 ___.',opts:[['열이 나요',1],['열어요',0,'열다는 문을 여는 거예요. 몸이 뜨거우면 → "열이 나요".'],['화가 나요',0,'화가 나면 마음이 뜨거워요. 몸이 뜨거우면 → "열이 나요".']]},
-  {w:'열이 나다',who:'핸드리 (생각)',ask:'열이 더 ___ 밤새 천을 바꿔요.',opts:[['날까 봐',1],['났지만',0,'"-지만"은 "그런데"예요. 아직 안 일어난 걱정이면 → "날까 봐".']]},
+  {w:'열이 나다',who:'핸드리 (생각)',ask:'천이 마르면 열이 다시 ___ 밤새 천을 적셔요.',opts:[['날까 봐',1],['났지만',0,'"-지만"은 "그런데"예요. 아직 안 일어난 걱정이면 → "날까 봐".']]},
  ],
  melNight:[
   {w:'진단하다',who:'핸드리 (생각)',ask:'의사가 아픈 곳을 살펴보고 병을 알아내요. 그걸 ___해요.',opts:[['진단',1],['진심',0,'진심은 거짓 없는 마음이에요. 병을 알아내는 건 "진단".'],['진정',0,'진정은 마음을 가라앉히는 거예요. 병을 알아내는 건 "진단".']]},
@@ -134,7 +137,7 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  cafe:[ // the storyteller: old words from 성실호 and 단어 마을, no badges
   {ask:'겨울 전에 ___을 많이 모아야 돼. 오래 먹을 음식 말이야.',opts:[['식량',1],['간식',0,'간식은 조금 먹는 거야. 겨울 내내 먹을 음식은 "식량".']]},
-  {ask:'옛날 일을 다 ___ 버렸니? 이 할미는 다 기억해.',opts:[['잊어',1],['잃어',0,'잃다는 물건이 없어지는 거야. 기억이 없어지면 → "잊다".']]},
+  {ask:'옛날 일을 다 ___? 이 할미는 다 기억해.',opts:[['잊어버렸니',1],['잃어버렸니',0,'잃어버리다는 물건을 잃는 거야. 옛날 일이나 이름은 → "잊어버리다".']]},
   {ask:'번쩍! 하늘에서 ___ 쳤어. 그다음에 쿵!',opts:[['번개',1],['폭풍',0,'폭풍은 아주 센 바람이야. 번쩍 하는 빛은 "번개".']]},
   {ask:'진흙 위에 ___이 남았어. 누가 지나갔지?',opts:[['발자국',1],['발견',0,'발견은 처음 찾는 거야. 발 모양 흔적은 "발자국".']]},
   {ask:'숲은 ___해. 아이들 혼자 가면 안 돼.',opts:[['위험',1],['안전',0,'안전은 위험의 반대야. 숲은 "위험"해.']]},
@@ -152,7 +155,7 @@ const Q={ // NPC questions, kept here so review can reuse them
    sweaty, itchy back by the oven; the field hands' hot lunch soup, a slightly burnt lunch loaf, a flea bite, a hoe cut on a foot,
    a child's rash, a supper of soup in a big cauldron; the herder's Ertibeest lore (heed them when they cry, they live in a herd,
    one ran off); Helibugs dart away when touched; a mourner remembering Corto treating rashes; the mourner's son's leg wound
-   swelling; Brosa forgetting for a moment that Corto is dead (and, once, that the Electors have chosen). Sethr's lines stop at the
+   swelling; Brosa forgetting for a moment that Corto is dead (and, in her after line, that the Electors have chosen). Sethr's lines stop at the
    burn (he reacts to it instead); the field hands' and Chogger's chores talk stops at the news of the sting (§II: the word comes
    to the field workers; they react to it instead). CLASS (Melory's month
    as doctor): a leg wound, a child scalded at an oven, a hand scalded in boiling water, a swollen sting, a rash, sick children who
@@ -175,7 +178,8 @@ const REVIEW=[ // people use a learned word again in their own voice and moment,
  {w:'가마솥',by:'mel13',ask:'세서 때문에 다들 ___ 옆에 모였어.',opts:[['가마솥',1],['가면',0,'가면은 얼굴에 쓰는 거야. 약을 끓이는 큰 솥은 "가마솥".']]},
  {w:'화상',by:'crowd1',when:()=>!!f().burned,ask:'아이고, 얼굴까지 ___을 입었네. 쯧쯧.',opts:[['화상',1],['화장',0,'화장은 얼굴을 꾸미는 거야. 뜨거운 것에 다치면 "화상".']]},
  {w:'데다',by:'crowd2',when:()=>!f().burned,ask:'끓는 약이야. 가까이 가면 ___.',opts:[['덴다',1],['된다',0,'"된다"는 괜찮다는 말이야. 뜨거운 데 다치면 "덴다".']]},
- {w:'끓이다',by:'crowd2',ask:'저 약은 ___ 식혀서 바르는 거야.',opts:[['끓였다가',1],['꿇었다가',0,'꿇다는 무릎을 꿇는 거야. 약은 "끓였다가".']]},
+ {w:'끓이다',by:'crowd2',when:()=>!f().severed,ask:'저 약은 ___ 식혀서 세서한테 바를 거야.',opts:[['끓였다가',1],['꿇었다가',0,'꿇다는 무릎을 꿇는 거야. 약은 "끓였다가".']]},
+ {w:'끓이다',by:'crowd2',when:()=>!!f().severed,ask:'코르토가 불 위에 약을 ___ 두고 어디 갔었대.',opts:[['끓여',1],['끓어',0,'끓다는 약이 혼자 끓는 거야. 코르토가 했으니까 "끓여".']]},
  {w:'데다',by:'chogger13',when:()=>!f().burned,ask:'갓 구운 축제 빵에 손을 ___. 그래도 맛있어!',opts:[['데었어',1],['탔어',0,'타다는 빵이 까매지는 거야. 손은 "데었어".']]},
  /* ----- three years later (16) ----- */
  {w:'타다',by:'baker',ask:'다른 빵은 ___ 아까워. 네 빵만 괜찮지.',opts:[['타면',1],['데면',0,'데다는 사람 피부가 다치는 거야. 빵은 "타면".']]},
@@ -206,7 +210,7 @@ const REVIEW=[ // people use a learned word again in their own voice and moment,
  {w:'끓이다',by:'brosa',when:()=>!f().stung,pre:['코르토는 어디 있죠? …아, 그렇지.'],ask:'이제 약을 ___ 사람이 없어요.',opts:[['끓일',1],['끓을',0,'끓다는 약이 혼자 끓는 거예요. 사람이 하면 "끓일".']]},
  {w:'상처',by:'brosa',when:()=>!f().stung,ask:'의사가 없어서 다친 사람들 ___가 안 나아요.',opts:[['상처',1],['상대',0,'상대는 같이 겨루는 사람이에요. 다친 곳은 "상처".']]},
  {w:'벌',by:'brosa',when:()=>!f().stung,ask:'요즘 나무 위가 시끄러워요. ___들이 쉬지 않고 윙윙거려요.',opts:[['벌',1],['별',0,'별은 밤하늘에서 빛나요. 윙윙거리는 건 "벌".']]},
- {w:'쏘다',by:'brosa',when:()=>!!f().stung,pre:['…아, 그렇지. 벌써 골랐죠.'],ask:'멜로리가 일렉터한테 ___. 열이 높대요.',opts:[['쏘였어요',1],['쐈어요',0,'멜로리가 쏜 게 아니에요. 당했으니까 "쏘였어요".']]},
+ {w:'쏘다',by:'brosa',when:()=>!!f().stung,ask:'멜로리가 일렉터한테 ___. 열이 높대요.',opts:[['쏘였어요',1],['쐈어요',0,'멜로리가 쏜 게 아니에요. 당했으니까 "쏘였어요".']]},
  {w:'진단하다',by:'brosa',ask:'새 의사가 생기면 다친 사람부터 ___ 거예요.',opts:[['진단할',1],['진정할',0,'진정하다는 마음을 가라앉히는 거예요. 병을 알아내는 건 "진단할".']]},
  {w:'벌',by:'kid',ask:'큰 ___이 멜로리 누나 옆에 있어! 가 봐!',opts:[['벌',1],['별',0,'별은 밤하늘에 있어! 윙윙 나는 건 "벌".'],['발',0,'발은 걸을 때 쓰는 거야! 윙윙 나는 건 "벌".']]},
 ];
@@ -274,7 +278,7 @@ function houseArt(X0,Y0,k,t,s){
  r(X0+wx+lean(30),Y0+30,ww,1,DK);r(X0+2,Y0+31,28,1,'rgba(0,0,0,.25)');
  const dx=(sk?18:hut?14:13)+lean(25);
  r(X0+dx-1,Y0+21,8,10,'#5a4229');r(X0+dx,Y0+22,6,8,'#2A1E16');r(X0+dx,Y0+22,6,1,'#3A2A1E');
- if(NIGHT()&&!hut&&(s%3!==0||sk))r(X0+dx+1,Y0+24,4,6,'#E8A64A');
+ if(NIGHT()&&!hut&&(sk||(f().fled&&s%3!==0)))r(X0+dx+1,Y0+24,4,6,'#E8A64A');  // the twins are up; the others wake at the shouting (§III)
  for(let yy=top;yy<17;yy++){const hw=Math.min(15,Math.round(1+(yy-top)*(hut?1.6:1.05))),cx=16+lean(yy)+(sk?1:0);
   r(X0+cx-hw,Y0+yy,hw*2,1,'#a3864f');for(let i=cx-hw+((yy*2+s)%3);i<cx+hw-1;i+=3)r(X0+i,Y0+yy,1,1,'#86703f');
   r(X0+cx-hw,Y0+yy,1,1,DK);r(X0+cx+hw-1,Y0+yy,1,1,DK);if(yy<top+4)r(X0+cx-1,Y0+yy,1,1,'#c2a46a')}
@@ -313,8 +317,8 @@ const TILES={
  hearth:(X,Y,x,y,t)=>{shadeG(X,Y,x,y,t);[[1,9],[4,12],[9,13],[13,10],[12,6],[2,5]].forEach(([a,c])=>{r(X+a,Y+c,3,2,'#6E6B62');r(X+a,Y+c,3,1,'#8d8a80')});r(X+5,Y+8,6,4,'#2A2220');
   if(!E13()){r(X+6,Y+9,1,1,'#5a4a40');r(X+9,Y+10,1,1,'#5a4a40')}nt(X,Y)},
  stall:(X,Y,x,y,t)=>{cg(X,Y,x,y,t);const [a]=blk(x,y,'s',2,1);clip(X,Y,()=>stallArt(X-a*16,Y,E13()));nt(X,Y)},
- lamp:(X,Y,x,y,t)=>{cg(X,Y,x,y,t);nt(X,Y);const n=NIGHT(),w=n?'#3a2a20':'#6e5233';r(X+3,Y+14,6,2,'rgba(0,0,0,.2)');r(X+5,Y+2,2,13,w);r(X+5,Y+2,6,1,w);r(X+9,Y+3,1,2,w);
-  if(n){const fl=(Math.sin(t/170+x*3)+1)/2;g.fillStyle=`rgba(232,166,74,${.18+fl*.12})`;g.beginPath();g.arc(X+9.5,Y+8,6.5,0,7);g.fill();r(X+8,Y+5,3,5,'#E8A64A');r(X+9,Y+6,1,3,'#FFE2A0')}
+ lamp:(X,Y,x,y,t)=>{cg(X,Y,x,y,t);nt(X,Y);const n=NIGHT(),w=n?'#3a2a20':'#6e5233',lit=n&&!!f().fled;r(X+3,Y+14,6,2,'rgba(0,0,0,.2)');r(X+5,Y+2,2,13,w);r(X+5,Y+2,6,1,w);r(X+9,Y+3,1,2,w);  // lit when people wake and go out (§III)
+  if(lit){const fl=(Math.sin(t/170+x*3)+1)/2;g.fillStyle=`rgba(232,166,74,${.18+fl*.12})`;g.beginPath();g.arc(X+9.5,Y+8,6.5,0,7);g.fill();r(X+8,Y+5,3,5,'#E8A64A');r(X+9,Y+6,1,3,'#FFE2A0')}
   else{r(X+8,Y+5,3,5,'#C9B26A');r(X+8,Y+5,3,1,'#a3864f');r(X+8,Y+9,3,1,'#86703f')}},
  hedge:(X,Y,x,y,t)=>{r(X,Y,16,16,'#1F2E26');const h=hash(x,y);
   [[1,1,'#2E4A3A'],[8,0,'#3E5E44'],[4,6,'#2E4A3A'],[10,8,'#3E5E44'],[0,11,'#3E5E44'],[7,12,'#2E4A3A']].forEach(([a,c,col])=>{const xx=(a+h)%11;r(X+xx,Y+c,6,5,col);r(X+xx+1,Y+c,3,1,'#5E7E54');r(X+xx,Y+c+4,6,1,'#18241E')});
@@ -426,7 +430,7 @@ const BAKER=hum({hair:'#4A3426',skin:'#C48E66',shirt:'#D8CBB0',pants:'#5A4632',b
 const CROWD1=hum({hair:'#4A3426',skin:'#B98462',shirt:'#5E6A44',pants:'#4A3A2E',style:'bun',lashes:1,lips:'#A0605A'}),CROWD2=hum({hair:'#2A2A2A',skin:'#C48E66',shirt:'#7A5A44',pants:'#3E3A30',beard:'#2A2A2A'});
 const STORY=hum({hair:'#CFCAC0',skin:'#B07A56',shirt:'#5E4A6E',pants:'#3E3448',style:'long',coat:1,lashes:1,lips:'#9A5A5A'});
 const WORKER=hum({hair:'#3A2A1E',skin:'#B98462',shirt:'#8A7A4A',pants:'#4A3A2E',style:'bun',lashes:1,lips:'#A0605A'});
-const HERDER=hum({hair:'#5A4636',skin:'#A87654',shirt:'#6A5A44',pants:'#3E3A30',cap:'#8a6a44'});
+const HERDER=hum({hair:'#5A4636',skin:'#A87654',shirt:'#4E6E8A',pants:'#5A4632',beard:'#5A4636'});  // bare head, beard, slate blue: never mistaken for the hooded Handry at 16
 function kid(hair,shirt,pants,girl){ // a small child, 12×12
  const P=girl?'S':'P';
  return {pal:{O:DK,E:DK,H:hair,h:'#00000033',S:'#D2A27A',M:'#B57A66',C:shirt,c:'#00000022',P:pants,K:'#3A3540',R:'#E86D8A'},
@@ -439,12 +443,12 @@ const flick=(on,off)=>({get(){return (Date.now()/90|0)%2?on:off},enumerable:true
 const POT={art:{pal:Object.defineProperties({O:DK,R:'#6E1414',L:'#9A6A4A',C:'#6A4430',c:'#4A2E20',k:'#6E6B62',f:'#D2533F'},
  {q:flick('#C23B3B','#8E1F1F'),Q:flick('#8E1F1F','#C23B3B'),F:flick('#E8962A','#F7D154'),w:flick('rgba(230,220,220,.55)',null),W:flick(null,'rgba(230,220,220,.45)')}),
  down:['................','.....w....W.....','......W..w......','.....w....W.....','..OOOOOOOOOOOO..','.ORRqRRQRRqRRRO.','.OLLLLLLLLLLLLO.','OCCcCCCCCCCCcCCO','OCcCCCCCCCCCCcCO','OCcCCCCCCCCCCcCO','.OCcCCCCCCCCcCO.','..OCCCCCCCCCCO..','..kOFfOFFOfFOk..','.kkFFfFFFFfFFkk.','.kkkFFFffFFFkkk.','..kkkkkkkkkkkk..']}};
-/* an Elector: finger-long, fat, bristling, loud */
+/* an Elector: finger-long, fat, bristling, loud (drawn small, a bug beside the people, not a torso) */
 const ELECTOR={art:{pal:Object.defineProperties({O:DK,A:'#3A2A12',E:'#E8C25A',B:'#C9A227',b:'#3A2A12',l:'#2A1E10',h:'#7A5A2A'},{w:flick('rgba(220,235,245,.8)',null),v:flick(null,'rgba(220,235,245,.6)')}),
- down:['................','................','.......w..w.....','......wwv.wwv...','.......vw.vw....','....OOOOOOOOO...','..hOAAOBBbBBbO..','..OEAAOBbBBbBBOh','..OAAAOBBbBBbBO.','..hOAAOBbBBbBOh.','....OOOOOOOOO...','....l.l.l.......','...l..l..l......','................','................','................']}};
-/* the gourd pile by the trough */
-const GOURDS={art:{pal:{O:DK,G:'#C9B26A',g:'#9E8A48',s:'#5E7A4A',B:'#8a6a44',b:'#6e5233'},
- down:['................','................','................','................','.....s....s.....','....OGO..OGO....','...OGGgOOGGgO...','..OGGGgOGGGgO...','..OgGggOOgGgsO..','...OOOO.OOOOGO..','..OBbBbBbBbBbO..','..ObBbBbBbBbBO..','..OBbBbBbBbBbO..','..ObBbBbBbBbBO..','...OOOOOOOOOO...','................']}};
+ down:['................','................','................','................','................','.......w.w......','......wwvwv.....','.....OOOOOOO....','....hOAOBbBbO...','....OEAOBbBbOh..','.....OOOOOOO....','......l.l.l.....','................','................','................','................']}};
+/* the basket of water dippers by the trough: halved gourds, rims and hollows up (whole gourds read as bulbs) */
+const GOURDS={art:{pal:{O:DK,G:'#C9B26A',g:'#9E8A48',w:'#E8DCB0',k:'#5A4426',B:'#8a6a44',b:'#6e5233'},
+ down:['................','................','................','................','................','................','..OOOOO..OOOOO..','.OwkkkwOOwkkkwO.','.OGwwwGOOGwwwGO.','..OgGgO..OgGgO..','..OBbBbBbBbBbO..','..ObBbBbBbBbBO..','..OBbBbBbBbBbO..','..ObBbBbBbBbBO..','...OOOOOOOOOO...','................']}};
 /* the dark mouth of the wilds at the field's edge */
 const WILDS={art:{pal:Object.defineProperties({O:'#0d1420',T:'#2A2230',t:'#3A3040',L:'#3E2A4E',l:'#5b2a6e',g:'#2E4A3A'},{e:flick('#0d1420','#0d1420')}),
  down:['.LLlLL....LlLLL.','LLgLLlL..LLlgLLL','.lLLgLLLLLgLLl..','..LL.lLLl..LL...','TtT...l.l...TtTT','TtT..........tTT','TTt..........TtT','tTT..........TTt','TtT..........tTT','TTt..........TTt','TtT..........TtT','TTt..........tTT','tTT..........TTt','TtT..........TtT','TTt..........TTt','TtTT........TTtT']}};
@@ -464,7 +468,7 @@ const PLAYER=()=>{const L=!f().burned?H13:E13()?H13B:H16;return NIGHT()&&ZID!=='
 /* things whose line depends on story flags: pick a variant by tile position here, so the fn always returns one string */
 const pk=fn=>(x,y)=>{const v=fn(x,y);return Array.isArray(v)?v[(x*7+y*13)%v.length]:v};
 const ZONES={
- circle:{name:'아로 · 나무 광장',reg:'ARO',outdoor:1,
+ circle:{name:'아로 · 나무 광장',reg:'ARO · TREE CIRCLE',outdoor:1,
   legend:{'P':{tile:'canopy'},'Y':{tile:'trunk'},'y':{tile:'flare'},',':{tile:'shade',walk:1},'.':{tile:'earth',walk:1},'g':{tile:'gather',walk:1},
    'H':{tile:'house'},'A':{tile:'house'},'h':{tile:'twins'},'a':{tile:'twins'},'D':{tile:'twinsDoor',walk:1},'K':{tile:'doctor'},'k':{tile:'doctor'},
    'f':{tile:'hearth',walk:1},'s':{tile:'stall',over:1},'l':{tile:'lamp'},'w':{tile:'hedge'},'>':{tile:'path',walk:1},'b':{tile:'fire'},'O':{tile:'oven'},'T':{tile:'terminal'},'x':{tile:'wood'},'p':{tile:'plant',walk:1}},
@@ -488,7 +492,7 @@ const ZONES={
 "w.p.AA.....AA..x...AA..p.w",
 "wwwwwwwwwwwwwwwwwwwwwwwwww"],
   rooms:[[1,2,24,6,'아로 · 큰 나무 아래'],[7,7,16,12,'아로 · 모임 터'],[1,13,24,16,'아로 · 아랫마을']],
-  warps:{'3,8':{to:'home',x:5,y:8,dir:'up'},
+  warps:{'3,8':{to:'home',x:5,y:8,dir:'up',lock:()=>f().done&&'그날 밤 이후로 우리 집에는 다시 못 갔어요.'},  // after the ending he has left Aro
    '25,10':{to:'fields',x:1,y:7,dir:'right',lock:()=>E13()&&'오늘은 축제예요. 밭에는 아무도 없어요.'},
    '25,11':{to:'fields',x:1,y:7,dir:'right',lock:()=>E13()&&'오늘은 축제예요. 밭에는 아무도 없어요.'}},
   spots:{
@@ -497,7 +501,7 @@ const ZONES={
    get '2,4'(){return E13()?'코르토의 집. 약초 냄새가 나요. 문 옆 천이 검붉게 물들었어요.':f().gourd?'코르토의 집. 이제 아무도 없어요.':'코르토의 집. 안에서 아무 소리도 안 나요.'},
    '2,8':'우리 쌍둥이 집. 조금 삐뚤어졌어요. 그래도 우리 집이에요.',
    get '6,6'(){return E13()?'축제 가게. {미클 케이크|미클 케이크}가 쌓여 있어요.':'빈 가게. 가죽을 말리고 있어요.'},
-   get '18,6'(){return E13()?'{슈거웜 꼬치|슈거웜 꼬치}! 달콤한 냄새가 나요.':'빈 가게. 가죽을 말리고 있어요.'},
+   get '18,6'(){return E13()?'슈거웜 꼬치! 달콤한 냄새가 나요.':'빈 가게. 가죽을 말리고 있어요.'},
    get '13,15'(){return '빵 굽는 화덕. '+(E13()?'축제 빵 냄새가 가득해요.':'오늘도 빵이 구워져요.')},
    '6,13':'{테르펠|테르펠} 장작이 쌓여 있어요.','15,16':'{테르펠|테르펠} 장작. 겨울 준비예요.','20,16':'통 모양의 집. {테르펠|테르펠} 나무로 지었어요. 지붕 꼭대기에 술이 달렸어요.',
    get '9,13'(){return NIGHT()?'모닥불이 거의 꺼졌어요.':'모닥불. 할머니들이 옛날이야기를 해요.'},
@@ -511,9 +515,9 @@ const ZONES={
    'y':'나무 밑동이에요. 마디진 뿌리가 땅을 꽉 잡았어요.',
    'w':pk(()=>NIGHT()?'덤불이 바람에 바스락거려요.':['빽빽한 덤불이에요. 지나갈 수 없어요.','덤불에 작은 보라색 싹이 났어요.','가시는 없어요. 그래도 너무 빽빽해요.']),
    'H':pk(()=>NIGHT()?'지붕 위가 캄캄해요.':['지붕이 뾰족하게 솟았어요. 꼭대기에 술이 있어요.','지붕 꼭대기 술이 바람에 살랑살랑 흔들려요.']),
-   'A':pk(()=>NIGHT()?(f().fled?['문틈으로 불빛이 새어 나와요. 다들 깼어요.','문이 열려요. 사람들이 밖으로 나와요.']:['집집마다 불이 꺼졌어요. 다들 자요.','밤이에요. 집집마다 문이 닫혔어요.'])
-    :E13()?['통처럼 불룩한 나무 벽이에요.','다들 축제에 나갔어요. 집이 조용해요.']
-    :['통처럼 불룩한 나무 벽이에요.','문이 닫혀 있어요. 아무도 저를 안 불러요.']),
+   'A':pk(()=>NIGHT()?(f().fled?['문틈으로 불빛이 새어 나와요. 다들 깼어요.','문 안에서 사람들 목소리가 들려요.']:['문이 닫혀 있어요. 집 안이 캄캄해요. 다들 자요.','밤이에요. 집집마다 문이 닫혔어요.'])
+    :E13()?['통처럼 불룩한 나무 벽에 문이 있어요. 다들 축제에 나갔어요.','문이 닫혀 있어요. 집이 조용해요.']
+    :['통처럼 불룩한 나무 벽에 문이 있어요. 문은 닫혀 있어요.','문이 닫혀 있어요. 아무도 저를 안 불러요.']),
    'h':pk(()=>f().fled?'우리 집이에요. 다시 올 수 있을까요?':'우리 집 지붕이에요. 꼭대기 술도 조금 삐뚤어졌어요.'),
    'K':pk(()=>E13()?'코르토의 집이에요. 집 안에서 약초 냄새가 나요.':f().gourd?'주인 없는 집이에요. 약초가 다 말라 버렸어요.':'코르토의 집이에요. 이제 약초 냄새가 안 나요.'),
    'k':'문 옆에 검붉게 물든 천이 있어요. 만지면 안 돼요.',
@@ -540,7 +544,7 @@ const ZONES={
 "X..R.....p.........o.....X",
 "XXXXXXXXXXXXEXXXXXXXXXXXXX",
 "XXXXXXXXXXXXXXXXXXXXXXXXXX"],
-  rooms:[[1,1,24,5,'아로 · 윗밭'],[1,7,24,13,'아로 · 언덕 아래'],[12,14,12,14,'숲 가장자리']],
+  rooms:[[1,1,24,5,'아로 · 윗밭'],[1,7,24,13,'아로 · 언덕 아래'],[12,14,12,14,'아로 · 숲 가장자리']],
   warps:{'0,7':{to:'circle',x:24,y:10,dir:'left'},'0,8':{to:'circle',x:24,y:10,dir:'left'}},
   spots:{'2,9':'빨간 잎 덤불. 줄기 밑에 보라색 열매가 달렸어요. 달콤하지만 저는 못 먹어요.','22,1':'빨간 잎 덤불. 열매 냄새가 달아요.',
    '20,8':'땅에서 솟은 거대한 뿌리. 마디마디 고리처럼 휘었어요.','14,10':'{에르티비스트|에르티비스트} 목동들의 오두막.',
@@ -550,11 +554,11 @@ const ZONES={
     :['숲이 밭 바로 옆까지 와 있어요.','덩굴이 엉켜서 못 지나가요.','나무 사이가 어두워요. 들어가고 싶지 않아요.']),
    '-':pk(()=>NIGHT()?'돌담이 차가워요.':['돌을 쌓아서 밭 둑을 만들었어요.','언덕이 가팔라서 밭이 계단처럼 층층이에요.','돌 틈에 작은 풀이 자라요.']),
    'R':pk(()=>NIGHT()?'덤불에서 단 냄새가 나요.':['열매를 누르면 보라색 즙이 나와요.','세서가 먹은 열매도 이거였어요.','빨간 잎 덤불이에요. 배가 고파도 참아요.']),
-   'U':pk(()=>NIGHT()?'오두막에 불이 꺼졌어요.':['오두막 문이 낮아요. 허리를 숙여야 해요.','오두막 옆에서 가축 냄새가 나요.']),
+   'U':pk((x,y)=>NIGHT()?'오두막에 불이 꺼졌어요.':(ZONES.fields.map[y+1]||'')[x]!=='U'?'오두막 문이 낮아요. 허리를 숙여야 해요.':['오두막 지붕 꼭대기에 술이 달렸어요.','오두막 옆에서 가축 냄새가 나요.']),
    'Q':['뿌리가 고리처럼 땅 위로 솟았어요.','마디마다 껍질이 두꺼워요. 뿌리가 제 키보다 높아요.'],
    'o':'밭에서 골라낸 돌이에요. 작은 돌탑 같아요.'},
   npcs:['chogger','worker','hand1','hand2','gourds','herder','edge']},
- home:{name:'쌍둥이 집',reg:'ARO · HOME',
+ home:{name:'아로 · 쌍둥이 집',reg:"ARO · THE TWINS' HOUSE",
   legend:{'#':{tile:'hwall'},'S':{tile:'bwall'},',':{tile:'floor',walk:1},'b':{tile:'bedH'},'n':{tile:'bedHf'},'B':{tile:'bedM'},'m':{tile:'bedMf',walk:1},
    'e':{tile:'hearthIn'},'t':{tile:'table'},'j':{tile:'jars'},'D':{tile:'hdoor',walk:1}},
   map:[
@@ -569,7 +573,7 @@ const ZONES={
 "#,,,,,,,,,,#",
 "#####DD#####"],
   warps:{'5,9':{to:'circle',x:3,y:9,dir:'down'},'6,9':{to:'circle',x:3,y:9,dir:'down'}},
-  spots:{'1,2':'제 침대. 긴 옷하고 얼굴을 가리는 천이 놓여 있어요.','1,3':'제 침대. 긴 옷하고 얼굴을 가리는 천이 놓여 있어요.',
+  spots:{get '1,2'(){return E13()?'제 침대예요.':'제 침대. 밤마다 기침 때문에 자꾸 깨요.'},get '1,3'(){return E13()?'제 침대. 이불이 개어져 있어요.':'제 침대. 여기에는 벼룩이 하나도 없어요.'},
    get '4,2'(){return NIGHT()?'화덕 불이 작게 타요.':'화덕. 냄비에서 물이 데워져요.'},'7,2':'항아리. 곡식하고 물이 들어 있어요.','8,2':'항아리. 곡식하고 물이 들어 있어요.',
    get '4,5'(){return E13()?'탁자. 빵 부스러기가 떨어져 있어요.':'탁자. 까맣게 탄 빵 조각이 있어요.'},get '5,6'(){return E13()?'탁자. 깨끗해요.':'탁자. 까맣게 탄 빵 조각이 있어요.'},
    get '10,2'(){return f().stung&&!f().woke?'멜로리의 베개가 땀에 젖었어요.':'멜로리의 침대.'}},
@@ -583,6 +587,23 @@ const ZONES={
 
 /* ---------------- people ---------------- */
 const think='핸드리 (생각)',tale='…';  // narration: the same '…' as the engine's own (time passing, the stone, the ending) and 2–4장
+/* the scald (§I): it happens on the way, chasing Livvi through the crowd (A on her while the chase is on) — Handry never walks up
+   to the cauldron on purpose, so "I saw it too late" holds */
+const accident=()=>[
+ {who:'핸드리',say:'리비! 거기 서!'},
+ {who:'리비',say:'여기까지 와 봐! 메롱!'},
+ {who:tale,say:'리비가 사람들 사이로 쏙 빠져나갔어요.'},
+ {who:tale,say:'앞에 빈틈이 보였어요. 지름길 같았어요. 저는 그쪽으로 뛰었어요.'},
+ {who:tale,say:'가마솥이 보였을 때는 너무 늦었어요.'},
+ {who:tale,say:'가마솥을 뛰어넘으려고 했어요. 발뒤꿈치가 가장자리에 걸렸어요.'},
+ {who:tale,say:'끓는 단절약이 확 튀었어요.',set:()=>{f().burned=1}},
+ {who:'핸드리',say:'아아아악!'},
+ {who:tale,say:'다리, 옆구리, 뺨, 이마. 살이 불처럼 뜨거웠어요.'},
+ Q.pot[0],
+ {who:'리비',say:'핸드리! 누가 좀 와 주세요!'},
+ {who:'칼턴',say:'어른들! 핸드리가 데었어요!'},
+ {who:tale,say:'사람들이 천을 들고 달려와서 약을 닦아 냈어요.',go:['circle',12,11,'up']}];  // §I "came running with cloths… got it off me"
+let cafeN=Math.random()*Q.cafe.length|0;  // the storyteller's questions go round from a random start: none twice before all are asked
 const NPC={
  /* ===== the tree circle ===== */
  elhern:{name:'판관 엘헌',zone:'circle',x:12,y:9,dir:'down',look:ELHERN,badge:['이웃'],
@@ -590,8 +611,10 @@ const NPC={
   status:()=>{if(!E13())return null;if(!b('이웃'))return 'todo';if(f().burned&&!f().severed)return 'todo';if(!f().severed)return null},
   after:'아로 사람은 다 이웃이야. 이웃을 다치게 하면 안 돼.',
   script:()=>{
-   if(!E13())return f().waiting?[{say:'의사가 없으면 다친 사람이 죽어. 벌써 몇 명이 죽었어.'},{who:think,say:'엘헌은 제 쪽을 한 번도 안 봐요.'}]
-    :[{say:'오늘은 밭에 가야지. 다들 서둘러!'},{who:think,say:'엘헌은 제 쪽을 한 번도 안 봐요.'}];
+   if(!E13())return [{say:f().stung?'일렉터가 멜로리를 골랐어. 이제 아로에 의사가 생겨.'
+     :f().waiting?'의사가 없으면 다친 사람이 죽어. 벌써 몇 명이 죽었어.'
+     :f().gourd?'코르토가 죽었어. 이제 벌집이 새 의사를 고를 거야.'
+     :'오늘은 밭에 가야지. 다들 서둘러!'},{who:think,say:'저한테 한 말이 아니에요. 엘헌은 저를 안 봐요.'}];
    if(b('이웃')&&f().burned&&!f().severed)return [
     {say:'…핸드리? 다쳤구나. 조금만 참아.'},
     {say:'먼저 이 일을 끝내야 해. 아로 모두가 보고 있어.'},
@@ -603,7 +626,7 @@ const NPC={
     {who:think,say:'이상해요. 저한테는 세서가 똑같아 보여요.'},
     {who:tale,say:'세서는 혼자 숲으로 걸어갔어요. 아무도 따라가지 않았어요.'},
     {say:'핸드리, 코르토한테 가서 다친 데를 보여 줘. 큰 나무 왼쪽, 자기 집 앞에 있어.',set:()=>{f().severed=1}}];
-   if(b('이웃')&&!f().severed&&!f().burned)return [{say:'코르토가 큰 나무 아래에서 {단절약|단절약}을 끓이고 있어. 가 봐.'}];
+   if(b('이웃')&&!f().severed&&!f().burned)return [{say:f().cortoGone?'코르토가 또 자리를 비웠네. 약이 식으면 시작할 거야.':'코르토가 큰 나무 아래에서 {단절약|단절약}을 끓이고 있어. 가 봐.'}];
    return null},
   talk:()=>[
    {say:'왔니, 핸드리? 오늘은 축제야. 그래도 중요한 날이야.'},
@@ -611,10 +634,10 @@ const NPC={
    {say:'그리고 브로에드의 팔을 부러뜨렸어.'},
    Q.elhern[0],
    {who:'세서',say:'내 잘못 아니야! 나도 아로 사람이야!'},
-   {say:'(엘헌의 빈 눈에서 하얀 빛이 깜박여요.)'},
+   {who:tale,say:'엘헌의 빈 눈에서 하얀 빛이 깜박여요.'},
    {who:'엘헌의 유령',say:'{판결|판결} 확인. 단절. 오늘 실행.'},
    Q.elhern[1],
-   {say:'코르토가 큰 나무 아래에서 {단절약|단절약}을 끓이고 있어. 식으면 바를 거야.',award:['이웃']}]},
+   {say:f().cortoGone?'코르토가 또 자리를 비웠네. 약이 식으면 바를 거야.':'코르토가 큰 나무 아래에서 {단절약|단절약}을 끓이고 있어. 식으면 바를 거야.',award:['이웃']}]},  // Corto may already have wandered off (met first)
  sethr:{name:'세서',zone:'circle',x:13,y:9,dir:'down',pos:()=>[13,9],
   get look(){return f().daubed?SETHR_RED:SETHR},
   hide:()=>!E13()||!!f().severed,
@@ -626,13 +649,13 @@ const NPC={
   status:()=>{if(!E13())return null;if(!b('가마솥'))return 'todo';if(f().severed&&!b('상처'))return 'todo';if(!b('상처'))return null},
   after:'세라는 어디 갔지…? 아, 그래. 오래전에 갔지.',
   script:()=>{
-   if(!E13())return [{say:'(코르토가 집 앞에서 멍하니 혼잣말을 해요. 벌써 일 년째 이래요.)'},{who:'코르토의 유령',say:'설치 실패. 재시작 중…'},{who:'코르토의 유령',say:'설치 실패. 재시작 중…'},{who:think,say:'아로에 의사가 없는 것과 같아요.'}];
+   if(!E13())return [{who:tale,say:'코르토가 집 앞에서 멍하니 혼잣말을 해요. 벌써 일 년째 이래요.'},{who:'코르토의 유령',say:'설치 실패. 재시작 중…'},{who:'코르토의 유령',say:'설치 실패. 재시작 중…'},{who:think,say:'아로에 의사가 없는 것과 같아요.'}];
    if(!b('가마솥'))return null;
    if(!f().burned)return [{say:'…뭐 하러 왔더라? 아, 약.'},{say:'약이 식어야 해. 식어야 발라.'}];
-   if(!f().severed)return [{say:'(코르토는 혼잣말만 해요.)'},{say:'단절약은 식혀서 발라… 식혀서…'}];
+   if(!f().severed)return [{who:tale,say:'코르토는 혼잣말만 해요.'},{say:'단절약은 식혀서 발라… 식혀서…'}];
    if(!b('상처'))return [
     {say:'아이고, 핸드리. 이리 와 봐라.'},
-    {say:'(코르토의 손이 떨려요. 빈 눈에서 빛이 깜박깜박해요.)'},
+    {who:tale,say:'코르토의 손이 떨려요. 빈 눈에서 빛이 깜박깜박해요.'},
     {who:'코르토의 유령',say:'이차 단절 시작… 오류. 오류.'},
     {say:'다리, 옆구리, 뺨, 이마… 많이 데었구나.'},
     Q.corto2[0],
@@ -651,33 +674,21 @@ const NPC={
    Q.corto[0],
    {say:'불을 꺼뜨리면 안 돼. 아직 다 안 됐어.'},
    Q.corto[1],
-   {say:'(코르토의 빈 눈에서 빛이 깜박… 꺼졌어요.)'},
+   {who:tale,say:'코르토의 빈 눈에서 빛이 깜박… 꺼졌어요.'},
    {say:'…어디 가려고 했지? 아, 그래. 저기…'},
    {who:tale,say:'코르토는 가마솥을 두고 어디론가 걸어갔어요.',award:['가마솥','끓이다'],set:()=>{f().cortoGone=1}}]},
  pot:{name:'가마솥',zone:'circle',x:10,y:5,dir:'down',look:POT,pos:()=>[10,5],
   hide:()=>!E13(),
-  status:()=>f().chase&&!f().burned?'todo':null,
   script:()=>{
    if(f().burned)return [{say:'아까 그 가마솥… 보기만 해도 아파요.'}];  // not 아직도 끓어요: the Severance had cooled by the Severing (§I)
-   if(!f().chase)return f().cortoGone?[{say:'코르토 할아버지가 없어요. 가마솥만 혼자 끓어요.'}]:[{say:'가마솥에서 검붉은 약이 부글부글 끓어요.'},{say:'김이 얼굴까지 올라와요. 뜨거워요.'}];
-   return [
-    {who:'핸드리',say:'리비! 거기 서!'},
-    {who:tale,say:'사람들 사이로 빈틈이 보였어요. 저는 그쪽으로 뛰었어요.'},
-    {who:tale,say:'가마솥이 보였을 때는 너무 늦었어요.'},
-    {who:tale,say:'가마솥을 뛰어넘으려고 했어요. 발뒤꿈치가 가장자리에 걸렸어요.'},
-    {who:tale,say:'끓는 단절약이 확 튀었어요.',set:()=>{f().burned=1}},
-    {who:'핸드리',say:'아아아악!'},
-    {who:tale,say:'다리, 옆구리, 뺨, 이마. 살이 불처럼 뜨거웠어요.'},
-    Q.pot[0],
-    {who:'리비',say:'핸드리! 누가 좀 와요!'},
-    {who:'칼턴',say:'어른들! 핸드리가 데었어요!'},
-    {who:tale,say:'사람들이 달려와서 저를 끌어냈어요.',go:['circle',12,11,'up']}]},
+   return f().cortoGone?[{say:'코르토 할아버지가 없어요. 가마솥만 혼자 끓어요.'}]:[{say:'가마솥에서 검붉은 약이 부글부글 끓어요.'},{say:'김이 얼굴까지 올라와요. 뜨거워요.'}]},
   talk:()=>[]},
  mel13:{name:'멜로리',zone:'circle',x:6,y:9,dir:'down',look:MEL13,badge:['화상','데다'],
   hide:()=>!E13()||!!f().burned,
-  after:'우리는 쌍둥이야. 내가 몇 분 먼저 태어났어.',
+  get after(){return f().chase?'리비 잡으러 가? 가마솥 쪽으로는 가지 마!':f().cortoGone?'칼턴이 너 찾던데. 가 봐!':'축제라고 너무 뛰어다니지 마. 사람이 많아.'},  // what she says on later talks, by the moment (not one fixed opener)
   talk:()=>[
    {say:'핸드리! 어디 갔었어? 축제잖아!'},
+   {who:tale,say:'멜로리는 제 쌍둥이 누나예요. 저보다 조금 먼저 태어났어요.'},
    {say:'가마솥 봤어? 코르토 할아버지가 또 혼자 중얼거려.'},
    {say:'빨간 약이 펄펄 끓어. 가까이 가지 마.'},
    Q.mel13[0],
@@ -690,8 +701,10 @@ const NPC={
   hide:()=>NIGHT(),
   status:()=>E13()&&b('화상')&&f().cortoGone&&!f().chase?'todo':null,
   script:()=>{
-   if(!E13())return [{who:think,say:'칼턴은 아무 말도 안 해요. 제 눈을 피해요.'}];
-   if(f().burned)return [{say:'핸드리! 괜찮아? 어른들 불러올게!'}];
+   if(!E13())return f().stung?[{say:'멜로리가 새 의사래.'},{who:think,say:'칼턴이 잠깐 저를 봐요. 그리고 다시 눈을 피해요.'}]  // §II the news; for once they look at Handry
+    :f().gourd?[{say:'코르토 할아버지가 죽었대. 이제 의사가 없어.'},{who:think,say:'저한테 한 말이 아니에요. 칼턴은 제 눈을 피해요.'}]
+    :[{who:think,say:'칼턴은 아무 말도 안 해요. 제 눈을 피해요.'}];
+   if(f().burned)return [{say:'핸드리… 괜찮아? 얼굴에도 튀었어.'}];  // the grown-ups have already come running (no "I'll get the grown-ups")
    if(f().chase)return [{say:'빨리! 리비가 가마솥 쪽으로 갔어!'}];
    if(!b('화상'))return [{say:'멜로리가 너 찾았어. 모임 터에 있어.'}];
    if(!f().cortoGone)return [{say:'코르토 할아버지가 가마솥 앞에 있어. 이따 놀자.'}];  // the chase starts only once Corto has left the pot (§I)
@@ -704,20 +717,23 @@ const NPC={
   get look(){return E13()?LIV13:LIV16},
   pos:()=>E13()?(f().chase?[9,6]:[15,6]):[20,14],
   hide:()=>NIGHT()||(E13()&&!!f().burned)||(!E13()&&!!f().livviGone),
+  status:()=>E13()&&f().chase&&!f().burned?'todo':null,
   script:()=>!E13()?[{say:'엄마가 너랑 말하지 말래.'},{who:think,say:'리비는 돌아서서 가 버렸어요.',set:()=>{f().livviGone=1},leave:{npc:'livvi',to:[22,14]}}]
-   :f().chase?[{say:'못 잡지롱! 여기까지 와 봐!'}]:[{say:'칼턴이 술래야. 너도 놀래?'},{say:'미클 케이크 먹었어? 오늘만 먹을 수 있어!'}],
+   :f().chase?accident():[{say:'칼턴이 술래야. 너도 놀래?'},{say:'미클 케이크 먹었어? 오늘만 먹을 수 있어!'}],
   talk:()=>[]},
  crowd1:{name:'구경꾼',zone:'circle',x:9,y:4,dir:'right',look:CROWD1,hide:()=>!E13(),
   talk:()=>f().severed?[{say:'세서는 갔어. 이제 다 끝났어.'}]:[{say:'세서가 오늘 떠난대.'},{say:'약이 언제 식을까? 빨리 끝났으면 좋겠어.'}]},
  crowd2:{name:'구경꾼',zone:'circle',x:12,y:6,dir:'up',look:CROWD2,hide:()=>!E13(),
-  talk:()=>[{say:'가까이 가지 마라. 저 약은 한 방울도 몸에 묻으면 안 돼.'}]},
+  talk:()=>f().severed?[{say:'세서는 이제 우리가 아니야. 다들 봤지?'}]  // §I people back off from the Severed man
+   :f().burned?[{say:'괜찮을 거야, 얘야.'},{say:'다들 조심해! 식어도 한 방울도 만지면 안 돼.'}]  // §I "careful not to get a drop… even after it was cool"
+   :[{say:'가까이 가지 마라. 저 약은 한 방울도 몸에 묻으면 안 돼.'}]},
  chogger13:{name:'초거',zone:'circle',x:18,y:8,dir:'down',look:CHOG,
   hide:()=>!E13(),
-  talk:()=>f().burned?[{say:'핸드리, 괜찮아? 많이 아프지?'}]:[{say:'{슈거웜 꼬치|슈거웜 꼬치} 먹었어? 진짜 달아!'},{say:'세서는 오늘 쫓겨난대. 무섭다.'}]},
+  talk:()=>f().burned?[{say:'핸드리, 괜찮아? 많이 아프지?'}]:[{say:'슈거웜 꼬치 먹었어? 진짜 달아!'},{say:'세서는 오늘 쫓겨난대. 무섭다.'}]},
  baker:{name:'빵 굽는 아저씨',zone:'circle',x:14,y:15,dir:'down',look:BAKER,badge:['타다'],
   hide:()=>NIGHT(),
   status:()=>{if(E13())return null;if(!b('타다'))return b('두드러기')?'todo':null},
-  after:'(아저씨는 저를 안 보고 빵만 봐요.) 탄 빵은 저기 있어.',
+  after:[{who:tale,say:'아저씨는 저를 안 보고 빵만 봐요.'},'탄 빵은 저기 있어.'],
   script:()=>{
    if(E13())return f().burned?[{say:'아이고, 많이 데었구나.'},{say:'세서 일 때문에 다들 조용하네.'}]:[{say:'축제 빵이야! {미클 케이크|미클 케이크}도 있어!'},{say:'세서 일 때문에 다들 조용하네.'}];
    if(!b('두드러기'))return [{who:think,say:'아저씨는 저를 못 본 것 같아요.'}];
@@ -732,15 +748,17 @@ const NPC={
    {who:think,say:'아저씨는 빵을 손으로 주지 않아요. 아무도 저한테 손으로 안 줘요.',award:['타다']}]},
  story:{name:'이야기꾼 할머니',zone:'circle',x:10,y:13,dir:'left',look:STORY,
   hide:()=>NIGHT(),
-  script:()=>{const q=Q.cafe[Math.random()*Q.cafe.length|0];
+  script:()=>{const q=Q.cafe[cafeN++%Q.cafe.length];
    return E13()?[{say:f().burned?'아이고, 아프지? 이야기 들으면서 좀 쉬어라.':'축제 날엔 옛날이야기지! 하나 맞혀 봐.'},{...q,old:1},{say:'잘했어. 또 오너라.'}]
-    :[{who:think,say:'할머니는 불을 보며 혼잣말을 해요. 저는 옆에서 들어요.'},{...q,old:1},{say:'…옛날이야기는 끝이 없지.'}]},
+    :[{who:think,say:'할머니는 불을 보며 혼잣말을 해요. 저는 옆에서 들어요.'},
+      ...(f().stung?[{say:'멜로리가 뽑혔다지? 이제 아로에도 의사가 생겼구나.'}]:f().gourd?[{say:'코르토 영감이 갔어. 젊을 때부터 평생 의사였지.'}]:[]),  // §II Corto doctor "since he was barely a grown-up"
+      {...q,old:1},{say:'…옛날이야기는 끝이 없지.'}]},
   talk:()=>[]},
  brosa:{name:'설계자 브로사',zone:'circle',x:11,y:5,dir:'down',look:BROSA,badge:['공동체'],
   hide:()=>E13()||NIGHT(),
   status:()=>{if(!b('공동체'))return f().gourd?'todo':null;return f().waiting?undefined:null},
-  get after(){return f().stung?'멜로리가 새 의사예요. 깨어날 때까지 기다려요.':'일렉터가 새 의사를 고를 거예요. 기다려요.'},  // stale once Melory is stung (audit)
-  script:()=>!f().gourd?[{say:'코르토는 이제 아무것도 못 해요. 의사가 없는 거랑 같아요.'},{say:'…내가 무슨 말을 하고 있었죠?'}]:null,
+  get after(){return f().stung?['일렉터가 언제 새 의사를 고를까요?','…아, 그렇지. 벌써 골랐죠. 멜로리가 새 의사예요.']:'드디어 일렉터가 나왔어요. 곧 새 의사가 생길 거예요.'},  // she forgets, then remembers (§II "going the same way" as Corto); her badge comes with the waiting, when the Electors are out
+  script:()=>!f().gourd?[{say:'코르토는 이제 아무것도 못 해요. 의사가 없는 거랑 같아요.'},{say:'…내가 무슨 말을 하고 있었지?'}]:null,
   talk:()=>[
    {who:think,say:'브로사 앞에 사람들이 모여 있어요.'},
    {say:'오늘 아침에 코르토가 죽었어요.'},
@@ -768,7 +786,7 @@ const NPC={
    {say:'어? 멜로리 누나 쪽으로 날아가!',award:['벌'],move:{npc:'elector',to:[14,4]}}]},
  elector:{name:'일렉터',zone:'circle',x:16,y:3,dir:'left',look:ELECTOR,
   hide:()=>!f().waiting||!!f().stung||NIGHT(),
-  talk:()=>[{say:'윙— 윙— 윙—'},{say:'아주 시끄러워요. 손가락만큼 커요.'}]},
+  talk:()=>[{say:'윙— 윙— 윙—'},{who:tale,say:'날갯소리가 아주 시끄러워요. 몸이 통통해요.'}]},
  melTree:{name:'멜로리',zone:'circle',x:13,y:4,dir:'down',look:MEL16,badge:['쏘다'],pos:()=>[13,4],
   hide:()=>!f().waiting||!!f().stung||NIGHT(),
   status:()=>b('벌')?'todo':null,
@@ -790,7 +808,7 @@ const NPC={
   hide:()=>E13()||NIGHT(),
   status:()=>{if(!b('무시하다'))return b('타다')?'todo':null},
   get after(){return f().stung?'멜로리가 새 의사가 된대. …자, 다들 일하자.':'하나, 둘, 셋… 아홉. 다 왔네.'},
-  script:()=>!b('타다')?[{say:'하나, 둘, 셋… 다 왔네.'},{who:think,say:'배가 고파요. 먼저 빵을 받아야 해요.'}]:null,
+  script:()=>!b('타다')?[{say:'하나, 둘, 셋… 다 왔네.'},{who:think,say:b('두드러기')?'배가 고파요. 먼저 빵을 받아야 해요.':'배가 고파요. 일하기 전에 집에 먼저 가 봐야겠어요.'}]:null,
   talk:()=>[
    {who:think,say:'초거가 일꾼들한테 {괭이|괭이}를 나눠 줘요.'},
    {say:'하나, 둘, 셋… 아홉. 다 왔네. 자, 하나씩.'},
@@ -817,8 +835,8 @@ const NPC={
   hide:()=>E13()||NIGHT(),
   status:()=>b('무시하다')&&!f().gourd?'todo':null,
   script:()=>{
-   if(f().gourd)return [{say:'물바가지가 쌓여 있어요.'}];
-   if(!b('무시하다'))return [{say:'물바가지가 쌓여 있어요. 초거가 하나씩 나눠 줘요.'}];
+   if(f().gourd)return [{say:'바구니에 물바가지가 있어요.'}];
+   if(!b('무시하다'))return [{say:'바구니에 물바가지가 있어요. 일꾼들이 물을 떠서 나눠 마셔요.'}];
    return [
     {who:think,say:'아무도 안 줘요. 그럼 제가 가져가요.',give:'물바가지'},
     {who:think,say:'물통에서 물을 떠 마셨어요. 탄 빵도 먹었어요.',take:['탄 빵']},
@@ -835,7 +853,7 @@ const NPC={
     {who:think,say:'뒤에서 아로의 등불이 하나둘 켜져요.'},
     {who:'핸드리',say:'멜로리… 미안해.'},
     {who:tale,w:'도망치다',build:['저는','밤에','숲으로','도망쳤어요'],alts:[['밤에','저는','숲으로','도망쳤어요'],['저는','숲으로','밤에','도망쳤어요']]},
-    {who:tale,say:'그 밤, 저는 아로를 떠났어요.',award:['도망치다']},
+    {who:tale,say:'그날 밤, 저는 아로를 떠났어요.',award:['도망치다']},
     {who:tale,say:'마을 쪽에서 화난 목소리가 점점 커졌어요.'},
     {who:tale,say:'숲은 캄캄했어요. 사람들이 따라왔는지는 몰라요. 머릿속에서는 모두가 쫓아오고 있었어요.'},
     {who:tale,say:'멜로리는 이제 유령의 것이라고 생각했어요.'},
@@ -845,10 +863,10 @@ const NPC={
  melHome:{name:'멜로리',zone:'home',x:6,y:4,dir:'down',badge:['두드러기','가렵다','열이 나다','진단하다'],
   get look(){return f().stung&&!f().woke?(f().glow?FEVER_G:FEVER):f().woke?MELG:MEL16},
   pos:()=>f().stung&&!f().woke?[10,3]:f().woke?[5,3]:[6,4],
-  hide:()=>E13()||(b('두드러기')&&!f().stung),
+  hide:()=>E13()||(b('두드러기')&&!f().stung)||!!f().done,  // after the ending he has left Aro (the door is shut too)
   status:()=>{if(E13())return null;if(!b('두드러기'))return 'todo';if(f().stung&&!f().woke)return 'todo';if(f().night&&!f().fled)return 'todo';return null},
   script:()=>{
-   if(f().fled)return [{say:'(멜로리가 입을 막고 고개를 저어요.)'},{say:'가! 빨리! 돌아보지 마!'}];
+   if(f().fled)return [{who:tale,say:'멜로리가 입을 막고 고개를 저어요.'},{say:'가! 빨리! 돌아보지 마!'}];
    if(f().night)return [
     {who:tale,say:'저는 멜로리 앞에 무릎을 꿇었어요.'},
     {who:'핸드리',say:'멜로리. 아니, 의사 선생님. 저를 봐 주세요.'},
