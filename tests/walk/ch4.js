@@ -1,5 +1,7 @@
 // 4장 walkthrough: order a player would follow. wrong:true answers one question wrong first.
 [
+ // Observe the displayed dialogue, including black and room state, without changing the player's route or answers.
+ {check:()=>{window.__ch4Scenes=[];window.__ch4Show=show;const record=()=>{if(dlg?.cur)window.__ch4Scenes.push({say:plain(dlg.cur.say||dlg.cur.ask||''),ask:!!dlg.cur.ask,black:!!dlg.black,zone:ZID})};window.show=s=>{window.__ch4Show(s);record()};record();return true},msg:'record displayed scene transitions'},
  {intro:1,shot:'01-intro'},
  {talk:'sharE'},
  {talk:'ostel',wrong:true,shotBefore:'02-house-door'},
@@ -9,10 +11,16 @@
  {walkTo:['entry',7,8],then:'04-airlock'},
  {inspect:['entry',9,7]},
  {bump:['entry','>']},
+ {talk:'bunk',shotSay:{text:'아직 제 자리는 없어요',name:'05-bed-unassigned'}},
+ {check:()=>!state.f.ate&&C.NPC.bunk.name==='잠자리',msg:'bed unassigned before welcome'},
+ {talk:'yerke',wrong:true},
+ {talk:'yerke',shotSay:{text:'고참 형제한테',name:'05-yurk-before-meal'}},
  {talk:'vet',shotBefore:'05-hall'},
  {check:()=>state.f.ate&&state.items.includes('조상의 음식'),msg:'ate a ration slab'},
+ {talk:'bunk',shotSay:{text:'제 잠자리예요',name:'05-bed-assigned'}},
  {talk:'yerke',wrong:true},
  {talk:'vernenE'},
+ {talk:'vernenE',shotSay:{text:'음식 먹었으면',name:'05-vernen-met'}},
  {talk:'bro1'},
  {talk:'bro2'},
  {talk:'old',wrong:true,shotBefore:'06-old-brother'},
@@ -28,21 +36,29 @@
  {talk:'crack',shotBefore:'12-buried'},
  {check:()=>state.f.work,msg:'three days of work done'},
  {talk:'sharB',wrong:true,shotBefore:'13-sermon'},
+ {talk:'vernenE'},
+ {talk:'old'},
  {talk:'young',wrong:true},
  {talk:'medbed',shotBefore:'14-medical-room'},
  {check:()=>state.f.trace,msg:'trace signal found'},
  {talk:'yerke',shotSay:{text:'까맣게',name:'15-yerke'}},
  {check:()=>state.f.yerke,msg:'Yerke dead'},
- {talk:'sharE',shotBefore:'16-raid-leave'},
+ {talk:'vernenE',shotSay:{text:'여크는 가시',name:'15-vernen-after-loss'}},
+ {talk:'old',shotSay:{text:'여크 웃음소리',name:'15-old-after-loss'}},
+ {talk:'sharE',shotBefore:'16-raid-leave',shotSay:{text:'사흘을 걸었어요',name:'16-raid-black'}},
  {check:()=>state.f.raid,msg:'raid done'},
+ {check:()=>ZID==='bridge',msg:'raid ends in console room after the two-day cut'},
+ {talk:'vernenE',shotSay:{text:'마을 놈들',name:'16-vernen-after-raid'}},
+ {talk:'old',shotSay:{text:'문제 낼 마음',name:'16-old-after-raid'}},
  {talk:'melI',wrong:true,shotBefore:'17-melory-captive',shotSay:{text:'다운로드',name:'18-interrogation'}},
  {check:()=>state.f.interro,msg:'interrogation'},
  {talk:'ostelB',shotBefore:'19-held'},
  {talk:'melB'},
- {talk:'bunk'},
+ {talk:'old',shotSay:{text:'네 누나가',name:'19-old-captive'}},
+ {talk:'bunk',shotSay:{text:'며칠이 지났어요',name:'19-guilty-days-black'}},
  {check:()=>state.f.night,msg:'night'},
  {walkTo:['entry',15,10],then:'20-night-hall'},
- {talk:'vernenB',wrong:true,shotBefore:'21-vernen-ostel'},
+ {talk:'vernenB',shotBefore:'21-vernen-ostel',shotSay:{text:'세 번',name:'21-fight-uninterrupted'}},
  {check:()=>state.f.vernen,msg:'Vernen dead, Ostel down'},
  {talk:'melB',wrong:true,shotBefore:'22-after-fight'},
  {check:()=>state.f.free&&state.items.includes('밧줄 조각'),msg:'rope cut'},
@@ -68,4 +84,12 @@
  {reviewTour:Object.keys(C.ZONES),carry:1},
  // …and with nothing due, people with a line you haven't heard say it as plain talk (the word filled in, ungraded)
  {hearTour:Object.keys(C.ZONES)},
+ {check:()=>{
+   const scenes=window.__ch4Scenes,seen=(text,black,zone)=>scenes.some(s=>s.say.includes(text)&&s.black===black&&(!zone||s.zone===zone));
+   const cuts=['샤스킨, 오스텔, 그리고 저. 셋이었어요.','첫째 날.','아침부터 형제들하고','오후에도 계속','둘째 날.','저녁까지 흙 자루','셋째 날 저녁','넷째 날 아침','나가는데 샤스킨','그날부터 샤스킨','며칠 뒤, 상처','응답 신호','사흘을 걸었어요','돌아오는 길에','이틀 뒤,','며칠이 지났어요','위로 도망쳤어요','반은 안고 반은 끌고','밤하늘을 봐요'];
+   const here=[['길 끝에 이상한 언덕','entry'],['벽 안으로 들어온 뿌리는 다 잘랐어요','entry'],['땅속 방의 틈을 막았어요','buried'],['콘솔 방에 형제들이 모였어요','bridge'],['의료실의 부서진 금속 침대','bridge'],['아치 홀로 돌아왔어요','entry'],['여크는 다리를 절어요','entry'],['집에 돌아와 의료실로 갔어요','bridge'],['홀의 잠자리에서 일어났어요','entry']];
+   const start=scenes.findIndex(s=>s.say.includes('땅속 방에서 목소리가 들려요')),end=scenes.findIndex((s,i)=>i>start&&s.say.includes('멜로리가 발을 걸었어요'));
+   window.show=window.__ch4Show;
+   return cuts.every(t=>{const lines=scenes.filter(s=>s.say.includes(t));return lines.length&&lines.every(s=>s.black)})&&here.every(([t,z])=>seen(t,false,z))&&start>=0&&end>start&&scenes.slice(start,end+1).every(s=>!s.ask)&&scenes.filter(s=>s.say.includes('버넌은 어깨가 넓어요')).length===1&&seen('고참 형제한테 음식을 받아',false)&&seen('아직 제 자리는 없어요',false);
+ },msg:'time cuts over black, rooms restored at arrival, fight has no questions, one Vernon introduction, pre-welcome lines fit'},
 ]
