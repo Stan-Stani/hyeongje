@@ -241,6 +241,12 @@ const NIGHT=()=>!!f().night;           // day 31, the night Handry flees
 const DK='#1B1E2B';
 const nt=(X,Y,a)=>{if(NIGHT())r(X,Y,16,16,`rgba(8,10,32,${a||.62})`)};
 function clip(X,Y,fn){g.save();g.beginPath();g.rect(X,Y,16,16);g.clip();fn();g.restore()}
+/* big still art (the tree, the houses) is drawn once into an image and copied tile by tile: drawn rect by rect for each of its tiles,
+   every frame, it made the tree circle lag on a phone. P is where the art's rects go (the image being made); keys hold what changes it. */
+const scr=(a,b,w,h,c)=>r(a,b,w,h,c);let P=scr;const baked={};  // scr: the screen (r is the engine's, looked up when drawing)
+function bake(key,w,h,fn){let c=baked[key];if(!c){c=baked[key]=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+ P=(a,b,cw,ch,col)=>{x.fillStyle=col;x.fillRect(a,b,cw,ch)};try{fn()}finally{P=scr}}return c}
+const blit=(img,sx,sy,X,Y)=>g.drawImage(img,sx,sy,16,16,X,Y,16,16);
 const blk=(x,y,cs,w,h)=>{let a=0,d=0;while(a<60&&cs.includes(at(x-a-1,y)||'\n'))a++;while(d<60&&cs.includes(at(x,y-d-1)||'\n'))d++;return [a%w,d%h]};
 function earth(X,Y,x,y){r(X,Y,16,16,'#9A7E56');const h=hash(x,y);r(X+(h%13)+1,Y+(h%11)+2,1,1,'#A88C62');r(X+((h*7)%13)+1,Y+((h*3)%12)+2,1,1,'#8A7050');if(h%4===1)r(X+((h*11)%12)+2,Y+((h*13)%11)+3,2,1,'#8E7350');
  if(h%5===0){const a=(h*3)%12+2,c=(h*5)%10+3;r(X+a,Y+c,1,2,'#5E7A4A');r(X+a+1,Y+c-1,1,2,'#4E6A3E');r(X+a+1,Y+c-1,1,1,'#9a5aa8')}
@@ -253,19 +259,21 @@ function leafBg(X,Y,x,y,t){r(X,Y,16,16,'#2e1838');const h=hash(x,y),sw=Math.roun
  for(let i=0;i<7;i++){const lx=X+((h*(i+3)+i*5)%15),ly=Y+((h*(i+7)+i*3)%13);r(lx+sw,ly,2,5,i%2?'#5b2a6e':'#7e3f8f');r(lx+sw,ly,1,2,'#9a5aa8');r(lx+sw+1,ly+4,1,1,'#2e1838')}}
 const cg=(X,Y,x,y,t)=>y<=6?shadeG(X,Y,x,y,t):earth(X,Y,x,y);
 
-/* Aro's tree: 64×48 — fork + hive (map row 1), trunk (row 2), segmented root flare (row 3). Leans far out. */
-function treeArt(X0,Y0,t){
+/* Aro's tree: 64×48 (treeBody, baked once; treeBees, live) — fork + hive (map row 1), trunk (row 2), segmented root flare (row 3). Leans far out. */
+function treeBody(X0,Y0){
  for(let yy=0;yy<48;yy++){const k=yy/47,cx=Math.round(44-k*18);let hw=Math.round(8+k*4);if(yy>33)hw+=Math.round((yy-33)*1.1);
-  if(yy<13){const sp=Math.round((13-yy)*1.1);[cx-sp-7,cx+sp+1].forEach(lx=>{r(X0+lx,Y0+yy,7,1,'#5C4636');r(X0+lx,Y0+yy,2,1,'#76604A');r(X0+lx+5,Y0+yy,2,1,'#3E2E30');r(X0+lx-1,Y0+yy,1,1,DK);r(X0+lx+7,Y0+yy,1,1,DK)});
-   if(yy>9)r(X0+cx-sp,Y0+yy,2*sp+1,1,'#4A3830');continue}
-  r(X0+cx-hw,Y0+yy,hw*2,1,'#5C4636');r(X0+cx-hw,Y0+yy,3,1,'#76604A');r(X0+cx-hw+3,Y0+yy,1,1,'#6A5440');r(X0+cx+hw-4,Y0+yy,4,1,'#3E2E30');
-  [-5,0,4].forEach((o,i)=>r(X0+cx+o+((yy>>2)+i)%2,Y0+yy,1,1,'#3E2E30'));
-  if(yy%5===2)for(let i=cx-hw+4;i<cx+hw-5;i+=6)r(X0+i+(yy%10===2?3:0),Y0+yy,2,1,'#4A3830');
-  r(X0+cx-hw-1,Y0+yy,1,1,DK);r(X0+cx+hw,Y0+yy,1,1,DK)}
- [[0,43,12],[50,42,13]].forEach(([rx,ry,w])=>{r(X0+rx,Y0+ry,w,4,'#4a3a2e');r(X0+rx,Y0+ry,w,1,'#6A5440');for(let i=rx+3;i<rx+w;i+=4)r(X0+i,Y0+ry,1,4,'#2E241C');r(X0+rx,Y0+ry+4,w,1,DK)});
+  if(yy<13){const sp=Math.round((13-yy)*1.1);[cx-sp-7,cx+sp+1].forEach(lx=>{P(X0+lx,Y0+yy,7,1,'#5C4636');P(X0+lx,Y0+yy,2,1,'#76604A');P(X0+lx+5,Y0+yy,2,1,'#3E2E30');P(X0+lx-1,Y0+yy,1,1,DK);P(X0+lx+7,Y0+yy,1,1,DK)});
+   if(yy>9)P(X0+cx-sp,Y0+yy,2*sp+1,1,'#4A3830');continue}
+  P(X0+cx-hw,Y0+yy,hw*2,1,'#5C4636');P(X0+cx-hw,Y0+yy,3,1,'#76604A');P(X0+cx-hw+3,Y0+yy,1,1,'#6A5440');P(X0+cx+hw-4,Y0+yy,4,1,'#3E2E30');
+  [-5,0,4].forEach((o,i)=>P(X0+cx+o+((yy>>2)+i)%2,Y0+yy,1,1,'#3E2E30'));
+  if(yy%5===2)for(let i=cx-hw+4;i<cx+hw-5;i+=6)P(X0+i+(yy%10===2?3:0),Y0+yy,2,1,'#4A3830');
+  P(X0+cx-hw-1,Y0+yy,1,1,DK);P(X0+cx+hw,Y0+yy,1,1,DK)}
+ [[0,43,12],[50,42,13]].forEach(([rx,ry,w])=>{P(X0+rx,Y0+ry,w,4,'#4a3a2e');P(X0+rx,Y0+ry,w,1,'#6A5440');for(let i=rx+3;i<rx+w;i+=4)P(X0+i,Y0+ry,1,4,'#2E241C');P(X0+rx,Y0+ry+4,w,1,DK)});
  const hx=X0+41,hy=Y0+8; // the hive: a swollen boll in the central fork
- for(let i=-7;i<=7;i++){const w=Math.round(Math.sqrt(49-i*i)*1.05);r(hx-w,hy+i,w*2,1,i<-3?'#DCC288':'#C8A86A');r(hx-w,hy+i,1,1,DK);r(hx+w-1,hy+i,1,1,DK)}
- r(hx-5,hy-2,10,1,'#9E8048');r(hx-6,hy+2,12,1,'#9E8048');r(hx-4,hy+5,8,1,'#9E8048');r(hx-1,hy,3,2,'#3A2A12');r(hx+3,hy-4,2,1,'#3A2A12');r(hx-4,hy+3,2,1,'#3A2A12');
+ for(let i=-7;i<=7;i++){const w=Math.round(Math.sqrt(49-i*i)*1.05);P(hx-w,hy+i,w*2,1,i<-3?'#DCC288':'#C8A86A');P(hx-w,hy+i,1,1,DK);P(hx+w-1,hy+i,1,1,DK)}
+ P(hx-5,hy-2,10,1,'#9E8048');P(hx-6,hy+2,12,1,'#9E8048');P(hx-4,hy+5,8,1,'#9E8048');P(hx-1,hy,3,2,'#3A2A12');P(hx+3,hy-4,2,1,'#3A2A12');P(hx-4,hy+3,2,1,'#3A2A12');
+}
+function treeBees(X0,Y0,t){const hx=X0+41,hy=Y0+8;
  const many=f().waiting&&!f().stung;
  for(let i=0;i<(many?10:6);i++){const a=t/(380+i*45)+i*1.7,rx=9+(i%3)*4,wx=hx+Math.round(Math.cos(a)*rx),wy=hy+Math.round(Math.sin(a*1.3)*8);r(wx,wy,many&&i<4?2:1,many&&i<4?2:1,i%2?'#E8C25A':'#2A1E10')}
 }
@@ -273,21 +281,22 @@ function treeArt(X0,Y0,t){
 function houseArt(X0,Y0,k,t,s){
  const sk=k===1,doc=k===2,hut=k===3,top=hut?8:2,lean=yy=>sk?Math.round((31-yy)/10):0,wx=hut?6:3,ww=hut?20:26;
  for(let yy=15;yy<31;yy++){const bw=Math.round(Math.sin((yy-15)/15*Math.PI)*2),x0=wx-bw+lean(yy),w=ww+2*bw;
-  r(X0+x0,Y0+yy,w,1,'#8a6a44');for(let i=x0+3;i<x0+w-2;i+=4)r(X0+i,Y0+yy,1,1,'#6e5233');
-  r(X0+x0+1,Y0+yy,1,1,'#a07c50');r(X0+x0,Y0+yy,1,1,DK);r(X0+x0+w-1,Y0+yy,1,1,DK);if(yy===19||yy===26)r(X0+x0+1,Y0+yy,w-2,1,'#5a4229')}
- r(X0+wx+lean(30),Y0+30,ww,1,DK);r(X0+2,Y0+31,28,1,'rgba(0,0,0,.25)');
+  P(X0+x0,Y0+yy,w,1,'#8a6a44');for(let i=x0+3;i<x0+w-2;i+=4)P(X0+i,Y0+yy,1,1,'#6e5233');
+  P(X0+x0+1,Y0+yy,1,1,'#a07c50');P(X0+x0,Y0+yy,1,1,DK);P(X0+x0+w-1,Y0+yy,1,1,DK);if(yy===19||yy===26)P(X0+x0+1,Y0+yy,w-2,1,'#5a4229')}
+ P(X0+wx+lean(30),Y0+30,ww,1,DK);P(X0+2,Y0+31,28,1,'rgba(0,0,0,.25)');
  const dx=(sk?18:hut?14:13)+lean(25);
- r(X0+dx-1,Y0+21,8,10,'#5a4229');r(X0+dx,Y0+22,6,8,'#2A1E16');r(X0+dx,Y0+22,6,1,'#3A2A1E');
- if(NIGHT()&&!hut&&(sk||(f().fled&&s%3!==0)))r(X0+dx+1,Y0+24,4,6,'#E8A64A');  // the twins are up; the others wake at the shouting (§III)
+ P(X0+dx-1,Y0+21,8,10,'#5a4229');P(X0+dx,Y0+22,6,8,'#2A1E16');P(X0+dx,Y0+22,6,1,'#3A2A1E');
+ if(NIGHT()&&!hut&&(sk||(f().fled&&s%3!==0)))P(X0+dx+1,Y0+24,4,6,'#E8A64A');  // the twins are up; the others wake at the shouting (§III)
  for(let yy=top;yy<17;yy++){const hw=Math.min(15,Math.round(1+(yy-top)*(hut?1.6:1.05))),cx=16+lean(yy)+(sk?1:0);
-  r(X0+cx-hw,Y0+yy,hw*2,1,'#a3864f');for(let i=cx-hw+((yy*2+s)%3);i<cx+hw-1;i+=3)r(X0+i,Y0+yy,1,1,'#86703f');
-  r(X0+cx-hw,Y0+yy,1,1,DK);r(X0+cx+hw-1,Y0+yy,1,1,DK);if(yy<top+4)r(X0+cx-1,Y0+yy,1,1,'#c2a46a')}
- r(X0+1+lean(17),Y0+17,30,1,'#5a4a2a');
+  P(X0+cx-hw,Y0+yy,hw*2,1,'#a3864f');for(let i=cx-hw+((yy*2+s)%3);i<cx+hw-1;i+=3)P(X0+i,Y0+yy,1,1,'#86703f');
+  P(X0+cx-hw,Y0+yy,1,1,DK);P(X0+cx+hw-1,Y0+yy,1,1,DK);if(yy<top+4)P(X0+cx-1,Y0+yy,1,1,'#c2a46a')}
+ P(X0+1+lean(17),Y0+17,30,1,'#5a4a2a');
  const cx=16+lean(top)+(sk?1:0),sw=Math.round(Math.sin(t/900+s));
- r(X0+cx-1,Y0+top-3,2,4,'#c2a46a');r(X0+cx-3+sw,Y0+top-2,1,3,'#c2a46a');r(X0+cx+2+sw,Y0+top-2,1,3,'#c2a46a');r(X0+cx-1,Y0+top-3,2,1,'#e0c88a');
- if(doc){r(X0+5,Y0+18,2,5,'#5E7A4A');r(X0+5,Y0+18,2,1,'#3E5A34');r(X0+9,Y0+18,2,4,'#7e3f8f');r(X0+21,Y0+20,3,8,'#8E1F1F');r(X0+21,Y0+20,3,1,'#B5524A');r(X0+25,Y0+18,2,5,'#9A8A5A')}
- if(sk){r(X0+6+lean(22),Y0+22,5,4,'#2A1E16');r(X0+6+lean(22),Y0+22,5,1,'#5a4229');if(NIGHT())r(X0+7+lean(22),Y0+23,3,2,'#E8A64A')}
+ P(X0+cx-1,Y0+top-3,2,4,'#c2a46a');P(X0+cx-3+sw,Y0+top-2,1,3,'#c2a46a');P(X0+cx+2+sw,Y0+top-2,1,3,'#c2a46a');P(X0+cx-1,Y0+top-3,2,1,'#e0c88a');
+ if(doc){P(X0+5,Y0+18,2,5,'#5E7A4A');P(X0+5,Y0+18,2,1,'#3E5A34');P(X0+9,Y0+18,2,4,'#7e3f8f');P(X0+21,Y0+20,3,8,'#8E1F1F');P(X0+21,Y0+20,3,1,'#B5524A');P(X0+25,Y0+18,2,5,'#9A8A5A')}
+ if(sk){P(X0+6+lean(22),Y0+22,5,4,'#2A1E16');P(X0+6+lean(22),Y0+22,5,1,'#5a4229');if(NIGHT())P(X0+7+lean(22),Y0+23,3,2,'#E8A64A')}
 }
+const house=(k,t,s)=>bake(`h${k}.${s}.${NIGHT()?1:0}${f().fled?1:0}.${Math.round(Math.sin(t/900+s))}`,32,32,()=>houseArt(0,0,k,t,s));  // its tassel sways: three images a house
 function stallArt(X0,Y0,fest){
  r(X0+2,Y0+2,2,13,'#5a4229');r(X0+28,Y0+2,2,13,'#5a4229');
  if(fest){for(let i=0;i<32;i+=4)r(X0+i,Y0+1,4,5,(i/4)%2?'#e8c25a':'#7e3f8f');r(X0,Y0+5,32,1,'#5b2a6e');for(let i=1;i<32;i+=4)r(X0+i,Y0+6,2,1,'#7e3f8f')}
@@ -303,17 +312,17 @@ function inNight(X,Y){if(NIGHT())r(X,Y,16,16,'rgba(12,8,32,.32)')}
 const TILES={
  /* ---- tree circle ---- */
  canopy:(X,Y,x,y,t)=>{leafBg(X,Y,x,y,t);nt(X,Y,.5)},
- trunk:(X,Y,x,y,t)=>{const [a,d]=blk(x,y,'Y',4,2);if(d===0)leafBg(X,Y,x,y,t);else shadeG(X,Y,x,y,t);clip(X,Y,()=>treeArt(X-a*16,Y-d*16,t));nt(X,Y,.5)},
- flare:(X,Y,x,y,t)=>{const [a]=blk(x,y,'y',4,1);shadeG(X,Y,x,y,t);clip(X,Y,()=>treeArt(X-a*16,Y-32,t));nt(X,Y,.55)},
+ trunk:(X,Y,x,y,t)=>{const [a,d]=blk(x,y,'Y',4,2);if(d===0)leafBg(X,Y,x,y,t);else shadeG(X,Y,x,y,t);blit(bake('tree',64,48,()=>treeBody(0,0)),a*16,d*16,X,Y);if(d===0)clip(X,Y,()=>treeBees(X-a*16,Y,t));nt(X,Y,.5)},
+ flare:(X,Y,x,y,t)=>{const [a]=blk(x,y,'y',4,1);shadeG(X,Y,x,y,t);blit(bake('tree',64,48,()=>treeBody(0,0)),a*16,32,X,Y);nt(X,Y,.55)},
  shade:(X,Y,x,y,t)=>{shadeG(X,Y,x,y,t);nt(X,Y)},
  earth:(X,Y,x,y)=>{earth(X,Y,x,y);nt(X,Y)},
  gather:(X,Y,x,y,t)=>{r(X,Y,16,16,'#A88C62');const h=hash(x,y);r(X+(h%13)+1,Y+(h%11)+2,1,1,'#B89C70');r(X+((h*7)%13)+1,Y+((h*3)%12)+2,1,1,'#98805A');
   RING.forEach(([sx,sy])=>{const dx=sx-x*16,dy=sy-y*16;if(dx>-6&&dx<16&&dy>-5&&dy<16){r(X+dx,Y+dy+5,7,1,'rgba(0,0,0,.25)');r(X+dx,Y+dy+1,7,4,'#6e5233');r(X+dx,Y+dy,7,2,'#a07c50');r(X+dx+2,Y+dy,3,1,'#C9A86A');r(X+dx+3,Y+dy+1,1,1,'#8a6a44');r(X+dx+5,Y+dy+2,1,3,'#5a4229');r(X+dx,Y+dy+4,7,1,DK)}});
   if(E13()&&y===7){r(X,Y+2,16,1,'#5a4229');for(let i=0;i<16;i+=4){r(X+i+1,Y+3,3,1,['#7e3f8f','#e8c25a','#B5524A'][(x+i/4)%3]);r(X+i+2,Y+4,1,1,['#7e3f8f','#e8c25a','#B5524A'][(x+i/4)%3])}}
   nt(X,Y)},
- house:(X,Y,x,y,t)=>{cg(X,Y,x,y,t);const c=at(x,y),hut=c==='U',[a,d]=hut?blk(x,y,'U',2,2):[blk(x,y,c,2,1)[0],c==='H'?0:1];clip(X,Y,()=>houseArt(X-a*16,Y-d*16,hut?3:0,t,x-a+y*7));nt(X,Y)},
- twins:(X,Y,x,y,t)=>{earth(X,Y,x,y);const c=at(x,y),[a]=blk(x,y,c==='h'?'h':'aD',2,1);clip(X,Y,()=>houseArt(X-a*16,Y-(c==='h'?0:16),1,t,3));nt(X,Y)},
- doctor:(X,Y,x,y,t)=>{shadeG(X,Y,x,y,t);const c=at(x,y),[a]=blk(x,y,c,2,1);clip(X,Y,()=>houseArt(X-a*16,Y-(c==='K'?0:16),2,t,5));nt(X,Y)},
+ house:(X,Y,x,y,t)=>{cg(X,Y,x,y,t);const c=at(x,y),hut=c==='U',[a,d]=hut?blk(x,y,'U',2,2):[blk(x,y,c,2,1)[0],c==='H'?0:1];blit(house(hut?3:0,t,x-a+y*7),a*16,d*16,X,Y);nt(X,Y)},
+ twins:(X,Y,x,y,t)=>{earth(X,Y,x,y);const c=at(x,y),[a]=blk(x,y,c==='h'?'h':'aD',2,1);blit(house(1,t,3),a*16,c==='h'?0:16,X,Y);nt(X,Y)},
+ doctor:(X,Y,x,y,t)=>{shadeG(X,Y,x,y,t);const c=at(x,y),[a]=blk(x,y,c,2,1);blit(house(2,t,5),a*16,c==='K'?0:16,X,Y);nt(X,Y)},
  hearth:(X,Y,x,y,t)=>{shadeG(X,Y,x,y,t);[[1,9],[4,12],[9,13],[13,10],[12,6],[2,5]].forEach(([a,c])=>{r(X+a,Y+c,3,2,'#6E6B62');r(X+a,Y+c,3,1,'#8d8a80')});r(X+5,Y+8,6,4,'#2A2220');
   if(!E13()){r(X+6,Y+9,1,1,'#5a4a40');r(X+9,Y+10,1,1,'#5a4a40')}nt(X,Y)},
  stall:(X,Y,x,y,t)=>{cg(X,Y,x,y,t);const [a]=blk(x,y,'s',2,1);clip(X,Y,()=>stallArt(X-a*16,Y,E13()));nt(X,Y)},
