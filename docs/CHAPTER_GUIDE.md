@@ -40,18 +40,20 @@ CHAPTERS.push({id:'ch2',n:'2장',title:'잔해',place:'레스타리 · 버블타
   const WORDS=[…15–16 words…];
   const DICT={ word:{k:'Korean definition',e:'English',ex:'예문',hj:'漢字 · link to a known word'}, gloss:{k,e} … };
   const CONFUSE={word:['sound-alike','sound-alike']};   // used by listening questions
-  const BANK=[ {w,ask,opts}… ];                          // ≥1 extra review question per word
+  const BANK=[ {w,ask,opts}… ];                          // generic example sentences: what the 기억 돌 asks (≥1 per word)
   const Q={ npcKey:[ {w,ask:'… ___ …',opts:[['right',1],['wrong',0,'why, in Korean']]} … ] };
+  const CLASS={ part:{say,lines:[{w,who,ask,opts}]} };   // optional: practice while time passes (see Review)
+  const REVIEW=[ {w,by,ask,opts,pre?,when?} … ];         // in-character review lines (see Review)
   const ITEMS={'item name':'description'};
   const f=()=>state.f; const hasItem=i=>state.items.includes(i);
   const TILES={ myTile:(X,Y,x,y,t)=>{…} };               // new tile drawings for this chapter
   const ZONES={ zoneId:{name,reg,legend,map,rooms,warps,spots,npcs,dark?,outdoor?,base?,planet?} };
-  const NPC={ key:{name,zone,x,y,dir,look,badge,after,talk:()=>[…],script?,status?,pos?,hide?,pool?} };
+  const NPC={ key:{name,zone,x,y,dir,look,badge,after,talk:()=>[…],script?,status?,pos?,hide?,chat?} };
   const FOLLOW=null | {name,look,when:()=>bool,talk:()=>[…]};
-  const INTRO=[{who,say}…]; const DONE=['…','…'];
+  const INTRO=[{who,say}…]; const DONE=['…',{expand:()=>wrapUp()},'…'];
   function questText(){ … return 'place · task'; }
   const PLAYER=undefined; // optional player look (default: a Diligent crew member); or a function ()=>look to change it mid-chapter, e.g. a disguise
-  return {WORDS,DICT,CONFUSE,BANK,Q,ITEMS,ZONES,NPC,FOLLOW,INTRO,DONE,questText,TILES,PLAYER};
+  return {WORDS,DICT,CONFUSE,BANK,Q,REVIEW,CLASS,ITEMS,ZONES,NPC,FOLLOW,INTRO,DONE,questText,TILES,PLAYER};
  }});
 ```
 
@@ -60,7 +62,31 @@ CHAPTERS.push({id:'ch2',n:'2장',title:'잔해',place:'레스타리 · 버블타
 `{listen:w}` (only in review; engine builds it). Add to any step: `award:[words]` (adds to the log — put it on the LAST step of a talk),
 `give:'item'`, `take:['item']`, `set:()=>{f().flag=1}`, `who:'speaker'`, `when:()=>bool` (skip if false), `finale:1` (on the very last line of the chapter).
 Gloss markup inside text: `{shown text|DICT key}` — use for non-badge words a learner may not know.
-Every `ask` and `build` needs `w` (the word it practises). Review reuses all `Q` and `BANK` questions.
+Every `ask` and `build` needs `w` (the word it practises). A question that quotes its own scene gets `scene:1` (review never
+asks it); one that tests a grammar pattern rather than the word gets `gram:1`. Review is in character: see Review below.
+
+## Review: people ask in their own words
+Review is spaced repetition, and it happens in the story. When a word is due, someone who would naturally say it gets a ? and asks
+it in their own voice, about what is going on right then (세서 in 1장 uses 끓이다 about the grandfather who forgot the boiling medicine;
+with `who:'나'` you say the line yourself, as to 레이커 in 2장 once the bees no longer sting you). The answer grades the word. With
+nothing due, the same people say those lines as plain talk, the word filled in. The 기억 돌 is the one place that asks the generic
+`BANK` sentences.
+Write these lines in `REVIEW`; they are most of a chapter's review (1장 46, 2장 60, 3장 71, 4장 88):
+```js
+{w:'끓이다',by:'sethr',ask:'할아버지는 약을 ___ 깜박 잊고 어디론가 가 버렸어요.',opts:[['끓이다가',1],['끓이려고',0,'"-려고"는 앞으로 할 계획이에요. 끓이는 중에 잊어버렸으면 → "끓이다가".']]},
+{w:'쏘다',by:'raikerC',who:'나',when:()=>!!f().arraclid,pre:['후우—'],ask:'벌도 저를 안 ___. 짐승들도 저를 피해요.',opts:[…]},
+```
+- `by`: the NPC key, the character's name (any NPC with that name), or a list. `when`: the moment the line is true. A line must
+  never mention something that hasn't happened yet, or someone who has died or left (the end round checks `when` and `hide`).
+  `pre`: lines they say first. `who:'나'`: the player finishes their own sentence.
+- Give every word lines from several people across the chapter's moments, so it comes back in different scenes, and bring back
+  earlier chapters' words too (progress carries across chapters; lines with earlier words: 2장 17, 3장 27, 4장 42).
+- Wrong options and their explanations are in the speaker's register and stay in the scene. Lines are lore claims: they go through
+  the audit like any other text.
+- The engine paces it: someone still teaching teaches first, the first talk with anyone is never a review, and each person asks at
+  most once per story beat. Details in the walk-engine README.
+- Time passing: `CLASS` parts with `{expand:()=>classTime(CLASS,['patients','evening'])}` narrate a beat (1장's month as the
+  village doctor) and have someone there ask a line. `{expand:()=>wrapUp()}` in `DONE` gives one last round before the ending.
 
 ### NPCs and sprites
 People use the humanoid generator: `look:{hair,skin,shirt,pants,belt?,shoes?,style?,cap?,coat?,beard?,arm?}` (hex colors except flags).
@@ -74,7 +100,7 @@ a 16×32 sprite towers over its neighbours. Outline with '#1B1E2B', light from t
 is also available inside TILES for detailed tiles. `kind:'andy'` + `look:{body,visor}` still draws the simple robot.
 `badge:[words]` = words this NPC teaches; `talk()` = first conversation; `after` = line before a review question once taught.
 `script()` returns steps to override talk (state-dependent scenes) or `null` to fall back. `status()` returns 'todo'|'wait'|null|undefined (marker override).
-`pos()` → [x,y] for an NPC that moves after a flag. `hide()` → true removes them (e.g. they became the follower). `pool()` → review questions.
+`pos()` → [x,y] for an NPC that moves after a flag. `hide()` → true removes them (e.g. they became the follower).
 
 ### Zones and maps
 Maps are arrays of equal-length strings, at least 11×10 (the view), typically 22–28 wide × 14–18 high. Every char must be in `legend`
@@ -104,7 +130,8 @@ Optional short scenes (≤8 lines) shown in-world (a memory, a ghost's whisper, 
 - 15–16 words, none taught in earlier chapters (validator enforces), each with: a DICT entry (k, e, ex, hj where Sino-Korean),
   ≥2 questions total across Q+BANK, at least one teaching NPC, sound-alikes in CONFUSE.
 - 6–8 quest steps with items/flags; `questText()` covers every state; a finale on the last NPC line (`finale:1`) + `DONE` lines.
-- One or two `build` sentence questions; one NPC who reviews earlier chapters' words (no badge, like ch1's café).
+- One or two `build` sentence questions.
+- `REVIEW` lines for every word from several people and moments, plus lines that bring back earlier chapters' words.
 - A follower is welcome if the story supports one.
 - Lines short: ≤ ~40 Korean characters per `say`.
 
@@ -116,4 +143,6 @@ python3 tests/sheet.py chN         # contact sheets in tests/shots/chN/ — Read
 ```
 `tests/walk/chN.js` is a JS array of steps in player order (see `tests/walk/ch1.js`): `{intro:1,shot}`, `{talk:'npcKey',wrong?,shotBefore?,shotChoice?,shotBuild?}`,
 `{inspect:[zone,x,y],shot?}`, `{bump:[zone,'doorChar']}`, `{walkTo:[zone,x,y],then:'shotName'}`, `{check:()=>bool,msg}`, `{clock:ms}`, `{panel:1,shot}`.
-Cover every NPC, every item/flag, the finale, a review at the terminal after `{clock:26*3600e3}`, and ~10 named screenshots of distinct places/moments.
+`{reviewTour:zone|[zones]}` (with every word due, each person there who has a `REVIEW` line asks it) and `{hearTour:[zones]}`
+(nothing due: people say their lines as plain talk) test the review lines.
+Cover every NPC, every item/flag, the finale, review in character (`reviewTour`) and at the terminal after `{clock:26*3600e3}`, and ~10 named screenshots of distinct places/moments.

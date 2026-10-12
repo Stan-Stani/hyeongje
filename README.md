@@ -12,7 +12,8 @@ Sister game of [성실호](https://github.com/Stan-Stani/seongsilho) — same en
 | <img src="docs/img/4-wilds.png" width="240" alt="The wilds near 아로"> | <img src="docs/img/5-drovo.png" width="240" alt="The outcast yard at 드로보"> | <img src="docs/img/6-ancestors.png" width="240" alt="The house of the ancestors"> |
 | 2장 · the wilds | 3장 · 드로보 | 4장 · the ancestors' house |
 
-- Four chapters, each with its own save; spaced review at the memory stones
+- Four chapters, each with its own save; spaced review in the story (when a word is due, someone asks it in a line of their own
+  scene; earlier chapters' words come back the same way) and at the memory stones
 - Tap any Korean word for a simple Korean definition; English is behind the **?** button
 - Runs on the shared [walk engine](https://github.com/Stan-Stani/walk-engine) with 성실호, 점심 방송 and 단어 마을
 
