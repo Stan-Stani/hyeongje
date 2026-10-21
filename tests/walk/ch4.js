@@ -86,7 +86,7 @@
  {hearTour:Object.keys(C.ZONES)},
  {check:()=>{
    const scenes=window.__ch4Scenes,seen=(text,black,zone)=>scenes.some(s=>s.say.includes(text)&&s.black===black&&(!zone||s.zone===zone));
-   const cuts=['샤스킨, 오스텔, 그리고 저. 셋이었어요.','첫째 날.','아침부터 형제들하고','오후에도 계속','둘째 날.','저녁까지 흙 자루','셋째 날 저녁','넷째 날 아침','나가는데 샤스킨','그날부터 샤스킨','며칠 뒤, 상처','응답 신호','사흘을 걸었어요','돌아오는 길에','이틀 뒤,','며칠이 지났어요','위로 도망쳤어요','반은 안고 반은 끌고','밤하늘을 봐요'];
+   const cuts=['샤스킨, 오스텔, 그리고 저. 셋이었어요.','하루는 뿌리가','아침부터 형제들하고','오후에도 계속','다른 날, 땅속','저녁까지 흙 자루','셋째 날 저녁','넷째 날 아침','나가는데 샤스킨','며칠 뒤부터 샤스킨','며칠 뒤, 상처','응답 신호','사흘을 걸었어요','돌아오는 길에','이틀 뒤,','며칠이 지났어요','위로 도망쳤어요','반은 안고 반은 끌고','밤하늘을 봐요'];
    const here=[['길 끝에 이상한 언덕','entry'],['벽 안으로 들어온 뿌리는 다 잘랐어요','entry'],['땅속 방의 틈을 막았어요','buried'],['콘솔 방에 형제들이 모였어요','bridge'],['의료실의 부서진 금속 침대','bridge'],['아치 홀로 돌아왔어요','entry'],['여크는 다리를 절어요','entry'],['집에 돌아와 의료실로 갔어요','bridge'],['홀의 잠자리에서 일어났어요','entry']];
    const start=scenes.findIndex(s=>s.say.includes('땅속 방에서 목소리가 들려요')),end=scenes.findIndex((s,i)=>i>start&&s.say.includes('멜로리가 발을 걸었어요'));
    window.show=window.__ch4Show;

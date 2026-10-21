@@ -636,8 +636,8 @@ const NPC={
     {who:'세서',say:'싫어! 싫어!'},
     {say:'이제 너는 우리가 아니야.'},
     {who:think,say:'이상해요. 저한테는 세서가 똑같아 보여요.'},
-    {who:tale,say:'세서는 혼자 숲으로 걸어갔어요. 아무도 따라가지 않았어요.'},
-    {say:'핸드리, 코르토한테 가서 다친 데를 보여 줘. 큰 나무 왼쪽, 자기 집 앞에 있어.',set:()=>{f().severed=1}}];
+    {who:tale,say:'세서는 혼자 숲으로 걸어갔어요. 아무도 따라가지 않았어요.',set:()=>{f().severed=1},leave:{npc:'sethr',to:[25,11]}},
+    {say:'핸드리, 코르토한테 가서 다친 데를 보여 줘. 큰 나무 왼쪽, 자기 집 앞에 있어.'}];
    if(b('이웃')&&!f().severed&&!f().burned)return [{say:f().cortoGone?'코르토가 또 자리를 비웠네. 약이 식으면 시작할 거야.':'코르토가 큰 나무 아래에서 {단절약|단절약}을 끓이고 있어. 가 봐.'}];
    return null},
   talk:()=>[
@@ -678,7 +678,7 @@ const NPC={
     {who:tale,say:'한 달 뒤, 세서가 죽은 채 발견됐어요.'},
     {who:tale,say:'굶다가 빨간 잎 덤불의 열매를 너무 많이 먹었어요. 배가 터져 있었어요.'},
     {who:tale,say:'그리고 저도 이상해졌어요. 고기도 열매도 못 먹었어요.'},
-    {who:tale,say:'삼 년이 지났어요. 저는 열여섯 살이 됐어요.',set:()=>{f().later=1}}];
+    {who:tale,say:'삼 년이 지났어요. 저는 열여섯 살이 됐어요.',black:1,set:()=>{f().later=1}}];
    return null},
   talk:()=>[
    {say:'어? 핸드리구나. 가까이 오지 마라. 뜨거워.'},
@@ -688,7 +688,7 @@ const NPC={
    Q.corto[1],
    {who:tale,say:'코르토의 빈 눈에서 빛이 깜박… 꺼졌어요.'},
    {say:'…어디 가려고 했지? 아, 그래. 저기…'},
-   {who:tale,say:'코르토는 가마솥을 두고 어디론가 걸어갔어요.',award:['가마솥','끓이다'],set:()=>{f().cortoGone=1}}]},
+   {who:tale,say:'코르토는 가마솥을 두고 어디론가 걸어갔어요.',award:['가마솥','끓이다'],set:()=>{f().cortoGone=1},walk:{npc:'corto',from:[11,5]}}]},
  pot:{name:'가마솥',zone:'circle',x:10,y:5,dir:'down',look:POT,pos:()=>[10,5],
   hide:()=>!E13(),
   script:()=>{
@@ -807,8 +807,8 @@ const NPC={
    {say:'핸드리, 저 큰 벌 봐. 일렉터야.'},
    {say:'무서워? 나도 조금 무서워.'},
    {who:tale,say:'며칠 동안 일렉터들이 마을을 날아다녔어요. 아이들이 그 뒤를 쫓아다녔어요.'},
-   {who:tale,say:'어느 날, 저는 밭에서 일하고 있었어요.',go:['fields',9,7,'up']},
-   {who:'밭 일꾼',say:'일렉터가 새 의사를 골랐대!'},
+   {who:tale,say:'어느 날, 저는 밭에서 일하고 있었어요.',black:1,go:['fields',9,7,'up']},
+   {who:'밭 일꾼',say:'일렉터가 새 의사를 골랐대!',black:0},
    {who:'밭 일꾼',say:'누구야? 누가 됐어?'},
    {who:tale,say:'그때 사람들이 모두 저를 봤어요. 삼 년 만에 처음이었어요.'},
    {who:tale,say:'멜로리였어요. 일렉터가 멜로리를 골랐어요.'},
@@ -853,7 +853,7 @@ const NPC={
     {who:think,say:'아무도 안 줘요. 그럼 제가 가져가요.',give:'물바가지'},
     {who:think,say:'물통에서 물을 떠 마셨어요. 탄 빵도 먹었어요.',take:['탄 빵']},
     {who:think,say:'풀을 뽑다가 손목에 또 두드러기가 났어요.'},
-    {who:tale,say:'다음 날 아침, 마을에서 우는 소리가 들렸어요.',set:()=>{f().gourd=1},go:['circle',11,7,'up']}]},
+    {who:tale,say:'다음 날 아침, 마을에서 우는 소리가 들렸어요.',black:1,set:()=>{f().gourd=1},go:['circle',11,7,'up']}]},
   talk:()=>[]},
  edge:{name:'숲',zone:'fields',x:12,y:14,dir:'down',look:WILDS,badge:['도망치다'],  // the last word lands after the escape, so the 16/16 note doesn't break the climax
   pos:()=>f().fled?[12,15]:[12,14],  // from the flight on, the dark stands one tile back, so the gap itself can be walked into
@@ -907,7 +907,7 @@ const NPC={
     {who:tale,say:'그날부터 멜로리는 아로의 의사가 됐어요.'},
     {expand:()=>classTime(CLASS,['patients','evening'])},  // her month as doctor passes
     {who:tale,say:'한 달 동안 저는 봐 달라는 말을 못 했어요. 유령이 "안 돼"라고 할까 봐 무서웠어요.'},
-    {who:tale,say:'서른한 번째 밤. 집에는 우리 둘뿐이었어요.',award:['열이 나다'],set:()=>{f().woke=1;f().night=1}}];
+    {who:tale,say:'서른한 번째 밤. 집에는 우리 둘뿐이었어요.',black:1,award:['열이 나다'],set:()=>{f().woke=1;f().night=1}}];
    if(!b('두드러기'))return null;
    return [{say:'다녀왔어?'}]},
   talk:()=>[

@@ -744,12 +744,12 @@ const lowPoint=()=>[
  {who:'핸드리',w:'외롭다',build:['외로워도','저는','계속','걸어가요'],alts:[['저는','외로워도','계속','걸어가요']]},
  {who:'…',say:'날이 밝았어요.',set:()=>{f().resolve=1}},
  {who:'핸드리',say:'일어났어요. 여기 있으면 죽어요. 떠나야 돼요.'},
- {who:'…',say:'그날은 하루 종일 숲을 헤맸어요. 길을 하나도 몰랐어요.',go:['forest',21,7,'right']},  // §IV "I had no way of finding those paths… blundered through the trees"
+ {who:'…',say:'그날은 하루 종일 숲을 헤맸어요. 길을 하나도 몰랐어요.',black:1,go:['forest',21,7,'right']},  // §IV "I had no way of finding those paths… blundered through the trees"
  {who:'…',say:'다음 날, 멀리서 북소리가 들렸어요. 둥. 둥. 둥.'},  // §IV "A day after resolving to leave" 
- {who:'핸드리',say:'숲길 쪽이에요. 사람들 소리예요.',award:['외롭다']}];
+ {who:'핸드리',say:'숲길 쪽이에요. 사람들 소리예요.',black:0,award:['외롭다']}];
 
 /* ---------------- Cro: night falls after the welcome; morning after the last theft ---------------- */
-const nightFall=()=>[{who:'…',say:'잔치는 닷새 동안 계속됐어요.'},{expand:()=>classTime(CLASS,['잔치','숲 가장자리'])},{who:'…',say:'아로 사람들은 돌아갔어요. 칼턴은 남았어요.'},
+const nightFall=()=>[{who:'…',say:'잔치는 닷새 동안 계속됐어요.',black:1},{expand:()=>classTime(CLASS,['잔치','숲 가장자리'])},{who:'…',say:'아로 사람들은 돌아갔어요. 칼턴은 남았어요.'},
  {who:'…',say:'저는 숲에 숨어서 살았어요. 배가 고팠어요.'},{who:'…',say:'그리고 사흘에 한 번, 밤에 크로에 들어갔어요.',set:()=>{f().night=1}}];
 const LOOT=['크로 빵','옷','크로 꽃'];
 const morning=got=>LOOT.filter(i=>i!==got).every(hasItem)?[{who:'…',say:'날이 밝기 전에 숲으로 돌아왔어요.',set:()=>goZone('cro',2,2,'down')},{who:'…',say:'탄 빵하고 꽃을 먹었어요.',take:['크로 빵','크로 꽃']},
@@ -854,8 +854,8 @@ const NPC={
    {who:'핸드리',say:'칼턴은 어릴 때 친구예요. 제가 화상을 입은 뒤로 저하고 말도 안 했어요.'},
    {who:'핸드리',say:'저 불 옆에 가서 앉고 싶어요. 그런데 나가면 다들 저를 피할 거예요.'},  // §IV: "most certainly they would turn away from me"
    Q.escort[1],
-   {who:'…',say:'밤이 깊었어요. 저는 덤불 속에서 잤어요.'},
-   {who:'…',say:'아침에 {행렬|행렬}이 떠났어요. 둥, 둥… 북소리가 멀어져요.',set:()=>{f().left=1}},
+   {who:'…',say:'밤이 깊었어요. 저는 덤불 속에서 잤어요.',black:1},
+   {who:'…',say:'아침에 {행렬|행렬}이 떠났어요. 둥, 둥… 북소리가 멀어져요.',black:0,set:()=>{f().left=1}},
    {who:'핸드리',say:'행렬은 크로로 가요. 저도 그 길로 가요.',award:['숨다']}]},
  kaltonR:{name:'칼턴',zone:'road',x:10,y:9,dir:'up',look:KALTON,hide:()=>!!f().left,
   talk:()=>[{who:'…',say:'칼턴이 옆 사람한테 작게 물어요.'},{who:'칼턴',say:'…크로는 어떤 곳일까요?'},{who:'칼턴',say:'거기 사람들이 저를 좋아할까요?'},{who:'핸드리',say:'칼턴은 불 옆에 앉아서 무릎만 봐요.'}]},

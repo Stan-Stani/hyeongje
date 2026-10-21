@@ -906,7 +906,7 @@ const NPC={
     {who:'샤스킨',say:'나랑 같이 가자. 우리 같은 사람들이 사는 곳이 있어. 먹을 것도, 잘 곳도 있어.'},
     {who:'핸드리',say:'저는 처음으로 제가 더럽지 않다고 느꼈어요.'},
     {who:'핸드리',say:'갈게요.'},
-    {who:'…',say:'다음 날 아침, 우리 넷은 오로보를 떠났어요.',set:()=>{f().left=1}}];
+    {who:'…',say:'다음 날 아침, 우리 넷은 오로보를 떠났어요.',black:1,set:()=>{f().left=1},go:['road',2,7,'right']}];
    return null},
   talk:()=>[
    {who:'…',say:'밤이에요. 샤스킨이 불 옆에 앉아 있어요.'},
@@ -924,15 +924,15 @@ const NPC={
    {who:'샤스킨',say:'하늘을 봐. 별들은 뭘 위해 있을까?'},
    {who:'핸드리',say:'…네? 별이요?'},
    {who:'…',say:'샤스킨이 조금 실망한 얼굴을 했어요.'},
-   {who:'…',say:'그날 밤, 저는 오랜만에 깊이 잤어요.',award:['인구','이사하다'],set:()=>{f().budding=1}},
+   {who:'…',say:'그날 밤, 저는 오랜만에 깊이 잤어요.',black:1,award:['인구','이사하다'],set:()=>{f().budding=1}},
    {who:'…',say:'다음 날 아침, 밭 서쪽 길로 나갈 수 있게 됐어요. 새 나무로 가요.'}]},
- ostel:{name:'오스텔',zone:'orovo',x:18,y:9,dir:'left',look:OSTEL,hide:()=>!!f().left,
+ ostel:{name:'오스텔',zone:'orovo',x:18,y:9,dir:'left',look:OSTEL,pos:()=>f().warDone?[17,9]:[18,9],hide:()=>!!f().left,
   again:()=>[{who:'오스텔',say:WAR()?'마지막 밥을 먹었어. 내일은 어디서 먹을까?':'여기서는 밥을 먹어도 외로워.'}],
   talk:()=>[{who:'오스텔',say:'나는 오스텔. {파보|파보}에서 왔어.'},
    {who:'…',say:'키가 크고 아주 말랐어요. 얼굴과 가슴에 빨간 무늬가 그려져 있어요.'},
    {who:'핸드리',say:'누가 일부러 무늬처럼 그렸어요. 숨길 수 없게.'},
    {who:'오스텔',say:'너도 혼자야? …여기서는 다 혼자야.'}]},
- menic:{name:'메닉',zone:'orovo',x:18,y:10,dir:'left',look:MENIC,hide:()=>!!f().left,
+ menic:{name:'메닉',zone:'orovo',x:18,y:10,dir:'left',look:MENIC,pos:()=>f().warDone?[17,10]:[18,10],hide:()=>!!f().left,
   again:[{who:'메닉',say:'…쉬고 싶어. 말 시키지 마.'}],
   talk:()=>[{who:'메닉',say:'…졸려. 말 시키지 마.'},
    {who:'…',say:'키는 작은데 어깨가 넓어요. 힘이 세 보여요.'},
@@ -967,12 +967,12 @@ const NPC={
    if(!b('독'))return [{who:'샤스킨',say:'먼저 저쪽 사냥꾼 말을 들어. 이 나무에 사는 짐승을 알아야 해.'}];
    if(!b('던지다'))return null;
    if(F.bargain)return [
-    {who:'…',say:'싸움은 여드레 동안 계속됐어요.'},
+    {who:'…',say:'싸움은 여드레 동안 계속됐어요.',black:1},
     {who:'…',say:'매일 나무에 올라갔어요. 둥지를 부수고 알을 깼어요.'},
     {who:'…',say:'많은 추방자가 죽었어요.'},
     {who:'…',say:'여드레째 날, 남은 하분들이 숲으로 도망쳤어요. 우리는 돌을 던지며 쫓았어요.'},
-    {who:'샤스킨',say:'끝났다. 이제 이 나무는 오로보 거야.'},
-    {who:'샤스킨',say:'마당으로 돌아가자.',set:()=>{f().warDone=1}}];
+    {who:'샤스킨',say:'끝났다. 이제 이 나무는 오로보 거야.',black:0},
+    {who:'샤스킨',say:'마당으로 돌아가자.',set:()=>{f().warDone=1},leave:{npc:'sharskinTree',to:[23,14]}}];
    if(F.nestDone)return [{who:'샤스킨',say:'오늘은 끝. 쉬어.'},{who:'샤스킨',say:'오늘도 사람이 죽었어. 나무를 비우는 동안은 싸워야 해.'},{who:'핸드리',say:'저쪽 빈터 끝에서 누가 혼자 중얼거려요.'}];
    return null},
   talk:()=>[
@@ -1037,7 +1037,7 @@ const NPC={
    {who:'이블리스',say:'계산해 봤다. 안 된다.'},
    {who:'이블리스',say:'약속은 지킨다. 일하는 동안은 매일 먹인다.'},
    Q.ibr[0],
-   {who:'…',say:'이블리스는 벌써 나무 쪽을 보고 있어요. 저는 거기 없는 것 같아요.',set:()=>{const F=f();F.bargain=1;F.refused=1}}]},
+   {who:'…',say:'이블리스는 벌써 나무 쪽을 보고 있어요. 저는 거기 없는 것 같아요.',set:()=>{const F=f();F.bargain=1;F.refused=1},leave:{npc:'iblisTree',to:[23,14]}}]},
 
  /* ---- the road ---- */
  sharskinR:{name:'샤스킨',zone:'road',x:5,y:5,dir:'down',look:SHARSKIN,pos:()=>{const p=rp();return p<3?[5,5]:p===3?[15,5]:f().done||(b('폐허')&&b('버려지다'))?[27,7]:[25,6]},

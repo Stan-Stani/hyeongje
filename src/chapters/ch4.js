@@ -843,7 +843,7 @@ const NPC={
    return L[beats()%L.length]},  // a different hello as the story moves on (his teaching line, the snoring echo, isn't repeated every talk)
   script:()=>{const F=f();if(!b('메아리'))return null;
    if(F.trace&&!F.yerke)return [
-    {...N('그날부터 샤스킨은 저를 늘 옆에 두었어요.'),black:1},
+    {...N('며칠 뒤부터 샤스킨은 저를 늘 옆에 두었어요.'),black:1},
     N('가벨이라는 형제가 있었어요. 여자였어요.'),
     N('가벨은 형제 몇 명하고 어느 마을에 몰래 갔어요.'),
     N('형제들은 돌아왔어요. 가벨은 없었어요.'),
@@ -908,7 +908,7 @@ const NPC={
   status:()=>{const F=f();return F.saw&&b('목소리')&&!F.root?'todo':null},
   script:()=>{const F=f();if(F.root)return [N(F.work?'뿌리는 잘라도 계속 자라요. 매일 잘라야 해요.':'잘린 뿌리에서 하얀 즙이 나와요. 내일이면 또 자라요.')];
    if(!(F.saw&&b('목소리')))return [N('뿌리가 벽을 뚫고 들어왔어요. 금속이 찢어졌어요.')];
-   return [{...N('첫째 날. 뿌리가 벽을 뚫고 들어왔어요.'),black:1},N('아침부터 형제들하고 칼로 뿌리를 잘랐어요.'),{expand:()=>classTime(CLASS,['root'])},N('오후에도 계속 잘랐어요.'),Q.root[0],{who:'…',say:'저녁이에요. 벽 안으로 들어온 뿌리는 다 잘랐어요.',black:0,set:()=>{f().root=1;checkWork()}}]},
+   return [{...N('하루는 뿌리가 벽을 뚫고 들어왔어요.'),black:1},N('아침부터 형제들하고 칼로 뿌리를 잘랐어요.'),{expand:()=>classTime(CLASS,['root'])},N('오후에도 계속 잘랐어요.'),Q.root[0],{who:'…',say:'저녁이에요. 벽 안으로 들어온 뿌리는 다 잘랐어요.',black:0,set:()=>{f().root=1;checkWork()}}]},
   talk:()=>[]},
  bro1:{name:'형제 (여자)',zone:'entry',x:13,y:4,dir:'down',look:BRO1,hide:()=>{const F=f();return F.sharDead&&!F.fed},
   script:()=>{const F=f();if(F.night&&!F.sharDead)return [N('형제가 벽에 기대어 자요.')];if(F.fed)return [{who:'형제 (여자)',say:'돌아왔어. 갈 데가 없어서.'},{who:'형제 (여자)',say:'샤스킨이 없으니까 조용하네.'}];return null},
@@ -964,7 +964,7 @@ const NPC={
  sharB:{name:'샤스킨',zone:'bridge',x:8,y:9,dir:'down',look:SHARSKIN,badge:['설교하다','유령'],
   /* in the medical room from the sermon until Yerke's death (§VII: after the initiation he stays there talking to the House) */
   pos:()=>{const F=f();if(F.free)return [3,3];if(F.sermon&&!F.yerke)return [22,6];if(F.raid&&!F.interro)return [6,6];if(F.interro)return [12,8];return [8,9]},
-  hide:()=>{const F=f();if(F.free)return !F.sharIn||!!F.sharDead;return !F.arrived||(F.yerke&&!F.raid)},
+  hide:()=>{const F=f();if(F.free)return !F.sharIn||!!F.sharDead;if(F.night)return true;return !F.arrived||(F.yerke&&!F.raid)},  // asleep elsewhere while Handry and Melory hide here
   status:()=>{const F=f();if(F.free)return null;if(F.saw&&b('목소리')&&F.work&&!F.sermon)return 'todo';if(!b('설교하다'))return null;return undefined},
   get after(){const F=f();return F.sermon&&!F.trace?'내일 아침 여기서 {입문식|입문식}을 한다. 가만히 서 있으면 된다.':'형제여, 조상들의 집에서는 일하고 먹는다.'},  // after the sermon he waits in the medical room (he says "here", not "let's go there"), then one of his REVIEW lines
   script:()=>{const F=f();
@@ -997,7 +997,7 @@ const NPC={
   talk:()=>[]},
  listen1:{name:'형제',zone:'bridge',x:6,y:10,dir:'up',look:BRO3,hide:()=>{const F=f();return !(F.work&&!F.sermon)},talk:()=>[N('형제가 설교를 기다려요. 눈이 반짝여요.')]},
  listen2:{name:'형제 (여자)',zone:'bridge',x:10,y:10,dir:'up',look:BRO4,hide:()=>{const F=f();return !(F.work&&!F.sermon)},talk:()=>[N('형제가 조용히 앉아 있어요.')]},
- young:{name:'젊은 형제',zone:'bridge',x:12,y:13,dir:'left',look:YOUNG,badge:['영혼'],hide:()=>{const F=f();return F.sharDead&&!F.fed},
+ young:{name:'젊은 형제',zone:'bridge',x:12,y:13,dir:'left',look:YOUNG,badge:['영혼'],hide:()=>{const F=f();return F.sharDead&&!F.fed||F.night&&!F.sharDead},
   status:()=>!b('영혼')?(f().sermon?'todo':null):undefined,
   get after(){const F=f();return F.interro?'네 누나가 왔다니… 그래도 샤스킨 말이 맞을 거야.':F.yerke?'여크도 조상들 곁에 있을 거야.':'나는 아직도 조상들이 우리를 본다고 믿어.'},
   script:()=>{const F=f();if(!F.sermon)return [{who:'젊은 형제',say:'저녁 설교 때 보자.'}];if(F.fed)return [{who:'젊은 형제',say:'조상들의 영혼이 아니었구나…'},{who:'젊은 형제',say:'그래도 이 집은 우리 집이야.'}];return null},
@@ -1118,7 +1118,7 @@ const NPC={
  crack:{name:'흙이 새는 틈',zone:'buried',x:8,y:1,dir:'down',look:CRACK,pos:()=>[8,1],  // by the north wall, in view from the stairs (it was in the far dark corner)
   status:()=>{const F=f();return F.saw&&b('목소리')&&!F.crack?'todo':null},
   script:()=>{const F=f();if(F.crack)return [N('흙 자루가 틈을 막고 있어요.')];
-   return [{...N('둘째 날. 땅속 방이에요. 벽에 금이 갔어요.'),black:1},N('틈으로 흙이 쏟아져 들어와요.'),N('형제들하고 자루에 흙을 담았어요.'),Q.crack[0],{expand:()=>classTime(CLASS,['crack'])},{who:'…',say:'땅속 방의 틈을 막았어요. 흙 자루가 쌓여 있어요.',black:0,set:()=>{f().crack=1;checkWork()}}]},
+   return [{...N('다른 날, 땅속 방 벽에 금이 갔어요.'),black:1},N('틈으로 흙이 쏟아져 들어와요.'),N('형제들하고 자루에 흙을 담았어요.'),Q.crack[0],{expand:()=>classTime(CLASS,['crack'])},{who:'…',say:'땅속 방의 틈을 막았어요. 흙 자루가 쌓여 있어요.',black:0,set:()=>{f().crack=1;checkWork()}}]},
   talk:()=>[]},
  melB:{name:'멜로리',zone:'buried',x:17,y:4,dir:'down',look:MEL_CAPTIVE,pos:()=>[17,4],badge:['묶다','칼'],hide:()=>{const F=f();return !(F.interro&&!F.free)},
   status:()=>{const F=f();if(F.vernen&&!F.free)return 'todo';return F.night?null:'wait'},
@@ -1159,12 +1159,12 @@ const NPC={
    N('저는 칼로 버넌을 세 번 {찔렀어요|찌르다}.'),  // §IX: no question in the fight; BANK and later living speakers review the word
    N('버넌의 소리가 뚝 끊겼어요.'),
    N('버넌이 움직이지 않아요. 죽었어요.'),
-   {who:'오스텔',say:'배신자… 핸드리, 그 여자는 네 쌍둥이가 아니야. 다 버리지 마.'},
+   {who:'오스텔',say:'배신자… 핸드리, 그 여자는 네 누나가 아니야. 다 버리지 마.'},
    N('제가 다가가자 오스텔이 뒤로 물러났어요.'),
    {who:'…',say:'오스텔이 멜로리 옆을 지날 때, 멜로리가 발을 걸었어요. 오스텔이 넘어졌어요.',award:['찌르다'],set:()=>{f().vernen=1}}]},  // the kick comes after the leash is cut (melB)
  ostelB:{name:'오스텔',zone:'buried',x:18,y:5,dir:'left',get look(){return f().vernen?OSTEL_DOWN:OSTEL},pos:()=>[18,5],hide:()=>{const F=f();return !F.interro||!!F.sharDead},
   script:()=>{const F=f();return F.free?[N('오스텔이 정신을 잃고 쓰러져 있어요.')]:F.vernen?[N('오스텔이 바닥에 누워서 숨을 헐떡여요.')]:null},  // tripped (§IX "lay gasping for breath"), then kicked out once the leash is cut
-  talk:()=>[{who:'오스텔',say:'핸드리, 가까이 오지 마.'},{who:'오스텔',say:'그 여자는 이제 네 쌍둥이가 아니야. 유령이야.'}]},
+  talk:()=>[{who:'오스텔',say:'핸드리, 가까이 오지 마.'},{who:'오스텔',say:'그 여자는 이제 네 누나가 아니야. 유령이야.'}]},
 };
 const FOLLOW=null;
 
