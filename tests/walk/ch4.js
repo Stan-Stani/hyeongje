@@ -58,7 +58,8 @@
  {talk:'bunk',shotSay:{text:'며칠이 지났어요',name:'19-guilty-days-black'}},
  {check:()=>state.f.night,msg:'night'},
  {walkTo:['entry',15,10],then:'20-night-hall'},
- {talk:'vernenB',shotBefore:'21-vernen-ostel',shotSay:{text:'세 번',name:'21-fight-uninterrupted'}},
+ {walkTo:['buried',12,1]},  // coming down the stairs at night starts Vernen's scene (the zone's greet)
+ {intro:1,shot:'21-vernen-ostel'},
  {check:()=>state.f.vernen,msg:'Vernen dead, Ostel down'},
  {talk:'melB',wrong:true,shotBefore:'22-after-fight'},
  {check:()=>state.f.free&&state.items.includes('밧줄 조각'),msg:'rope cut'},
@@ -86,7 +87,7 @@
  {hearTour:Object.keys(C.ZONES)},
  {check:()=>{
    const scenes=window.__ch4Scenes,seen=(text,black,zone)=>scenes.some(s=>s.say.includes(text)&&s.black===black&&(!zone||s.zone===zone));
-   const cuts=['샤스킨, 오스텔, 그리고 저. 셋이었어요.','하루는 뿌리가','아침부터 형제들하고','오후에도 계속','다른 날, 땅속','저녁까지 흙 자루','셋째 날 저녁','넷째 날 아침','나가는데 샤스킨','며칠 뒤부터 샤스킨','며칠 뒤, 상처','응답 신호','사흘을 걸었어요','돌아오는 길에','이틀 뒤,','며칠이 지났어요','위로 도망쳤어요','반은 안고 반은 끌고','밤하늘을 봐요'];
+   const cuts=['샤스킨, 오스텔, 그리고 저. 셋이었어요.','하루는 뿌리가','아침부터 형제들하고','오후에도 계속','다른 날, 땅속','저녁까지 흙 자루','셋째 날 저녁','넷째 날 아침','나가는데 샤스킨','며칠 뒤부터 샤스킨','며칠 뒤, 상처','응답 신호','사흘을 걸었어요','돌아오는 길에','이틀 뒤,','며칠이 지났어요','위로 도망쳤어요','반은 안고 반은 끌고','밤하늘을 봤어요'];
    const here=[['길 끝에 이상한 언덕','entry'],['벽 안으로 들어온 뿌리는 다 잘랐어요','entry'],['땅속 방의 틈을 막았어요','buried'],['콘솔 방에 형제들이 모였어요','bridge'],['의료실의 부서진 금속 침대','bridge'],['아치 홀로 돌아왔어요','entry'],['여크는 다리를 절어요','entry'],['집에 돌아와 의료실로 갔어요','bridge'],['홀의 잠자리에서 일어났어요','entry']];
    const start=scenes.findIndex(s=>s.say.includes('땅속 방에서 목소리가 들려요')),end=scenes.findIndex((s,i)=>i>start&&s.say.includes('멜로리가 발을 걸었어요'));
    window.show=window.__ch4Show;
