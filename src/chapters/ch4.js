@@ -181,7 +181,7 @@ const Q={ // NPC questions, kept here so review can reuse them
   {who:'…',w:'권한',ask:'집이 멜로리에게 명령 ___을 줬어요.',opts:[['권한',1],['관심',0,'관심은 궁금해하는 마음이에요. 명령할 수 있는 힘 → "권한".'],['공간',0,'공간은 비어 있는 곳이에요. 명령할 수 있는 힘 → "권한".']]},
  ],
  offer:[
-  {who:'…',w:'치료하다',ask:'멜로리는 의사예요. 핸드리를 ___ 해요.',opts:[['치료하려고',1],['치료할 뻔',0,'"-(으)ㄹ 뻔하다"는 거의 일어났는데 안 일어난 일이에요. 하고 싶은 일 → "치료하려고 해요".'],['치워 주려고',0,'치우다는 물건을 정리하는 거예요. 몸을 낫게 하면 → "치료하려고 해요".']]},
+  {who:'…',w:'치료하다',ask:'멜로리는 의사예요. 저를 ___ 해요.',opts:[['치료하려고',1],['치료할 뻔',0,'"-(으)ㄹ 뻔하다"는 거의 일어났는데 안 일어난 일이에요. 하고 싶은 일 → "치료하려고 해요".'],['치워 주려고',0,'치우다는 물건을 정리하는 거예요. 몸을 낫게 하면 → "치료하려고 해요".']]},
   {who:'…',w:'혈관',ask:'피가 흐르는 길, ___. 거기에 멜로리의 피가 들어간대요.',opts:[['혈관',1],['현관',0,'현관은 집에 들어가는 문 앞이에요. 피가 흐르는 길은 "혈관".'],['혈액형',0,'혈액형은 A형, B형 같은 거예요. 피가 흐르는 길은 "혈관".']]},
   {who:'멜로리',w:'거절하다',ask:'내 치료를 ___ 거야? …정말?',opts:[['거절하는',1],['받는',0,'받으면 "안 할래" 안 하지. "아니, 안 할래" 하면 → "거절하는" 거야.'],['좋아하는',0,'좋아하면 "안 할래" 안 하지. "아니, 안 할래" 하면 → "거절하는" 거야.']]},
  ],
@@ -873,7 +873,7 @@ const NPC={
   again:()=>{const F=f();return [{who:'버넌',say:
    F.raid?'마을 놈들도 별거 없더라. 흥.':
    F.yerke?'여크는 가시 하나에 죽었어. 이 세상은 다 썩었어.':
-   F.trace?'샤스킨은 왜 너만 옆에 두는 거야?':
+   F.trace?'샤스킨이 너만 의료실에 데려갔지? 왜 너야?':
    F.sermon?'샤스킨 말 들었지? 우리는 마을 놈들하고 달라.':
    F.root||F.crack?'일 끝났다고 쉬게? 뿌리는 내일 또 자라.':
    F.saw?'그림 좀 봤다고 일을 빼먹지 마.':
@@ -991,7 +991,7 @@ const NPC={
     S('들었느냐? 조상들은 유령을 다르게 불렀다.'),
     Q.sermon[0],  // after the House's voices, not right after "설교해요"
     Q.sermon[2],
-    {who:'…',say:'저는 그 말들을 다 믿었어요.',award:['설교하다','유령'],set:()=>{f().sermon=1}}];
+    {who:'…',say:'저는 그 말들을 다 믿었어요.',award:['설교하다','유령'],set:()=>{f().sermon=1},leave:[{npc:'listen1',to:[8,15]},{npc:'listen2',to:[8,15]}],walk:{npc:'sharB',from:[8,9]}}];
    if(!F.trace)return null;  // the medical-room pointer is his `after` now, so a review line can follow it
    if(!F.yerke)return [N('샤스킨이 혼자 집하고 이야기해요. 집이 샤스킨 목소리로 천천히 대답해요.'),S('일하러 가라, 핸드리.')];  // §VII "Go back to your work, boy… the House answered him slowly in his own voice"
    if(F.raid&&!F.interro)return [S('보아라, 핸드리. 네 의사 유령이 왔다.')];
@@ -1055,7 +1055,7 @@ const NPC={
    N('멜로리 몸이 덜덜 떨려요. 등이 활처럼 휘어요.'),
    M('으… 당신… 미쳤어.'),
    N('저는 보기만 했어요. 아무것도 안 했어요.'),
-   {who:'샤스킨',say:'땅속 방에 묶어 둬라. 내일 또 한다.',set:()=>{f().interro=1}}]},
+   {who:'샤스킨',say:'땅속 방에 묶어 둬라. 내일 또 한다.',set:()=>{f().interro=1},leave:{npc:'melI',to:[8,15]},walk:{npc:'sharB',from:[6,6]}}]},
  melBr:{name:'멜로리',zone:'bridge',x:1,y:3,dir:'right',look:MEL_FREE,badge:['권한','치료하다','혈관','거절하다'],
   pos:()=>f().sharDead?[10,9]:[1,3],hide:()=>!f().free,
   status:()=>{const F=f();if(!F.sharDead||!F.offer)return 'todo';if(F.done)return undefined;return F.ownVoice&&F.fed?'todo':'wait'},
@@ -1101,7 +1101,7 @@ const NPC={
     H('고마워, 멜로리. 그래도 안 할래.'),
     Q.offer[2],
     H('응. 나는 이대로 있을게.'),
-    {who:'…',w:'거절하다',build:['핸드리는','치료를','거절했어요']},
+    {who:'…',w:'거절하다',build:['저는','치료를','거절했어요']},
     M('…알았어. 그럼 집의 권한을 너하고 나눌게.'),
     {who:'…',say:'이제 집은 저한테도 대답해요.',award:['치료하다','혈관','거절하다'],set:()=>{f().offer=1}}];
    if(!(F.ownVoice&&F.fed))return [M(!F.ownVoice?'집하고 이야기해 봐. 이제 너도 할 수 있어.':'형제들이 돌아오고 있대. 가 봐.')];

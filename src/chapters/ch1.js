@@ -656,7 +656,7 @@ const NPC={
   talk:()=>f().burned?[{say:'너, 저 약에 데었냐?'},{say:'그래도 넌 쫓겨나지는 않잖아.'}]  // after the scald: he notices it, in his own way
    :[{say:'뭘 봐? 구경났어?'},{say:'내 잘못 아니야. 다들 나만 미워해.'},{say:'…숲에 혼자 가면 어떻게 될까?'}]},
  corto:{name:'의사 코르토',zone:'circle',x:11,y:5,dir:'left',look:CORTO,badge:['가마솥','끓이다','상처'],
-  pos:()=>E13()?(f().cortoGone?[4,5]:[11,5]):[4,4],
+  pos:()=>E13()?(f().cortoGone?[4,5]:(C.NPC.corto.at||[11,5])):[4,4],  // .at: where his move: left him (he walks off mid-line)
   hide:()=>!E13()&&(!!f().gourd||NIGHT()),
   status:()=>{if(!E13())return null;if(!b('가마솥'))return 'todo';if(f().severed&&!b('상처'))return 'todo';if(!b('상처'))return null},
   after:'세라는 어디 갔지…? 아, 그래. 오래전에 갔지.',
@@ -687,8 +687,8 @@ const NPC={
    {say:'불을 꺼뜨리면 안 돼. 아직 다 안 됐어.'},
    Q.corto[1],
    {who:tale,say:'코르토의 빈 눈에서 빛이 깜박… 꺼졌어요.'},
-   {say:'…어디 가려고 했지? 아, 그래. 저기…'},
-   {who:tale,say:'코르토는 가마솥을 두고 어디론가 걸어갔어요.',award:['가마솥','끓이다'],set:()=>{f().cortoGone=1},walk:{npc:'corto',from:[11,5]}}]},
+   {say:'…어디 가려고 했지? 아, 그래. 저기…',move:{npc:'corto',to:[4,5],dir:'left'}},  // he wanders off as he says it
+   {who:tale,say:'코르토는 가마솥을 두고 어디론가 걸어갔어요.',award:['가마솥','끓이다'],set:()=>{f().cortoGone=1}}]},
  pot:{name:'가마솥',zone:'circle',x:10,y:5,dir:'down',look:POT,pos:()=>[10,5],
   hide:()=>!E13(),
   script:()=>{
