@@ -114,7 +114,7 @@ const Q={ // NPC questions, kept here so review can reuse them
  ],
  baker:[
   {w:'타다',ask:'원래는 빵이 ___ 계속 지켜봐.',opts:[['탈까 봐',1],['타서',0,'"타서"는 벌써 탔다는 말이야. 걱정이면 → "탈까 봐".'],['타려고',0,'빵은 계획이 없어! 걱정이면 → "탈까 봐".']]},
-  {w:'타다',ask:'빵을 너무 오래 구우면 까맣게 ___.',opts:[['타',1],['{데|데다}',0,'데다는 사람 피부가 뜨거운 것에 다치는 거야. 빵은 → "타".']]},
+  {w:'타다',ask:'빵을 너무 오래 구우면 까맣게 ___.',opts:[['타',1],['데',0,'데다는 사람 피부가 뜨거운 것에 다치는 거야. 빵은 → "타".']]},
  ],
  brosa:[
   {w:'공동체',ask:'우리는 한 나무 아래 사는 하나의 ___예요.',opts:[['공동체',1],['공부',0,'공부는 책으로 배우는 거예요. 같이 사는 사람들은 "공동체".'],['공기',0,'공기는 숨 쉬는 거예요. 같이 사는 사람들은 "공동체".']]},
@@ -435,7 +435,7 @@ const CORTO=hum({hair:'#D8D4CC',skin:'#B98462',shirt:'#7A3A34',pants:'#4A3A2E',s
 const SL={hair:'#5A3A22',skin:'#D2A27A',shirt:'#7A6A4A',pants:'#4A4038',style:'spiky'};
 const SETHR=hum(SL),SETHR_RED=hum(SL,(rows,d)=>{for(let y=4;y<8;y++)rows[y]=rows[y].replace(/[SsM]/g,(m,i)=>i%3?'R':'r');for(let y=8;y<12;y++)rows[y]=rows[y].replace(/S/g,'R')},RED);
 const KAL13=hum({hair:'#3A2A1E',skin:'#B07A56',shirt:'#4A6A7A',pants:'#3E3A30'}),KAL16=hum({hair:'#3A2A1E',skin:'#B07A56',shirt:'#3E5A66',pants:'#3E3A30',belt:'#5a4229'});
-const LIV13=hum({hair:'#7A4A2A',skin:'#D9A882',shirt:'#C9853A',pants:'#5A4A3A',style:'bob',lashes:1,lips:'#C46A70'}),LIV16=hum({hair:'#7A4A2A',skin:'#D9A882',shirt:'#A8642E',pants:'#5A4A3A',style:'long',lashes:1,lips:'#C46A70'});
+const LIV13=hum({hair:'#7A4A2A',skin:'#D9A882',shirt:'#C9853A',pants:'#5A4A3A',style:'bob',lashes:1,lips:'#C46A70'}),LIV16=hum({hair:'#7A4A2A',skin:'#D9A882',shirt:'#5E7A4A',pants:'#5A4A3A',style:'long',lashes:1,lips:'#C46A70'});
 const CHOG=hum({hair:'#2A2A2A',skin:'#A87654',shirt:'#7E6A3A',pants:'#3E3A30',style:'spiky'}),CHOG16=hum({hair:'#2A2A2A',skin:'#A87654',shirt:'#6A5A30',pants:'#3E3A30',belt:'#5a4229',style:'spiky'});
 const BROSA=hum({hair:'#E0DCD4',skin:'#C49870',shirt:'#4E6A5A',pants:'#3E4A40',style:'bun',coat:1,lashes:1,lips:'#A0605A'},(rows,d)=>{if(d==='down'){px(rows,4,6,'X');px(rows,4,9,'X');px(rows,3,8,'X')}},p=>{p.X='#A87A5A'});
 const BAKER=hum({hair:'#4A3426',skin:'#C48E66',shirt:'#D8CBB0',pants:'#5A4632',belt:'#8a6a44',beard:'#4A3426'});
@@ -675,7 +675,7 @@ const NPC={
     {say:'…세라? 세라, 어디 있어? 애가 다쳤어.'},
     {who:think,say:'세라는 코르토의 아내였어요. 아주 오래전에 죽었어요.'},
     {say:'세라… 추워.',award:['상처']},
-    {who:tale,say:'한 달 뒤, 세서가 죽은 채 발견됐어요.'},
+    {who:tale,say:'한 달 뒤, 세서가 죽은 채 발견됐어요.',black:1},
     {who:tale,say:'굶다가 빨간 잎 덤불의 열매를 너무 많이 먹었어요. 배가 터져 있었어요.'},
     {who:tale,say:'그리고 저도 이상해졌어요. 고기도 열매도 못 먹었어요.'},
     {who:tale,say:'삼 년이 지났어요. 저는 열여섯 살이 됐어요.',black:1,set:()=>{f().later=1}}];
@@ -741,7 +741,7 @@ const NPC={
    :[{say:'가까이 가지 마라. 저 약은 한 방울도 몸에 묻으면 안 돼.'}]},
  chogger13:{name:'초거',zone:'circle',x:18,y:8,dir:'down',look:CHOG,
   hide:()=>!E13(),
-  talk:()=>f().burned?[{say:'핸드리, 괜찮아? 많이 아프지?'}]:[{say:'슈거웜 꼬치 먹었어? 진짜 달아!'},{say:'세서는 오늘 쫓겨난대. 무섭다.'}]},
+  talk:()=>f().burned?[{say:'핸드리, 괜찮아? 많이 아프지?'}]:[{say:'슈거웜 꼬치 먹었어? 진짜 달아!'},f().severed?{say:'세서는 결국 숲으로 갔어. 무섭다.'}:{say:'세서는 오늘 쫓겨난대. 무섭다.'}]},
  baker:{name:'빵 굽는 아저씨',zone:'circle',x:14,y:15,dir:'down',look:BAKER,badge:['타다'],
   hide:()=>NIGHT(),
   status:()=>{if(E13())return null;if(!b('타다'))return b('두드러기')?'todo':null},
@@ -769,7 +769,7 @@ const NPC={
  brosa:{name:'설계자 브로사',zone:'circle',x:11,y:5,dir:'down',look:BROSA,badge:['공동체'],
   hide:()=>E13()||NIGHT(),
   status:()=>{if(!b('공동체'))return f().gourd?'todo':null;return f().waiting?undefined:null},
-  get after(){return f().stung?['일렉터가 언제 새 의사를 고를까요?','…아, 그렇지. 벌써 골랐죠. 멜로리가 새 의사예요.']:'드디어 일렉터가 나왔어요. 곧 새 의사가 생길 거예요.'},  // she forgets, then remembers (§II "going the same way" as Corto); her badge comes with the waiting, when the Electors are out
+  get after(){return f().stung?['일렉터가 언제 새 의사를 고를까요?','…아, 그렇지. 벌써 골랐죠. 멜로리가 새 의사예요.']:b('벌')?'드디어 일렉터가 나왔어요. 곧 새 의사가 생길 거예요.':'같이 기다려요. 곧 일렉터가 나올 거예요.'},  // she forgets, then remembers (§II "going the same way" as Corto); her badge comes with the waiting, when the Electors are out
   script:()=>!f().gourd?[{say:'코르토는 이제 아무것도 못 해요. 의사가 없는 거랑 같아요.'},{say:'…내가 무슨 말을 하고 있었지?'}]:null,
   talk:()=>[
    {who:think,say:'브로사 앞에 사람들이 모여 있어요.'},
@@ -780,7 +780,7 @@ const NPC={
    {say:'곧 벌집에서 {일렉터|일렉터}가 나와요. 새 의사를 고르는 특별한 벌이에요.'},
    Q.brosa[0],
    {say:'공동체는 같이 기다려요. 같이 견뎌요.'},
-   {who:tale,say:'열흘 넘게 아로는 숨죽여 기다렸어요.',award:['공동체'],set:()=>{f().waiting=1}}]},
+   {who:tale,say:'열흘 넘게 아로는 숨죽여 기다렸어요.',black:1,award:['공동체'],set:()=>{f().waiting=1}}]},
  mourn1:{name:'마을 사람',zone:'circle',x:10,y:6,dir:'up',look:CROWD1,  // the people gathered before Brosa the morning Corto dies
   hide:()=>E13()||NIGHT()||!f().gourd||!!f().waiting,
   talk:()=>[{who:think,say:'아주머니는 브로사만 봐요. 저를 못 봐요.'},{say:'코르토 할아버지가… 새 의사는 언제 생겨?'}]},
@@ -806,7 +806,7 @@ const NPC={
   talk:()=>[
    {say:'핸드리, 저 큰 벌 봐. 일렉터야.'},
    {say:'무서워? 나도 조금 무서워.'},
-   {who:tale,say:'며칠 동안 일렉터들이 마을을 날아다녔어요. 아이들이 그 뒤를 쫓아다녔어요.'},
+   {who:tale,say:'며칠 동안 일렉터들이 마을을 날아다녔어요. 아이들이 그 뒤를 쫓아다녔어요.',black:1},
    {who:tale,say:'어느 날, 저는 밭에서 일하고 있었어요.',black:1,go:['fields',9,7,'up']},
    {who:'밭 일꾼',say:'일렉터가 새 의사를 골랐대!',black:0},
    {who:'밭 일꾼',say:'누구야? 누가 됐어?'},
@@ -901,10 +901,10 @@ const NPC={
     {who:think,say:'물바가지로 천을 적셔서 이마에 올려요.',take:['물바가지']},
     Q.melFever[1],
     {who:tale,say:'멜로리 얼굴 왼쪽이 부어올랐어요. 왼쪽 눈이… 없어졌어요.'},
-    {who:tale,say:'셋째 날 아침, 멜로리가 눈을 떴어요.'},
-    {say:'…핸드리? 나야. 아직 나야.'},
+    {who:tale,say:'셋째 날 아침, 멜로리가 눈을 떴어요.',black:1},
+    {say:'…핸드리? 나야. 아직 나야.',black:0},
     {who:think,say:'빈 눈 속에서 하얀 빛이 깜박여요.',set:()=>{f().glow=1}},
-    {who:tale,say:'그날부터 멜로리는 아로의 의사가 됐어요.'},
+    {who:tale,say:'그날부터 멜로리는 아로의 의사가 됐어요.',black:1},
     {expand:()=>classTime(CLASS,['patients','evening'])},  // her month as doctor passes
     {who:tale,say:'한 달 동안 저는 봐 달라는 말을 못 했어요. 유령이 "안 돼"라고 할까 봐 무서웠어요.'},
     {who:tale,say:'서른한 번째 밤. 집에는 우리 둘뿐이었어요.',black:1,award:['열이 나다'],set:()=>{f().woke=1;f().night=1}}];
@@ -918,7 +918,7 @@ const NPC={
    Q.melA[1],
    {who:think,say:'저는 고기도 열매도 못 먹어요. 거의 탄 빵만 먹어요.'},
    {say:'빵 굽는 아저씨한테 가. 탄 빵 부탁해 놨어.'},
-   {say:'먹고 밭에 가. 나도 이따 갈게.',award:['두드러기','가렵다']}]},
+   {say:'먹고 밭에 가. 나도 이따 갈게.',award:['두드러기','가렵다'],leave:{npc:'melHome',to:[5,9]}}]},
 };
 
 const FOLLOW=null;
