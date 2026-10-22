@@ -934,7 +934,7 @@ const NPC={
   status:()=>b('도둑')?undefined:'todo',
   /* the bakery yard's low wall runs either side of him (10,12 and 12,12) and you can talk across it. Face to face at the yard's open
      side you'd be seen, so you slip back behind the wall instead; at the pen he only has eyes for the beasts */
-  get after(){if(f().noise)return [{who:'…',say:'파수꾼은 짐승 우리만 봐요. 제 쪽은 안 봐요.'},'쉿, 쉿! 왜 이렇게 시끄러워?'];
+  get after(){if(f().noise)return [{who:'…',say:'파수꾼은 {짐승 우리|짐승 우리}만 봐요. 제 쪽은 안 봐요.'},'쉿, 쉿! 왜 이렇게 시끄러워?'];
    return player.x===11&&player.y===13?[{who:'…',say:'파수꾼 바로 앞이에요! 얼른 돌담 뒤로 숨었어요.',go:['cro',13,12,'left']}]:'이상하네요. 아무도 없어요.'},
   talk:()=>[
    {who:'핸드리',say:'낮은 돌담 뒤에 숨었어요. 빵집 앞에 {파수꾼|파수꾼}이 있어요.',go:['cro',13,12,'left']},  // behind the low wall at 12,12, the watchman at 11,12 on its other side

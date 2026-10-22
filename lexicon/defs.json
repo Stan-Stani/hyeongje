@@ -2360,8 +2360,8 @@
 "k": "하나가 여러 개로 갈라져요."
 },
 "나다": {
-"e": "to occur, break (down)",
-"k": "생겨요. 일어나요."
+"e": "to come out (blood, tears, sweat, a sound, smell, light, a rash); (열이 나다) to have a fever; (화가 나다) to get angry; to happen",
+"k": "나와요, 생겨요. 피가 나요 · 소리가 나요 · 냄새가 나요 · 열이 나요 · 화가 나요 · 두드러기가 나요."
 },
 "나라": {
 "e": "country",
@@ -2618,8 +2618,8 @@
 "k": "위에서 아래로 와요."
 },
 "내리다": {
-"e": "to drop off, get off",
-"k": "아래로 가게 해요. 차에서 나와요."
+"e": "to come down (rain, darkness); to drop off, get off",
+"k": "위에서 아래로 와요. 어둠이 내려요 · 아래로 가게 해요 · 차에서 나와요."
 },
 "내리치다": {
 "e": "to strike down",
@@ -3997,8 +3997,8 @@
 "e": "plural suffix (-s)"
 },
 "들다": {
-"k": "① 손으로 잡거나 위로 올려요. 손 들어요! ② 안에 있어요. 물이 들어 있어요. ③ 잠이 들어요. 약이 잘 들어요.",
-"e": "to hold, lift, raise; be inside; fall (asleep); (medicine) work"
+"k": "① 손으로 잡거나 위로 올려요. 손 들어요! ② 안에 있어요. 물이 들어 있어요. ③ 잠이 들어요. 약이 잘 들어요. ④ 빛이 들어와요. 마음이 들어요 = 그런 마음이 생겨요.",
+"e": "to hold, lift, raise; be inside; fall (asleep); (medicine) work; (light) to come in; (a feeling) to arise"
 },
 "들락날락": {
 "e": "in and out",
@@ -4293,8 +4293,8 @@
 "k": "해가 하늘로 올라오다(뜨다)."
 },
 "뜨다": {
-"e": "to rise · to float · to open the eyes · to scoop",
-"k": "해가 올라와요 · 물이나 공기 위에 있어요 · 눈을 열어요 · 물 등을 그릇으로 퍼서 담아요."
+"e": "to rise · to float · to open the eyes · to scoop · to appear (on a screen)",
+"k": "해가 올라와요 · 물이나 공기 위에 있어요 · 눈을 열어요 · 물 등을 그릇으로 퍼서 담아요 · 화면에 글자나 그림이 나와요."
 },
 "뜯다": {
 "e": "to tear off",
@@ -6468,8 +6468,8 @@
 "k": "다른 곳으로 가게 해요."
 },
 "보다": {
-"e": "to see; look",
-"k": "눈으로 알아요."
+"e": "to see; look; (-아/어 보다) to try (doing)",
+"k": "눈으로 알아요 · \"-아/어 보다\": 한번 해요. 풀어 보자."
 },
 "보답": {
 "e": "repayment, reward",
@@ -6516,8 +6516,8 @@
 "k": "위험에서 안전하게 지키는 일이에요."
 },
 "보이다": {
-"e": "to be seen · to show",
-"k": "눈에 들어와요 · 다른 사람이 볼 수 있게 해요."
+"e": "to be seen · to show · (-아/어 보이다) to look, seem",
+"k": "눈에 들어와요 · 다른 사람이 볼 수 있게 해요 · \"-아/어 보여요\": 그렇게 생각돼요. 따뜻해 보여요."
 },
 "보이크안": {
 "e": "the Woiykan — ship name",
@@ -7652,8 +7652,8 @@
 "k": "머리로 그렇다고 여겨요."
 },
 "생기다": {
-"e": "to come into being",
-"k": "없던 것이 새로 나타나요."
+"e": "to come into being, appear; (처럼 생기다) to look like",
+"k": "없던 것이 새로 있게 돼요 · \"…처럼 생겼어요\": 모양이 그것 같아요."
 },
 "생길": null,
 "생명": {
@@ -9247,7 +9247,10 @@
 "e": "not (do)",
 "k": "하지 않아요. '안' 하다."
 },
-"알": null,
+"알": {
+"e": "egg",
+"k": "새, 벌레, 짐승이 낳는 둥근 것. 안에서 새끼가 나와요."
+},
 "알낳기": {
 "e": "Softboiled (move)",
 "k": "알을 먹어 체력을 회복하는 기술이에요."
@@ -12362,8 +12365,8 @@
 "k": "서로 주고 받아요."
 },
 "주다": {
-"e": "to give",
-"k": "다른 사람한테 건네요."
+"e": "to give; (-아/어 주다) to do something for someone",
+"k": "다른 사람한테 건네요 · \"-아/어 주다\": 남을 위해 해요. 도와줘요, 닦아 줬어요."
 },
 "주름": {
 "e": "wrinkle",
@@ -14032,8 +14035,8 @@
 "k": "엔진 공장이 있는 거대한 투명 공이에요."
 },
 "타다": {
-"e": "to ride; burn",
-"k": "차나 배에 올라요·불에 타요."
+"e": "to burn · to climb (a tree, a stem) · to ride",
+"k": "불에 타요 · 나무나 줄기를 잡고 올라가요 · 차나 배에 올라요."
 },
 "타비아": {
 "e": "Tabia — character name",
@@ -16122,5 +16125,41 @@
 "이층집": {
 "k": "방이 아래층과 위층, 두 층에 있는 집.",
 "e": "two-storey house"
+},
+"날것": {
+"e": "raw (uncooked) food",
+"k": "불에 익히지 않은 것. 날것으로 먹어요 = 굽거나 끓이지 않고 먹어요."
+},
+"대부분": {
+"e": "most, the majority",
+"k": "거의 다. 많은 쪽."
+},
+"맨손": {
+"e": "bare hands",
+"k": "아무것도 들지 않은 손."
+},
+"-(으)ㄴ 적이 있다": {
+"e": "to have ever done (experience)",
+"k": "전에 그런 일이 있었어요. 먹은 적이 있어요 = 전에 먹어 봤어요."
+},
+"-(으)ㄹ 거래": {
+"e": "(they say someone) will … (= -(으)ㄹ 거라고 해)",
+"k": "'-(으)ㄹ 거라고 해'의 짧은 말. 다른 사람한테 들은 말이에요. 바를 거래 = 바를 거라고 했어."
+},
+"세다(힘)": {
+"e": "to be strong",
+"k": "힘이 강해요. (힘이 세요, 힘이 세 보여요)"
+},
+"걸다(발)": {
+"e": "to trip (someone)",
+"k": "발을 걸어요: 걷는 사람 발 앞에 내 발을 내밀어서 넘어지게 해요."
+},
+"숨을 돌리다": {
+"e": "to catch one’s breath, take a breather",
+"k": "힘든 일을 하다가 잠깐 쉬어요."
+},
+"금이 가다": {
+"e": "to crack (a crack appears)",
+"k": "벽이나 그릇이 깨져서 가는 줄이 생겨요."
 }
 }

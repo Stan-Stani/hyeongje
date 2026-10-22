@@ -39,6 +39,8 @@ CHAPTERS.push({id:'ch3',n:'3장',title:'오로보',place:'오로보 · 하분 �
    ===================================================================== */
 const WORDS=['냄새를 맡다','국','줄을 서다','노동','인구','붐비다','이사하다','둥지','알','던지다','가시','독','불을 피우다','게으르다','폐허','버려지다'];
 const DICT={
+  /* tap-dictionary senses for one-off {shown|key} markup (same gloss as lexicon/defs.json) */
+  '세다(힘)':{k:'힘이 강해요. (힘이 세요, 힘이 세 보여요)',e:'to be strong'},
   '자다(잠)':{k:'잠을 자요.',e:'to sleep'},
   '들다(손)':{k:'손으로 잡거나 위로 올려요.',e:'to lift, hold'},
   '나다(생김)':{k:'생겨요. 일어나요.',e:'to occur'},
@@ -935,7 +937,7 @@ const NPC={
  menic:{name:'메닉',zone:'orovo',x:18,y:10,dir:'left',look:MENIC,pos:()=>f().warDone?[17,10]:[18,10],hide:()=>!!f().left,
   again:[{who:'메닉',say:'…쉬고 싶어. 말 시키지 마.'}],
   talk:()=>[{who:'메닉',say:'…졸려. 말 시키지 마.'},
-   {who:'…',say:'키는 작은데 어깨가 넓어요. 힘이 세 보여요.'},
+   {who:'…',say:'키는 작은데 어깨가 넓어요. 힘이 {세|세다(힘)} 보여요.'},
    {who:'핸드리',say:'이름은 메닉이래요. 얼마 전에 쫓겨났대요. 그런데 일할 생각이 없어 보여요.'}]},
  child:{name:'오로보 아이',zone:'orovo',x:16,y:13,dir:'down',look:CHILD,pos:()=>[16,13],
   script:()=>{const n=f().riddles||0;if(n>=3)return [{who:'오로보 아이',say:'수수께끼는 여기까지! 이제 그만!'}];

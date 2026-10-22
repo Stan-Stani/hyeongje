@@ -46,6 +46,9 @@ CHAPTERS.push({id:'ch4',n:'4장',title:'조상의 집',place:'조상의 집 · �
    ===================================================================== */
 const WORDS=['조상','금속','희미하다','설교하다','금지','치료하다','혈관','묶다','칼','찌르다','권한','목소리','메아리','유령','영혼','거절하다'];
 const DICT={
+  /* tap-dictionary senses for one-off {shown|key} markup (same gloss as lexicon/defs.json) */
+  '알다':{k:'어떤 것을 머리로 이해하고 있어요.',e:'to know'},
+  '걸다(발)':{k:'발을 걸어요: 걷는 사람 발 앞에 내 발을 내밀어서 넘어지게 해요.',e:'to trip (someone)'}, '숨을 돌리다':{k:'힘든 일을 하다가 잠깐 쉬어요.',e:'to catch one’s breath, take a breather'}, '금이 가다':{k:'벽이나 그릇이 깨져서 가는 줄이 생겨요.',e:'to crack (a crack appears)'},
   '내다(빛)':{k:'빛이나 소리를 생기게 해요.',e:'to emit light or sound'},
   '설교':{k:'믿음에 대해 사람들 앞에서 가르치는 말이에요.',e:'sermon'},
   '묶이다':{k:'끈으로 묶여 움직이지 못해요.',e:'to be tied'},
@@ -197,7 +200,7 @@ const Q={ // NPC questions, kept here so review can reuse them
 
 /* class time: the two work days (the root on day 1, the earth-filled crack on day 2) are whole shifts; a brother says a line with a word you have */
 const CLASS={
- root:{say:'한낮이에요. 형제들이 잘린 뿌리 옆에 앉아 숨을 돌려요.',lines:[
+ root:{say:'한낮이에요. 형제들이 잘린 뿌리 옆에 앉아 {숨을 돌려요|숨을 돌리다}.',lines:[
   {w:'금속',who:'형제',ask:'뿌리가 ___ 벽까지 찢었어. 힘이 대단해.',opts:[['금속',1],['근육',0,'근육은 몸에 있는 살이야. 찢어진 단단한 벽은 "금속".'],['금방',0,'금방은 "곧"이야. 찢어진 단단한 벽은 "금속".']]},
   {w:'조상',who:'형제',ask:'___들이 보면 슬프겠다. 벽이 다 찢겼어.',opts:[['조상',1],['조사',0,'조사는 자세히 알아보는 거야. 이 집을 만든 옛날 사람들은 "조상".'],['좌석',0,'좌석은 앉는 자리야. 이 집을 만든 옛날 사람들은 "조상".']]},
   {w:'메아리',who:'여크',ok:'맞아!',ask:'"어이!" 하면 ___도 "어이!" 해. 하하!',opts:[['메아리',1],['매미',0,'매미는 여름에 우는 벌레야. 내 소리를 따라 하는 건 "메아리".'],['머리',0,'하하, 머리가 말을 해? 내 소리를 따라 하는 건 "메아리".']]},
@@ -949,7 +952,7 @@ const NPC={
     HOUSEV('벌, 벼룩, 머릿니가 사람 몸을 바꿉니다. 이 세계에서 살 수 있게.'),
     N('조상들이 일부러 만들었어요. 아이들이 여기서 살 수 있게요.'),
     N('유령도 원래는 주인이 아니었어요. 돕는 도구였어요.'),
-    {who:'핸드리',say:'…이제 조금 알 것 같아요.',set:()=>{f().ownVoice=1}}];
+    {who:'핸드리',say:'…이제 조금 {알|알다} 것 같아요.',set:()=>{f().ownVoice=1}}];
    return null},
   talk:()=>[
    S('집아. 확인.'),
@@ -1118,7 +1121,7 @@ const NPC={
  crack:{name:'흙이 새는 틈',zone:'buried',x:8,y:1,dir:'down',look:CRACK,pos:()=>[8,1],  // by the north wall, in view from the stairs (it was in the far dark corner)
   status:()=>{const F=f();return F.saw&&b('목소리')&&!F.crack?'todo':null},
   script:()=>{const F=f();if(F.crack)return [N('흙 자루가 틈을 막고 있어요.')];
-   return [{...N('다른 날, 땅속 방 벽에 금이 갔어요.'),black:1},N('틈으로 흙이 쏟아져 들어와요.'),N('형제들하고 자루에 흙을 담았어요.'),Q.crack[0],{expand:()=>classTime(CLASS,['crack'])},{who:'…',say:'땅속 방의 틈을 막았어요. 흙 자루가 쌓여 있어요.',black:0,set:()=>{f().crack=1;checkWork()}}]},
+   return [{...N('다른 날, 땅속 방 벽에 {금이 갔어요|금이 가다}.'),black:1},N('틈으로 흙이 쏟아져 들어와요.'),N('형제들하고 자루에 흙을 담았어요.'),Q.crack[0],{expand:()=>classTime(CLASS,['crack'])},{who:'…',say:'땅속 방의 틈을 막았어요. 흙 자루가 쌓여 있어요.',black:0,set:()=>{f().crack=1;checkWork()}}]},
   talk:()=>[]},
  melB:{name:'멜로리',zone:'buried',x:17,y:4,dir:'down',look:MEL_CAPTIVE,pos:()=>[17,4],badge:['묶다','칼'],hide:()=>{const F=f();return !(F.interro&&!F.free)},
   status:()=>{const F=f();if(F.vernen&&!F.free)return 'todo';return F.night?null:'wait'},
@@ -1161,7 +1164,7 @@ const NPC={
    N('버넌이 움직이지 않아요. 죽었어요.'),
    {who:'오스텔',say:'배신자… 핸드리, 그 여자는 네 누나가 아니야. 다 버리지 마.'},
    N('제가 다가가자 오스텔이 뒤로 물러났어요.'),
-   {who:'…',say:'오스텔이 멜로리 옆을 지날 때, 멜로리가 발을 걸었어요. 오스텔이 넘어졌어요.',award:['찌르다'],set:()=>{f().vernen=1}}]},  // the kick comes after the leash is cut (melB)
+   {who:'…',say:'오스텔이 멜로리 옆을 지날 때, 멜로리가 발을 {걸었어요|걸다(발)}. 오스텔이 넘어졌어요.',award:['찌르다'],set:()=>{f().vernen=1}}]},  // the kick comes after the leash is cut (melB)
  ostelB:{name:'오스텔',zone:'buried',x:18,y:5,dir:'left',get look(){return f().vernen?OSTEL_DOWN:OSTEL},pos:()=>[18,5],hide:()=>{const F=f();return !F.interro||!!F.sharDead},
   script:()=>{const F=f();return F.free?[N('오스텔이 정신을 잃고 쓰러져 있어요.')]:F.vernen?[N('오스텔이 바닥에 누워서 숨을 헐떡여요.')]:null},  // tripped (§IX "lay gasping for breath"), then kicked out once the leash is cut
   talk:()=>[{who:'오스텔',say:'핸드리, 가까이 오지 마.'},{who:'오스텔',say:'그 여자는 이제 네 누나가 아니야. 유령이야.'}]},
