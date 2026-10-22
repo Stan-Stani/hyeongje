@@ -71,15 +71,15 @@ const CONFUSE={'숲':['숯','술'],'어둠':['어른','얼음'],'캄캄하다':[
 const BANK=[
  {w:'숲',ask:'아로 사람들은 밤에는 ___에 안 가요. 너무 위험해요.',opts:[['숲',1],['숯',0,'숯은 나무를 태워서 만든 검은 거예요. 나무가 많고 짐승이 사는 곳은 "숲".']]},
  {w:'어둠',ask:'캄캄한 ___ 속에서 지빗 우는 소리가 들려요.',opts:[['어둠',1],['아침',0,'아침에는 밝아요. 빛이 없는 캄캄한 곳 → "어둠".']]},
- {w:'캄캄하다',ask:'모닥불이 다 꺼져서 사방이 ___.',opts:[['캄캄해요',1],['깨끗해요',0,'깨끗하다는 더럽지 않은 거예요. 불이 꺼지면 → "캄캄해요".']]},
- {w:'배고프다',ask:'점심을 못 먹어서 너무 ___.',opts:[['배고파요',1],['배불러요',0,'배부르면 더 못 먹어요. 안 먹었으면 → "배고파요".']]},
+ {w:'캄캄하다',ask:'해가 지면 숲속은 금방 ___.',opts:[['캄캄해요',1],['깨끗해요',0,'깨끗하다는 더럽지 않은 거예요. 해가 져서 빛이 없으면 → "캄캄해요".']]},
+ {w:'배고프다',ask:'하루 종일 아무것도 못 먹어서 너무 ___.',opts:[['배고파요',1],['배불러요',0,'배부르면 더 못 먹어요. 안 먹었으면 → "배고파요".']]},
  {w:'굶다',ask:'늦게 일어나서 아침을 ___.',opts:[['굶었어요',1],['굽었어요',0,'"굽었어요"는 등이 휘었다는 말이에요. (빵은 "구웠어요".) 안 먹었어요 → "굶었어요".']]},
  {w:'얼다',ask:'추운 계절이에요. 밖에서 일했더니 손이 꽁꽁 ___.',opts:[['얼었어요',1],['열었어요',0,'열다는 문을 여는 거예요. 너무 차가워지면 → "얼었어요".']]},
  {w:'외롭다',ask:'친구들은 다 밭에 갔어요. 얘기할 사람이 없어서 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 → "외로워요".']]},
  {w:'숨다',ask:'한 아이가 큰 뿌리 뒤에 ___서 아무도 못 찾아요.',opts:[['숨어',1],['쉬어',0,'쉬다는 피곤할 때 하는 거예요. 아무도 못 찾게 → "숨어서".']]},
  {w:'흔적',ask:'진흙 위에 뭔가 남아 있어요. 짐승이 지나간 ___ 같아요.',opts:[['흔적',1],['흉터',0,'흉터는 상처가 나은 뒤에 피부에 남는 거예요. 지나간 뒤에 땅에 남은 건 "흔적".']]},
  {w:'꽃잎',ask:'바람이 불어서 주황색 ___이 떨어져요.',opts:[['꽃잎',1],['꽃집',0,'꽃집은 꽃을 파는 가게예요. 바람에 떨어지는 건 "꽃잎".']]},
- {w:'훔치다',ask:'누가 밤에 우리 밭에서 열매를 몰래 ___.',opts:[['훔쳤어요',1],['흘렸어요',0,'흘리다는 물이나 눈물이 떨어지는 거예요. 남의 것을 몰래 가져가면 → "훔쳤어요".']]},
+ {w:'훔치다',ask:'너무 배고파서 밤에 마을에서 빵을 몰래 ___.',opts:[['훔쳤어요',1],['흘렸어요',0,'흘리다는 물이나 눈물이 떨어지는 거예요. 남의 것을 몰래 가져가면 → "훔쳤어요".']]},
  {w:'도둑',ask:'마을에서 ___을 잡으면 판관한테 데려가요.',opts:[['도둑',1],['동생',0,'동생은 가족이에요. 남의 물건을 훔쳐서 판관 앞에 서는 사람은 "도둑".']]},
  {w:'사냥꾼',ask:'___들이 창을 들고 숲으로 들어가요.',opts:[['사냥꾼',1],['사냥감',0,'사냥감은 잡히는 짐승이에요. 창을 들고 짐승을 잡으러 가는 사람 → "사냥꾼".']]},
  {w:'덫',ask:'숲에 놓은 ___에 오스클로가 걸렸어요.',opts:[['덫',1],['닻',0,'닻은 배를 멈추게 하는 무거운 쇠예요. 짐승이 걸리는 건 "덫".']]},
@@ -87,9 +87,9 @@ const BANK=[
  {w:'해가 뜨다',ask:'___ 전에 일어나서 밭에 나갔어요.',opts:[['해가 뜨기',1],['해가 뜬',0,'"-기 전에"를 써요. 뜨다 → "해가 뜨기 전에".']]},
  /* second sentences (the stone asks a word's other sentence the next time: the forest days' words came back verbatim) */
  {w:'숲',ask:'나무가 빽빽해서 ___ 속은 낮에도 어두워요.',opts:[['숲',1],['술',0,'술은 어른들이 마시는 거예요. 나무가 빽빽한 곳은 "숲".']]},
- {w:'어둠',ask:'등불을 끄면 집 안이 ___ 속에 잠겨요.',opts:[['어둠',1],['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 빛이 없는 것은 "어둠".']]},
+ {w:'어둠',ask:'밤이 되면 숲은 ___ 속에 잠겨요.',opts:[['어둠',1],['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 빛이 없는 것은 "어둠".']]},
  {w:'캄캄하다',ask:'등불도 없고 별도 안 보여요. 밖이 너무 ___.',opts:[['캄캄해요',1],['깨끗해요',0,'깨끗하다는 더럽지 않은 거예요. 빛이 하나도 없으면 → "캄캄해요".']]},
- {w:'배고프다',ask:'하루 종일 밭에서 일했더니 너무 ___. 빵 좀 주세요.',opts:[['배고파요',1],['배불러요',0,'배부르면 빵을 안 찾아요. 먹고 싶으면 → "배고파요".']]},
+ {w:'배고프다',ask:'숲에서 하루 종일 걸었더니 너무 ___. 뭐라도 먹고 싶어요.',opts:[['배고파요',1],['배불러요',0,'배부르면 먹을 걸 안 찾아요. 먹고 싶으면 → "배고파요".']]},
  {w:'굶다',ask:'먹을 것이 다 떨어져서 이틀이나 ___.',opts:[['굶었어요',1],['끓었어요',0,'끓다는 물이 뜨거워지는 거예요. 아무것도 못 먹었어요 → "굶었어요".']]},
  {w:'얼다',ask:'밤새 밖에 둔 물통의 물이 꽁꽁 ___.',opts:[['얼었어요',1],['열었어요',0,'열다는 문을 여는 거예요. 물이 얼음이 되면 → "얼었어요".']]},
  {w:'외롭다',ask:'혼자 살면 밤에 더 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 → "외로워요".']]},
@@ -97,37 +97,37 @@ const BANK=[
 
 const Q={ // NPC questions, kept here so review can reuse them
  arr:[
-  {who:'핸드리',w:'어둠',ask:'빛이 하나도 없어요. 사방이 ___이에요.',opts:[['어둠',1],['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 빛이 없는 건 "어둠".'],['어른',0,'어른은 다 큰 사람이에요. 빛이 없는 건 "어둠".']]},
-  {who:'핸드리',w:'어둠',ask:'무서워요. 그래도 움직이면 안 돼요. → ___ 움직이면 안 돼요.',done:'무서워도 움직이면 안 돼요.',opts:[['무서워도',1],['무서워서',0,'무서워서 움직이면 안 돼요? 이유가 아니에요. 무섭지만 그래도 → "무서워도".'],['무섭기 때문에',0,'"-기 때문에"는 이유예요. 무섭지만 그래도 → "무서워도".']]},
-  {who:'핸드리',w:'캄캄하다',ask:'숲이 너무 ___ 별이 하나도 안 보여요.',opts:[['캄캄해서',1],['캄캄해도',0,'"-아/어도"는 "그래도"라는 뜻이에요. 안 보이는 이유니까 → "캄캄해서".'],['깨끗해서',0,'깨끗하다는 더럽지 않은 거예요. 빛이 없으면 → "캄캄해서".']]},
+  {who:'…',w:'어둠',ask:'빛이 하나도 없어요. 사방이 ___이에요.',opts:[['어둠',1],['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 빛이 없는 건 "어둠".'],['어른',0,'어른은 다 큰 사람이에요. 빛이 없는 건 "어둠".']]},
+  {who:'…',w:'어둠',ask:'무서워요. 그래도 움직이면 안 돼요. → ___ 움직이면 안 돼요.',done:'무서워도 움직이면 안 돼요.',opts:[['무서워도',1],['무서워서',0,'무서워서 움직이면 안 돼요? 이유가 아니에요. 무섭지만 그래도 → "무서워도".'],['무섭기 때문에',0,'"-기 때문에"는 이유예요. 무섭지만 그래도 → "무서워도".']]},
+  {who:'…',w:'캄캄하다',ask:'숲이 너무 ___ 별이 하나도 안 보여요.',opts:[['캄캄해서',1],['캄캄해도',0,'"-아/어도"는 "그래도"라는 뜻이에요. 안 보이는 이유니까 → "캄캄해서".'],['깨끗해서',0,'깨끗하다는 더럽지 않은 거예요. 빛이 없으면 → "캄캄해서".']]},
  ],
  berry:[
   {who:'…',w:'숲',ask:'나무가 아주 많은 곳은 ___이에요.',opts:[['숲',1],['섬',0,'섬은 바다 가운데 있는 땅이에요. 나무가 많은 곳은 "숲".'],['술',0,'술은 어른들이 마시는 거예요! 나무가 많은 곳은 "숲".']]},
-  {who:'핸드리',w:'배고프다',ask:'꼬르륵… 배에서 소리가 나요. 너무 ___.',opts:[['배고파요',1],['배불러요',0,'배부르면 꼬르륵 소리가 안 나요. 먹고 싶으면 → "배고파요".'],['배워요',0,'배우다는 공부하는 거예요. 먹고 싶으면 → "배고파요".']]},
-  {who:'핸드리',w:'배고프다',ask:'제대로 못 먹었기 ___ 힘이 없어요.',opts:[['때문에',1],['때문이에요',0,'문장이 계속되니까 "때문에"예요. "때문이에요"는 문장 끝에만 써요.'],['덕분에',0,'"덕분에"는 좋은 일에 써요. 나쁜 이유 → "때문에".']]},
+  {who:'…',w:'배고프다',ask:'꼬르륵… 배에서 소리가 나요. 너무 ___.',opts:[['배고파요',1],['배불러요',0,'배부르면 꼬르륵 소리가 안 나요. 먹고 싶으면 → "배고파요".'],['배워요',0,'배우다는 공부하는 거예요. 먹고 싶으면 → "배고파요".']]},
+  {who:'…',w:'배고프다',ask:'제대로 못 먹었기 ___ 힘이 없어요.',opts:[['때문에',1],['때문이에요',0,'문장이 계속되니까 "때문에"예요. "때문이에요"는 문장 끝에만 써요.'],['덕분에',0,'"덕분에"는 좋은 일에 써요. 나쁜 이유 → "때문에".']]},
  ],
  bark:[
-  {who:'핸드리',w:'굶다',ask:'아로를 떠난 뒤로 거의 ___.',opts:[['굶었어요',1],['끓었어요',0,'끓다는 물이 뜨거워지는 거예요. 아무것도 안 먹었어요 → "굶었어요".'],['긁었어요',0,'긁다는 가려운 데를 손톱으로 하는 거예요. 안 먹었어요 → "굶었어요".']]},
-  {who:'핸드리',w:'굶다',ask:'벌레는 ___ 먹을 거예요. 안 먹으면 굶어요.',opts:[['맛없어도',1],['맛없어서',0,'맛없어서 먹을 거예요? 이상해요. 맛없지만 그래도 → "맛없어도".']]},
+  {who:'…',w:'굶다',ask:'먹을 게 없어서 요즘 거의 ___.',opts:[['굶어요',1],['끓어요',0,'끓다는 물이 뜨거워지는 거예요. 아무것도 못 먹으면 → "굶어요".'],['긁어요',0,'긁다는 가려운 데를 손톱으로 하는 거예요. 못 먹으면 → "굶어요".']]},
+  {who:'…',w:'굶다',ask:'벌레는 ___ 먹을 거예요. 안 먹으면 굶어요.',opts:[['맛없어도',1],['맛없어서',0,'맛없어서 먹을 거예요? 이상해요. 맛없지만 그래도 → "맛없어도".']]},
  ],
  raiker:[
-  {who:'핸드리',w:'얼다',ask:'이렇게 추우면 밤에 몸이 ___ 것 같아요.',opts:[['얼',1],['열',0,'열은 몸이 뜨거운 거예요. 추우면 → "얼 것 같아요".'],['울',0,'울다는 눈물이 {나는|나다(생김)} 거예요. 추우면 몸이 → "얼 것 같아요".']]},
-  {who:'핸드리',w:'얼다',ask:'아무리 ___ 레이커들은 저를 안 받아 줘요.',opts:[['추워도',1],['추워서',0,'추워서 안 받아 줘요? 이유가 아니에요. 춥지만 그래도 → "추워도".']]},
+  {who:'…',w:'얼다',ask:'이렇게 추우면 밤에 몸이 ___ 것 같아요.',opts:[['얼',1],['열',0,'열은 몸이 뜨거운 거예요. 추우면 → "얼 것 같아요".'],['울',0,'울다는 눈물이 {나는|나다(생김)} 거예요. 추우면 몸이 → "얼 것 같아요".']]},
+  {who:'…',w:'얼다',ask:'아무리 ___ 레이커들은 저를 안 받아 줘요.',opts:[['추워도',1],['추워서',0,'추워서 안 받아 줘요? 이유가 아니에요. 춥지만 그래도 → "추워도".']]},
  ],
  nest:[
-  {who:'핸드리',w:'외롭다',ask:'이제 저는 혼자예요. 너무 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 단어를 기억하는 거예요. 혼자라서 쓸쓸하면 → "외로워요".'],['새로워요',0,'새롭다는 처음 보는 거예요. 혼자라서 쓸쓸하면 → "외로워요".']]},
+  {who:'…',w:'외롭다',ask:'이제 저는 혼자예요. 너무 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 단어를 기억하는 거예요. 혼자라서 쓸쓸하면 → "외로워요".'],['새로워요',0,'새롭다는 처음 보는 거예요. 혼자라서 쓸쓸하면 → "외로워요".']]},
  ],
  escort:[
-  {who:'핸드리',w:'숨다',ask:'들키면 안 돼요. 덤불 뒤에 ___.',opts:[['숨어요',1],['쉬어요',0,'쉬다는 피곤할 때 하는 거예요. 안 보이게 → "숨어요".'],['숨 쉬어요',0,'숨 쉬다는 공기를 마시는 거예요. 안 보이게 → "숨어요".']]},
-  {who:'핸드리',w:'숨다',ask:'그래서 멀리서 ___ 따라갈 거예요.',opts:[['숨어서',1],['숨으면',0,'"-으면"은 "만약"이에요. 안 보이게 숨은 채로 따라가요 → "숨어서".'],['숨으려고',0,'"-으려고"는 목적이에요. 숨으려고 따라가요? 이상해요. 숨은 채로 → "숨어서".']]},
+  {who:'…',w:'숨다',ask:'들키면 안 돼요. 덤불 뒤에 ___.',opts:[['숨어요',1],['쉬어요',0,'쉬다는 피곤할 때 하는 거예요. 안 보이게 → "숨어요".'],['숨 쉬어요',0,'숨 쉬다는 공기를 마시는 거예요. 안 보이게 → "숨어요".']]},
+  {who:'…',w:'숨다',ask:'그래서 멀리서 ___ 따라갈 거예요.',opts:[['숨어서',1],['숨으면',0,'"-으면"은 "만약"이에요. 안 보이게 숨은 채로 따라가요 → "숨어서".'],['숨으려고',0,'"-으려고"는 목적이에요. 숨으려고 따라가요? 이상해요. 숨은 채로 → "숨어서".']]},
  ],
  ashes:[
-  {who:'핸드리',w:'흔적',ask:'발자국, 재, 빵 껍질… 사람들이 지나간 ___이에요.',opts:[['흔적',1],['약속',0,'약속은 미리 정한 거예요. 지나간 뒤에 남은 건 "흔적".'],['한숨',0,'한숨은 힘들 때 길게 쉬는 숨이에요. 지나간 뒤에 남은 건 "흔적".']]},
-  {who:'핸드리',w:'흔적',ask:'잇몸에서 피가 ___ 씹었어요.',opts:[['날 때까지',1],['나서',0,'피가 나서 씹었어요? 이유가 아니에요. 피가 날 만큼 오래 → "날 때까지".'],['나기 전에',0,'"-기 전에"면 피가 안 났어요. 피가 날 만큼 오래 → "날 때까지".']]},
+  {who:'…',w:'흔적',ask:'발자국, 재, 빵 껍질… 사람들이 지나간 ___이에요.',opts:[['흔적',1],['약속',0,'약속은 미리 정한 거예요. 지나간 뒤에 남은 건 "흔적".'],['한숨',0,'한숨은 힘들 때 길게 쉬는 숨이에요. 지나간 뒤에 남은 건 "흔적".']]},
+  {who:'…',w:'흔적',ask:'잇몸에서 피가 ___ 씹었어요.',opts:[['날 때까지',1],['나서',0,'피가 나서 씹었어요? 이유가 아니에요. 피가 날 만큼 오래 → "날 때까지".'],['나기 전에',0,'"-기 전에"면 피가 안 났어요. 피가 날 만큼 오래 → "날 때까지".']]},
  ],
  woman:[
   {who:'…',w:'꽃잎',ask:'꽃에서 색깔이 있는 얇은 부분은 ___이에요.',opts:[['꽃잎',1],['나뭇잎',0,'나뭇잎은 나무에 달린 잎이에요. 꽃의 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 부분은 "꽃잎".']]},
-  {who:'핸드리',w:'꽃잎',ask:'이 꽃은 아로에 없기 ___ 아주 신기해요.',opts:[['때문에',1],['전에',0,'"-기 전에"는 시간 순서예요. 이유니까 → "없기 때문에".'],['위해서',0,'"-기 위해서"는 목적이에요. 이유니까 → "없기 때문에".']]},
+  {who:'…',w:'꽃잎',ask:'이 꽃은 아로에 없기 ___ 아주 신기해요.',opts:[['때문에',1],['전에',0,'"-기 전에"는 시간 순서예요. 이유니까 → "없기 때문에".'],['위해서',0,'"-기 위해서"는 목적이에요. 이유니까 → "없기 때문에".']]},
  ],
  guard:[
   {w:'훔치다',ask:'누가 밤에 몰래 빵을 ___ 갔어요.',opts:[['훔쳐',1],['빌려',0,'빌리면 나중에 돌려줘요. 몰래 가져가면 → "훔쳐 갔어요".'],['흔들어',0,'흔들다는 이리저리 움직이는 거예요. 몰래 가져가면 → "훔쳐 갔어요".']]},
@@ -158,8 +158,9 @@ const Q={ // NPC questions, kept here so review can reuse them
    the days before), always after; the Raikers once the Arraclid has gone; the camp (칼턴, 북, 피리, 상자) until the procession
    leaves, so only the forest words; the 모닥불 자리 from 흔적 on; Cro by day until the feast night; the 파수꾼 by night until the hunt;
    the second hunter until the first one speaks; the huntress only after the chapter's end. Things and animals can't speak: their
-   lines are Handry's own thoughts there (who:'나': the end-of-chapter round leaves those out, so it never puts a thing's or an
-   animal's name over his thoughts). The escort and the first hunter leave the moment they teach, so their lines are never asked
+   lines are Handry's own thoughts there, under his name (who:'핸드리', as everywhere else; the questions inside his scenes are
+   the storyteller's narration, who:'…', so their hints are narration too). The end round has its own memories (END_ROUND), so it
+   never puts a thing's or an animal's name over his thoughts. The escort and the first hunter leave the moment they teach, so their lines are never asked
    (kept so each teacher who speaks has one). In Cro by day everything is overheard from the woods: a narrated pre says whom
    the speaker is talking to (Kalton, a neighbour, the children); Kalton never speaks to Handry (§IV: not a word since the
    accident), so his 존댓말 is to the Aro and Cro grown-ups. Likewise the 크로 여자 teaches 꽃잎 as the day ends and the
@@ -177,23 +178,23 @@ const Q={ // NPC questions, kept here so review can reuse them
    each night, a Cro person urging Kalton to eat, Handry watching from the edge of the woods. */
 const REVIEW=[
  /* ---- the forest (Handry's thoughts by the Raikers, once the Arraclid has gone) ---- */
- {w:'어둠',by:'raikerB',who:'나',when:()=>!!f().arraclid,pre:['후우—'],ask:'밤이 오면 숲에는 ___만 있어요.',opts:[['어둠',1],['아침',0,'아침은 밝아요. 밤에 빛이 없으면 "어둠".'],['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 밤에 빛이 없으면 "어둠".']]},
- {w:'외롭다',by:'raikerB',who:'나',when:()=>!!f().arraclid,pre:['후우—'],ask:'레이커들은 붙어서 자요. 저만 혼자라서 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로워요".'],['가려워요',0,'가렵다는 긁고 싶은 거예요. 혼자라서 쓸쓸하면 "외로워요".']]},
- {w:'쏘다',by:'raikerC',who:'나',when:()=>!!f().arraclid,pre:['후우—'],ask:'벌도 저를 안 ___. 짐승들도 저를 피해요.',opts:[['쏴요',1],['싸요',0,'싸다는 짐을 싸는 거예요. 벌은 침으로 "쏴요".'],['써요',0,'쓰다는 글씨를 쓰는 거예요. 벌은 침으로 "쏴요".']]},
- {w:'캄캄하다',by:'raikerC',who:'나',when:()=>!!f().arraclid,pre:['후우—'],ask:'___ 밤에는 레이커가 안 보여요. 소리만 들려요.',opts:[['캄캄한',1],['깨끗한',0,'깨끗하다는 더럽지 않은 거예요. 소리만 들리는 밤은 "캄캄한" 밤.'],['밝은',0,'밝은 밤이면 다 보여요. 소리만 들리면 "캄캄한" 밤.']]},
- {w:'얼다',by:'raikerA',who:'나',when:()=>hasItem('나뭇잎 이불')&&!hasItem('옷'),pre:['후우— 후우—'],ask:'나뭇잎 이불은 바람에 날아가요. 밤마다 꽁꽁 ___.',opts:[['얼어요',1],['어려요',0,'어리다는 나이가 적은 거예요. 추워서 몸이 차가워지면 "얼어요".'],['녹아요',0,'녹다는 얼음이 물이 되는 거예요. 반대예요! 추우면 "얼어요".']]},
- {w:'가렵다',by:'raikerA',who:'나',when:()=>hasItem('나뭇잎 이불')&&!f().night,pre:['후우— 후우—'],ask:'나뭇잎 이불 때문에 팔이 아직 ___.',opts:[['가려워요',1],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 긁고 싶으면 "가려워요".'],['그리워요',0,'그립다는 보고 싶은 거예요. 긁고 싶으면 "가려워요".']]},
+ {w:'어둠',by:'raikerB',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'밤이 오면 숲에는 ___만 있어요.',opts:[['어둠',1],['아침',0,'아침은 밝아요. 밤에 빛이 없으면 "어둠".'],['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 밤에 빛이 없으면 "어둠".']]},
+ {w:'외롭다',by:'raikerB',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'레이커들은 붙어서 자요. 저만 혼자라서 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로워요".'],['가려워요',0,'가렵다는 긁고 싶은 거예요. 혼자라서 쓸쓸하면 "외로워요".']]},
+ {w:'쏘다',by:'raikerC',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'벌도 저를 안 ___. 짐승들도 저를 피해요.',opts:[['쏴요',1],['싸요',0,'싸다는 짐을 싸는 거예요. 벌은 침으로 "쏴요".'],['써요',0,'쓰다는 글씨를 쓰는 거예요. 벌은 침으로 "쏴요".']]},
+ {w:'캄캄하다',by:'raikerC',who:'핸드리',when:()=>!!f().arraclid,pre:['후우—'],ask:'___ 밤에는 레이커가 안 보여요. 소리만 들려요.',opts:[['캄캄한',1],['깨끗한',0,'깨끗하다는 더럽지 않은 거예요. 소리만 들리는 밤은 "캄캄한" 밤.'],['밝은',0,'밝은 밤이면 다 보여요. 소리만 들리면 "캄캄한" 밤.']]},
+ {w:'얼다',by:'raikerA',who:'핸드리',when:()=>hasItem('나뭇잎 이불')&&!hasItem('옷'),pre:['후우— 후우—'],ask:'나뭇잎 이불은 바람에 날아가요. 밤마다 꽁꽁 ___.',opts:[['얼어요',1],['어려요',0,'어리다는 나이가 적은 거예요. 추워서 몸이 차가워지면 "얼어요".'],['녹아요',0,'녹다는 얼음이 물이 되는 거예요. 반대예요! 추우면 "얼어요".']]},
+ {w:'가렵다',by:'raikerA',who:'핸드리',when:()=>hasItem('나뭇잎 이불')&&!f().night,pre:['후우— 후우—'],ask:'나뭇잎 이불 때문에 팔이 아직 ___.',opts:[['가려워요',1],['가벼워요',0,'가볍다는 무게가 안 나가는 거예요. 긁고 싶으면 "가려워요".'],['그리워요',0,'그립다는 보고 싶은 거예요. 긁고 싶으면 "가려워요".']]},
  /* ---- the forest things, after the resolve (and after the chapter's end) ---- */
- {w:'외롭다',by:'nest',who:'나',ask:'숲에서는 말할 사람이 없어요. 그래서 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로워요".'],['가려워요',0,'가렵다는 긁고 싶은 거예요. 혼자라서 쓸쓸하면 "외로워요".']]},
- {w:'두드러기',by:'nest',who:'나',ask:'나뭇잎 이불을 덮으면 ___가 나요.',opts:[['두드러기',1],['두부',0,'두부는 먹는 거예요! 피부에 빨갛게 올라오는 건 "두드러기".'],['주머니',0,'주머니는 옷에 달린 작은 가방이에요. 빨갛게 올라오는 건 "두드러기".']]},
- {w:'동쪽',by:'nest',who:'나',ask:'크로를 지나서 디보가 있는 ___으로 가요.',opts:[['동쪽',1],['서쪽',0,'서쪽은 해가 지는 쪽이에요. 디보는 "동쪽".'],['남쪽',0,'남쪽이 아니에요. 사냥꾼 여자는 "동쪽"이라고 했어요.']]},
- {w:'배고프다',by:'berry',who:'나',ask:'오늘도 ___. 하지만 같은 걸 이틀 먹으면 아파요.',opts:[['배고파요',1],['배불러요',0,'배부르면 열매를 안 봐요. 먹고 싶으면 "배고파요".'],['배워요',0,'배우다는 공부하는 거예요. 먹고 싶으면 "배고파요".']]},
- {w:'덫',by:'berry',who:'나',ask:'숲에 사냥꾼들 ___이 있을지도 몰라요.',opts:[['덫',1],['떡',0,'떡이면 좋겠어요! 짐승을 잡는 건 "덫".'],['돛',0,'돛은 배에 다는 천이에요. 짐승을 잡는 건 "덫".']]},
- {w:'도둑',by:'berry',who:'나',when:()=>!!f().hunt,ask:'저는 이제 ___이에요. 살려고 훔쳐요.',opts:[['도둑',1],['도장',0,'도장은 이름을 찍는 거예요. 훔치는 사람은 "도둑".'],['도움',0,'도움은 남을 돕는 거예요. 훔치는 사람은 "도둑".']]},
- {w:'굶다',by:'bark',who:'나',ask:'벌레라도 먹어요. ___ 것보다 나아요.',opts:[['굶는',1],['끓는',0,'끓다는 물이 뜨거워지는 거예요. 아무것도 못 먹는 건 "굶는" 것.'],['긁는',0,'긁다는 가려운 데를 손톱으로 하는 거예요. 아무것도 못 먹는 건 "굶는" 것.']]},
- {w:'상처',by:'bark',who:'나',when:()=>!f().night,ask:'다리 ___가 아직 다 안 나았어요.',opts:[['상처',1],['상자',0,'상자는 물건을 넣는 거예요. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이에요. 다쳐서 생긴 곳은 "상처".']]},
- {w:'해가 뜨다',by:'bark',who:'나',ask:'내일 아침 해가 ___ 바로 떠나요.',opts:[['뜨면',1],['지면',0,'해가 지면 밤이에요. 아침에 떠나니까 "뜨면".'],['타면',0,'해는 안 타요. 아침에 하늘에 나오면 "뜨면".']]},
- {w:'꽃잎',by:'bark',who:'나',when:()=>!!f().hunt,ask:'주황색 ___도 하룻밤만 먹을 수 있었어요.',opts:[['꽃잎',1],['꽃집',0,'꽃집은 꽃을 파는 가게예요. 꽃의 얇은 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 얇은 부분은 "꽃잎".']]},
+ {w:'외롭다',by:'nest',who:'핸드리',ask:'숲에서는 말할 사람이 없어요. 그래서 ___.',opts:[['외로워요',1],['외워요',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로워요".'],['가려워요',0,'가렵다는 긁고 싶은 거예요. 혼자라서 쓸쓸하면 "외로워요".']]},
+ {w:'두드러기',by:'nest',who:'핸드리',ask:'나뭇잎 이불을 덮으면 ___가 나요.',opts:[['두드러기',1],['두부',0,'두부는 먹는 거예요! 피부에 빨갛게 올라오는 건 "두드러기".'],['주머니',0,'주머니는 옷에 달린 작은 가방이에요. 빨갛게 올라오는 건 "두드러기".']]},
+ {w:'동쪽',by:'nest',who:'핸드리',ask:'크로를 지나서 디보가 있는 ___으로 가요.',opts:[['동쪽',1],['서쪽',0,'서쪽은 해가 지는 쪽이에요. 디보는 "동쪽".'],['남쪽',0,'남쪽이 아니에요. 사냥꾼 여자는 "동쪽"이라고 했어요.']]},
+ {w:'배고프다',by:'berry',who:'핸드리',ask:'오늘도 ___. 하지만 같은 걸 이틀 먹으면 아파요.',opts:[['배고파요',1],['배불러요',0,'배부르면 열매를 안 봐요. 먹고 싶으면 "배고파요".'],['배워요',0,'배우다는 공부하는 거예요. 먹고 싶으면 "배고파요".']]},
+ {w:'덫',by:'berry',who:'핸드리',ask:'숲에 사냥꾼들 ___이 있을지도 몰라요.',opts:[['덫',1],['떡',0,'떡이면 좋겠어요! 짐승을 잡는 건 "덫".'],['돛',0,'돛은 배에 다는 천이에요. 짐승을 잡는 건 "덫".']]},
+ {w:'도둑',by:'berry',who:'핸드리',when:()=>!!f().hunt,ask:'저는 이제 ___이에요. 살려고 훔쳐요.',opts:[['도둑',1],['도장',0,'도장은 이름을 찍는 거예요. 훔치는 사람은 "도둑".'],['도움',0,'도움은 남을 돕는 거예요. 훔치는 사람은 "도둑".']]},
+ {w:'굶다',by:'bark',who:'핸드리',ask:'벌레라도 먹어요. ___ 것보다 나아요.',opts:[['굶는',1],['끓는',0,'끓다는 물이 뜨거워지는 거예요. 아무것도 못 먹는 건 "굶는" 것.'],['긁는',0,'긁다는 가려운 데를 손톱으로 하는 거예요. 아무것도 못 먹는 건 "굶는" 것.']]},
+ {w:'상처',by:'bark',who:'핸드리',when:()=>!f().night,ask:'다리 ___가 아직 다 안 나았어요.',opts:[['상처',1],['상자',0,'상자는 물건을 넣는 거예요. 다쳐서 생긴 곳은 "상처".'],['상대',0,'상대는 같이 싸우는 사람이에요. 다쳐서 생긴 곳은 "상처".']]},
+ {w:'해가 뜨다',by:'bark',who:'핸드리',ask:'내일 아침 해가 ___ 바로 떠나요.',opts:[['뜨면',1],['지면',0,'해가 지면 밤이에요. 아침에 떠나니까 "뜨면".'],['타면',0,'해는 안 타요. 아침에 하늘에 나오면 "뜨면".']]},
+ {w:'꽃잎',by:'bark',who:'핸드리',when:()=>!!f().hunt,ask:'주황색 ___도 하룻밤만 먹을 수 있었어요.',opts:[['꽃잎',1],['꽃집',0,'꽃집은 꽃을 파는 가게예요. 꽃의 얇은 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 얇은 부분은 "꽃잎".']]},
  /* ---- the road camp, overheard from the brush (until the procession leaves: only the forest words) ---- */
  {w:'외롭다',by:'kaltonR',pre:[{who:'…',say:'칼턴이 옆 사람한테 작게 말해요.'}],ask:'크로에는 아는 사람이 없어요. 많이 ___ 거예요.',opts:[['외로울',1],['외울',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로울 거예요".'],['가려울',0,'가렵다는 긁고 싶은 거예요. 혼자라서 쓸쓸하면 "외로울 거예요".']]},
  {w:'어둠',by:'kaltonR',pre:[{who:'…',say:'칼턴이 옆 사람한테 작게 말해요.'}],ask:'___ 속에서 뭐가 울어요. …짐승이에요?',opts:[['어둠',1],['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 빛이 없는 곳은 "어둠".'],['어른',0,'어른은 다 큰 사람이에요. 빛이 없는 곳은 "어둠".']]},
@@ -210,10 +211,10 @@ const REVIEW=[
  // the escort teaches 숨다 and leaves with the procession in the same talk: never asked
  {w:'숨다',by:'escort',ask:'칼턴, 크로 가기 싫어서 ___ 거 아니지? 하하.',opts:[['숨을',1],['쉴',0,'쉬는 건 괜찮아! 안 보이게 사라지는 건 "숨을".'],['숨 쉴',0,'숨 쉬는 건 해야지! 안 보이게 사라지는 건 "숨을".']]},
  /* ---- the campfire place, after the procession (Handry's thoughts) ---- */
- {w:'흔적',by:'ashes',who:'나',ask:'모두 떠났어요. 사람들이 지나간 ___만 남았어요.',opts:[['흔적',1],['흉터',0,'흉터는 다친 데 남는 거예요. 사람들이 지나간 뒤에 남은 건 "흔적".'],['약속',0,'약속은 미리 정하는 거예요. 지나간 뒤에 남은 건 "흔적".']]},
- {w:'숨다',by:'ashes',who:'나',ask:'그날 밤 저는 저 덤불 뒤에 ___ 있었어요.',opts:[['숨어',1],['쉬어',0,'쉬는 게 아니었어요. 안 보이게 → "숨어 있었어요".'],['숨 쉬어',0,'숨 쉬다는 공기를 마시는 거예요. 안 보이게 → "숨어 있었어요".']]},
- {w:'굶다',by:'ashes',who:'나',ask:'빵 껍질 덕분에 그날은 안 ___.',opts:[['굶었어요',1],['끓었어요',0,'끓다는 물이 뜨거워지는 거예요. 밥을 못 먹는 건 "굶다".'],['긁었어요',0,'긁다는 손톱으로 하는 거예요. 밥을 못 먹는 건 "굶다".']]},
- {w:'사냥꾼',by:'ashes',who:'나',ask:'저를 쫓는 크로 ___들은 여기까지 안 와요. 아마도요.',opts:[['사냥꾼',1],['사냥감',0,'사냥감은 잡히는 짐승이에요. 짐승을 잡는 사람은 "사냥꾼".'],['나무꾼',0,'나무꾼은 나무를 하는 사람이에요. 저를 쫓는 사람들은 "사냥꾼".']]},
+ {w:'흔적',by:'ashes',who:'핸드리',ask:'모두 떠났어요. 사람들이 지나간 ___만 남았어요.',opts:[['흔적',1],['흉터',0,'흉터는 다친 데 남는 거예요. 사람들이 지나간 뒤에 남은 건 "흔적".'],['약속',0,'약속은 미리 정하는 거예요. 지나간 뒤에 남은 건 "흔적".']]},
+ {w:'숨다',by:'ashes',who:'핸드리',when:()=>!f().sawDoc,ask:'어젯밤 저는 저 덤불 뒤에 ___ 있었어요.',opts:[['숨어',1],['쉬어',0,'쉬는 게 아니었어요. 안 보이게 → "숨어 있었어요".'],['숨 쉬어',0,'숨 쉬다는 공기를 마시는 거예요. 안 보이게 → "숨어 있었어요".']]},
+ {w:'굶다',by:'ashes',who:'핸드리',ask:'빵 껍질 덕분에 그날은 안 ___.',opts:[['굶었어요',1],['끓었어요',0,'끓다는 물이 뜨거워지는 거예요. 밥을 못 먹는 건 "굶다".'],['긁었어요',0,'긁다는 손톱으로 하는 거예요. 밥을 못 먹는 건 "굶다".']]},
+ {w:'사냥꾼',by:'ashes',who:'핸드리',ask:'저를 쫓는 크로 ___들은 여기까지 안 와요. 아마도요.',opts:[['사냥꾼',1],['사냥감',0,'사냥감은 잡히는 짐승이에요. 짐승을 잡는 사람은 "사냥꾼".'],['나무꾼',0,'나무꾼은 나무를 하는 사람이에요. 저를 쫓는 사람들은 "사냥꾼".']]},
  /* ---- Cro by day: Kalton's welcome, until the feast night ---- */
  {w:'꽃잎',by:'kaltonC',pre:[{who:'…',say:'칼턴이 크로 사람들한테 말해요.'}],ask:'아로에는 이런 꽃이 없어요. ___도 움직여요!',opts:[['꽃잎',1],['꽃씨',0,'꽃씨는 땅에 심는 거예요. 꽃의 얇은 부분은 "꽃잎".'],['꽃병',0,'꽃병은 꽃을 넣는 병이에요. 꽃의 얇은 부분은 "꽃잎".']]},
  {w:'무시하다',by:'kaltonC',pre:[{who:'…',say:'칼턴이 크로 사람들한테 말해요.'}],ask:'다들 저만 봐요. 아무도 저를 ___ 않아요.',opts:[['무시하지',1],['무사하지',0,'무사하다는 다친 데가 없는 거예요. 못 본 척하는 건 "무시하다".'],['무시당하지',0,'무시당하는 건 제가 당하는 거예요. 사람들이 하면 "무시하지".']]},
@@ -248,6 +249,31 @@ const REVIEW=[
  {w:'덫',by:'huntress',ask:'___에 걸린 짐승처럼 못 움직여요.',opts:[['덫',1],['떡',0,'떡은 먹는 거예요. 짐승이 걸리는 건 "덫".'],['둑',0,'둑은 물을 막으려고 쌓은 거예요. 짐승이 걸리는 건 "덫".']]},
  {w:'훔치다',by:'huntress',ask:'배고파서 ___ 거예요? 그래도 크로는 안 돼요.',opts:[['훔친',1],['빌린',0,'빌리면 돌려줘요. 몰래 가져갔으면 "훔친".'],['흘린',0,'흘리다는 떨어뜨리는 거예요. 몰래 가져갔으면 "훔친".']]},
 ];
+/* The end round plays over black: memories of people who aren't with him any more (멜로리 in Aro, 칼턴 left in Cro, the Aro escort
+   gone home, the Cro watchman and hunters, the huntress on the slope) and of the Arraclid night, each in their own voice. wrapUp()
+   still picks the words and grades them; this only swaps the line. Most are their own lines from this chapter. Invented (inv.,
+   small, non-decisive): Melory warning him off the forest at night (Ma died hunting Arraclids, §I). */
+const MEM=(w,o,ask,ok,...bad)=>[w,{w,who:o.who,ask,review:true,opts:[[ok,1],...bad]}];
+const END_ROUND=Object.fromEntries([
+ MEM('숲',{who:'멜로리'},'밤에는 ___에 가지 마. 아라클리드가 있어.','숲',['숯',0,'숯은 나무를 태워서 만든 검은 거야. 나무가 많은 곳은 "숲".']),
+ MEM('어둠',{who:'…'},'그날 밤, ___ 속에서 긴 다리 여섯 개가 흔들렸어요.','어둠',['얼음',0,'얼음은 얼어서 딱딱해진 물이에요. 빛이 없는 건 "어둠".']),
+ MEM('캄캄하다',{who:'…'},'___ 숲에서 눈을 떴어요. 뭔가가 제 위에 서 있었어요.','캄캄한',['깨끗한',0,'깨끗하다는 더럽지 않은 거예요. 빛이 하나도 없으면 "캄캄한".']),
+ MEM('배고프다',{who:'상자 든 사람'},'아이고, ___. 크로 잔치는 아직이에요?','배고파요',['배불러요',0,'배부르면 잔치를 안 기다리죠. 먹고 싶으면 "배고파요".']),
+ MEM('굶다',{who:'사냥꾼 여자'},'며칠이나 ___? 얼굴이 너무 말랐어요.','굶었어요',['끓었어요',0,'끓다는 물이 뜨거워지는 거예요. 밥을 못 먹었으면 "굶었어요".']),
+ MEM('얼다',{who:'북 치는 사람'},'바람이 차요. 손이 ___ 북을 못 치겠어요.','얼어서',['열어서',0,'열다는 문을 여는 거예요. 추워서 손이 차가워지면 "얼어서".']),
+ MEM('외롭다',{who:'칼턴'},'크로에는 아는 사람이 없어요. 많이 ___ 거예요.','외로울',['외울',0,'외우다는 말을 기억하는 거예요. 혼자라서 쓸쓸하면 "외로울 거예요".']),
+ MEM('숨다',{who:'아로 사람'},'칼턴, 크로 가기 싫어서 ___ 거 아니지? 하하.','숨을',['쉴',0,'쉬는 건 괜찮아! 안 보이게 사라지는 건 "숨을".']),
+ MEM('흔적',{who:'크로 파수꾼'},'도둑은 ___도 안 남겨요. 발자국 하나 없어요.','흔적',['흉터',0,'흉터는 다친 데 남는 거예요. 지나간 뒤에 남는 건 "흔적".']),
+ MEM('꽃잎',{who:'크로 여자'},'아가, 꽃에서 뗀 ___은 먹지 마요!','꽃잎',['꽃병',0,'꽃병은 꽃에서 떼는 게 아니에요. 꽃의 얇은 부분은 "꽃잎".']),
+ MEM('훔치다',{who:'크로 파수꾼'},'빵, 신발, 옷… 다음엔 뭘 ___ 갈까요?','훔쳐',['빌려',0,'빌리면 돌려줘요. 몰래 가져가면 "훔쳐 갈까요".']),
+ MEM('도둑',{who:'크로 남자'},'판관님이 명령했어요. ___을 꼭 잡으래요.','도둑',['도장',0,'도장은 이름을 찍는 거예요. 훔치는 사람은 "도둑".']),
+ MEM('사냥꾼',{who:'크로 남자'},'우리 ___들은 이 숲을 다 알아요.','사냥꾼',['사냥감',0,'사냥감은 우리가 잡는 짐승이에요. 우리는 "사냥꾼".']),
+ MEM('덫',{who:'크로 남자'},'___은 내일 놓아요. 오늘은 도둑부터 찾아요.','덫',['떡',0,'떡은 먹는 거예요! 짐승을 잡는 건 "덫".']),
+ MEM('동쪽',{who:'사냥꾼 여자'},'왜 아직 여기 있어요? 어서 ___으로 가요.','동쪽',['서쪽',0,'서쪽은 해가 지는 쪽이에요. 디보는 "동쪽"에 있어요.']),
+ MEM('해가 뜨다',{who:'사냥꾼 여자'},'아침마다 해가 ___ 쪽을 보고 걸어요.','뜨는',['지는',0,'해가 지는 쪽은 서쪽이에요. 디보는 해가 "뜨는" 쪽.']),
+]);
+const term={wrap:'마을을 떠도는 동안, 여기 없는 사람들의 목소리가 자꾸 떠올랐어요.'};  // the end round's opening line (TERM.wrap), over black
+const endRound=()=>wrapUp().map(q=>END_ROUND[q.w]||q);
 /* class time: the five-day feast, a step in nightFall (Cro feasts; Handry watches from the woods' edge) */
 const CLASS={
  '잔치':{say:'잔치 동안 크로 사람들은 밤마다 북을 치고 노래했어요.',lines:[
@@ -583,6 +609,8 @@ const RAW={floor,canopy,trunk,roots,bush,stream,hollow,track,brush,lit,bedroll,f
 const TILES={};Object.entries(RAW).forEach(([k,fn])=>{TILES[k]=(X,Y,x,y,t)=>{fn(X,Y,x,y,t);if(ZID!=='forest')post(X,Y,t);else if(dusk())r(X,Y,16,16,'rgba(150,70,30,.2)')}});
 
 /* spots: every tile of a kind gets one of a few lines */
+/* the lit flowers by Kalton's door ('l', a lock that toasts): their lines stay, but off the key list (see ZONES.cro.warps) */
+const litSpots=o=>{for(const k of Object.keys(o)){const [x,y]=k.split(',').map(Number);if(CRO_MAP[y][x]==='l')Object.defineProperty(o,k,{...Object.getOwnPropertyDescriptor(o,k),enumerable:false})}return o};
 function autoSpots(map,kinds,extra){const o={};map.forEach((row,y)=>[...row].forEach((c,x)=>{const k=kinds[c];if(!k)return;const key=x+','+y;
  if(typeof k==='function')Object.defineProperty(o,key,{get:k,enumerable:true,configurable:true});else o[key]=k[(x*7+y*13)%k.length]}));
  Object.entries(extra||{}).forEach(([k,v])=>{if(typeof v==='function')Object.defineProperty(o,k,{get:v,enumerable:true,configurable:true});else o[k]=v});return o}
@@ -631,7 +659,7 @@ const CRO_MAP=[
 "F.........yyyy.....PPPPF",
 "F...o.o...yyyy.RRR.PppPF",
 "F..o...o...YY..WDW.PppPF",
-"F..............f.f.PPPPF",
+"F..............l.l.PPPPF",
 "F..o...o...............F",
 "F...o.o.RRRO.......RRR.F",
 "F.......WDW.w......WDW.F",
@@ -680,29 +708,39 @@ const ZONES={
   npcs:['escort','kaltonR','drummer','piper','carrier','ashes']},
  cro:{name:'크로',reg:'CRO · FARMLAND',outdoor:1,
   legend:{'C':{tile:'canopy'},'T':{tile:'trunk'},'v':{tile:'brush',walk:1},'s':{tile:'slope',get walk(){return ZID!=='cro'||raid()}},'.':{tile:'grass',walk:1},'o':{tile:'menhir'},'y':{tile:'tcan'},'Y':{tile:'ttrunk'},
-   'R':{tile:'roof'},'W':{tile:'wall'},'D':{tile:'door'},'f':{tile:'flowerT'},'O':{tile:'oven'},'w':{tile:'lowwall',over:1},'P':{tile:'fenceT'},'p':{tile:'penfl'},'F':{tile:'crop'},'=':{tile:'track',walk:1}},
+   'R':{tile:'roof'},'W':{tile:'wall'},'D':{tile:'door'},'f':{tile:'flowerT'},'l':{tile:'flowerT',get walk(){return ZID!=='cro'}},'O':{tile:'oven'},'w':{tile:'lowwall',over:1},'P':{tile:'fenceT'},'p':{tile:'penfl'},'F':{tile:'crop'},'=':{tile:'track',walk:1}},
   map:CRO_MAP,
   rooms:[[1,0,22,4,'크로 · 숲 비탈'],[2,5,8,10,'크로 · 돌 고리'],[14,5,22,9,'크로 · 칼턴의 새 집']],
-  warps:{'0,2':{to:'road',x:22,y:7,dir:'left'}},
-  spots:autoSpots(CRO_MAP,{
+  /* the flowers by Kalton's door sit in its lamplight: bumping into one at night says why he can't go there (as the road camp's
+     firelit ground does), not a silent stop. A lock with no way through: in Cro their tile ('l') isn't walkable (the map checks run
+     outside any zone, so their inspect lines are kept out of the spot list's keys: litSpots). Not the pair by the flower he picks
+     (20,12): that one he reaches. */
+  warps:{'0,2':{to:'road',x:22,y:7,dir:'left'},...Object.fromEntries([[15,8],[17,8]].map(([x,y])=>[x+','+y,{to:'cro',x,y:y+1,dir:'down',lock:()=>raid()&&'불빛이 밝아요. 저기 나가면 들켜요.'}]))},
+  spots:litSpots(autoSpots(CRO_MAP,{
    'o':['사람 키만 한 돌이에요. 돌이 둥글게 서 있어요. 아로에는 이런 게 없어요.','오래된 돌이에요. 이끼가 조금 있어요.','돌 뒤에 숨으면 아무도 저를 못 봐요.'],
    'y':['크로의 큰 나무예요. 가운데에 벌집이 부풀어 있어요.','작은 벌들이 날아다녀요. 그런데 저한테는 안 와요.'],
    'Y':['크로의 큰 나무예요. 아로 나무처럼 기울지 않았어요.'],
    'R':['지붕 꼭대기에 장식이 달려 있어요. 아로 집하고 똑같아요.'],'W':['집들이 아로보다 서로 멀리 떨어져 있어요. 크로는 아로보다 두 배쯤 커요.'],
    'D':()=>f().night&&!f().hunt?'문 옆에 등불이 켜져 있어요. 안에서 숨소리가 들려요.':'나무 문이에요.',
    'f':['주황색 꽃이에요. 초록 줄무늬가 있어요. 덩굴이 천천히 움직여요.','커다란 주황색 꽃이 빙글빙글 덩굴을 따라 피었어요.'],
+   'l':['주황색 꽃이에요. 초록 줄무늬가 있어요. 덩굴이 천천히 움직여요.','커다란 주황색 꽃이 빙글빙글 덩굴을 따라 피었어요.'],
    'O':()=>f().hunt?'화덕이 식었어요.':'흙으로 만든 화덕이에요. 빵 굽는 냄새가 나요.',
    'w':['돌을 쌓은 낮은 담이에요.'],'P':['짐승 {우리|짐승 우리}예요. 나무 울타리가 있어요.'],'p':['다리가 여섯 개인 짐승들이 있어요.'],
    'F':['넓고 평평한 밭이에요. 아로 밭보다 훨씬 넓어요.','밭이 끝없이 이어져요. 크로는 땅이 평평해요.'],
-   'C':['숲이에요. 여기서는 마을이 다 보여요.'],'T':['큰 나무예요. 줄기가 아주 굵어요.']}),
+   'C':['숲이에요. 여기서는 마을이 다 보여요.'],'T':['큰 나무예요. 줄기가 아주 굵어요.']},
+   /* the bakery yard's low wall either side of the watchman: at night, before he's drawn off, it says who stands beyond it */
+   Object.fromEntries(['10,12','12,12'].map(k=>[k,()=>raid()&&!f().noise?'낮은 돌담이에요. 담 옆에 파수꾼이 서 있어요.':'돌을 쌓은 낮은 담이에요.'])))),
   npcs:['peekW','peekE','crodoc','kaltonC','womanA','womanB','toddler','grandma','guard','pen','rack','line','flowerN','hunter','hunter2','huntress']},
 };
 
 /* ---------------- the forest days: eat something different each day, then sleep ---------------- */
 const withAward=(steps,words)=>{const s=steps.slice();s[s.length-1]={...s[s.length-1],award:words};return s};
+/* what he has eaten in the forest so far (F.had; saves from before it: yesterday's and today's food) */
+const had=()=>{const F=f();return F.had||[F.last,F.ate].filter(k=>k&&k!=='sick')};
+const ate=k=>()=>{const F=f();F.ate=k;F.had=[...had().filter(x=>x!==k),k]};
 const EAT={
- berry:()=>[{who:'핸드리',say:'여러 열매를 조금씩 땄어요. 시고 써요.'},{who:'핸드리',say:'억지로 다 먹었어요. 배가 아파요.',set:()=>{f().ate='berry'}}],
- bark:()=>[{who:'핸드리',say:'비늘을 떼고 {트랙웜|트랙웜}을 꺼냈어요.'},{who:'핸드리',say:'꿈틀거려요. 눈을 감고 먹었어요.',set:()=>{f().ate='bark'}}],
+ berry:()=>[{who:'핸드리',say:'여러 열매를 조금씩 땄어요. 시고 써요.'},{who:'핸드리',say:'억지로 다 먹었어요. 배가 아파요.',set:ate('berry')}],
+ bark:()=>[{who:'핸드리',say:'비늘을 떼고 {트랙웜|트랙웜}을 꺼냈어요.'},{who:'핸드리',say:'꿈틀거려요. 눈을 감고 먹었어요.',set:ate('bark')}],
  jibbit:()=>[
   {who:'지빗',say:'지빗! 지빗!'},
   {who:'핸드리',say:'{지빗|지빗}이에요. 낮게 기어 다녀요. 눈이 줄기 끝에 있어요.'},
@@ -710,32 +748,48 @@ const EAT={
   {who:'…',say:'퍽. 퍽. 퍽. 지빗이 조용해졌어요.'},
   {who:'핸드리',say:'불이 없어요. 날것으로 먹었어요. 회색이고 질겨요.'},
   {who:'…',say:'조금 {토했어요|토하다}. 너무 배고파서 나머지도 다 먹었어요.'},
-  {who:'핸드리',say:'살려면 먹어야 돼요.',set:()=>{f().ate='jibbit';f().jibbit=1}}]};
+  {who:'핸드리',say:'살려면 먹어야 돼요.',set:()=>{ate('jibbit')();f().jibbit=1}}]};
 /* the first meal ties back to 1장 (he lived on near-burnt bread; §II) — out here there is none, so anything (§IV) */
 const FIRST_MEAL=[{who:'핸드리',say:'아로에서는 거의 탄 빵만 먹었어요.'},{who:'핸드리',say:'다른 음식은 먹으면 {토했어요|토하다}. 그런데 여기는 빵이 없어요.'}];
+/* one meal a day: today's food, then the one he faces. Whole lines (not built), so each has its English: the same food again
+   sickens him; one he hasn't eaten waits for tomorrow; one he ate before is spent (§IV: rotate, or the poisons build) */
+const ALREADY={
+ berry:{berry:'오늘은 벌써 열매를 먹었어요. 더 먹으면 몸이 아파요.',bark:'오늘은 벌써 열매를 먹었어요. 트랙웜은 내일 먹어요.',
+  barkOld:'오늘은 벌써 열매를 먹었어요. 트랙웜은 전에 먹어서 안 돼요.',jibbit:'오늘은 벌써 열매를 먹었어요. 지빗은 내일 먹어요.'},
+ bark:{bark:'오늘은 벌써 트랙웜을 먹었어요. 더 먹으면 몸이 아파요.',berry:'오늘은 벌써 트랙웜을 먹었어요. 열매는 내일 먹어요.',
+  berryOld:'오늘은 벌써 트랙웜을 먹었어요. 열매는 전에 먹어서 안 돼요.',jibbit:'오늘은 벌써 트랙웜을 먹었어요. 지빗은 내일 먹어요.'},
+ jibbit:{berry:'오늘은 벌써 지빗을 먹었어요. 열매는 내일 먹어요.',berryOld:'오늘은 벌써 지빗을 먹었어요. 열매는 전에 먹어서 안 돼요.',
+  bark:'오늘은 벌써 지빗을 먹었어요. 트랙웜은 내일 먹어요.',barkOld:'오늘은 벌써 지빗을 먹었어요. 트랙웜은 전에 먹어서 안 돼요.'}};
 function eatSteps(k){
  const F=f();
  if(!F.arraclid)return [{who:'핸드리',say:'아무것도 안 보여요. 지금은 못 찾아요.'}];
  if(F.resolve)return [{who:'핸드리',say:'이제 이 숲을 떠나요.'}];
  if(F.ate==='sick')return [{who:'핸드리',say:'아까 다 토했어요. 속이 아직 뒤집혀요. 오늘은 그냥 굶어요.'}];
- if(F.ate)return [{who:'핸드리',say:{berry:'오늘은 벌써 열매를 먹었어요.',bark:'오늘은 벌써 트랙웜을 먹었어요.',jibbit:'오늘은 벌써 지빗을 먹었어요.'}[F.ate]+(F.ate===k?' 더 먹으면 몸이 아파요.':' 이건 내일 먹어요.')}];  // the same food twice sickens him; another waits for tomorrow (§IV)
+ if(F.ate){const A=ALREADY[F.ate]||{};return [{who:'핸드리',say:(k!==F.ate&&had().includes(k)&&A[k+'Old'])||A[k]||'오늘은 벌써 먹었어요.'}]}
  if(F.day===1)return [...FIRST_MEAL,...EAT[k]()];
- if(F.last===k)return [
-  {who:'핸드리',say:'어제도 이걸 먹었어요. 하지만 너무 배고파요.'},
+ if(had().includes(k))return [  // a second meal of anything, yesterday's or an earlier day's
+  {who:'핸드리',say:F.last===k?'어제도 이걸 먹었어요. 하지만 너무 배고파요.':'전에도 이걸 먹었어요. 하지만 너무 배고파요.'},
   {who:'…',say:'먹자마자 배가 뒤틀려요. 다 {토했어요|토하다}.'},
-  {who:'핸드리',say:'같은 걸 이틀 먹으면 몸에 독이 쌓여요.'},
+  {who:'핸드리',say:F.last===k?'같은 걸 이틀 먹으면 몸에 독이 쌓여요.':'같은 걸 또 먹으면 몸에 독이 쌓여요.'},
   {who:'핸드리',say:'오늘은 굶어야 돼요.',set:()=>{f().ate='sick'}}];
  return EAT[k]();
 }
-const foodStatus=k=>()=>{const F=f();if(F.arraclid&&!F.resolve&&!F.ate&&F.last!==k)return 'todo';return b('굶다')&&F.resolve?undefined:null};
-/* waking after a day's meal, his body already shies from it: the hint before a second day of the same food makes him sick
-   (§IV "varied my diet daily… a second or a third meal of anything would be too much") */
-const queasy=()=>{const k=f().ate;return k&&k!=='sick'?[{who:'핸드리',say:'어제 먹은 걸 생각만 해도 속이 울렁거려요. 오늘은 다른 걸 찾아야겠어요.'}]:[]};
-const sleepSteps=()=>[{who:'핸드리',say:'나뭇잎 이불을 덮고 누웠어요.'},{who:'…',say:'밤이 길어요. 나무들이 삐걱삐걱 자라요.'},
- {who:'…',say:'아침이 왔어요.',set:()=>{const F=f();F.last=F.ate;F.ate=0;F.day++}},...queasy()];
+/* the ! marks only what he hasn't eaten yet (the morning says so) */
+const foodStatus=k=>()=>{const F=f();if(F.arraclid&&!F.resolve&&!F.ate&&!had().includes(k))return 'todo';return b('굶다')&&F.resolve?undefined:null};
+/* waking after a day's meal, his body already shies from it: the hint before a second meal of the same food makes him sick
+   (§IV "varied my diet daily… a second or a third meal of anything would be too much"). The third morning names both foods. */
+const QUEASY2={'berry,bark':'열매도 트랙웜도 생각만 해도 속이 울렁거려요. 오늘은 아직 안 먹은 걸 찾아야겠어요.',
+ 'berry,jibbit':'열매도 지빗도 생각만 해도 속이 울렁거려요. 오늘은 아직 안 먹은 걸 찾아야겠어요.',
+ 'bark,jibbit':'트랙웜도 지빗도 생각만 해도 속이 울렁거려요. 오늘은 아직 안 먹은 걸 찾아야겠어요.'};
+const queasy=()=>{const k=f().ate;if(!k||k==='sick')return [];const H=['berry','bark','jibbit'].filter(x=>had().includes(x));
+ return [{who:'핸드리',say:(H.length===2&&QUEASY2[H.join(',')])||'어제 먹은 걸 생각만 해도 속이 울렁거려요. 오늘은 다른 걸 찾아야겠어요.'}]};
+/* the nights in the root bed are time cuts over black (the 목표 says night, not the day just spent, until morning) */
+let SCENE=null;
+const sleepSteps=()=>[{who:'핸드리',say:'나뭇잎 이불을 덮고 누웠어요.'},{who:'…',say:'밤이 길어요. 나무들이 삐걱삐걱 자라요.',black:1,set:()=>{SCENE='숲 · 뿌리 밑 잠자리 · 밤'}},
+ {who:'…',say:'아침이 왔어요.',black:0,set:()=>{const F=f();F.last=F.ate;F.ate=0;F.day++;SCENE=null}},...queasy()];
 const lowPoint=()=>[
- {who:'…',say:'…',set:()=>{const F=f();F.last=F.ate;F.ate=0;F.day=4}},
- {who:'핸드리',say:'넷째 날 새벽이에요. 아직 캄캄해요.'},  // §IV: "waking up before the dawn"; the forest stays dark until he gets up
+ {who:'…',say:'…',black:1,set:()=>{const F=f();F.last=F.ate;F.ate=0;F.day=4}},
+ {who:'핸드리',say:'넷째 날 새벽이에요. 아직 캄캄해요.',black:0},  // §IV: "waking up before the dawn"; the forest stays dark until he gets up
  {who:'핸드리',say:'일어나고 싶지 않아요.'},
  {who:'핸드리',say:'멜로리도 없어요. 아무도 없어요.'},
  Q.nest[0],
@@ -752,7 +806,7 @@ const lowPoint=()=>[
 const nightFall=()=>[{who:'…',say:'잔치는 닷새 동안 계속됐어요.',black:1},{expand:()=>classTime(CLASS,['잔치','숲 가장자리'])},{who:'…',say:'아로 사람들은 돌아갔어요. 칼턴은 남았어요.'},
  {who:'…',say:'저는 숲에 숨어서 살았어요. 배가 고팠어요.'},{who:'…',say:'그리고 사흘에 한 번, 밤에 크로에 들어갔어요.',set:()=>{f().night=1}}];
 const LOOT=['크로 빵','옷','크로 꽃'];
-const morning=got=>LOOT.filter(i=>i!==got).every(hasItem)?[{who:'…',say:'날이 밝기 전에 숲으로 돌아왔어요.',set:()=>goZone('cro',2,2,'down')},{who:'…',say:'탄 빵하고 꽃을 먹었어요.',take:['크로 빵','크로 꽃']},
+const morning=got=>LOOT.filter(i=>i!==got).every(hasItem)?[{who:'…',say:'날이 밝기 전에 숲으로 돌아왔어요.',set:()=>goZone('cro',2,2,'down')},{who:'…',say:'탄 빵하고 꽃을 먹었어요.',take:['크로 빵','크로 꽃']},{who:'핸드리',say:'꽃은 처음 먹어서 괜찮았어요.'},{who:'핸드리',say:'또 먹으면 다른 음식처럼 배가 아플 거예요.'},
  {who:'…',say:'아침에 크로 사람들이 소리쳐요. "도둑이 또 왔어요!"'},{who:'…',say:'{판관|판관}이 명령한 것 같아요. 창을 든 사람들이 도둑을 찾으러 와요.',set:()=>{f().hunt=1}}]:[];
 const theftGate=()=>{const F=f();if(F.hunt)return [{who:'핸드리',say:'이제 마을에 못 가요. 크로 사람들이 저를 찾아요.'}];if(!F.night)return [{who:'핸드리',say:'낮에는 사람이 많아요. 들키면 안 돼요.'}];return null};
 
@@ -763,7 +817,7 @@ const peekWho=id=>PEEK[id].map(k=>NPC[k]).filter(n=>!n.hide||!n.hide());
 function peekPick(id){const L=peekWho(id);if(!L.length)return null;const st=L.map(n=>status(n));
  return L[st.indexOf('todo')]||L[st.indexOf('review')]||L.find(n=>!metIds().includes(npcId(n)))||L.find(n=>linesFor(n).some(unheard))||L[peekN%L.length]}
 const peekStatus=id=>{const st=peekWho(id).map(n=>status(n));return st.includes('todo')?'todo':st.includes('review')?'review':null};
-const afterTalk=()=>{peekN++};
+const afterTalk=()=>{peekN++;SCENE=null};  // SCENE: a night's 목표, should a talk end in it
 
 const AROMAN={hair:'#4A3426',skin:'#C99470',shirt:'#7A5A3A',pants:'#4A3E30',beard:'#4A3426'};
 const NPC={
@@ -774,12 +828,13 @@ const NPC={
   script:()=>{const F=f();
    if(!F.arraclid)return [{who:'핸드리',say:'제 잠자리예요. 그런데 지금은 못 누워요. 뭔가 있어요.'}];
    if(F.resolve)return null;
-   if(!F.ate&&F.day!==4)return [{who:'핸드리',say:'속이 텅 비었어요. 잠이 안 와요.'},{who:'핸드리',say:'숲에서 먹을 것을 찾아야 돼요.'}];
+   if(!F.ate&&F.day!==4)return [{who:'핸드리',say:'속이 텅 비었어요. 지금은 누워 있을 때가 아니에요.'},{who:'핸드리',say:'숲에서 먹을 것을 찾아야 돼요.'}];
    if(F.day===1&&!F.raikers)return [{who:'핸드리',say:'밤이 와요. 바람이 너무 차가워요.'},{who:'핸드리',say:'여기서 자면 너무 추울 거예요.'},{who:'핸드리',say:'{레이커|레이커} 무리 옆은 따뜻할 거예요.'}];
    /* the first night: the Raikers walked off, so he sleeps under leaves (§IV: the wind tears them away; a rash like the leaf veins) */
-   if(F.day===1)return [{who:'핸드리',say:'큰 나뭇잎을 엮어서 이불을 만들었어요.',give:'나뭇잎 이불'},{who:'…',say:'밤새 바람이 불었어요. 나뭇잎이 자꾸 날아갔어요.'},
-    {who:'…',say:'아침에 팔에 {두드러기|두드러기}가 났어요. 가려워요.'},
-    {who:'핸드리',say:'얼어 죽지는 않았어요.',set:()=>{const F=f();F.last=F.ate;F.ate=0;F.day=2}},...queasy()];
+   if(F.day===1)return [{who:'핸드리',say:'큰 나뭇잎을 엮어서 이불을 만들었어요.',give:'나뭇잎 이불'},
+    {who:'…',say:'밤새 바람이 불었어요. 나뭇잎이 자꾸 날아갔어요.',black:1,set:()=>{SCENE='숲 · 뿌리 밑 잠자리 · 밤'}},  // the night over black
+    {who:'…',say:'아침에 팔에 {두드러기|두드러기}가 났어요. 가려워요.',set:()=>{const F=f();F.last=F.ate;F.ate=0;F.day=2;SCENE=null}},
+    {who:'핸드리',say:'얼어 죽지는 않았어요.',black:0},...queasy()];
    if(F.day===2)return sleepSteps();
    return lowPoint()},
   talk:()=>[]},
@@ -800,7 +855,7 @@ const NPC={
    {who:'…',say:'깍… 깍… 소리가 멀어져요.',set:()=>{f().arraclid=1;f().day=1},leave:{npc:'arraclid',to:[3,2]}},
    {who:'…',say:'짐승은 나무를 타고 위로 사라졌어요.',award:['어둠','캄캄하다']}]},
  berry:{name:'열매 덤불',zone:'forest',x:12,y:6,dir:'down',look:BERRY,pos:()=>[12,6],badge:['숲','배고프다'],status:foodStatus('berry'),
-  after:{who:'핸드리',say:'빨간 열매, 파란 열매, 노란 열매. 이건 먹어도 돼요.'},
+  after:{who:'핸드리',say:'빨간 열매, 파란 열매, 노란 열매. 하루는 먹어도 돼요. 이틀은 안 돼요.'},
   script:()=>{if(!f().arraclid)return eatSteps('berry');if(!b('숲'))return withAward([
    {who:'핸드리',say:'나뭇잎이 보라색, 초록색이에요.'},  // no "아침이에요": a first visit can come at dusk on day 1, after the Raikers
    Q.berry[0],
@@ -889,8 +944,9 @@ const NPC={
   script:()=>{if(f().sawDoc)return [{who:'…',say:'크로 의사가 칼턴한테 말해요.'},{who:'크로 의사',say:'건강한 아이야. 크로에 잘 왔어.'}];return [
    {who:'핸드리',say:'크로예요. 아로보다 두 배쯤 커요.'},
    {who:'핸드리',say:'저는 숲 덤불 속에 숨어서 봐요. 다들 칼턴만 봐요.'},
-   {who:'핸드리',say:'마을은 멀어요. 그래도 목소리가 바람에 실려 와요.'},  // §IV "the forest had long since been cut far back" 
-   {who:'…',say:'크로 사람들이 북을 치면서 칼턴을 맞이해요.'},
+   {who:'핸드리',say:'돌 고리가 비탈 아래에 보여요. 바람이 말소리를 실어 와요.'},  // §IV: Cro's forest is cut far back; the wind carries the voices up the slope
+   {who:'…',say:'마을 가운데에서 북소리가 들려요. 다들 칼턴을 맞이해요.'},  // the welcome itself is off screen, in the village (§IV)
+   {who:'…',say:'늙은 의사가 칼턴을 돌 고리로 데려왔어요.'},
    {who:'크로 의사',say:'이리 와 봐. 팔 좀 보자.'},
    {who:'…',say:'늙은 의사가 칼턴의 팔과 배를 세게 눌러요.'},
    {who:'칼턴',say:'아야!'},
@@ -928,7 +984,7 @@ const NPC={
    return [{who:'크로 할머니',say:'자, 아이들! 할머니 문제 시간이에요.'},{who:'…',say:'저도 숨어서 속으로 대답해요.'},{...q,old:1},{who:'크로 할머니',say:'잘했어요! 다음에 또 해요.'}]},
   talk:()=>[]},
  /* ---- Cro, night: the thief ---- */
- guard:{name:'크로 파수꾼',zone:'cro',x:11,y:12,dir:'up',look:{hair:'#3A3028',skin:'#C48E66',shirt:'#4A5A6A',pants:'#3A3A40',belt:'#2A2A30',cap:'#4A5A6A'},badge:['도둑','훔치다'],
+ guard:{name:'크로 파수꾼',zone:'cro',x:11,y:12,dir:'up',look:{hair:'#3A3028',skin:'#C48E66',shirt:'#4A5A6A',pants:'#3A3A40',belt:'#2A2A30',cap:'#4A5A6A'},badge:['도둑','훔치다'],markDy:4,  // his ! on him, not beside his head over the low wall (the bread rack stands right above him)
   // drawn off by the pen: he stands below its fence (not on 18,8, where you stand to reach the pen), so you can still talk to him
   pos:()=>f().noise?[20,9]:[11,12],hide:()=>!f().night||!!f().hunt,
   status:()=>b('도둑')?undefined:'todo',
@@ -967,7 +1023,7 @@ const NPC={
  flowerN:{name:'크로 꽃',zone:'cro',x:20,y:12,dir:'down',look:FLOWER,pos:()=>[20,12],
   status:()=>f().night&&!f().hunt&&b('도둑')&&!hasItem('크로 꽃')?'todo':null,
   script:()=>{const g0=theftGate();if(g0)return g0;if(hasItem('크로 꽃'))return [{who:'…',say:'꽃이 천천히 움직여요.'}];
-   return [{who:'…',say:'문 앞에 주황색 꽃이 있어요. 덩굴이 천천히 움직여요.'},{who:'…',say:'한 송이를 꺾었어요. 꽃잎이 손바닥만 해요.',give:'크로 꽃'},{who:'핸드리',say:'처음 먹는 거라서 오늘 밤은 괜찮아요.'},{who:'핸드리',say:'또 먹으면 다른 음식처럼 배가 아플 거예요.'},...morning('크로 꽃')]},
+   return [{who:'…',say:'문 앞에 주황색 꽃이 있어요. 덩굴이 천천히 움직여요.'},{who:'…',say:'한 송이를 꺾었어요. 꽃잎이 손바닥만 해요.',give:'크로 꽃'},{who:'핸드리',say:'이 꽃도 먹을 수 있을까요?'},...morning('크로 꽃')]},
   talk:()=>[]},
  /* ---- Cro, the hunt ---- */
  /* the hunters are labelled 크로 남자 and 크로 아저씨 (not 사냥꾼): the first one's talk teaches 사냥꾼, so a label mustn't say it */
@@ -993,9 +1049,8 @@ const NPC={
    {who:'…',say:'무릎이 이상하게 꺾였어요. 일어나지 못해요.'},
    {who:'사냥꾼 여자',say:'…당신이 도둑이에요?'},
    {who:'핸드리',say:'제 손에 막대기가 있어요. 여자는 혼자예요.'},
-   {who:'…',w:'사냥꾼',ask:'저는 어떻게 할까요?',opts:[['막대기를 내려놓아요',1],['막대기를 휘둘러요',0,'여자는 벌써 너무 무서워해요. 때리고 싶은 마음이 사라졌어요.']]},
-   {who:'…',say:'막대기를 내려놓았어요.',take:['막대기']},
-   {who:'핸드리',say:'못 하겠어요… 그 자리에 주저앉아서 울었어요.',sit:{x:17,y:3,dir:'down'}},  // §IV "I just sat down and started crying" 
+   {who:'…',w:'사냥꾼',ask:'저는 어떻게 할까요?',done:'막대기를 내려놓았어요.',opts:[['막대기를 내려놓아요',1],['막대기를 휘둘러요',0,'여자는 벌써 너무 무서워해요. 때리고 싶은 마음이 사라졌어요.']]},  // done: the choice is told once, as what he did
+   {who:'핸드리',say:'못 하겠어요… 그 자리에 주저앉아서 울었어요.',take:['막대기'],sit:{x:17,y:3,dir:'down'}},  // §IV "I just sat down and started crying" 
    {who:'사냥꾼 여자',say:'…뭘 원해요?'},
    {who:'핸드리',say:'미안해요… 너무 배고파요. 너무 힘들어요.'},
    {who:'핸드리',say:'떠날게요. 갈 마을만 알려 주세요.'},
@@ -1015,16 +1070,18 @@ const INTRO=[{who:'핸드리',say:'그날 밤, 저는 아로에서 도망쳤어�
  {who:'핸드리',say:'뒤도 안 보고 숲으로 뛰었어요. 다리에 상처가 났어요.'},{who:'핸드리',say:'나무뿌리 사이에 몸을 웅크리고 누웠어요.'}];
 const DONE=['2장 끝! 저는 디보에 갔어요.','디보는 작고 가난한 마을이었어요.',
  '저는 도둑으로 이 마을, 저 마을을 떠돌았어요.','그리고 아주 큰 마을, 오로보에 왔어요.',
- {expand:()=>{const qs=wrapUp();if(typeof hear==='function')qs.forEach(q=>{if(q&&q.w&&q.ask)hear(q)});return qs}},  // asked here, so nobody says it again as plain talk afterwards
+ {expand:()=>{const qs=endRound();if(typeof hear==='function')qs.forEach(q=>{if(q&&q.w&&q.ask)hear(q)});return qs}},  // asked here, so nobody says it again as plain talk afterwards
  '일지에서 단어를 다시 볼 수 있어요.'];
 
 function questText(){
  const F=f(),c=i=>hasItem(i)?'✓':'✗';
  if(F.done)return '2장 끝 · 일지에서 복습해요';
+ if(SCENE)return SCENE;  // a night in the root bed, over black
  if(!F.arraclid)return '숲 · 밤의 소리';
  if(!F.resolve){
   if(F.day===1&&F.ate&&!F.raikers)return '숲 · 레이커 무리 옆에서 자요';
-  return `숲 · ${F.day}일째 · ${F.ate||F.day===4?'뿌리 밑 잠자리로 가요':'먹을 것을 찾아요'}`;  // day 4 has no food: he goes back to the root and despairs
+  if(F.day===4)return '숲 · 넷째 날 새벽';  // the dawn he lies in the root bed and despairs (no food that day)
+  return F.ate?`숲 · ${F.day}일째 · 뿌리 밑 잠자리로 가요`:`숲 · ${F.day}일째 · 먹을 것을 찾아요`;
  }
  if(!F.left)return '숲길 · 몰래 행렬을 봐요';
  if(!F.crust)return '숲길 · 모닥불 자리';
@@ -1033,5 +1090,5 @@ function questText(){
  if(!F.hunters)return '크로 숲 · 덤불 속에서 말소리를 들어요';
  return '크로 숲 · 비탈의 사냥꾼 여자';
 }
-return {WORDS,DICT,CONFUSE,BANK,Q,REVIEW,CLASS,ITEMS,ZONES,NPC,FOLLOW,INTRO,DONE,questText,TILES,PLAYER,afterTalk};
+return {WORDS,DICT,CONFUSE,BANK,Q,REVIEW,CLASS,ITEMS,ZONES,NPC,FOLLOW,INTRO,DONE,questText,TILES,PLAYER,afterTalk,term};
 }});
