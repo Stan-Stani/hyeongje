@@ -2159,10 +2159,7 @@
 "아주 옛날 사람들. 할아버지의 할아버지의… 우리 ___.": "People from very long ago. Grandpa's grandpa's… our ancestors.",
 "조사는 무엇을 자세히 알아보는 거예요. 옛날 집안 사람들은 \"조상\".": "조사 is finding out about something in detail. The family people from long ago are \"조상\".",
 "좌석은 앉는 자리예요. 옛날 집안 사람들은 \"조상\".": "좌석 is a place to sit. The family people from long ago are \"조상\".",
-"너희 몸에 카인의 표식이 ___ 이 집에 들어와도 된다.": "Because you have the Mark of Cain on your bodies, [you] may enter this house.",
-"\"-어도\"는 \"그래도\"다. 내가 들어오라고 하는 이유니까 → \"있으니까\".": "\"-어도\" is \"그래도\". [It]'s the reason I tell [you] to come in, so → \"있으니까\".",
 "있기 전에": "before [you] have",
-"\"-기 전에\"는 시간 순서다. 내가 들어오라고 하는 이유니까 → \"있으니까\".": "\"-기 전에\" is time order. [It]'s the reason I tell [you] to come in, so → \"있으니까\".",
 "이 문은 나무도 돌도 아니에요. ___이에요.": "This door is neither wood nor stone. [It]'s metal.",
 "근육은 팔이나 다리에서 힘을 내는 살이에요. 차갑고 단단한 문은 \"금속\".": "근육 is the flesh in [your] arms and legs that makes strength. A cold, hard door is \"금속\".",
 "금방은 \"곧, 조금 전\"이에요. 문의 재료는 \"금속\".": "금방 is \"soon, a moment ago\". What the door is made of is \"금속\".",
@@ -2933,5 +2930,8 @@
 "세서는 결국 숲으로 갔어. 무섭다.": "Sethr went into the forest in the end. [It]'s scary.",
 "같이 기다려요. 곧 일렉터가 나올 거예요.": "Let's wait together. The Electors will come out soon.",
 "멜로리는 의사예요. 저를 ___ 해요.": "Melory is a doctor. [She] is trying to treat me.",
-"샤스킨이 너만 의료실에 데려갔지? 왜 너야?": "Sharskin took only you to the medical room, right? Why you?"
+"샤스킨이 너만 의료실에 데려갔지? 왜 너야?": "Sharskin took only you to the medical room, right? Why you?",
+"너희 몸에 카인의 표식이 ___ 너희가 바로 이 집의 주인이다.": "Because the Mark of Cain is on your bodies, you are the very masters of this House.",
+"\"-어도\"는 \"그래도\"다. 표식이 바로 그 이유니까 → \"있으니까\".": "\"-어도\" is \"그래도\". The mark is exactly the reason, so → \"있으니까\".",
+"\"-기 전에\"는 시간 순서다. 표식이 바로 그 이유니까 → \"있으니까\".": "\"-기 전에\" is time order. The mark is exactly the reason, so → \"있으니까\"."
 }
